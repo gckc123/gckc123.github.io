@@ -46,7 +46,7 @@
       
       <guid>https://gckc123.github.io/blog/data_management/variable_conversion/</guid>
       <description>There are four major variable types in StatsNotebook: Categorical, Numeric, Date and Character. By default, when data is loaded into StatsNotebook, the variables are either Numeric or Character variables.
-Categorical variablesCategorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc. For many analyses, we will also need to specify the reference category</description>
+Categorical variables Categorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc. For many analyses, we will also need to specify the reference category</description>
     </item>
     
   </channel>

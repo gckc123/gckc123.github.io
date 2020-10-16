@@ -38,7 +38,7 @@ StatsNotebook uses the cutting edge counterfactual framework and Monte Carlo tec
       <guid>https://gckc123.github.io/blog/analysis/moderation_interaction_regression/</guid>
       <description>Assumed knowledge in this tutorial: Linear regression
 Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different level of another independent variable (moderator). In an other word, it is for examining if the moderator change the strength of the relationship between the independent and dependent variables.
-Example research questions Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for female than for male (moderator: sex)?</description>
+Example research questions  Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for female than for male (moderator: sex)?</description>
     </item>
     
     <item>
@@ -57,7 +57,7 @@ Example research questions Is the effect of psychotherapy (independent variable
       
       <guid>https://gckc123.github.io/blog/analysis/regression/</guid>
       <description>Linear regression is a technique for examining the relationship between a dependent variable (outcome) and a set of independent variables (predictors). This tutorial demonstrates how to conduct a linear regression in StatsNotebook using the following example. We will also provide an example write-up in APA styles.
-Example research questions Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression? Is sex associated with depression?  In this setup, the dependent variable is depression, the independent variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex.</description>
+Example research questions  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression? Is sex associated with depression?  In this setup, the dependent variable is depression, the independent variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex.</description>
     </item>
     
     <item>
