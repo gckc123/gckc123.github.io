@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Missing data on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>https://gckc123.github.io/tags/missing-data/</link>
+    <link>https://statsnotebook.io/tags/missing-data/</link>
     <description>Recent content in Missing data on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://gckc123.github.io/tags/missing-data/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://statsnotebook.io/tags/missing-data/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Multiple Imputation</title>
-      <link>https://gckc123.github.io/blog/analysis/multiple_imputation/</link>
+      <link>https://statsnotebook.io/blog/analysis/multiple_imputation/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/blog/analysis/multiple_imputation/</guid>
+      <guid>https://statsnotebook.io/blog/analysis/multiple_imputation/</guid>
       <description>Missing data is a norm rather than an exception in most area of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing value based on available data. It can increase statistical power and reduce bias due to missing data.
 StatsNotebook provides a simple interface for multiple imputation using the mice package. By default, numeric variables are imputed using predictive mean matching and categorical variables are imputed using multinomial logistic regression (for categorical variables with 3 or more level) or binary logistic regression (for categorical variables with 2 levels).</description>
     </item>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>linear model on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>https://gckc123.github.io/tags/linear-model/</link>
+    <link>https://statsnotebook.io/tags/linear-model/</link>
     <description>Recent content in linear model on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://gckc123.github.io/tags/linear-model/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://statsnotebook.io/tags/linear-model/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linear mixed model (Multilevel linear model)</title>
-      <link>https://gckc123.github.io/blog/analysis/linear_mixed_model/</link>
+      <link>https://statsnotebook.io/blog/analysis/linear_mixed_model/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/blog/analysis/linear_mixed_model/</guid>
+      <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
       <description>Coming soon&amp;hellip;</description>
     </item>
     

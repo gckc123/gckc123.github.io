@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>https://gckc123.github.io/tags/</link>
+    <link>https://statsnotebook.io/tags/</link>
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://gckc123.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Analysis</title>
-      <link>https://gckc123.github.io/tags/analysis/</link>
+      <link>https://statsnotebook.io/tags/analysis/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/analysis/</guid>
+      <guid>https://statsnotebook.io/tags/analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R code</title>
-      <link>https://gckc123.github.io/tags/r-code/</link>
+      <link>https://statsnotebook.io/tags/r-code/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/r-code/</guid>
+      <guid>https://statsnotebook.io/tags/r-code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>regression</title>
-      <link>https://gckc123.github.io/tags/regression/</link>
+      <link>https://statsnotebook.io/tags/regression/</link>
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/regression/</guid>
+      <guid>https://statsnotebook.io/tags/regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Missing data</title>
-      <link>https://gckc123.github.io/tags/missing-data/</link>
+      <link>https://statsnotebook.io/tags/missing-data/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/missing-data/</guid>
+      <guid>https://statsnotebook.io/tags/missing-data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Management</title>
-      <link>https://gckc123.github.io/tags/data-management/</link>
+      <link>https://statsnotebook.io/tags/data-management/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/data-management/</guid>
+      <guid>https://statsnotebook.io/tags/data-management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>DataViz</title>
-      <link>https://gckc123.github.io/tags/dataviz/</link>
+      <link>https://statsnotebook.io/tags/dataviz/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/dataviz/</guid>
+      <guid>https://statsnotebook.io/tags/dataviz/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Descriptive statistics</title>
-      <link>https://gckc123.github.io/tags/descriptive-statistics/</link>
+      <link>https://statsnotebook.io/tags/descriptive-statistics/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/descriptive-statistics/</guid>
+      <guid>https://statsnotebook.io/tags/descriptive-statistics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linear model</title>
-      <link>https://gckc123.github.io/tags/linear-model/</link>
+      <link>https://statsnotebook.io/tags/linear-model/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/linear-model/</guid>
+      <guid>https://statsnotebook.io/tags/linear-model/</guid>
       <description></description>
     </item>
     
     <item>
       <title>code</title>
-      <link>https://gckc123.github.io/tags/code/</link>
+      <link>https://statsnotebook.io/tags/code/</link>
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gckc123.github.io/tags/code/</guid>
+      <guid>https://statsnotebook.io/tags/code/</guid>
       <description></description>
     </item>
     
