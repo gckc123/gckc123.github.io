@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DataViz on StatsNotebook - Simple. Powerful. Reproducible.</title>
+    <link>http://gckc123.github.io/tags/dataviz/</link>
+    <description>Recent content in DataViz on StatsNotebook - Simple. Powerful. Reproducible.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://gckc123.github.io/tags/dataviz/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Correlogram</title>
+      <link>http://gckc123.github.io/blog/dataviz/correlogram/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://gckc123.github.io/blog/dataviz/correlogram/</guid>
+      <description>Correlogram is a type of chart that visualise the pairwise association between variables. StatsNotebook uses the ggpairs() function from the GGally library to build correlogram. A publication ready correlogram can be built within a few minutes with StatsNotebook.
+We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
+In this example, we will build a simple correlogram to visualise the relationship between four variables (three personality variables: Conscientiousness, Neuroticism, Openness and one mental health variable: Depression).</description>
+    </item>
+    
+    <item>
+      <title>DataViz</title>
+      <link>http://gckc123.github.io/blog/dataviz/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://gckc123.github.io/blog/dataviz/</guid>
+      <description>DataViz in StatsNotebook is largely based on ggplot2. Publication ready plots and figures are just a few clicks away.
+ Correlogram  </description>
+    </item>
+    
+  </channel>
+</rss>
