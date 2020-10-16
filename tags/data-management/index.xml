@@ -2,50 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Management on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>http://gckc123.github.io/tags/data-management/</link>
+    <link>https://gckc123.github.io/tags/data-management/</link>
     <description>Recent content in Data Management on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://gckc123.github.io/tags/data-management/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://gckc123.github.io/tags/data-management/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Data Management</title>
-      <link>http://gckc123.github.io/blog/data_management/</link>
+      <link>https://gckc123.github.io/blog/data_management/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://gckc123.github.io/blog/data_management/</guid>
+      <guid>https://gckc123.github.io/blog/data_management/</guid>
       <description>StatsNotebook provides intuitive interface for data management
  Load Example Data  </description>
     </item>
     
     <item>
       <title>Load Example Data</title>
-      <link>http://gckc123.github.io/blog/data_management/load_example_data/</link>
+      <link>https://gckc123.github.io/blog/data_management/load_example_data/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://gckc123.github.io/blog/data_management/load_example_data/</guid>
+      <guid>https://gckc123.github.io/blog/data_management/load_example_data/</guid>
       <description>StatsNotebook comes with a rich data library for learning statistics. To load an example dataset,
  Click the Menu icon  at the top Click &amp;ldquo;Open&amp;rdquo; Select &amp;ldquo;Example Data&amp;rdquo; from the menu  Click on the example data we want to load.  </description>
     </item>
     
     <item>
       <title>Set reference for categorical variables</title>
-      <link>http://gckc123.github.io/blog/data_management/set_reference/</link>
+      <link>https://gckc123.github.io/blog/data_management/set_reference/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://gckc123.github.io/blog/data_management/set_reference/</guid>
+      <guid>https://gckc123.github.io/blog/data_management/set_reference/</guid>
       <description>For categorical variable, it is important to set a &amp;ldquo;reference&amp;rdquo; category for categorical variable in many analyses. For example, for the variable Sex in our regression analysis tutorial, the default reference is Female. The coefficient of SexMale from the regression represents the effect of male relative to female. In this case, the coefficient -0.87 means that the depression score (the dependent variable in that analysis) for male is 0.87 lower than female.</description>
     </item>
     
     <item>
       <title>Variable types in R and StatsNotebook</title>
-      <link>http://gckc123.github.io/blog/data_management/variable_conversion/</link>
+      <link>https://gckc123.github.io/blog/data_management/variable_conversion/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://gckc123.github.io/blog/data_management/variable_conversion/</guid>
+      <guid>https://gckc123.github.io/blog/data_management/variable_conversion/</guid>
       <description>There are four major variable types in StatsNotebook: Categorical, Numeric, Date and Character. By default, when data is loaded into StatsNotebook, the variables are either Numeric or Character variables.
 Categorical variablesCategorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc. For many analyses, we will also need to specify the reference category</description>
     </item>
