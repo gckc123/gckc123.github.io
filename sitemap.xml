@@ -1,159 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://gckc123.github.io/projects/</loc>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/analysis/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/r-code/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/regression/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/robust_regression/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/</loc>
-    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/mediation/</loc>
-    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/missing-data/</loc>
-    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/multiple_imputation/</loc>
-    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/moderation_interaction_regression/</loc>
-    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/dataviz/correlogram/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/data-management/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/data_management/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/dataviz/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/dataviz/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/descriptive-statistics/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/descriptive/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/data_management/compute_variable/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/linear_mixed_model/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/linear-model/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/data_management/load_example_data/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/data_management/set_reference/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/data_management/variable_conversion/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/linearity_homoscedasticity/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/betarelease/</loc>
-    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/tags/code/</loc>
-    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/regression/</loc>
-    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gckc123.github.io/blog/analysis/regression_missingdata/</loc>
-    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
-  </url>
-  
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	
+	<sitemap>
+	   	<loc>https://gckc123.github.io/es/sitemap.xml</loc>
+		
+	   	<lastmod>2017-11-13T11:58:39-05:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://gckc123.github.io/en/sitemap.xml</loc>
+		
+	   	<lastmod>2020-07-25T02:04:06-05:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://gckc123.github.io/de/sitemap.xml</loc>
+		
+	   	<lastmod>2017-11-13T11:58:39-05:00</lastmod>
+		
+	</sitemap>
+	
+</sitemapindex>
