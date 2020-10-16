@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Robust regression - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="http://statsnotebook.ai/blog/analysis/robust_regression/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="http://statsnotebook.ai/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="http://statsnotebook.ai/blog/analysis/robust_regression/">Robust regression</a>
+    </h2>
+    <div class="post-data">
+        24 Sep, 2020 |
+        3 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Robust%20regression%20http%3a%2f%2fstatsnotebook.ai%2fblog%2fanalysis%2frobust_regression%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fstatsnotebook.ai%2fblog%2fanalysis%2frobust_regression%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/r-code">R code</a>,
+        
+        <a href="/tags/regression">Regression</a>
+        
+    </p>
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>Outliers and violation of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inference. Traditionally, outliers are identified through manual inspection of the data; violation of normality are often addressed by data transformation. Other forms of assumption violation, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</p>
+<p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using instruction <a href="../../data_management/load_example_data">here</a>.</p>
+<p>In this dataset, there are two variables.</p>
+<ol>
+<li><strong>temperature</strong> represents the surface temperature of a star</li>
+<li><strong>light</strong> represents the light intensity of a star</li>
+</ol>
+<p>The figure below shows the scatterplot between <em>temperature</em> and <em>light</em> with a regression line. At first glance, there appears to be a downward trend. However, this trend might be caused by only a few outliers at the top left corner.</p>
+<p><img src="../img/scatter_plot_outliers.png" alt="Scatterplot with Outliers" title="Scatterplot with outliers"></p>
+<p>We will now demonstrate using robust regression to adjust for these outliers.</p>
+
+<h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
+<p>Steps for running <strong>Robust regression</strong> in <strong>StatsNotebook</strong> is nearly the same as running <a href="../regression"><strong>linear regression</strong></a>.</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top;</li>
+<li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numberic outcome)</strong> from the menu</li>
+<li>In the left panel, select <em>light</em> into <em>Outcome</em>, and select <em>temperature</em> into <em>Covariates</em>.</li>
+<li>Expand the <strong>Analysis setting</strong> panel, and click <strong>Robust regression</strong></li>
+</ol>
+
+<h5 id="r-codes-explained" class="anchor-link"><a href="#r-codes-explained">R codes explained</a></h5>
+<p>The codes are for robust regression are nearly the same as those for linear regression, except that we use the <code>lmrob</code> function from the <code>robustbase</code> package instead of the <code>lm</code> function for linear regression.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(robustbase) 
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmrob</span>(light <span style="color:#666">~</span> temperature,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res),<span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+</code></pre></div><br/>
+
+<h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
+<p>The outputs from robust regression are also very similar to those from linear regression, except that the observations are now weighted based on how deviant their are, and also robust standard error will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), <em>p</em> =.005. We also show the regression line estiamted from robust regression in the figure below. The <span style="color: blue"><b>blue</b></span> line is the regression line from ordinary linear regression and the <span style="color: red"><b>red</b></span> one is the regression line from robust regression.</p>
+<pre><code>Call:
+lmrob(formula = light ~ temperature, data = currentDataset)
+ \--&gt; method = &quot;MM&quot;
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.80959 -0.28838  0.00282  0.36668  3.39585 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  -4.9694     3.4100  -1.457  0.15198   
+temperature   2.2532     0.7691   2.930  0.00531 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Robust residual standard error: 0.4715 
+Multiple R-squared:  0.3737,	Adjusted R-squared:  0.3598 
+Convergence in 15 IRWLS iterations
+
+Robustness weights: 
+ 4 observations c(11,20,30,34) are outliers with |weight| = 0 ( &lt; 0.0021); 
+ 4 weights are ~= 1. The remaining 39 ones are summarized as
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6533  0.9171  0.9593  0.9318  0.9848  0.9986 
+Algorithmic parameters: 
+       tuning.chi                bb        tuning.psi        refine.tol 
+        1.548e+00         5.000e-01         4.685e+00         1.000e-07 
+          rel.tol         scale.tol         solve.tol       eps.outlier 
+        1.000e-07         1.000e-10         1.000e-07         2.128e-03 
+            eps.x warn.limit.reject warn.limit.meanrw 
+        8.404e-12         5.000e-01         5.000e-01 
+     nResample         max.it       best.r.s       k.fast.s          k.max 
+           500             50              2              1            200 
+   maxit.scale      trace.lev            mts     compute.rd fast.s.large.n 
+           200              0           1000              0           2000 
+                  psi           subsampling                   cov 
+           &quot;bisquare&quot;         &quot;nonsingular&quot;         &quot;.vcov.avar1&quot; 
+compute.outlier.stats 
+                 &quot;SM&quot; 
+seed : int(0) 
+
+######################################################
+                            2.5 %   97.5 %
+(Intercept) -4.969388 -11.8375510 1.898775
+temperature  2.253161   0.7041936 3.802129
+</code></pre><br/>
+<p><img src="../img/robust_regression_line.png" alt="Line of best fit from robust regression" title="Line of best fit from robust regression"></p>
+
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="http://statsnotebook.ai/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

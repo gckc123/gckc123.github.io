@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Correlogram - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Correlogram - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="http://statsnotebook.ai/blog/dataviz/correlogram/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="http://statsnotebook.ai/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="http://statsnotebook.ai/blog/dataviz/correlogram/">Correlogram</a>
+    </h2>
+    <div class="post-data">
+        20 Sep, 2020 |
+        2 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Correlogram%20http%3a%2f%2fstatsnotebook.ai%2fblog%2fdataviz%2fcorrelogram%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fstatsnotebook.ai%2fblog%2fdataviz%2fcorrelogram%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/dataviz">DataViz</a>,
+        
+        <a href="/tags/r-code">R code</a>
+        
+    </p>
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>Correlogram is a type of chart that visualise the pairwise association between variables. <strong>StatsNotebook</strong> uses the <code>ggpairs()</code> function from the <code>GGally</code> library to build correlogram. A publication ready correlogram can be built within a few minutes with <strong>StatsNotebook</strong>.</p>
+<p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+<p>In this example, we will build a <a href="#correlogram-scatterplot-matrix" title="Correlogram (Scatterplot matrix)">simple correlogram</a> to visualise the relationship between four variables (three personality variables: <em>Conscientiousness</em>, <em>Neuroticism</em>, <em>Openness</em> and one mental health variable: <em>Depression</em>). We then build a <a href="#correlogram-scatterplot-matrix-by-group" title="Correlogram (Scatterplot matrix by group)">correlogram by Sex</a> (Male and Female.)</p>
+
+<h4 id="correlogram-scatterplot-matrix" class="anchor-link"><a href="#correlogram-scatterplot-matrix">Correlogram (Scatterplot matrix)</a></h4>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Correlogram</strong> from the menu</li>
+<li>In the <strong>Correlogram</strong> panel, select <em>Conscientiousness</em>, <em>Neuroticism</em>, <em>Openness</em>, and <em>Depression</em> from the <em>Variables</em> (left) to <em>Horizontal Axis</em> (right).</li>
+</ol>
+<p><img src="../img/correlogram_instruction.png" alt="Correlogram instruction" title="Instruction for plotting simple correlogram"></p>
+
+<h5 id="r-codes" class="anchor-link"><a href="#r-codes">R Codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(GGally)
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Conscientiousness, Neuroticism, Openness, Depression) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(Conscientiousness, Neuroticism, Openness, Depression) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggpairs</span>(progress <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+<span style="color:#4070a0">&#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&#34;</span>
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes" class="anchor-link"><a href="#output-from-the-above-r-codes">Output from the above R codes</a></h5>
+<p><img src="../img/correlogram2.png" alt="Correlogram" title="Correlogram (Scatterplot matrix)"></p>
+
+<h4 id="correlogram-scatterplot-matrix-by-group" class="anchor-link"><a href="#correlogram-scatterplot-matrix-by-group">Correlogram (Scatterplot matrix) by group</a></h4>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Correlogram</strong> from the menu</li>
+<li>In the <strong>Correlogram</strong> panel, select the <em>Conscientiousness</em>, <em>Neuroticism</em>, <em>Openness</em>, and <em>Depression</em> from the <em>Variables</em> (left) to <em>Horizontal Axis</em> (right).</li>
+<li>Select <em>Sex</em> to <em>Split by: Fill color</em> (right).
+<ul>
+<li><em>Sex</em> is a categorical variable. If it is not yet coded as <strong>factor</strong>, you will need to manually <a href="../data_management/variable_conversion">covert it into a <strong>factor</strong> variable</a>.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/correlogram_instruction2.png" alt="Correlogram by group instruction" title="Instruction for plotting correlogram by group"></p>
+
+<h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R Codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(GGally)
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Conscientiousness, Neuroticism, Openness, Depression, Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(Conscientiousness, Neuroticism, Openness, Depression, Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggpairs</span>(progress <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>,
+  ggplot2<span style="color:#666">::</span><span style="color:#06287e">aes</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.65</span>, color <span style="color:#666">=</span> Sex))<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+<span style="color:#4070a0">&#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-1" class="anchor-link"><a href="#output-from-the-above-r-codes-1">Output from the above R codes</a></h5>
+<p><img src="../img/correlogram3.png" alt="Correlogram by group" title="Correlogram by group (Scatterplot matrix)"></p>
+
+<h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
+<pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+</code></pre>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="http://statsnotebook.ai/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

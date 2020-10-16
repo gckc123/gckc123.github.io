@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Descriptive statistics - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="http://statsnotebook.ai/blog/analysis/descriptive/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="http://statsnotebook.ai/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="http://statsnotebook.ai/blog/analysis/descriptive/">Descriptive statistics</a>
+    </h2>
+    <div class="post-data">
+        20 Sep, 2020 |
+        6 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Descriptive%20statistics%20http%3a%2f%2fstatsnotebook.ai%2fblog%2fanalysis%2fdescriptive%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fstatsnotebook.ai%2fblog%2fanalysis%2fdescriptive%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/r-code">R code</a>,
+        
+        <a href="/tags/descriptive-statistics">Descriptive statistics</a>
+        
+    </p>
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>This tutorial will give a short introduction on descriptive analysis using <strong>StatsNotebook</strong>. Descriptive statistcs such as mean, standard deviation, median and interquartile range can be easily obtained using the <strong>Explore</strong> panel.</p>
+<p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../data_management/load_example_data">here</a> or can be downloaded from <a href="../data_management/example_data/personality.csv">here</a>.</p>
+<p>The <strong>Personality</strong> dataset contains data from 231 participants, with measures on the Big 5 personality factors (<em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>neuroticism</em> and <em>Openness</em>), three measures of mental health (<em>Depression</em>, <em>Trait anxiety</em> and <em>State anxiety</em>). It also contains data on participants&rsquo; sex.</p>
+<p>We will first demonstrate how to generate simple <a href="#descriptive-statistics" title="Descriptive statistics">descriptive statistics</a>, and how to generate <a href="#descriptive-statistics-by-group" title="Descriptive statistics by group">descriptive statistics by group</a>.</p>
+
+<h4 id="descriptive-statistics" class="anchor-link"><a href="#descriptive-statistics">Descriptive statistics</a></h4>
+<p>To calculate descriptive statistics,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Explore</strong></li>
+<li>Select <strong>Descriptive statistics</strong> on the menu</li>
+<li>Select variables into <strong>Target Variables</strong> on the right. In this example, we will select <em>Neuroticism</em>, <em>Depression</em> and <em>Sex</em>.
+<ul>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/descriptive_statistics.png" alt="descriptive statistics" title="Descriptive statistics"></p>
+<ol start="5">
+<li>Expand the <strong>Statistics and plots</strong> panel, by default, <strong>mean</strong> and <strong>standard deviation</strong> are calculated for numeric variable (<em>Neuroticism</em> and <em>Depression</em>); <strong>count</strong> is calculated for categorical (factor) variable (<em>Sex</em>). Additional statistics, such as <strong>median</strong> and <strong>interquartile range</strong> can be requested here.</li>
+</ol>
+<p><img src="../img/statistics_plots.png" alt="Statistics and plots" title="Statistics and plots"></p>
+
+<h5 id="r-codes---descriptive-statistics" class="anchor-link"><a href="#r-codes---descriptive-statistics">R codes - Descriptive statistics</a></h5>
+<p>The following is the R codes generated by <strong>StatsNotebook</strong>. We will explain these codes in the  <a href="#r-codes-explained---descriptive-statistics">next section</a>.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+<span style="color:#06287e">library</span>(e1071)
+<span style="color:#06287e">library</span>(ggplot2)
+<span style="color:#06287e">library</span>(GGally)
+
+<span style="color:#4070a0">&#34;Sample size and missing data&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(), 
+  mis_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Neuroticism)), 
+  mis_Depression <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Depression)), 
+  mis_Sex <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Sex))
+  )
+
+<span style="color:#4070a0">&#34;Descriptive Statistics for numeric variables&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(),
+  M_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  M_Depression <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Depression <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+  ) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">print</span>(width <span style="color:#666">=</span> <span style="color:#40a070">1000</span>, n <span style="color:#666">=</span> <span style="color:#40a070">500</span>)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Neuroticism))
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Depression))
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Neuroticism), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Depression), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Counts for categorical variables&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>()) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">spread</span>(key <span style="color:#666">=</span> Sex, value <span style="color:#666">=</span> count)
+
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_bar</span>(stat <span style="color:#666">=</span> <span style="color:#4070a0">&#34;count&#34;</span>, <span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Sex))
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+
+</code></pre></div><br/>
+
+<h5 id="r-codes-explained---descriptive-statistics" class="anchor-link"><a href="#r-codes-explained---descriptive-statistics">R codes explained - Descriptive statistics</a></h5>
+<p>The following is from the top section of the generated codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+<span style="color:#06287e">library</span>(e1071)
+<span style="color:#06287e">library</span>(ggplot2)
+<span style="color:#06287e">library</span>(GGally)
+
+<span style="color:#4070a0">&#34;Sample size and missing data&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(), 
+  mis_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Neuroticism)), 
+  mis_Depression <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Depression)), 
+  mis_Sex <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Sex))
+  )
+</code></pre></div><br/>
+<p>We firstly load all the necessary library for this analysis, and then calculate the sample size and missing data in each of the variables. The above codes produce the below summary. Overall, there are 213 row of data (<strong>N = 231</strong>). There are <strong>14</strong> missing data for <em>Neuroticism</em> and <strong>33</strong> missing data for <em>Depression</em>. There is no missing data for <em>Sex</em>.</p>
+<pre><code>######################################################
+[1] &quot;Sample size and missing data&quot;
+
+######################################################
+# A tibble: 1 x 4
+  count mis_Neuroticism mis_Depression mis_Sex
+  &lt;int&gt;           &lt;int&gt;          &lt;int&gt;   &lt;int&gt;
+1   231              14             33       0
+
+
+######################################################
+</code></pre><br/>
+<p>The following codes are then used to calculate the descriptive statistics for numeric variables (<em>Neuroticism</em> and <em>Depression</em>).</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">print</span>(<span style="color:#4070a0">&#34;Descriptive Statistics&#34;</span>)
+
+<span style="color:#4070a0">&#34;Descriptive Statistics for numeric variables&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(),
+  M_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  M_Depression <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Depression <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+  ) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">print</span>(width <span style="color:#666">=</span> <span style="color:#40a070">1000</span>, n <span style="color:#666">=</span> <span style="color:#40a070">500</span>)
+
+</code></pre></div><br/>
+<p>These codes produce the following output. The mean of <em>Neuroticism</em> and <em>Depression</em> are <strong>87.7</strong> (SD = 7.06) and <strong>23.1</strong> (SD = 5.81) respectively.</p>
+<pre><code>######################################################
+[1] &quot;Descriptive Statistics for numeric variables&quot;
+
+######################################################
+# A tibble: 1 x 5
+  count M_Neuroticism M_Depression SD_Neuroticism SD_Depression
+  &lt;int&gt;         &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1   231          87.7         7.06           23.1          5.81
+
+######################################################
+</code></pre><br/>
+<p>The following codes are then used to produce normality plots and histogram.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Neuroticism))
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Depression))
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Neuroticism), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Depression), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>)
+
+</code></pre></div><br/>
+<p>The top two plots are for <em>Neuroticism</em> and the bottom two for <em>Depression</em>. The left plots are normality plots. If the data is normally distributed, the points will roughly follow a straight line. The histograms on the right show the distribution of the variables. These plots show that the distribution of <em>Neuroticism</em> is roughly normal, but <em>Depression</em> is skewed to the right.</p>
+<p><img src="../img/descriptive_plots.png" alt="descriptive plot" title="Normality plots and histograms"></p>
+<p>Lastly, the following codes are used to calculate the counts for the categorical variable <em>Sex</em> and a simple bar graph.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Counts for categorical variables&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>()) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">spread</span>(key <span style="color:#666">=</span> Sex, value <span style="color:#666">=</span> count)
+
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_bar</span>(stat <span style="color:#666">=</span> <span style="color:#4070a0">&#34;count&#34;</span>, <span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Sex))
+
+</code></pre></div><br/>
+<p>Below is the output from <strong>StatsNotebook</strong>. Of the 231 participants, 70 are females and 161 are males.</p>
+<pre><code># A tibble: 1 x 2
+  Female  Male
+   &lt;int&gt; &lt;int&gt;
+1     70   161
+</code></pre><br/>
+
+<h4 id="descriptive-statistics-by-group" class="anchor-link"><a href="#descriptive-statistics-by-group">Descriptive statistics by group</a></h4>
+<p>In this example, we wil generate the descriptive statistics of <em>Neuroticism</em> and <em>Depression</em> by <em>Sex</em>.</p>
+<p>To do this, we can</p>
+<ol>
+<li>
+<p>Click <strong>Analysis</strong> at the top</p>
+</li>
+<li>
+<p>Click <strong>Explore</strong></p>
+</li>
+<li>
+<p>Select <strong>Descriptive statistics</strong> on the menu</p>
+</li>
+<li>
+<p>Select variables into <strong>Target Variables</strong> on the right. In this example, we will select <em>Neuroticism</em> and <em>Depression</em>.</p>
+</li>
+<li>
+<p>Select the grouping variable (<em>Sex</em>) into <strong>Split by</strong> box on the right.</p>
+<ul>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
+</ul>
+</li>
+<li>
+<p>Expand the <strong>Statistics and plots</strong> panel, by default, <strong>mean</strong> and <strong>standard deviation</strong> are calculated for numeric variable (<em>Neuroticism</em> and <em>Depression</em>). Additional statistics, such as <strong>median</strong> and <strong>interquartile range</strong> can be requested here.</p>
+</li>
+</ol>
+
+<h5 id="r-codes---descriptive-statistics-by-group" class="anchor-link"><a href="#r-codes---descriptive-statistics-by-group">R codes - Descriptive statistics by group</a></h5>
+<p>These codes are very similar to those above, except that now we have specified that the analysis to be done by group (<em>Sex</em>).</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+<span style="color:#06287e">library</span>(e1071)
+<span style="color:#06287e">library</span>(ggplot2)
+<span style="color:#06287e">library</span>(GGally)
+
+<span style="color:#4070a0">&#34;Sample size and missing data&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(), 
+  mis_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Neuroticism)), 
+  mis_Depression <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Depression)), 
+  mis_Sex <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Sex))
+  )
+
+<span style="color:#4070a0">&#34;Descriptive Statistics for numeric variables&#34;</span>
+
+currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(Sex) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarize</span>(count <span style="color:#666">=</span> <span style="color:#06287e">n</span>(),
+  M_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  M_Depression <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Neuroticism <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Neuroticism, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>),
+  SD_Depression <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(Depression, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+  ) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">print</span>(width <span style="color:#666">=</span> <span style="color:#40a070">1000</span>, n <span style="color:#666">=</span> <span style="color:#40a070">500</span>)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Neuroticism)) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span>Sex)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>(<span style="color:#06287e">aes</span>(sample<span style="color:#666">=</span>Depression)) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span>Sex)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Neuroticism), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span>Sex)
+
+<span style="color:#06287e">ggplot</span>(currentDataset) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(<span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>Depression), color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span>Sex)
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+</code></pre></div><br/>
+<p>The output from <strong>StatsNotebook</strong> are very similar to what we have before but are now stratified by <em>Sex</em>.</p>
+<pre><code>######################################################
+# A tibble: 2 x 6
+  Sex    count M_Neuroticism M_Depression SD_Neuroticism SD_Depression
+  &lt;fct&gt;  &lt;int&gt;         &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1 Female    70          96.2         8.74           23.0          5.87
+2 Male     161          83.8         6.16           22.2          5.60
+
+######################################################
+</code></pre>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="http://statsnotebook.ai/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

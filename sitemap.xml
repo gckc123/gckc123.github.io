@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://statsnotebook.ai/projects/analysis/</loc>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/projects/dataviz/</loc>
+    <lastmod>2020-09-14T21:13:40+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/projects/data_management/</loc>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/projects/</loc>
+    <lastmod>2020-09-14T21:13:40+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/analysis/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/r-code/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/regression/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/robust_regression/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/</loc>
+    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/mediation/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/missing-data/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/multiple_imputation/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/moderation_interaction_regression/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/dataviz/correlogram/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/data-management/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/data_management/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/dataviz/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/dataviz/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/descriptive-statistics/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/descriptive/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/data_management/compute_variable/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/linear_mixed_model/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/linear-model/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/data_management/load_example_data/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/data_management/set_reference/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/data_management/variable_conversion/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/linearity_homoscedasticity/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/betarelease/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/tags/code/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/regression/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/blog/analysis/regression_missingdata/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://statsnotebook.ai/download/</loc>
+  </url>
+  
+</urlset>
