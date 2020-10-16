@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Linear Regression With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Linear regression with missing data - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://gckc123.github.io/blog/analysis/regression_missingdata/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://gckc123.github.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://gckc123.github.io/blog/analysis/regression_missingdata/">Linear regression with missing data</a>
+    </h2>
+    <div class="post-data">
+        18 Sep, 2020 |
+        7 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Linear%20regression%20with%20missing%20data%20https%3a%2f%2fgckc123.github.io%2fblog%2fanalysis%2fregression_missingdata%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fgckc123.github.io%2fblog%2fanalysis%2fregression_missingdata%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/r-code">R code</a>,
+        
+        <a href="/tags/regression">Regression</a>
+        
+    </p>
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in <strong>StatsNotebook</strong> to handle missing data using <a href="../multiple_imputation">multiple imputation</a>.</p>
+<p>In our <a href="../regression" title="linear regression">linear regression tutorial</a>, we use the personality dataset to examine two research qeustions.</p>
+<ol>
+<li>Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</li>
+<li>Is sex associated with depression?</li>
+</ol>
+<p>In our original analysis, participants with missing data in any of the analysis variables are excluded. The initial sample size is 231. After excluding participants with missing data, the sample size reduces to 155 - a reduction of 33%.</p>
+<p><a href="../multiple_imputation" title="multiple imputation">Multiple imputation</a> is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. <strong>StatsNotebook</strong> provides a simple interface to incorporate multiple imputation into linear regression analysis.</p>
+<p>This tutorial builds on our tutorial on <a href="../regression" title="linear regression">linear regression</a>, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+
+<h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Impute missing data&#34;</span>
+<span style="color:#06287e">library</span>(mice)
+
+formulas <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.formulas</span>(currentDataset)
+
+formulas<span style="color:#666">$</span>Agreeableness <span style="color:#666">=</span>Agreeableness <span style="color:#666">~</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Conscientiousness <span style="color:#666">=</span>Conscientiousness <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Extraversion <span style="color:#666">=</span>Extraversion <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Neuroticism <span style="color:#666">=</span>Neuroticism <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Openness <span style="color:#666">=</span>Openness <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Sex <span style="color:#666">=</span>Sex <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Depression <span style="color:#666">=</span>Depression <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex
+
+meth <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.method</span>(currentDataset)
+meth[<span style="color:#4070a0">&#34;Trait_anxiety&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;State_anxiety&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+
+imputedDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">parlmice</span>(currentDataset,
+  method <span style="color:#666">=</span> meth,
+  formulas <span style="color:#666">=</span> formulas,
+  m <span style="color:#666">=</span> <span style="color:#40a070">35</span>,
+  n.core <span style="color:#666">=</span> <span style="color:#40a070">15</span>, 
+  n.imp.core <span style="color:#666">=</span> <span style="color:#40a070">3</span>)
+
+<span style="color:#06287e">plot</span>(imputedDataset)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">complete</span>(imputedDataset, action <span style="color:#666">=</span> <span style="color:#4070a0">&#34;long&#34;</span>, include <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+<span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span>(imputedDataset,
+  <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex))
+<span style="color:#06287e">summary</span>(<span style="color:#06287e">pool</span>(res), conf.int <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, conf.level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+
+res1 <span style="color:#666">&lt;-</span> res<span style="color:#666">$</span>analyses[[1]]
+<span style="color:#06287e">library</span>(car)
+
+res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstandard</span>(res1)
+<span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
+
+<span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .05 might be considered as outliers and might need further investigation.&#34;</span>
+<span style="color:#06287e">outlierTest</span>(res1)
+<span style="color:#06287e">infIndexPlot</span>(res1)
+
+<span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
+<span style="color:#06287e">residualPlots</span>(res1)
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">as.data.frame</span>(res.std), <span style="color:#06287e">aes</span>(sample <span style="color:#666">=</span> res.std)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq_line</span>()
+
+<span style="color:#4070a0">&#34;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&#34;</span>
+<span style="color:#06287e">vif</span>(res1)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h4 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h4>
+<p>Prior to running the linear regression analysis, it is always a good practice to <a href="/blog/dataviz/correlogram">visualise the data</a> and conduct <a href="../descriptive">descriptive analysis</a>.</p>
+<p>To conduct multiple imputation and linear regression analysis,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top;</li>
+<li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numberic outcome)</strong> from the menu</li>
+<li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em>, <em>Openness</em> and <em>Sex</em> into <em>Covariates</em>.
+<ul>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/regression1.png" alt="StatsNotebook regression" title="Regression in StatsNotebook"></p>
+<ol start="4">
+<li>On the left panel, scroll down and expand the <strong>Analysis setting</strong> panel. Check <em>Impute missing data</em> and enter the number of imputation required. In this example, we request 35 imputations.
+<ul>
+<li>As a rule of thumb, the number of imputation should be close to the percentage of observations with missing data.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/regression_impute_missing.png" alt="StatNotebook regression imputation" title="Multiple imputation and regression in StatsNotebook"></p>
+
+<h4 id="r-codes-explained---multiple-imputation" class="anchor-link"><a href="#r-codes-explained---multiple-imputation">R codes explained - Multiple imputation</a></h4>
+<p>The following is from the top section of the generated codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(mice)
+
+formulas <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.formulas</span>(currentDataset)
+
+formulas<span style="color:#666">$</span>Agreeableness <span style="color:#666">=</span>Agreeableness <span style="color:#666">~</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Conscientiousness <span style="color:#666">=</span>Conscientiousness <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Extraversion <span style="color:#666">=</span>Extraversion <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Neuroticism <span style="color:#666">=</span>Neuroticism <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Openness <span style="color:#666">=</span>Openness <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Sex <span style="color:#666">=</span>Sex <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Depression
+formulas<span style="color:#666">$</span>Depression <span style="color:#666">=</span>Depression <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex
+
+meth <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.method</span>(currentDataset)
+meth[<span style="color:#4070a0">&#34;Trait_anxiety&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;State_anxiety&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+
+imputedDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">parlmice</span>(currentDataset,
+  method <span style="color:#666">=</span> meth,
+  formulas <span style="color:#666">=</span> formulas,
+  m <span style="color:#666">=</span> <span style="color:#40a070">35</span>,
+  n.core <span style="color:#666">=</span> <span style="color:#40a070">15</span>, 
+  n.imp.core <span style="color:#666">=</span> <span style="color:#40a070">3</span>)
+
+<span style="color:#06287e">plot</span>(imputedDataset)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">complete</span>(imputedDataset, action <span style="color:#666">=</span> <span style="color:#4070a0">&#34;long&#34;</span>, include <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+</code></pre></div><br/>
+<p>We use the <strong>mice</strong> library in R to perform multiple imputation. The above codes firstly specifies how each variables are imputed. Only variables used in the regression analysis will be used for imputation. To include additional variables in the imputation, see the <a href="../multiple_imputation" title="multiple imputation tutorial">multiple imputation</a>.</p>
+<p>The only visible output is a set of diagnostic plot. The lines in all plots should be freely intermingled. Non-convergence will be indicated by clearly separated lines.</p>
+<p><img src="../img/diagnostic_imputation.png" alt="imputation diagnostic" title="Diagnostic plot for imputation"></p>
+<p>The following codes are then used to conduct linear regression using the imputed datasets.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span>(imputedDataset,
+  <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex))
+<span style="color:#06287e">summary</span>(<span style="color:#06287e">pool</span>(res), conf.int <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, conf.level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+</code></pre></div><br/>
+<p>Below is the output from this analysis.</p>
+<pre><code>               term     estimate  std.error   statistic       df      p.value
+1       (Intercept)  7.715447666 3.12663997  2.46764825 174.0538 1.456720e-02
+2     Agreeableness -0.001189368 0.02497579 -0.04762083 158.8576 9.620782e-01
+3 Conscientiousness -0.018990634 0.01964996 -0.96644620 130.7906 3.356046e-01
+4      Extraversion -0.013549340 0.01559403 -0.86887995 176.7667 3.860910e-01
+5       Neuroticism  0.128537235 0.01657551  7.75464787 165.6124 8.557599e-13
+6          Openness -0.060743216 0.02205921 -2.75364405 134.9948 6.705879e-03
+7           SexMale -1.227802866 0.76103616 -1.61333051 195.1378 1.082887e-01
+        2.5 %      97.5 %
+1  1.54443849 13.88645685
+2 -0.05051680  0.04813806
+3 -0.05786353  0.01988226
+4 -0.04432377  0.01722509
+5  0.09581069  0.16126378
+6 -0.10436956 -0.01711687
+7 -2.72871486  0.27310912
+</code></pre>
+<h4 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h4>
+<p>In this example, the coefficients of the 5 personality traits from the analysis using imputation are similar to those from <a href="../regression" title="regression">complete data analysis</a>. However, it should be noted that the p-value of <em>openness</em> is now much smaller, indicating that the evidence for the association between openness and depression was stronger (despite the effect size being similar). This is due to increase power from multiple imputation.</p>
+
+<h4 id="example-write-up" class="anchor-link"><a href="#example-write-up">Example Write-up</a></h4>
+<br/>
+<p>Table 1. Results from linear regression.</p>
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>b</th>
+<th>95% CI</th>
+<th>p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agreeableness</td>
+<td>-0.00</td>
+<td>(-0.05, 0.05)</td>
+<td>0.962</td>
+</tr>
+<tr>
+<td>Conscientiousness</td>
+<td>-0.02</td>
+<td>(-0.02, 0.02)</td>
+<td>0.336</td>
+</tr>
+<tr>
+<td>Extraversion</td>
+<td>-0.01</td>
+<td>(-0.04, 0.02)</td>
+<td>0.386</td>
+</tr>
+<tr>
+<td>Neuroticism</td>
+<td>0.13</td>
+<td>(0.10, 0.16)</td>
+<td>&lt; .001</td>
+</tr>
+<tr>
+<td>Openness</td>
+<td>-0.06</td>
+<td>(-0.10, -0.02)</td>
+<td>.007</td>
+</tr>
+<tr>
+<td>Sex (Ref: Female)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>  Male</td>
+<td>-1.23</td>
+<td>(-2.73, 0.27)</td>
+<td>0.108</td>
+</tr>
+</tbody>
+</table>
+<p>The intial sample consists of 231 participants. Seventy six participants (33%) have missing data in at least one of the analysis variable. Thirty-five datasets were imputed using multiple imputation to fill in the missing values (Rubin, 2009). Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Results are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.13, 95% CI [0.09, 0.16], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.06, 95% CI [-0.10, -0.02], <em>p</em> = .007) are associated with depression. Other variables are not significantly associated with depression, and their effects are close to zero. Analyses are conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020)</p>
+
+<h4 id="model-diagnostic" class="anchor-link"><a href="#model-diagnostic">Model diagnostic</a></h4>
+<p>At the moment, model diagnostic is not based on the first imputed dataset. The interpretation for the model diagnostic is thus the same as those for analysis based on <a href="https://gckc123.github.io/blog/analysis/regression/#r-codes-explained---model-diagnostic">complete data analysis</a>.</p>
+
+<h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
+<pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+Chan, G (2020). Linear regression with missing data. Retrieved from https://www.statsnotebook.io/blog/analysis/regression_missingdata/
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Rubin, D. B. (2009). Multiple imputation for nonresponse in surveys. New York, John Wiley &amp; Sons.
+</code></pre>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://gckc123.github.io/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
