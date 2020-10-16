@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>http://statsnotebook.ai/projects/</link>
+    <link>https://gckc123.github.io/projects/</link>
     <description>Recent content in Projects on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Sep 2020 21:13:40 +1000</lastBuildDate>
     
-	<atom:link href="http://statsnotebook.ai/projects/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://gckc123.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Analysis</title>
-      <link>http://statsnotebook.ai/projects/analysis/</link>
+      <link>https://gckc123.github.io/projects/analysis/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://statsnotebook.ai/projects/analysis/</guid>
+      <guid>https://gckc123.github.io/projects/analysis/</guid>
       <description>You can generate R codes for most common analyses using StatsNotebook in 30 seconds!</description>
     </item>
     
     <item>
       <title>Data Visualisation</title>
-      <link>http://statsnotebook.ai/projects/dataviz/</link>
+      <link>https://gckc123.github.io/projects/dataviz/</link>
       <pubDate>Mon, 14 Sep 2020 21:13:40 +1000</pubDate>
       
-      <guid>http://statsnotebook.ai/projects/dataviz/</guid>
+      <guid>https://gckc123.github.io/projects/dataviz/</guid>
       <description>With StatsNotebook, you can produce elegant visualisation with just a few clicks.</description>
     </item>
     
     <item>
       <title>Data Management</title>
-      <link>http://statsnotebook.ai/projects/data_management/</link>
+      <link>https://gckc123.github.io/projects/data_management/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://statsnotebook.ai/projects/data_management/</guid>
+      <guid>https://gckc123.github.io/projects/data_management/</guid>
       <description>Common data management tasks can be done with just a few clicks in StatsNotebook.</description>
     </item>
     

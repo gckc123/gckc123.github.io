@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>StatsNotebook on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>http://statsnotebook.ai/blog/</link>
+    <link>https://gckc123.github.io/blog/</link>
     <description>Recent content in StatsNotebook on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://statsnotebook.ai/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://gckc123.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Beta version now available</title>
-      <link>http://statsnotebook.ai/blog/betarelease/</link>
+      <link>https://gckc123.github.io/blog/betarelease/</link>
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://statsnotebook.ai/blog/betarelease/</guid>
+      <guid>https://gckc123.github.io/blog/betarelease/</guid>
       <description>StatsNotebook 0.1.0 is now available for Windows in the download page. Try out the next generation of statistical software now!</description>
     </item>
     

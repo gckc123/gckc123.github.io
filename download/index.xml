@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Download on StatsNotebook - Simple. Powerful. Reproducible.</title>
-    <link>http://statsnotebook.ai/download/</link>
+    <link>https://gckc123.github.io/download/</link>
     <description>Recent content in Download on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://statsnotebook.ai/download/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://gckc123.github.io/download/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
