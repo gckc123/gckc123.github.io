@@ -6,10 +6,21 @@
     <description>Recent content in Data Management on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/data-management/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Compute variables</title>
+      <link>https://statsnotebook.io/blog/data_management/compute_variable/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/data_management/compute_variable/</guid>
+      <description>StatsNotebook provides a simple menu for creating new variables. We will give two examples below to demonstrate using StatsNotebook to compute new variables.
+ Log transformation Creating a quadratic term  In these two examples, we will use the built-in Personality dataset. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
+Log transformation Violation of distributional assumption is common. For example, linear regression requires that the residuals to be normally distribution.</description>
+    </item>
     
     <item>
       <title>Data Management</title>
@@ -37,7 +48,8 @@
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/set_reference/</guid>
-      <description>For categorical variable, it is important to set a &amp;ldquo;reference&amp;rdquo; category for categorical variable in many analyses. For example, for the variable Sex in our regression analysis tutorial, the default reference is Female. The coefficient of SexMale from the regression represents the effect of male relative to female. In this case, the coefficient -0.87 means that the depression score (the dependent variable in that analysis) for male is 0.87 lower than female.</description>
+      <description>For categorical variable, it is important to set a &amp;ldquo;reference&amp;rdquo; category in many analyses. For example, for the variable Sex in our regression analysis tutorial, the default reference is Female. The coefficient of SexMale from the regression represents the effect of male relative to female. In this case, the coefficient -0.87 means that the depression score (the dependent variable in that analysis) for male is 0.87 lower than female.
+Coefficients: Estimate Std.</description>
     </item>
     
     <item>

@@ -10,12 +10,12 @@
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="StatsNotebook is an open source statistical package based on R.">
 <title>
-Violation of Linearity and Homoscedasticity - StatsNotebook - Simple. Powerful. Reproducible.
+Residual Plots and Assumption Checking - StatsNotebook - Simple. Powerful. Reproducible.
 </title>
 
 
 
-        <meta property="og:title" content="Violation of linearity and homoscedasticity - StatsNotebook - Simple. Powerful. Reproducible." />
+        <meta property="og:title" content="Residual plots and assumption checking - StatsNotebook - Simple. Powerful. Reproducible." />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
 <meta property="og:url" content="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/"/>
@@ -109,9 +109,25 @@ Violation of Linearity and Homoscedasticity - StatsNotebook - Simple. Powerful. 
             
             
             
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
             <a class="navbar-item" href="/download">
                 
                 Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
                 
             </a>
             
@@ -127,17 +143,17 @@ Violation of Linearity and Homoscedasticity - StatsNotebook - Simple. Powerful. 
                 
 <div class="container">
     <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/">Violation of linearity and homoscedasticity</a>
+        <a href="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/">Residual plots and assumption checking</a>
     </h2>
     <div class="post-data">
-        20 Sep, 2020 |
-        1 minute read
+        16 Oct, 2020 |
+        2 minutes read
     </div>
     
     <div class="blog-share">
         Share this:
         
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Violation%20of%20linearity%20and%20homoscedasticity%20https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2flinearity_homoscedasticity%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Residual%20plots%20and%20assumption%20checking%20https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2flinearity_homoscedasticity%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
             <i class="fab fa-twitter"></i>
             <span class="hidden">Twitter</span>
         </a>
@@ -164,7 +180,37 @@ Violation of Linearity and Homoscedasticity - StatsNotebook - Simple. Powerful. 
 </div>
 
 <div class="container markdown top-pad">
-    <p>Coming soon&hellip;</p>
+    <p>Residual plot is an essential tool for checking the assumption of linearity and homoscedasticity. THe following is examples of residual plots when (1) the assumptions are met, (2) the homoscedasticity assumption is violated and (3) the linearity assumption is violated.</p>
+
+<h4 id="assumption-met" class="anchor-link"><a href="#assumption-met">Assumption met</a></h4>
+<p>When both the assumption of linearity and homoscedasticity are met, the points in the residual plot (plotting standardised residuals against predicted values) will be randomly scattered.</p>
+<p><img src="../img/assumption_met.png" alt="Assumption met" title="Assumption met"></p>
+
+<h4 id="heteroscedasticity" class="anchor-link"><a href="#heteroscedasticity">Heteroscedasticity</a></h4>
+<p>When the homoscedasticity assumption is violated, the &ldquo;spread&rdquo; of the points across predicted values are not the same. The following are two plots that indicate violation of this assumption.</p>
+<p>In the first plot, the variance (i.e. spread) of the residuals increases as the predicted values increase.</p>
+<p><img src="../img/fanning_out_resid.png" alt="Fanning out residuals" title="Fanning out residuals"></p>
+<p>In the second plot, the variance (i.e. spread) of the residuals decreases as the predicted values increase.</p>
+<p><img src="../img/fanning_in_resid.png" alt="Fanning in residuals" title="Fanning in residuals"></p>
+<p>Heteroscedasity usually does not cause bias in the model estimates (i.e. regression coefficients), but it reduces precision in the esimates. The standard errors are often underestimated, leading to incorrect p-value and inference.</p>
+
+<h5 id="how-to-fix-heteroscedasticity" class="anchor-link"><a href="#how-to-fix-heteroscedasticity">How to fix heteroscedasticity</a></h5>
+<p>There is no bullet-proof way to fix heteroscedasticity. But there are two commons way that may reduce the problems.</p>
+<ol>
+<li>Conduct a <a href="../robust_regression" title="robust regression">robust regression</a> with robust standard error.</li>
+<li>Transform the dependent variable. For example, when there is a fanning out pattern in the residual plot, applying a <a href="../../data_management/compute_variable/#log-transformation" title="log transformation">log-transformation</a> on the dependent variable may mitigate the problem.</li>
+</ol>
+
+<h4 id="non-linearity" class="anchor-link"><a href="#non-linearity">Non-linearity</a></h4>
+<p>When the linearity assumption is violated, the points in the residual plot will not be randomly scattered. Instead, the points will often show some &ldquo;curvature&rdquo;.</p>
+<p><img src="../img/nonlinear_resid.png" alt="non-linearity" title="non-linearity"></p>
+
+<h5 id="how-to-fix-non-linearity" class="anchor-link"><a href="#how-to-fix-non-linearity">How to fix non-linearity</a></h5>
+<p>There is no bullet-proof way to fix non-linearity. If there are multiple independent variables in a regression analysis, the first step is to identify the target independent variable that has a non-linearity relationship with the dependent variable. The trasgressing variable can usually be identified using the <a href="../regression/#r-codes-explained---model-diagnostic" title="curvature test">curvature test</a> after the regression analysis. Once the transgressing variable is identified, its quadratice term (i.e. square term of the original variable) can be entered into the regression model.</p>
+<p>Suppose the transgressing variable is <strong>x</strong>, its quadratic term can be created using the following line of code.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>x_sq <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>x^2
+</code></pre></div><br/>
+<p>Quadratic term can also be created using <strong>StatsNotebook</strong>&rsquo;s <a href="../../data_management/compute_variable/#quadratic-term" title="Compute">Compute</a> menu.</p>
 
 </div>
 
@@ -205,6 +251,17 @@ Violation of Linearity and Homoscedasticity - StatsNotebook - Simple. Powerful. 
 
 <script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

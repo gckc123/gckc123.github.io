@@ -10,12 +10,12 @@
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="StatsNotebook is an open source statistical package based on R.">
 <title>
-Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
+Compute Variables - StatsNotebook - Simple. Powerful. Reproducible.
 </title>
 
 
 
-        <meta property="og:title" content="Descriptive statistics - StatsNotebook - Simple. Powerful. Reproducible." />
+        <meta property="og:title" content="Compute variables - StatsNotebook - Simple. Powerful. Reproducible." />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
 <meta property="og:url" content="https://statsnotebook.io/blog/data_management/compute_variable/"/>
@@ -109,9 +109,25 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
             
             
             
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
             <a class="navbar-item" href="/download">
                 
                 Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
                 
             </a>
             
@@ -127,17 +143,17 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
                 
 <div class="container">
     <h2 class="title is-1 top-pad strong-post-title">
-        <a href="https://statsnotebook.io/blog/data_management/compute_variable/">Descriptive statistics</a>
+        <a href="https://statsnotebook.io/blog/data_management/compute_variable/">Compute variables</a>
     </h2>
     <div class="post-data">
-        20 Sep, 2020 |
-        1 minute read
+        16 Oct, 2020 |
+        2 minutes read
     </div>
     
     <div class="blog-share">
         Share this:
         
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Descriptive%20statistics%20https%3a%2f%2fstatsnotebook.io%2fblog%2fdata_management%2fcompute_variable%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Compute%20variables%20https%3a%2f%2fstatsnotebook.io%2fblog%2fdata_management%2fcompute_variable%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
             <i class="fab fa-twitter"></i>
             <span class="hidden">Twitter</span>
         </a>
@@ -157,19 +173,65 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
     <p>
         Tags:
         
-        <a href="/tags/analysis">Analysis</a>,
+        <a href="/tags/data-management">Data management</a>,
         
-        <a href="/tags/r-code">R code</a>,
-        
-        <a href="/tags/descriptive-statistics">Descriptive statistics</a>
+        <a href="/tags/r-code">R code</a>
         
     </p>
     
 </div>
 
 <div class="container markdown top-pad">
-    <p>Coming soon&hellip;</p>
+    <p><strong>StatsNotebook</strong> provides a simple menu for creating new variables. We will give two examples below to demonstrate using <strong>StatsNotebook</strong> to compute new variables.</p>
+<ol>
+<li><a href="#log-transformation" title="Log transformation">Log transformation</a></li>
+<li><a href="#quadratic-term" title="Quadratic term">Creating a quadratic term</a></li>
+</ol>
+<p>In these two examples, we will use the built-in <strong>Personality</strong> dataset. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../load_example_data">here</a> or can be downloaded from <a href="../example_data/personality.csv">here</a>.</p>
 
+<h4 id="log-transformation" class="anchor-link"><a href="#log-transformation">Log transformation</a></h4>
+<p>Violation of distributional assumption is common. For example, linear regression requires that the residuals to be normally distribution. In our <a href="../../analysis/regression" title="Linear regression">linear regression</a> example, we regress <em>depression</em> on the <em>Big Five</em> personality factors and <em>sex</em>. The normality plot (QQ plot) from the regression model indicates that the residuals are not normally distributed. Below is the normality plot from that example.</p>
+<p><img src="../../analysis/img/normality.png" alt="Normality plot" title="Normality plot"></p>
+<p>This is largely because depression is positively skewed (a long tail on the right hand side).</p>
+<p><img src="../img/depression.png" alt="Depression" title="Depression"></p>
+<p>One way to improve the model is to perform a log-transformation of the dependent variable, depression.</p>
+<p>To create a log-transformed version of depression,</p>
+<ol>
+<li>Click <strong>Data</strong> at the top</li>
+<li>Click <strong>Compute</strong></li>
+<li>In <em>Target Variable</em>, type in the name of the new variable (e.g. <em>log_depression</em>).</li>
+<li>Select <em>Log (natural log)</em> in the <em>Function</em> panel.</li>
+<li>Click on the variable we need to log-transform (e.g. <em>Depression</em>). This would automatically complete the formula in the <em>formula</em> panel.</li>
+</ol>
+<p><img src="../img/create_log_transformation.png" alt="Log transformation" title="Log transformation"></p>
+<ol start="6">
+<li>Click <strong>Code and Run</strong>. A new variable <em>log_depression</em> is now created.</li>
+</ol>
+<p>The following code will be generated.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>log_depression <span style="color:#666">&lt;-</span> <span style="color:#06287e">log</span>(currentDataset<span style="color:#666">$</span>Depression)
+</code></pre></div><br/>
+<p>Histogram of this new variable indicates that it is much less skewed.</p>
+<p><img src="../img/log_depression.png" alt="Log transformed" title="log transformed"></p>
+<p>The residual plot from the linear regression using the log-transformed depression variable shows little evidence of violating the normality assumption.</p>
+<p><img src="../img/normality_log_depression.png" alt="Normality" title="normality"></p>
+
+<h4 id="quadratic-term" class="anchor-link"><a href="#quadratic-term">Quadratic term</a></h4>
+<p>A quadratic term of an independent variable is often added to a regression model to test for curvilinear relationship. Suppose that we want to test if there is a curvilinear relationship between <em>Depression</em> and <em>Neuroticism</em>, we can create a quadratic term of <em>Neruoticism</em> and enter it into a linear regression model.</p>
+<p>To create a quadratic term,</p>
+<ol>
+<li>Click <strong>Data</strong> at the top</li>
+<li>Click <strong>Compute</strong></li>
+<li>In <em>Target Variable</em>, type the name of the new variable (e.g. Neuroticism_sq)</li>
+<li>Select <em>Neuroticism</em> from the <em>Variable</em> panel. The term <em>currentDataset$Neuroticism</em> will appear in the <em>Formula</em> panel</li>
+<li>Type <strong>^2</strong> at the end of the term</li>
+</ol>
+<p><img src="../img/create_quadratic.png" alt="Quadratic term" title="Quadratic term"></p>
+<ol start="6">
+<li>Click <strong>Code and Run</strong>. A new variable <em>Neuroticism_sq</em> will be created.</li>
+</ol>
+<p>The following code will be generated.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>Neuroticism_sq <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>Neuroticism^2
+</code></pre></div>
 </div>
 
 
@@ -209,6 +271,17 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
 
 <script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

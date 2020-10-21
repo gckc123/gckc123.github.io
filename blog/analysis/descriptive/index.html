@@ -109,9 +109,25 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
             
             
             
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
             <a class="navbar-item" href="/download">
                 
                 Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
                 
             </a>
             
@@ -169,9 +185,9 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
 
 <div class="container markdown top-pad">
     <p>This tutorial will give a short introduction on descriptive analysis using <strong>StatsNotebook</strong>. Descriptive statistcs such as mean, standard deviation, median and interquartile range can be easily obtained using the <strong>Explore</strong> panel.</p>
-<p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../data_management/load_example_data">here</a> or can be downloaded from <a href="../data_management/example_data/personality.csv">here</a>.</p>
-<p>The <strong>Personality</strong> dataset contains data from 231 participants, with measures on the Big 5 personality factors (<em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>neuroticism</em> and <em>Openness</em>), three measures of mental health (<em>Depression</em>, <em>Trait anxiety</em> and <em>State anxiety</em>). It also contains data on participants&rsquo; sex.</p>
-<p>We will first demonstrate how to generate simple <a href="#descriptive-statistics" title="Descriptive statistics">descriptive statistics</a>, and how to generate <a href="#descriptive-statistics-by-group" title="Descriptive statistics by group">descriptive statistics by group</a>.</p>
+<p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+<p>The <strong>Personality</strong> dataset contains data from 231 participants, with measures on the Big 5 personality factors (<em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>neuroticism</em> and <em>Openness</em>), and three measures of mental health (<em>Depression</em>, <em>Trait anxiety</em> and <em>State anxiety</em>). It also contains data on participants&rsquo; sex.</p>
+<p>We will demonstrate how to generate simple <a href="#descriptive-statistics" title="Descriptive statistics">descriptive statistics</a>, and how to generate <a href="#descriptive-statistics-by-group" title="Descriptive statistics by group">descriptive statistics by group</a>.</p>
 
 <h4 id="descriptive-statistics" class="anchor-link"><a href="#descriptive-statistics">Descriptive statistics</a></h4>
 <p>To calculate descriptive statistics,</p>
@@ -181,7 +197,7 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
 <li>Select <strong>Descriptive statistics</strong> on the menu</li>
 <li>Select variables into <strong>Target Variables</strong> on the right. In this example, we will select <em>Neuroticism</em>, <em>Depression</em> and <em>Sex</em>.
 <ul>
-<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
 </ul>
 </li>
 </ol>
@@ -265,7 +281,7 @@ currentDataset <span style="color:#666">%&gt;%</span>
   mis_Sex <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(<span style="color:#06287e">is.na</span>(Sex))
   )
 </code></pre></div><br/>
-<p>We firstly load all the necessary library for this analysis, and then calculate the sample size and missing data in each of the variables. The above codes produce the below summary. Overall, there are 213 row of data (<strong>N = 231</strong>). There are <strong>14</strong> missing data for <em>Neuroticism</em> and <strong>33</strong> missing data for <em>Depression</em>. There is no missing data for <em>Sex</em>.</p>
+<p>We firstly load all the necessary library for this analysis, and then calculate the sample size and missing data in each of the variables. The above codes produce the summary below. Overall, there are 231 row of data (<strong>N = 231</strong>). There are <strong>14</strong> missing data for <em>Neuroticism</em> and <strong>33</strong> missing data for <em>Depression</em>. There is no missing data for <em>Sex</em>.</p>
 <pre><code>######################################################
 [1] &quot;Sample size and missing data&quot;
 
@@ -321,7 +337,7 @@ currentDataset <span style="color:#666">%&gt;%</span>
 </code></pre></div><br/>
 <p>The top two plots are for <em>Neuroticism</em> and the bottom two for <em>Depression</em>. The left plots are normality plots. If the data is normally distributed, the points will roughly follow a straight line. The histograms on the right show the distribution of the variables. These plots show that the distribution of <em>Neuroticism</em> is roughly normal, but <em>Depression</em> is skewed to the right.</p>
 <p><img src="../img/descriptive_plots.png" alt="descriptive plot" title="Normality plots and histograms"></p>
-<p>Lastly, the following codes are used to calculate the counts for the categorical variable <em>Sex</em> and a simple bar graph.</p>
+<p>Lastly, the following codes are used to calculate the frequency count for the categorical variable <em>Sex</em> and to generate a simple bar graph.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Counts for categorical variables&#34;</span>
 
 currentDataset <span style="color:#666">%&gt;%</span>
@@ -346,27 +362,16 @@ currentDataset <span style="color:#666">%&gt;%</span>
 <p>In this example, we wil generate the descriptive statistics of <em>Neuroticism</em> and <em>Depression</em> by <em>Sex</em>.</p>
 <p>To do this, we can</p>
 <ol>
-<li>
-<p>Click <strong>Analysis</strong> at the top</p>
-</li>
-<li>
-<p>Click <strong>Explore</strong></p>
-</li>
-<li>
-<p>Select <strong>Descriptive statistics</strong> on the menu</p>
-</li>
-<li>
-<p>Select variables into <strong>Target Variables</strong> on the right. In this example, we will select <em>Neuroticism</em> and <em>Depression</em>.</p>
-</li>
-<li>
-<p>Select the grouping variable (<em>Sex</em>) into <strong>Split by</strong> box on the right.</p>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Explore</strong></li>
+<li>Select <strong>Descriptive statistics</strong> on the menu</li>
+<li>Select variables into <strong>Target Variables</strong> on the right. In this example, we will select <em>Neuroticism</em> and <em>Depression</em>.</li>
+<li>Select the grouping variable (<em>Sex</em>) into <strong>Split by</strong> box on the right.
 <ul>
 <li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
 </ul>
 </li>
-<li>
-<p>Expand the <strong>Statistics and plots</strong> panel, by default, <strong>mean</strong> and <strong>standard deviation</strong> are calculated for numeric variable (<em>Neuroticism</em> and <em>Depression</em>). Additional statistics, such as <strong>median</strong> and <strong>interquartile range</strong> can be requested here.</p>
-</li>
+<li>Expand the <strong>Statistics and plots</strong> panel, by default, <strong>mean</strong> and <strong>standard deviation</strong> are calculated for numeric variable (<em>Neuroticism</em> and <em>Depression</em>). Additional statistics, such as <strong>median</strong> and <strong>interquartile range</strong> can be requested here.</li>
 </ol>
 
 <h5 id="r-codes---descriptive-statistics-by-group" class="anchor-link"><a href="#r-codes---descriptive-statistics-by-group">R codes - Descriptive statistics by group</a></h5>
@@ -465,6 +470,17 @@ currentDataset <span style="color:#666">%&gt;%</span>
 
 <script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

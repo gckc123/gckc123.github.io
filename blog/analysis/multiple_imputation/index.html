@@ -109,9 +109,25 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
             
             
             
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
             <a class="navbar-item" href="/download">
                 
                 Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
                 
             </a>
             
@@ -179,6 +195,7 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
 <li><strong>sub_disorder</strong> represents diagnosis of substance use disorder in young adulthood and it was coded as &ldquo;0: No: and &ldquo;1: Yes&rdquo;.</li>
 <li><strong>conflict</strong> represents level of family conflict. It will be used as a covariate in this analysis.</li>
 </ol>
+<p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
 <p>Prior to imputing missing data, all categorical variables need to be specified as <strong>categorical</strong> (i.e. <strong>factor</strong> variable in R). See <a href="../../data_management/variable_conversion">this</a> for instructions to convert variable type .</p>
@@ -298,6 +315,17 @@ Buuren, S. v. and K. Groothuis-Oudshoorn (2010). mice: Multivariate imputation b
 
 <script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

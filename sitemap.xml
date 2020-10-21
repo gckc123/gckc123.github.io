@@ -27,31 +27,56 @@
   
   <url>
     <loc>https://statsnotebook.io/tags/analysis/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/linear_mixed_model/</loc>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/linear-model/</loc>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/r-code/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/regression/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/blog/analysis/robust_regression/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/</loc>
-    <lastmod>2020-09-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/compute_variable/</loc>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/data-management/</loc>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/</loc>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/robust_regression/</loc>
     <lastmod>2020-09-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -86,11 +111,6 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/tags/data-management/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/blog/data_management/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
@@ -116,21 +136,6 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/blog/data_management/compute_variable/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/blog/analysis/linear_mixed_model/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/linear-model/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/blog/data_management/load_example_data/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
@@ -142,11 +147,6 @@
   
   <url>
     <loc>https://statsnotebook.io/blog/data_management/variable_conversion/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -176,6 +176,10 @@
   
   <url>
     <loc>https://statsnotebook.io/download/</loc>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/consultation/</loc>
   </url>
   
 </urlset>

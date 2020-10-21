@@ -6,10 +6,19 @@
     <description>Recent content in regression on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/regression/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linear mixed model (Multilevel model)</title>
+      <link>https://statsnotebook.io/blog/analysis/linear_mixed_model/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
+      <description>Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on moderation analysis, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are nested within postcode.</description>
+    </item>
     
     <item>
       <title>Robust regression</title>
@@ -42,22 +51,13 @@ Example research questions  Is the effect of psychotherapy (independent variable
     </item>
     
     <item>
-      <title>Linear mixed model (Multilevel linear model)</title>
-      <link>https://statsnotebook.io/blog/analysis/linear_mixed_model/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
-      <description>Coming soon&amp;hellip;</description>
-    </item>
-    
-    <item>
       <title>Linear Regression</title>
       <link>https://statsnotebook.io/blog/analysis/regression/</link>
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression/</guid>
       <description>Linear regression is a technique for examining the relationship between a dependent variable (outcome) and a set of independent variables (predictors). This tutorial demonstrates how to conduct a linear regression in StatsNotebook using the following example. We will also provide an example write-up in APA styles.
-Example research questions  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression? Is sex associated with depression?  In this setup, the dependent variable is depression, the independent variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex.</description>
+Example research questions  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression? Is sex associated with depression? (i.</description>
     </item>
     
     <item>

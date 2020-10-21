@@ -19,16 +19,7 @@
       <guid>https://statsnotebook.io/blog/analysis/descriptive/</guid>
       <description>This tutorial will give a short introduction on descriptive analysis using StatsNotebook. Descriptive statistcs such as mean, standard deviation, median and interquartile range can be easily obtained using the Explore panel.
 We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
-The Personality dataset contains data from 231 participants, with measures on the Big 5 personality factors (Agreeableness, Conscientiousness, Extraversion, neuroticism and Openness), three measures of mental health (Depression, Trait anxiety and State anxiety).</description>
-    </item>
-    
-    <item>
-      <title>Descriptive statistics</title>
-      <link>https://statsnotebook.io/blog/data_management/compute_variable/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/data_management/compute_variable/</guid>
-      <description>Coming soon&amp;hellip;</description>
+The Personality dataset contains data from 231 participants, with measures on the Big 5 personality factors (Agreeableness, Conscientiousness, Extraversion, neuroticism and Openness), and three measures of mental health (Depression, Trait anxiety and State anxiety).</description>
     </item>
     
   </channel>

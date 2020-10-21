@@ -109,9 +109,25 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
             
             
             
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
             <a class="navbar-item" href="/download">
                 
                 Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
                 
             </a>
             
@@ -173,9 +189,9 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
 <ol>
 <li>Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</li>
-<li>Is sex associated with depression?</li>
+<li>Is sex associated with depression? (i.e. Is there sex difference in depression?)</li>
 </ol>
-<p>In this setup, the <em>dependent</em> variable is depression, the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex.</p>
+<p>In this setup, the <em>dependent</em> variable is depression, the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by <strong>linear regression</strong>.</p>
 <p>We will firstly show the R codes for this analysis below, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
@@ -212,7 +228,7 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 </code></pre></div><br/>
 
 <h4 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h4>
-<p>Prior to running the linear regression analysis, it is always a good practice to <a href="/blog/dataviz/correlogram">visualise the data</a> and conduct <a href="../descriptive">descriptive analysis</a>.</p>
+<p>Prior to running the linear regression analysis, it is always a good practice to <a href="/blog/dataviz">visualise the data</a> and conduct <a href="../descriptive">descriptive analysis</a>.</p>
 <p>To run a linear regression,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top;</li>
@@ -302,7 +318,7 @@ SexMale           -0.87264    0.88739  -0.983   0.3270
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre><br/>
-<p>Emphasis should be placed on the 95% confidence interval of these coefficients because statistical significance provides no information about the effect size. From this analysis, we are 95% confident that the effect of neuroticism on depression is between 0.11 and 0.18. The 95% confidence interval for openness is (-0.103, -0.006). Thus the effect of openness could be close to zero because one end of the confidence interval (the upper end in this case).</p>
+<p>Emphasis should be placed on the 95% confidence interval of these coefficients because statistical significance provides no information about the effect size. From this analysis, we are 95% confident that the effect of neuroticism on depression is between 0.11 and 0.18. The 95% confidence interval for openness is (-0.103, -0.006). Thus the effect of openness could be close to zero because one end of the confidence interval (the upper end in this case) is very close to zero.</p>
 <br/>
 <pre><code>                                    2.5 %       97.5 %
 (Intercept)        7.98352411  0.91909104 15.047957174
@@ -360,7 +376,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 </code></pre></div><br/>
 <p>Below is a set of diagnostic plots.</p>
 <p><img src="../img/diagnostic2.png" alt="Diagnostic plot 2" title="A set of diagnostic plots"></p>
-<p>The residuals are plotted against each of the indepedent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. Examples of residual plots that demonstrate violation of the linearity assumption and homoscedasticity assumption can be found <a href="../linearity_homoscedasticity">here</a>.</p>
+<p>The residuals are plotted against each of the indepedent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See <a href="../linearity_homoscedasticity">Residual plots and assumption checking</a> for examples of plots that demonstrate violation of the linearity assumption and homoscedasticity assumption.</p>
 <p>The following is the results from curvature tests for each of the variables. A quadratic term is added to each of the plots and a curvature test tests if the quadratic term is zero. A test with a p-value &lt; .01 may indicate the present of a non-linear trend (U-shape or inverted U-shape).</p>
 <pre><code>                  Test stat Pr(&gt;|Test stat|)  
 Agreeableness       -1.0679          0.28730  
@@ -387,7 +403,7 @@ vif(res)
 
 </code></pre><br/>
 
-<h4 id="example-write-up" class="anchor-link"><a href="#example-write-up">Example write-up</a></h4>
+<h4 id="example-write-up-apa-style" class="anchor-link"><a href="#example-write-up-apa-style">Example write-up (APA style)</a></h4>
 <p>Table 1. Results from linear regression.</p>
 <table>
 <thead>
@@ -443,7 +459,7 @@ vif(res)
 </tr>
 </tbody>
 </table>
-<p>Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Reults are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.14, 95% CI [0.11, 0.18], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.05, 95% CI [-0.10, -0.01], <em>p</em> = .028) are associated with depression. Other variables are not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of variance in depression.</p>
+<p>Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Reults are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.14, 95% CI [0.11, 0.18], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.05, 95% CI [-0.10, -0.01], <em>p</em> = .028) are associated with depression. Other variables are not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of variance in depression. Analyses are conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020).</p>
 
 <h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
 <pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
@@ -488,6 +504,17 @@ Chan, G (2020). Linear regression. Retrieved from https://www.statsnotebook.io/b
 
 <script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
