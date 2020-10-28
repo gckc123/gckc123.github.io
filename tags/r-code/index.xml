@@ -6,10 +6,81 @@
     <description>Recent content in R code on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/r-code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Line chart</title>
+      <link>https://statsnotebook.io/blog/dataviz/line_graph/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/line_graph/</guid>
+      <description>Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
+We use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
+We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions.</description>
+    </item>
+    
+    <item>
+      <title>Reshaping data</title>
+      <link>https://statsnotebook.io/blog/data_management/reshape/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/data_management/reshape/</guid>
+      <description>This tutorial will provide step-by-step guide on reshaping the data from
+ Wide to Long Long to Wide  Wide to Long We will use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
+This dataset contains the following variables
+ Region - Region from which the Human Development Index is calculated HDI_1990, &amp;hellip; , HDI_2018 - Human Development Index from 1990 to 2018 GDP_1990, &amp;hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018  This dataset is in wide format because each row contains data from multiple years (e.</description>
+    </item>
+    
+    <item>
+      <title>Scatterplot</title>
+      <link>https://statsnotebook.io/blog/dataviz/scatterplot/</link>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/scatterplot/</guid>
+      <description>Scatterplot can be used to visualise the association between two numeric variables. StatsNotebook uses the geom_jitter function from the ggplot2 library to build scatterplot.
+We use the built-in UNDP dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a dataset of 199 countries compiled from the United Nations Development Programme.
+We will use the following three variables from this dataset
+ HDI - Human Development Index in 2018 GDP - Gross Domestic Product per capital in 2018 Pop - Population (in millions) in 2018 Continent - Continent Schooling - Expected years of schooling  In this example, we will build</description>
+    </item>
+    
+    <item>
+      <title>Barchart</title>
+      <link>https://statsnotebook.io/blog/dataviz/barchart/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/barchart/</guid>
+      <description>Bar chart can be used to visualise the frequency or proportion of categorical variables. StatsNotebook uses the geom_bar() from ggplot2 to build bar chart.
+We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
+We will use the following three variables from this dataset
+ alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+    </item>
+    
+    <item>
+      <title>Histogram</title>
+      <link>https://statsnotebook.io/blog/dataviz/histogram/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/histogram/</guid>
+      <description>Histogram can be used to show the distribution of numeric variable. StatsNotebook uses geom_histogram() from ggplot2 to build density plot.
+We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
+We will use the following three variables from this dataset
+ alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+    </item>
+    
+    <item>
+      <title>Density plot</title>
+      <link>https://statsnotebook.io/blog/dataviz/density/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/density/</guid>
+      <description>Density plot can be used to show the distribution of numeric variable. StatsNotebook uses geom_density() from ggplot2 to build density plot.
+We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
+We will use the following three variables from this dataset
+ alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+    </item>
     
     <item>
       <title>Linear mixed model (Multilevel model)</title>
@@ -72,6 +143,18 @@ Example research questions  Is the effect of psychotherapy (independent variable
     </item>
     
     <item>
+      <title>Boxplot</title>
+      <link>https://statsnotebook.io/blog/dataviz/boxplot/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/boxplot/</guid>
+      <description>Boxplot is commonly used to compare distribution of a numeric variables across several groups. StatsNotebook uses geom_boxplot() from ggplot2 to build boxplot.
+We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
+We will use the following three variables from this dataset
+ alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+    </item>
+    
+    <item>
       <title>Correlogram</title>
       <link>https://statsnotebook.io/blog/dataviz/correlogram/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
@@ -111,6 +194,18 @@ Coefficients: Estimate Std.</description>
       <guid>https://statsnotebook.io/blog/data_management/variable_conversion/</guid>
       <description>There are four major variable types in StatsNotebook: Categorical, Numeric, Date and Character. By default, when data is loaded into StatsNotebook, the variables are either Numeric or Character variables.
 Categorical variables Categorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc. For many analyses, we will also need to specify the reference category</description>
+    </item>
+    
+    <item>
+      <title>Violin plot</title>
+      <link>https://statsnotebook.io/blog/dataviz/violinplot/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/violinplot/</guid>
+      <description>Violin plot can be used to visualise the distribution of a numeric variable across several groups. StatsNotebook uses geom_violin() from ggplot2 to build violin plot.
+We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
+We will use the following three variables from this dataset
+ alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
     </item>
     
     <item>

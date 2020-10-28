@@ -141,27 +141,88 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
                 
     <div class="container markdown top-pad">
         <p>DataViz in <strong>StatsNotebook</strong> is largely based on ggplot2. Publication ready plots and figures are just a few clicks away.</p>
-<ul>
-<li><a href="./correlogram">Correlogram</a></li>
-</ul>
+
+<h4 id="numeric" class="anchor-link"><a href="#numeric">Numeric</a></h4>
+<br/>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="./density">Density</a>
+        <a href="./density"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/density_by_group.png" alt="density plot"></a>
+    </div>
+    <div>
+        <a href="./histogram">Histogram</a>
+        <a href="./histogram"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/histogram_by_group.png" alt="histogram"></a>
+    </div>
+    <div>
+        <a href="./boxplot">Boxplot</a>
+        <a href="./boxplot"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/boxplot_by_2groups.png" alt="boxplot"></a>
+    </div>
+    <div>
+        <a href="./violinplot">Violin plot</a>
+        <a href="./violinplot"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/violinplot_by_2groups.png" alt="violin plot"></a>
+    </div>
+</div>
+
+<h4 id="categorical" class="anchor-link"><a href="#categorical">Categorical</a></h4>
+<br/>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="./barchart">Bar Chart</a>
+        <a href="./barchart"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/simple_barchart.png" alt="bar chart"></a>
+    </div>
+    <div>
+        <a href="./barchart/#grouped-bar-chart">Grouped Bar Chart</a>
+        <a href="./barchart/#grouped-bar-chart"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/grouped_barchart.png" alt="grouped bar chart"></a>
+    </div>
+    <div>
+        <a href="./barchart/#stacked-bar-chart">Stacked Bar Chart</a>
+        <a href="./barchart/#stacked-bar-chart"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/stacked_barchart.png" alt="stacked bar chart"></a>
+    </div>
+</div>
+
+<h4 id="correlation" class="anchor-link"><a href="#correlation">Correlation</a></h4>
+<br/>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="./scatterplot">Scatterplot</a>
+        <a href="./scatterplot"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/scatterplot_with_line.png" alt="scatterplot"></a>
+    </div>
+    <div>
+        <a href="./scatterplot/#bubble-plot">Bubble plot</a>
+        <a href="./scatterplot/#bubble-plot"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/bubble_plot2.png" alt="Bubble plot"></a>
+    </div>
+    <div>
+        <a href="./correlogram">Correlogram</a>
+        <a href="./correlogram"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/correlogram3.png" alt="correlogram"></a>
+    </div>
+</div>
+
+<h4 id="line" class="anchor-link"><a href="#line">Line</a></h4>
+<br/>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="./Line_graph">Line Chart</a>
+        <a href="./Line_graph"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/line_chart_by_group.png" alt="line graph"></a>
+    </div>
+</div>
 
     </div>
     <div class="container">
         
         <h2 class="title is-2 top-pad">Latest Post</h2>
         
-        <div class="summary">20 Sep, 2020
+        <div class="summary">27 Oct, 2020
             <h3 class="title is-3 strong-post-title">
-                <a href="https://statsnotebook.io/blog/dataviz/correlogram/">
-                    Correlogram
+                <a href="https://statsnotebook.io/blog/dataviz/line_graph/">
+                    Line chart
                 </a>
             </h3>
             <div class="markdown">
-                Correlogram is a type of chart that visualise the pairwise association between variables. StatsNotebook uses the ggpairs() function from the GGally library to build correlogram. A publication ready correlogram can be built within a few minutes with StatsNotebook.
-We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
-In this example, we will build a simple correlogram to visualise the relationship between four variables (three personality variables: Conscientiousness, Neuroticism, Openness and one mental health variable: Depression).
+                Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
+We use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
+We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions.
                 
-                <a href="https://statsnotebook.io/blog/dataviz/correlogram/">Read more</a>
+                <a href="https://statsnotebook.io/blog/dataviz/line_graph/">Read more</a>
                 
             </div>
         </div>
@@ -171,19 +232,23 @@ In this example, we will build a simple correlogram to visualise the relationshi
         <h2 class="title is-2 top-pad">All Posts</h2>
         
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/analysis/">Analysis</a></span> - <span>23 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/reshape/">Reshaping data</a></span> - <span>27 Oct, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/dataviz/">DataViz</a></span> - <span>20 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/compute_variable/">Compute variables</a></span> - <span>16 Oct, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/data_management/">Data Management</a></span> - <span>20 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/variable_conversion/">Variable types in R and StatsNotebook</a></span> - <span>20 Sep, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/betarelease/">Beta version now available</a></span> - <span>18 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/set_reference/">Set reference for categorical variables</a></span> - <span>20 Sep, 2020</span>
+    </li>
+
+    <li class="post-item">
+        <span><a href="https://statsnotebook.io/blog/data_management/load_example_data/">Load Example Data</a></span> - <span>20 Sep, 2020</span>
     </li>
 
 

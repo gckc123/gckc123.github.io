@@ -26,6 +26,61 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/tags/data-management/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/dataviz/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/line_graph/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/r-code/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/reshape/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/scatterplot/</loc>
+    <lastmod>2020-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/barchart/</loc>
+    <lastmod>2020-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/histogram/</loc>
+    <lastmod>2020-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/density/</loc>
+    <lastmod>2020-10-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/tags/analysis/</loc>
     <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
@@ -41,32 +96,12 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/tags/r-code/</loc>
-    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/tags/regression/</loc>
     <lastmod>2020-10-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/</loc>
-    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/</loc>
-    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/blog/data_management/compute_variable/</loc>
-    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/data-management/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -106,17 +141,17 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/blog/dataviz/boxplot/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/blog/dataviz/correlogram/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/blog/data_management/</loc>
-    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/dataviz/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -147,6 +182,11 @@
   
   <url>
     <loc>https://statsnotebook.io/blog/data_management/variable_conversion/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/violinplot/</loc>
     <lastmod>2020-09-20T00:00:00+00:00</lastmod>
   </url>
   

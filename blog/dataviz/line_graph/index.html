@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Line Chart - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Line chart - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/dataviz/line_graph/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.c285da496bdc6eb125783ccd84751cbcdd365cb368c74109eccf557310b03bf7.css" integrity="sha256-woXaSWvcbrEleDzNhHUcvN02XLNox0EJ7M9VcxCwO/c=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/dataviz/line_graph/">Line chart</a>
+    </h2>
+    <div class="post-data">
+        27 Oct, 2020 |
+        2 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Line%20chart%20https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fline_graph%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fline_graph%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/dataviz">DataViz</a>,
+        
+        <a href="/tags/r-code">R code</a>
+        
+    </p>
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>Line chart can be used to show the evoluation of <strong>numeric</strong> variables. <strong>StatsNotebook</strong> uses <code>geom_line()</code> from <code>ggplot2</code> to build line chart.</p>
+<p>We use the built-in <strong>Human Development Index</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a>. This is a data from the United Nations Development Programmes (UNDP).</p>
+<p>We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions. This dataset contains the following variables</p>
+<ol>
+<li>Region - Region from which the Human Development Index is calculated</li>
+<li>HDI_1990, &hellip; , HDI_2018 - Human Development Index from 1990 to 2018</li>
+<li>GDP_1990, &hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018</li>
+</ol>
+<p>This data is in wide format</p>
+<p><img src="../img/wide_data.png" alt="Wide data format"></p>
+<p>And we will need to <a href="../../data_management/reshape">reshape it to a long format</a>.</p>
+<p><img src="../img/long_data.png" alt="long data format"></p>
+<p>There will be only 4 variables after <a href="../../data_management/reshape">reshaping the data</a>.</p>
+<ol>
+<li>Region - Region from whcih the Human Development Index is calcuated</li>
+<li>Year - Year</li>
+<li>HDI - Human Development Index</li>
+<li>GDP - Gross Domestic Product per capita</li>
+</ol>
+<p>In this example, we will visualise the evolution of Human Development Index across six world regions.</p>
+
+<h5 id="line-chart-by-a-grouping-variable" class="anchor-link"><a href="#line-chart-by-a-grouping-variable">Line Chart by a grouping variable</a></h5>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Line</strong></li>
+<li>Select <strong>Line graph/ Time Series</strong></li>
+<li>In the line graph panel, select <em>HDI</em> to <em>Vertical Axis</em>, <em>Year</em> to <em>Horizontal Axis</em> and <em>Region</em> to <em>Fill color</em>.
+<ul>
+<li><em>Year</em> can be treated as a numeric variable and <em>Region</em> is a categorical variable. If these variables are not yet coded as <strong>numeric</strong> and <strong>factor</strong> respectively, you will need to manually <a href="../data_management/variable_conversion">covert them</a> into the correct variable type.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong>.</li>
+</ol>
+<p><img src="../img/line_chart_instruction.png" alt="line chart instruction" title="Line chart by group"></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Region) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Year, color <span style="color:#666">=</span> Region)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_line</span>(na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, size <span style="color:#666">=</span> <span style="color:#40a070">1</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+<span style="color:#4070a0">&#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes" class="anchor-link"><a href="#output-from-the-above-r-codes">Output from the above R codes</a></h5>
+<p><img src="../img/line_chart_by_group.png" alt="line graph by group"></p>
+
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

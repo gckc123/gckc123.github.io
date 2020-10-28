@@ -6,10 +6,22 @@
     <description>Recent content in Data Management on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/data-management/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reshaping data</title>
+      <link>https://statsnotebook.io/blog/data_management/reshape/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/data_management/reshape/</guid>
+      <description>This tutorial will provide step-by-step guide on reshaping the data from
+ Wide to Long Long to Wide  Wide to Long We will use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
+This dataset contains the following variables
+ Region - Region from which the Human Development Index is calculated HDI_1990, &amp;hellip; , HDI_2018 - Human Development Index from 1990 to 2018 GDP_1990, &amp;hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018  This dataset is in wide format because each row contains data from multiple years (e.</description>
+    </item>
     
     <item>
       <title>Compute variables</title>
