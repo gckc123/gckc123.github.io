@@ -180,7 +180,7 @@ Residual Plots and Assumption Checking - StatsNotebook - Simple. Powerful. Repro
 </div>
 
 <div class="container markdown top-pad">
-    <p>Residual plot is an essential tool for checking the assumption of linearity and homoscedasticity. THe following is examples of residual plots when (1) the assumptions are met, (2) the homoscedasticity assumption is violated and (3) the linearity assumption is violated.</p>
+    <p>A residual plot is an essential tool for checking the assumption of linearity and homoscedasticity. The following are examples of residual plots when (1) the assumptions are met, (2) the homoscedasticity assumption is violated and (3) the linearity assumption is violated.</p>
 
 <h4 id="assumption-met" class="anchor-link"><a href="#assumption-met">Assumption met</a></h4>
 <p>When both the assumption of linearity and homoscedasticity are met, the points in the residual plot (plotting standardised residuals against predicted values) will be randomly scattered.</p>
@@ -192,10 +192,10 @@ Residual Plots and Assumption Checking - StatsNotebook - Simple. Powerful. Repro
 <p><img src="../img/fanning_out_resid.png" alt="Fanning out residuals" title="Fanning out residuals"></p>
 <p>In the second plot, the variance (i.e. spread) of the residuals decreases as the predicted values increase.</p>
 <p><img src="../img/fanning_in_resid.png" alt="Fanning in residuals" title="Fanning in residuals"></p>
-<p>Heteroscedasity usually does not cause bias in the model estimates (i.e. regression coefficients), but it reduces precision in the esimates. The standard errors are often underestimated, leading to incorrect p-value and inference.</p>
+<p>Heteroscedasticity usually does not cause bias in the model estimates (i.e. regression coefficients), but it reduces precision in the estimates. The standard errors are often underestimated, leading to incorrect p-values and inferences.</p>
 
 <h5 id="how-to-fix-heteroscedasticity" class="anchor-link"><a href="#how-to-fix-heteroscedasticity">How to fix heteroscedasticity</a></h5>
-<p>There is no bullet-proof way to fix heteroscedasticity. But there are two commons way that may reduce the problems.</p>
+<p>There is no bullet-proof way to fix heteroscedasticity. But there are two commons way that may reduce the problem.</p>
 <ol>
 <li>Conduct a <a href="../robust_regression" title="robust regression">robust regression</a> with robust standard error.</li>
 <li>Transform the dependent variable. For example, when there is a fanning out pattern in the residual plot, applying a <a href="../../data_management/compute_variable/#log-transformation" title="log transformation">log-transformation</a> on the dependent variable may mitigate the problem.</li>
@@ -206,7 +206,7 @@ Residual Plots and Assumption Checking - StatsNotebook - Simple. Powerful. Repro
 <p><img src="../img/nonlinear_resid.png" alt="non-linearity" title="non-linearity"></p>
 
 <h5 id="how-to-fix-non-linearity" class="anchor-link"><a href="#how-to-fix-non-linearity">How to fix non-linearity</a></h5>
-<p>There is no bullet-proof way to fix non-linearity. If there are multiple independent variables in a regression analysis, the first step is to identify the target independent variable that has a non-linearity relationship with the dependent variable. The trasgressing variable can usually be identified using the <a href="../regression/#r-codes-explained---model-diagnostic" title="curvature test">curvature test</a> after the regression analysis. Once the transgressing variable is identified, its quadratice term (i.e. square term of the original variable) can be entered into the regression model.</p>
+<p>There is no bullet-proof way to fix non-linearity. If there are multiple independent variables in a regression analysis, the first step is to identify the target independent variable that has a non-linear relationship with the dependent variable. The transgressing variable can usually be identified using the <a href="../regression/#r-codes-explained---model-diagnostic" title="curvature test">curvature test</a> after regression analysis. Once the transgressing variable is identified, its quadratic term (i.e. the squared term of the original variable) can be entered into the regression model.</p>
 <p>Suppose the transgressing variable is <strong>x</strong>, its quadratic term can be created using the following line of code.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>x_sq <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>x^2
 </code></pre></div><br/>

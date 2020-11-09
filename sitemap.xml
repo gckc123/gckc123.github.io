@@ -121,6 +121,11 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/blog/analysis/mediation/</loc>
     <lastmod>2020-09-23T00:00:00+00:00</lastmod>
   </url>
@@ -216,6 +221,10 @@
   
   <url>
     <loc>https://statsnotebook.io/download/</loc>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</loc>
   </url>
   
   <url>

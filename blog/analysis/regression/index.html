@@ -184,15 +184,15 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
 </div>
 
 <div class="container markdown top-pad">
-    <p>Linear regression is a technique for examining the relationship between a <em>dependent variable</em> (<em>outcome</em>) and a set of <em>independent variables</em> (<em>predictors</em>). This tutorial demonstrates how to conduct a linear regression in <strong>StatsNotebook</strong> using the following example. We will also provide an example write-up in APA styles.</p>
+    <p>Linear regression is a technique for examining the relationship between a <em>dependent variable</em> (<em>outcome</em>) and a set of <em>independent variables</em> (<em>predictors</em>). This tutorial demonstrates how to conduct a linear regression in <strong>StatsNotebook</strong> using the following example. We will also provide an example write-up in APA style.</p>
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
 <ol>
 <li>Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</li>
-<li>Is sex associated with depression? (i.e. Is there sex difference in depression?)</li>
+<li>Is sex associated with depression? (i.e. Is there sex differences in depression?)</li>
 </ol>
-<p>In this setup, the <em>dependent</em> variable is depression, the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by <strong>linear regression</strong>.</p>
-<p>We will firstly show the R codes for this analysis below, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+<p>In this setup, the <em>dependent</em> variable is depression; the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by <strong>linear regression</strong>.</p>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -236,7 +236,7 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 <li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em>, <em>Openness</em> and <em>Sex</em> into <em>Covariates</em>.
 <ul>
 <li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
-<li>Female is chosen as the <strong>reference</strong> level for sex by default. To change the refernece level, see <a href="../../data_management/set_reference">this</a>.</li>
+<li>Female is chosen as the <strong>reference</strong> level for sex by default. To change the reference level, see <a href="../../data_management/set_reference">this</a>.</li>
 </ul>
 </li>
 <li>Click <strong>Code and Run</strong> at top. The above R code will be generated in a block on the right panel and the results will be presented below the R codes.</li>
@@ -250,8 +250,8 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 <span style="color:#06287e">summary</span>(res)
 <span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
 </code></pre></div><br/>
-<p>These codes tell R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
-<p>These codes produce the below model summary.</p>
+<p>This code tell R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>This code produces the model summary below.</p>
 <pre><code>######################################################
 
 Call:
@@ -295,16 +295,16 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 </code></pre><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>The R-sq indicates that the model explains 33.19% of variance in depression. It should be noted that 76 observations have missing data and thus are removed. See <a href="../regression_missingdata">Regression with missing data</a> to more appropriately handle the missing data in this analysis.</p>
+<p>The R-sq indicates that the model explains 33.19% of the variance in depression. It should be noted that 76 observations have missing data and thus have been removed from the analysis. See <a href="../regression_missingdata">Regression with missing data</a> for a more appropriate way to handle the missing data in this analysis.</p>
 <pre><code>Residual standard error: 5.091 on 148 degrees of freedom
   (76 observations deleted due to missingness)
 Multiple R-squared:  0.3319,	Adjusted R-squared:  0.3048 
 F-statistic: 12.26 on 6 and 148 DF,  p-value: 3.608e-11
 </code></pre><br/>
 <p>The model coefficients are shown in the section below.</p>
-<p>The p-value provides an indication of level of evidence against a null effect (i.e. zero association) for each of the variables. Traditionally, a p-value under 0.05 represents a statistically significant finding. It should be noted that there are debates on how the p-value should be used, and conclusion should <strong>not</strong> be solely relied on the p-value.</p>
-<p>There is evidence that higher level of neuroticism is associated with higher level of depression. The coefficient of neuroticism is 0.14, indicating that one unit increase in neuroticism is associated with 0.14 unit decrease in depression. The result also shows that higher level of openness is associated with lower level of depression. The coefficient of openness is -0.05, indicating that one unit increase in openness is associated with 0.05 unit decrease in depression.  The other three traits, agreeableness, conscientiousness and extraversion are not significantly associated with depression. The estimated coefficients are very close to zero.</p>
-<p>Using a significance level of 0.05, we conclude that openness and neuroticism are significantly associated with depression, but agreeableness, conscientiousness and extraversion are not. Males on average have 0.87 unit lower in depression than female, but the effect is not statistically significant.</p>
+<p>The p-value provides an indication of the level of evidence against a null effect (i.e. zero association) for each of the variables. Traditionally, a p-value under 0.05 represents a statistically significant finding. It should be noted that there is debate on how the p-value should be used, and conclusion should <strong>not</strong> be drawn solely relied on the p-value.</p>
+<p>There is evidence that a higher level of neuroticism is associated with a higher level of depression. The coefficient of neuroticism is 0.14, indicating that one unit increase in neuroticism is associated with 0.14 unit decrease in depression. The result also shows that a higher level of openness is associated with a lower level of depression. The coefficient of openness is -0.05, indicating that one unit increase in openness is associated with 0.05 unit decrease in depression.  The other three traits, agreeableness, conscientiousness and extraversion are not significantly associated with depression. The estimated coefficients are very close to zero.</p>
+<p>Using a significance level of 0.05, we conclude that openness and neuroticism are significantly associated with depression, but agreeableness, conscientiousness and extraversion are not. Males on average have 0.87 unit lower in depression than females, but the effect is not statistically significant.</p>
 <br/>
 <pre><code>Coefficients:
                   Estimate Std. Error t value Pr(&gt;|t|)    
@@ -331,7 +331,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 </code></pre><br/>
 
 <h4 id="r-codes-explained---model-diagnostic" class="anchor-link"><a href="#r-codes-explained---model-diagnostic">R codes explained - Model diagnostic</a></h4>
-<p>To evaluate the validity of the above results, we will need to check if the assumptions of linear regression is satisfied. There are four key assumptions of linear regression.</p>
+<p>To evaluate the validity of the above results, we will need to check if the assumptions of linear regression are satisfied. There are four key assumptions of linear regression.</p>
 <ul>
 <li>Linearity</li>
 <li>Homoscedasticity (constant variance of the residuals)</li>
@@ -339,7 +339,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 <li>Independence of observations</li>
 </ul>
 <p>The <strong>independence</strong> assumption can be ensured if the sample is a random sample. When there is dependency in the data, other statistical methods, such as <a href="../linear_mixed_model">Linear mixed model</a> can be used.</p>
-<p>In addition, we also need to check of multicollinearity, outliers and/or influential observations (i.e. observations that may have large impact on the model coefficients).</p>
+<p>In addition, we also need to check of multicollinearity, outliers and/or influential observations (i.e. observations that may have a large impact on the model coefficients).</p>
 <p>To check the other three assumptions (i.e. Linearity, homoscedasticity and normality) and perform model diagnostic, we will need to use several functions from the <strong>car</strong> library. To load this library, we use the following code.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(car)
 </code></pre></div><br/>
@@ -347,14 +347,14 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstandard</span>(res)
 <span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
 </code></pre></div><br/>
-<p>All the points should be randomly scattered around 0, with approximately 95% of the points fall betweem -2 and 2 standardized residuals. Points with a large standardized residual might be outliers.</p>
+<p>All the points should be randomly scattered around 0, with approximately 95% of the points fall between -2 and 2 standardized residuals. Points with a large standardized residual might be outliers.</p>
 <p><img src="../img/residual.png" alt="Residual plot" title="Residual plot"></p>
 <p>The following lines of codes allow us to examine if there are outliers and if there are any observations that might have large influence on the model estimates.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&#34;</span>
 <span style="color:#06287e">outlierTest</span>(res)
 <span style="color:#06287e">infIndexPlot</span>(res)
 </code></pre></div><br/>
-<p>These codes firstly produce results from an outlier test. While there is no clear guideline on the cut-off, observations with a Bonferroni p &lt; .01 might need further investigation. For example, these observations will need to be checked for errors. Researchers can also perform sensitivity analyses with these observations removed and compare the results from the full analysis.</p>
+<p>This code first produces results from an outlier test. While there is no clear guideline on the cut-off, observations with a Bonferroni corrected p-value &lt; .01 might need further investigation. For example, these observations will need to be checked for errors. Researchers can also perform sensitivity analyses by removing the outliers and comparing the results from the full analysis with their inclusion.</p>
 <pre><code>######################################################
 [1] &quot;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&quot;
 
@@ -365,9 +365,9 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 
 ######################################################
 </code></pre><br/>
-<p>The following plot is produced by the <strong>infIndexPlot</strong> function. We focus on the top panel on <strong>Cook&rsquo;s distance</strong>. Observations with a <strong>Cook&rsquo;s distance</strong> close to 1 indicates high impact on the model coefficients. There is no influence observation in this analysis despite the existance of two observations with large residuals.</p>
+<p>The following plot is produced by the <strong>infIndexPlot</strong> function. We focus on the top panel on <strong>Cook&rsquo;s distance</strong>. Observations with a <strong>Cook&rsquo;s distance</strong> close to 1 indicates a high impact on the model coefficients. There is no influence observation in this analysis despite the existence of two observations with large residuals.</p>
 <p><img src="../img/diagnosticplot.png" alt="Diagnostic plot" title="Diagnostic plot"></p>
-<p>The following codes are used to produce more diagnostic plots and a normality plot.</p>
+<p>The following code is used to produce more diagnostic plots and a normality plot.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
 <span style="color:#06287e">residualPlots</span>(res)
 <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">as.data.frame</span>(res.std), <span style="color:#06287e">aes</span>(sample <span style="color:#666">=</span> res.std)) <span style="color:#666">+</span>
@@ -376,8 +376,8 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 </code></pre></div><br/>
 <p>Below is a set of diagnostic plots.</p>
 <p><img src="../img/diagnostic2.png" alt="Diagnostic plot 2" title="A set of diagnostic plots"></p>
-<p>The residuals are plotted against each of the indepedent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See <a href="../linearity_homoscedasticity">Residual plots and assumption checking</a> for examples of plots that demonstrate violation of the linearity assumption and homoscedasticity assumption.</p>
-<p>The following is the results from curvature tests for each of the variables. A quadratic term is added to each of the plots and a curvature test tests if the quadratic term is zero. A test with a p-value &lt; .01 may indicate the present of a non-linear trend (U-shape or inverted U-shape).</p>
+<p>The residuals are plotted against each of the indepedent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See <a href="../linearity_homoscedasticity">Residual plots and assumption checking</a> for examples of plots that demonstrate a violation of the linearity assumption and the homoscedasticity assumption.</p>
+<p>The following are the results from curvature tests for each of the variables. A quadratic term is added to each of the plots and a curvature test tests if the quadratic term is zero. A test with a p-value &lt; .01 may indicate the presence of a non-linear trend (U-shape or inverted U-shape).</p>
 <pre><code>                  Test stat Pr(&gt;|Test stat|)  
 Agreeableness       -1.0679          0.28730  
 Conscientiousness   -0.0964          0.92332  
@@ -389,13 +389,13 @@ Tukey test           1.7834          0.07452 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre><br/>
-<p>Below is a normality plot. If the residual is normally distributed, the points need to be follow the straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try <a href="../../data_management/compute_variable" title="log transformation">log-transformation</a> of the dependent variable or use other analytic methods such as <a href="../robust_regression" title="robust regression">robust regression</a> to evaluate if the violation has substantial impact on the model estimates.</p>
+<p>Below is a normality plot. If the residual is normally distributed, the points need to follow a straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try a <a href="../../data_management/compute_variable" title="log transformation">log-transformation</a> of the dependent variable or use other analytic methods such as <a href="../robust_regression" title="robust regression">robust regression</a> to evaluate whether the violation has a substantial impact on the model estimates.</p>
 <p><img src="../img/normality.png" alt="normality plot" title="normality plot"></p>
 <p>Lastly, the following codes compute the <strong>Variance Inflation Factor</strong> (VIF).</p>
 <pre><code>&quot;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&quot;
 vif(res)
 </code></pre><br/> 
-<p>A VIF over 5 indicates high level of multicollinearity. In this analysis, multicollinearity is not a concern as all the VIFs are small.</p>
+<p>A VIF over 5 indicates a high level of multicollinearity. In this analysis, multicollinearity is not a concern as all the VIFs are small.</p>
 <pre><code>    Agreeableness Conscientiousness      Extraversion       Neuroticism 
          1.726463          1.467871          1.466692          1.176284 
          Openness               Sex 
@@ -459,7 +459,7 @@ vif(res)
 </tr>
 </tbody>
 </table>
-<p>Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Reults are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.14, 95% CI [0.11, 0.18], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.05, 95% CI [-0.10, -0.01], <em>p</em> = .028) are associated with depression. Other variables are not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of variance in depression. Analyses are conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020).</p>
+<p>Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Reults are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.14, 95% CI [0.11, 0.18], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.05, 95% CI [-0.10, -0.01], <em>p</em> = .028) are associated with depression. Other variables were not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of the variance in depression. Analyses were conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020).</p>
 
 <h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
 <pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io

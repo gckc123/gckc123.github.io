@@ -177,33 +177,35 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
         
         <a href="/tags/r-code">R code</a>,
         
-        <a href="/tags/regression">Regression</a>
+        <a href="/tags/regression">Regression</a>,
+        
+        <a href="/tags/causal-inference">Causal Inference</a>
         
     </p>
     
 </div>
 
 <div class="container markdown top-pad">
-    <p>Mediation analysis is a technique that examines the intermediate process by which the indepedent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduce risk of substance use disorder in young adulthood (dependent variable).</p>
-<p><strong>StatsNotebook</strong> uses the cutting edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle</p>
+    <p>Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).</p>
+<p><strong>StatsNotebook</strong> uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle</p>
 <ol>
 <li>up to 3 mediators;</li>
 <li>numeric, dichotomized and count mediators and dependent variables;</li>
 <li>missing data using multiple imputation.</li>
 </ol>
-<p><strong>Since Monta Carlo method is very computationally intensive, it might take a long time to compute the mediation effect. Especially if there are missing data and multiple imputation is used.</strong></p>
+<p><strong>Since Monte Carlo method is very computationally intensive, it might take a long time to compute the mediation effect. Especially if there are missing data and multiple imputation is used.</strong></p>
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
 <ol>
-<li>Do reduced engagement with deviant peer group and reduced experimentation with drugs mediate the effect of family intervention during adolescence on future substance use disorder?
+<li>Do reduced engagement with deviant peer groups and reduced experimentation with drugs mediate the effect of the family intervention during adolescence on future substance use disorder?
 <ul>
-<li>In the example, we examine the causal chain &ldquo;Paricipation in family intervention -&gt; reduced engagement with deviant peer groups and experimentation with drugs -&gt; substance use disorder in young adulthood&rdquo;.</li>
+<li>In the example, we examine the causal chain &ldquo;Participation in family intervention -&gt; reduced engagement with deviant peer groups and experimentation with drugs -&gt; substance use disorder in young adulthood&rdquo;.</li>
 <li>In other words, we expect that participation in family intervention during adolescence reduces engagement with deviant peer groups and experimentation with drugs, which in turns reduces the likelihood for substance use disorder in young adulthood.</li>
 </ul>
 </li>
 </ol>
 <p>In this example, the <em>dependent variable</em> is <em>substance use disorder</em> and the <em>independent variable</em> is <em>family intervention</em>. There are two mediators: <em>engaged with deviant peer group</em> and <em>experimentation with drugs</em>.</p>
-<p>We will firstly show the R codes for this analysis below, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>substance</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a>.</p>
+<p>We will first show the R codes for this analysis below, and then we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>substance</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
 <p>In this dataset,</p>
 <ol>
 <li><strong>dev_peer</strong> represents engagement with deviant peer groups and it was coded as &ldquo;0: No&rdquo; and &ldquo;1: Yes&rdquo;;</li>
@@ -262,15 +264,15 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to running the causal mediation analysis, we will need to conduct <a href="../descriptive">descriptive analysis</a> and it is always a good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
-<p>To run a causal mediation,</p>
+<p>Prior to running the causal mediation analysis, we will need to conduct some <a href="../descriptive">descriptive analysis</a> and it is always a good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>To run a causal mediation analysis,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
 <li>Click <strong>Causal</strong> and select <strong>Causal Mediation Analysis</strong> from the menu</li>
 <li>In the left panel, select <em>sub_disorder</em> into <em>Outcome</em>, <em>fam_int</em> into <em>Exposure</em>, <em>dev_peer</em> and <em>sub_exp</em> into <em>Mediator(s)</em>, and <em>gender</em> and <em>conflict</em> into covariates.
 <ul>
 <li>We add <em>gender</em> and <em>conflict</em> as covariates to adjust for their effects.</li>
-<li>All categorical variables will need to be coded as <strong>factor</strong> (such as <em>sub_disorder</em>, <em>fam_int</em>, <em>dev_peer</em>, <em>sub_exp</em> and <em>gender</em>. In this example dataset, this has already been done). See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
+<li>All categorical variables will need to be coded as a <strong>factor</strong> (such as <em>sub_disorder</em>, <em>fam_int</em>, <em>dev_peer</em>, <em>sub_exp</em> and <em>gender</em>. In this example dataset, this has already been done). See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
 </ul>
 </li>
 </ol>
@@ -283,7 +285,7 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 <li>Linear regression for numeric variable</li>
 <li>Logistic regression for dichotomized variable</li>
 <li>Poisson regression for count variable</li>
-<li>In this example, since the mediators and dependent variable are dichotomized, select <strong>Logistic regression (Dichotomized variable)</strong> for <em>sub_disorder</em>, <em>dev_peer</em> and <em>sub_exp</em>.</li>
+<li>In this example, since the mediators and the dependent variable are dichotomized, select <strong>Logistic regression (Dichotomized variable)</strong> for <em>sub_disorder</em>, <em>dev_peer</em> and <em>sub_exp</em>.</li>
 </ul>
 </li>
 <li>Select <strong>1</strong> as the treatment level and <strong>0</strong> as the control level.
@@ -291,14 +293,14 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 <li>If the independent variable is a numeric variable, type 1 for treatment level and 0 for control level.</li>
 </ul>
 </li>
-<li>Select the <strong>100</strong> as the number of simulation.
+<li>Select the <strong>100</strong> as the number of simulations.
 <ul>
-<li>100 is good for an initial assessment of the mediation effect. For final analysis, at least 1000 simulations are needed.</li>
+<li>100 is good for an initial assessment of the mediation effect. For final analysis, use at least 1000 simulations.</li>
 </ul>
 </li>
-<li>Since there are missing data in this dataset, click <strong>Impute missing data</strong>, and input <strong>20</strong> as the number of imputation.
+<li>Since there are missing data in this dataset, click <strong>Impute missing data</strong>, and input <strong>20</strong> as the number of imputations.
 <ul>
-<li>As a rule of thumb, the number of imputation should be around the percentage of missing data.</li>
+<li>As a rule of thumb, the number of imputations should be around the percentage of missing data.</li>
 </ul>
 </li>
 </ul>
@@ -307,7 +309,7 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 <p><img src="../img/mediation_setting.png" alt="Mediation analysis setting" title="Mediation analysis setting"></p>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>Below is the output from <strong>StatsNotebook</strong>. The analysis is conducted using the <code>intmed</code> package and most of the outputs are self-explanatory.</p>
+<p>Below is the output from <strong>StatsNotebook</strong>. The analysis is conducted using the <code>intmed</code> package and most of the output is self-explanatory.</p>
 <pre><code>There were 25.86% cases with missing data. Multiple imputation was used to impute missing data (Rubin, 2009) and 20 datasets were imputed using the R package MICE (van Buuren, 2010).
 
 The table below shows the estimates from the key regression models for the mediation analysis.
@@ -355,7 +357,7 @@ Vansteelandt S, Daniel RM. Interventional effects for mediation analysis with mu
 Chan G, Leung J. Causal mediation analysis using the interventional effect approach. A refined definition. Paper uner review. 2020.
 
 </code></pre><br/>
-<p>There are two key sections of the outputs: Results from regression models and Results from mediation analysis.</p>
+<p>There are two key sections of the output: Results from regression models and Results from mediation analysis.</p>
 <p><strong>Results from regression models</strong></p>
 <p>Behind the scene, three key regression models are run.</p>
 <ol>
@@ -418,7 +420,7 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 8      
 
 </code></pre><br/>
-<p>Since <em>sub_disorder</em> is a dichotomised variable, the estimates are in <strong>probability scale</strong>. Overall, the total effect of <em>fam_int</em> is -0.077, indicating that participation in family intervention reduces the probability of <em>sub_disorder</em> by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through <em>dev_peer</em> and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through <em>sub_exp</em>. Overall, it is estimated that 21.8% of the total effect is mediated through <em>dev_peer</em> and 7.8% through <em>sub_exp</em>.</p>
+<p>Since <em>sub_disorder</em> is a dichotomised variable, the estimates are in a <strong>probability scale</strong>. Overall, the total effect of <em>fam_int</em> is -0.077, indicating that participation in family intervention reduces the probability of <em>sub_disorder</em> by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through <em>dev_peer</em> and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through <em>sub_exp</em>. Overall, it is estimated that 21.8% of the total effect is mediated through <em>dev_peer</em> and 7.8% through <em>sub_exp</em>.</p>
 
 </div>
 

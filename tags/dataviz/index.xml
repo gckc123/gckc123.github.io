@@ -64,7 +64,7 @@ We will use the following three variables from this dataset
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/density/</guid>
-      <description>Density plot can be used to show the distribution of numeric variable. StatsNotebook uses geom_density() from ggplot2 to build density plot.
+      <description>Density plot can be used to show the distribution of numeric variables. StatsNotebook uses geom_density() from ggplot2 to build density plot.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
 We will use the following three variables from this dataset
  alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
