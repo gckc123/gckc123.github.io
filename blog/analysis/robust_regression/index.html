@@ -184,7 +184,7 @@ Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
 </div>
 
 <div class="container markdown top-pad">
-    <p>Outliers and violation of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violatiosn of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</p>
+    <p>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</p>
 <p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using the instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
 <p>In this dataset, there are two variables.</p>
 <ol>
@@ -205,7 +205,7 @@ Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
 </ol>
 
 <h5 id="r-codes-explained" class="anchor-link"><a href="#r-codes-explained">R codes explained</a></h5>
-<p>The codes are for a robust regression are nearly the same as those for linear regression, except that we use the <code>lmrob</code> function from the <code>robustbase</code> package instead of the <code>lm</code> function for linear regression.</p>
+<p>The codes for a robust regression are nearly the same as those for linear regression, except that we use the <code>lmrob</code> function from the <code>robustbase</code> package instead of the <code>lm</code> function for linear regression.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(robustbase) 
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmrob</span>(light <span style="color:#666">~</span> temperature,
   data<span style="color:#666">=</span>currentDataset)

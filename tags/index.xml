@@ -6,10 +6,46 @@
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analysis</title>
+      <link>https://statsnotebook.io/tags/analysis/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Causal inference</title>
+      <link>https://statsnotebook.io/tags/causal-inference/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R code</title>
+      <link>https://statsnotebook.io/tags/r-code/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/r-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>https://statsnotebook.io/tags/regression/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/regression/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Data Management</title>
@@ -30,47 +66,11 @@
     </item>
     
     <item>
-      <title>R code</title>
-      <link>https://statsnotebook.io/tags/r-code/</link>
-      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/r-code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Analysis</title>
-      <link>https://statsnotebook.io/tags/analysis/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Linear model</title>
       <link>https://statsnotebook.io/tags/linear-model/</link>
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/linear-model/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Regression</title>
-      <link>https://statsnotebook.io/tags/regression/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Causal inference</title>
-      <link>https://statsnotebook.io/tags/causal-inference/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
       <description></description>
     </item>
     

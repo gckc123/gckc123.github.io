@@ -185,7 +185,7 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 
 <div class="container markdown top-pad">
     <p><strong>Assumed knowledge in this tutorial:</strong> <a href="../regression">Linear regression</a></p>
-<p>Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In an other words, it is use to examine whether the moderator change the strength of the relationship between the independent and dependent variables.</p>
+<p>Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.</p>
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
 <ul>
@@ -196,7 +196,7 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 </li>
 <li>Does the implementation of an alcohol tax in one state change alcohol consumption, compared to other states without changes in tax?
 <ul>
-<li>This is a less obvious example. Here, we want to test if the change over time (effect of time before and after a new tax rule) was the same across states. Does states (moderator) change the effect of time (independent variable) on alcohol consumption (dependent variable)?</li>
+<li>This is a less obvious example. Here, we want to test if the change over time (effect of time before and after a new tax rule) was the same across states. Do states (moderator) change the effect of time (independent variable) on alcohol consumption (dependent variable)?</li>
 </ul>
 </li>
 </ul>
@@ -206,7 +206,7 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 <li><a href="#numeric-independent-variable-and-categorical-moderator">Numeric independent variable and categorical moderator</a></li>
 <li><a href="#numeric-independent-variable-and-numeric-moderator">Numeric independent variable and numeric moderator</a></li>
 </ul>
-<p>For instances with a categorical independent variable and numeric moderator, the analytic strategy would be the same as conducting moderation analysis with numeric independent variable with categorical moderator.</p>
+<p>For instances with a categorical independent variable and numeric moderator, the analytic strategy would be the same as conducting a moderation analysis with a numeric independent variable with categorical moderator.</p>
 
 <h4 id="categorical-independent-variable-and-categorical-moderator" class="anchor-link"><a href="#categorical-independent-variable-and-categorical-moderator">Categorical independent variable and categorical moderator</a></h4>
 <p>Suppose that in Australia, Queensland implemented an increase in alcohol tax in 2018 and there was no change in tax in any other states (e.g. Victoria, New South Wales). We have collected data on alcohol consumption in 2017 and 2019, and want to test if the change in alcohol consumption (measured in number of standard drinks consumed per month) in Queensland was different from other states.</p>
@@ -214,7 +214,7 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 <li>A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change in Queensland is larger than other states.</li>
 <li>In this analysis, we will test the interaction between <em>year</em> and <em>state</em>. (Does <em>state</em> change the effect of <em>year</em> on alcohol consumption?)</li>
 </ul>
-<p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset for this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
 
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -260,7 +260,7 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (categorical independent variable and categorical moderator),</p>
 <ol>
 <li>
@@ -273,8 +273,8 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 <p>In the left panel, select <em>alcohol</em> into <em>Outcome</em>, and select <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <em>Covariates</em>.</p>
 <ul>
 <li>We have added <em>Remoteness</em> into this analysis to adjust for its effect.</li>
-<li>We will need to code <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
-<li>For this analysis, because we compared <em>Queensland</em> against all other states, we set <em>QLD</em> as the <strong>reference</strong> level of <em>state</em>. See <a href="../../data_management/set_reference">Setting reference level for categorical variable</a> for step-by-step guide.</li>
+<li>We will need to code <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="../../data_management/variable_conversion">Converting variable type</a> for a step-by-step guide.</li>
+<li>For this analysis, because we compared <em>Queensland</em> against all other states, we set <em>QLD</em> as the <strong>reference</strong> level of <em>state</em>. See <a href="../../data_management/set_reference">Setting reference level for categorical variable</a> for a step-by-step guide.</li>
 </ul>
 <p><img src="../img/moderation_instruction1.png" alt="Moderation analysis 1" title="Moderation (interaction) analysis"></p>
 </li>
@@ -290,7 +290,7 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 <p><img src="../img/moderation_emm.png" alt="Estimated marginal means" title="Estimated marginal means for interaction"></p>
 </li>
 </ol>
-<p>** For this analysis, we should also adjust for <em>Postcode</em> because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the <strong>assumption of independent observation</strong>. We will leave this out for now for so that we can focus on the moderation analysis. See <a href="../linear_mixed_model">Linear mixed model</a> for how to adjust for data dependency.</p>
+<p>** For this analysis, we should also adjust for <em>Postcode</em> because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the <strong>assumption of independent observation</strong>. For the purpose of understanding a moderation analysis, we can leave this out for now. See <a href="../linear_mixed_model">Linear mixed model</a> for how to adjust for data dependency.</p>
 
 <h5 id="r-codes-explained---moderation-analysis" class="anchor-link"><a href="#r-codes-explained---moderation-analysis">R codes explained - Moderation analysis</a></h5>
 <p>The following are from the top section of the generated codes.</p>
@@ -301,7 +301,7 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(
 <span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
 
 </code></pre></div><br/>
-<p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>State*Year</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Finally, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>State*Year</strong> as an extra term. The results from this regression analysis are then printed out using the <strong>summary</strong> function. Finally, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
 <p>The above code produces the model summary below.</p>
 <pre><code>Call:
 lm(formula = alcohol ~ Year + State + Remoteness + State * Year, 
@@ -338,7 +338,7 @@ F-statistic: 8.321 on 14 and 3651 DF,  p-value: &lt; 2.2e-16
 </code></pre><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>Using a significance level of 0.05, most of the interaction terms between Year and States are significant. This indicates that the changes in alcohol consumption in Queensland is different from the changes in other states. However, interpreting these coefficients is not straightforward.</p>
+<p>Using a significance level of 0.05, most of the interaction terms between Year and States are significant. This indicates that the changes in alcohol consumption in Queensland are different from the changes in other states. However, interpreting these coefficients is not straightforward.</p>
 <p>An easier way to understand the interactions is to calculate the <strong>Estimated Marginal Means (EMMs)</strong>. We can estimate the mean alcohol consumption by <em>State</em> and <em>Year</em> from our regression model. The following is the R codes for computing EMMs.</p>
 
 <h5 id="r-codes-explained---estimated-marginal-means" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means">R codes explained - Estimated Marginal Means</a></h5>
@@ -391,7 +391,7 @@ Confidence level used: 0.95
  TAS 2019 - WA 2019    -2.095 4.40 3651 -0.476  1.0000 
  VIC 2019 - WA 2019    -6.036 3.80 3651 -1.590  0.9489 
 </code></pre><br/>
-<p>We will be only interested in the 2017 and 2019 comparison in each state.</p>
+<p>We are only interested in the 2017 and 2019 comparison in each state.</p>
 <pre><code>contrast            estimate   SE   df t.ratio p.value
 QLD 2017 - QLD 2019   21.224 5.10 3651  4.164  0.0026 
 NSW 2017 - NSW 2019    3.534 3.32 3651  1.066  0.9987 
@@ -401,7 +401,7 @@ TAS 2017 - TAS 2019   13.012 5.04 3651  2.580  0.3533
 VIC 2017 - VIC 2019    5.768 3.17 3651  1.822  0.8666 
 WA 2017 - WA 2019     -3.384 4.78 3651 -0.708  1.0000 
 </code></pre><br/>
-These results indicate that there is significant change in Queensland between 2017 and 2019 only. On average, consumption decreased by 21.22 standard drinks. The p-value is adjusted for a family of 14 estimates using Tukey's method. This adjustment is necessary to protect against increased rate of false positives due to multiple testing.  
+These results indicate that there is significant change in Queensland between 2017 and 2019 only. On average, consumption decreased by 21.22 standard drinks. The p-value is adjusted for a family of 14 estimates using Tukey's method. This adjustment is necessary to protect against an increased rate of false positives due to multiple testing.  
 <p>Lastly, the pairwise comparisons is accompanied by a table of effect sizes.</p>
 <p><strong>Effect size</strong></p>
 <pre><code> contrast              effect.size     SE   df lower.CL upper.CL
@@ -494,15 +494,15 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook-1" class="anchor-link"><a href="#using-statsnotebook-1">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (numeric independent variable and categorical moderator),</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
 <li>Click <strong>Regression</strong> and select <strong>Linear regression (Numeric outcome)</strong> from the menu</li>
 <li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>BMI</em>, <em>Sex</em> and <em>Age</em> into <em>Covariates</em>.
 <ul>
-<li>We will adjust for <em>Age</em> effect by adding it as one of the covariate.</li>
-<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
+<li>We will adjust for the effect of <em>Age</em> by adding it as one of the covariates.</li>
+<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="../../data_management/variable_conversion">Converting variable type</a> for a step-by-step guide.</li>
 </ul>
 </li>
 </ol>
@@ -510,7 +510,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <ol start="4">
 <li>Expand the panel <strong>Add interaction terms</strong>, select <em>BMI</em> and <em>Sex</em> into <em>Interaction terms</em>.
 <ul>
-<li>The order of selecting variable will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>BMI</em> first and then <em>Sex</em>.</li>
+<li>The order of variable selection will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>BMI</em> first and then <em>Sex</em>.</li>
 </ul>
 </li>
 </ol>
@@ -521,15 +521,15 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <p><img src="../img/moderation_emm2.png" alt="Moderation EMMs" title="Estimated marginal mean"></p>
 
 <h5 id="r-codes-explained---moderation-analysis-1" class="anchor-link"><a href="#r-codes-explained---moderation-analysis-1">R codes explained - Moderation analysis</a></h5>
-<p>The followings are from the top selection of the generated codes.</p>
+<p>The following is from the top selection of the generated codes.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI<span style="color:#666">*</span>Sex,
   data<span style="color:#666">=</span>currentDataset)
 <span style="color:#06287e">summary</span>(res)
 <span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
 </code></pre></div><br/>
-<p>This code tell R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>BMI*Sex</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
-<p>These codes produce the below model summary.</p>
+<p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>BMI*Sex</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>These codes will produce the model summary below.</p>
 <pre><code>Call:
 lm(formula = Depression ~ BMI + Sex + Age + BMI * Sex, data = currentDataset)
 
@@ -554,10 +554,10 @@ F-statistic: 26.77 on 4 and 513 DF,  p-value: &lt; 2.2e-16
 
 <h5 id="interpretation-2" class="anchor-link"><a href="#interpretation-2">Interpretation</a></h5>
 <p>Using a significance level of 0.05, the interaction terms between BMI and Sex is highly significant. This indicates that the effect of BMI on depression is different for males and for females.</p>
-<p>To follow-up this interaction, we calculate the <strong>Estimated Marginal Means (EMMs)</strong> of <em>depression</em> at different levels of BMI by sex, and test for the effect of BMI separately for males and females with <strong>simple slopes analysis</strong>.</p>
+<p>To follow-up this interaction, we calculate the <strong>Estimated Marginal Means (EMMs)</strong> of <em>depression</em> at different levels of BMI by sex, and test for the effect of BMI separately for males and females with a <strong>simple slopes analysis</strong>.</p>
 
 <h5 id="r-codes-explained---estimated-marginal-means-1" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means-1">R codes explained - Estimated marginal means</a></h5>
-<p>The following R code are for (1) calculating the estimated marginal means of Depression at the mean of BMI, and one standard deviation (+/- SD) below and above the mean of BMI for females and males; and (2) performing simple slope analysis using the <code>emtrends</code> function. The second step tests the association between <em>BMI</em> and <em>depression</em> separately for females and males.</p>
+<p>The following R codes are for (1) calculating the estimated marginal means of Depression at the mean of BMI, and one standard deviation (+/- SD) below and above the mean of BMI for females and males; and (2) performing simple slope analysis using the <code>emtrends</code> function. The second step tests the association between <em>BMI</em> and <em>depression</em> separately for females and males.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
 <span style="color:#06287e">library</span>(emmeans)
 
@@ -591,7 +591,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 
 Confidence level used: 0.95 
 </code></pre><br/>
-<p>The above table contains the estimated marginal means of Depression at different levels of <em>BMI</em> for males and females, with 95% confidence intervals. For example, the estimated Depression score for females with BMI one standard deviation above the mean is 41.2 (95% CI [39.1, 43.4]). For females with BMI one standard deviation below the mean, their estimated Depression score is 31.9 (95% CI [30.3, 33.5]). Therefore, there is quite a substantial difference in Depression between females at higher and lower level of BMI.</p>
+<p>The above table contains the estimated marginal means of Depression at different levels of <em>BMI</em> for males and females, with 95% confidence intervals. For example, the estimated Depression score for females with BMI one standard deviation above the mean is 41.2 (95% CI [39.1, 43.4]). For females with BMI one standard deviation below the mean, their estimated Depression score is 31.9 (95% CI [30.3, 33.5]). Therefore, there is quite a substantial difference in Depression between females at higher and lower levels of BMI.</p>
 <p>For males, the difference is much smaller. For males with high BMI, the estimated Depression score is 29.3 (95% CI [27.6, 31.0]); for male with low BMI, the estimated Depression score is 27.1 (95% CI [24.7, 29.4]).</p>
 <p>The marginal mean table is followed by a table of simple slopes - The slope of BMI for males and females are presented separately.</p>
 <p><strong>Simple slope analysis</strong></p>
@@ -617,7 +617,7 @@ $contrasts
 <h4 id="numeric-independent-variable-and-numeric-moderator" class="anchor-link"><a href="#numeric-independent-variable-and-numeric-moderator">Numeric independent variable and numeric moderator</a></h4>
 <p>In this example, we will look at the relationship between stress and psychological wellbeing among adolescents, and test if this relationship is moderated by social support.</p>
 <ul>
-<li>It is expected that <em>stress</em> reduces <em>psychological wellbeing</em>, and high level of social support weakens this negative association.
+<li>It is expected that <em>stress</em> reduces <em>psychological wellbeing</em>, and high levels of social support weakens this negative association.
 <ul>
 <li>In this analysis, we will test the interaction between <em>stress</em> and <em>social support</em> on <em>psychological wellbeing</em>.</li>
 </ul>
@@ -685,7 +685,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook-2" class="anchor-link"><a href="#using-statsnotebook-2">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (numeric independent variable and numeric moderator),</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -701,7 +701,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <ol start="4">
 <li>Expand the panel **Add interaction terms&rdquo;, select <em>Stress</em> and <em>SocialSupport</em> into <em>Interaction terms</em>.
 <ul>
-<li>The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>Stress</em> first and then <em>SocialSupport</em>.</li>
+<li>The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretation below). The first selected variable will always go to the horizontal axis. In this example, we click <em>Stress</em> first and then <em>SocialSupport</em>.</li>
 </ul>
 </li>
 </ol>
@@ -719,7 +719,7 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(
 <span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
 
 </code></pre></div><br/>
-<p>The code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>Stress*SocialSupport</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>The code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>Stress*SocialSupport</strong> as an extra term. The results from this regression analysis are then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
 <p>This code produces the model summary below.</p>
 <pre><code>Call:
 lm(formula = Wellbeing ~ Stress + SocialSupport + Sex + Stress * 
@@ -749,7 +749,7 @@ F-statistic: 41.55 on 4 and 995 DF,  p-value: &lt; 2.2e-16
 <p>To follow-up this interaction, we calculate the <strong>Estimated Marginal Means (EMMs)</strong> of <em>psychological wellbeing</em> at different levels (-1 SD/ mean/ +1 SD) of <em>Stress</em> across different levels (-1 SD/ mean/ +1 SD) of <em>Social Support</em>, and test for the effect of <em>Stress</em> at different levels of <em>Social Support</em> with <strong>simple slopes analysis</strong>.</p>
 
 <h5 id="r-codes-explained---estimated-marginal-means-2" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means-2">R codes explained - Estimated marginal means</a></h5>
-<p>The following R codes are for (1) calculating the esimated marginal means of <em>psychological wellbeing</em> at the mean of <em>stress</em>, and one standard deviation (+/- SD) below and above the mean of <em>stress</em> and at the mean of <em>social support</em>, and one standard deviation (+/- SD) below and above the mean of <em>social support</em> ; and (2) performing simple slopes analysis using the <code>emtrends</code> function. The second step tests if the association of <em>stress</em> and <em>psychological wellbeing</em> at different levels of <em>social support</em>.</p>
+<p>The following R codes are for (1) calculating the estimated marginal means of <em>psychological wellbeing</em> at the mean of <em>stress</em>, and one standard deviation (+/- SD) below and above the mean of <em>stress</em> and at the mean of <em>social support</em>, and one standard deviation (+/- SD) below and above the mean of <em>social support</em> ; and (2) performing simple slopes analysis using the <code>emtrends</code> function. The second step tests the association of <em>stress</em> and <em>psychological wellbeing</em> at different levels of <em>social support</em>.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
 <span style="color:#06287e">library</span>(emmeans)
 
@@ -775,7 +775,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </code></pre></div><br/>
 
 <h5 id="interpretation-5" class="anchor-link"><a href="#interpretation-5">Interpretation</a></h5>
-<p>The output from this code can be broken down in to two sections: Esimated marginal means and Simple slopes analysis.</p>
+<p>The output from this code can be broken down in to two sections: Estimated marginal means and Simple slopes analysis.</p>
 <p><strong>Estimated marginal means</strong></p>
 <pre><code>[1] &quot;Estimated Marginal Means&quot;
 
@@ -794,8 +794,8 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 Results are averaged over the levels of: Sex 
 Confidence level used: 0.95 
 </code></pre><br/>
-<p>The above table contains the estimated marginal means of <em>psychological wellbeing</em> at different levels of <em>stress</em> across different levels of <em>social support</em>, with 95% confidence intervals. For example, for participants with low level of <em>stress</em> (-0.914; 1 SD below the mean of stress) and at low level of <em>social support</em>, the estimated marginal mean of <em>psychological wellbeing</em> is -0.024 (95% CI [-0.139, 0.092]).</p>
-<p>The marginal mean table is followed by a table of simple slopes - The slope of <em>stress</em> at low (1 SD below the mean), mean and high (1 SD above the mean) level of social support.</p>
+<p>The above table contains the estimated marginal means of <em>psychological wellbeing</em> at different levels of <em>stress</em> across different levels of <em>social support</em>, with 95% confidence intervals. For example, for participants with low levels of <em>stress</em> (-0.914; 1 SD below the mean of stress) and at low levels of <em>social support</em>, the estimated marginal mean of <em>psychological wellbeing</em> is -0.024 (95% CI [-0.139, 0.092]).</p>
+<p>The marginal means table is followed by a table of simple slopes - The slope of <em>stress</em> at low (1 SD below the mean), mean and high (1 SD above the mean) level of social support.</p>
 <p><strong>Simple slope analysis</strong></p>
 <pre><code>$emtrends
  SocialSupport Stress.trend     SE  df lower.CL upper.CL
@@ -815,7 +815,7 @@ $contrasts
 Results are averaged over the levels of: Sex 
 P value adjustment: tukey method for comparing a family of 3 estimates 
 </code></pre><br/>
-<p>Simple slope analysis shows that for those with low level of social support (1 SD below the mean of social support), one unit increase in <em>stress</em> is associated with 0.325 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.410, -0.239]); for those with mean level of social support, one unit increase in <em>stress</em> is associated with 0.234 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.295, -0.172]); for those with high levels of social support (1 SD above the mean of social support), one unit increase in <em>stress</em> is associated with 0.143 unit decrease in <em>psychological wellbeing</em>. These results indicate that <em>social support</em> can buffer the negative impact of <em>stress</em> on <em>psychological wellbeing</em>, as the association between <em>stress</em> and <em>psycholgoical wellbeing</em> is weaker at higher levels of social support.</p>
+<p>The simple slope analysis shows that for those with low levels of social support (1 SD below the mean of social support), a one unit increase in <em>stress</em> is associated with 0.325 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.410, -0.239]); for those with an average level of social support, a one unit increase in <em>stress</em> is associated with 0.234 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.295, -0.172]); for those with high levels of social support (1 SD above the mean of social support), one unit increase in <em>stress</em> is associated with 0.143 unit decrease in <em>psychological wellbeing</em>. These results indicate that <em>social support</em> can buffer the negative impact of <em>stress</em> on <em>psychological wellbeing</em>, as the association between <em>stress</em> and <em>psychological wellbeing</em> is weaker at higher levels of social support.</p>
 <p>Lastly, we can use the <code>emmip</code> function to visualise the interaction.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, SocialSupport <span style="color:#666">~</span> Stress,
   cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(

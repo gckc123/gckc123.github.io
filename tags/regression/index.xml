@@ -6,10 +6,19 @@
     <description>Recent content in Regression on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/regression/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Marginal Structural Model using IPTW</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
+      <description>Coming soon&amp;hellip;</description>
+    </item>
     
     <item>
       <title>Linear mixed model (Multilevel model)</title>
@@ -26,7 +35,7 @@
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>Outliers and violation of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violatiosn of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</description>
+      <description>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</description>
     </item>
     
     <item>
@@ -46,7 +55,7 @@ StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo tec
       
       <guid>https://statsnotebook.io/blog/analysis/moderation_interaction_regression/</guid>
       <description>Assumed knowledge in this tutorial: Linear regression
-Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In an other words, it is use to examine whether the moderator change the strength of the relationship between the independent and dependent variables.
+Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.
 Example research questions  Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for females than for males (moderator: sex)?</description>
     </item>
     
@@ -69,15 +78,6 @@ Example research questions  Are the Big 5 personality traits, Agreeableness, Con
       <description>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
 In our linear regression tutorial, we use the personality dataset to examine two research qeustions.
  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</description>
-    </item>
-    
-    <item>
-      <title>Marginal Structural Model using IPTW</title>
-      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
-      <description>Coming soon&amp;hellip;</description>
     </item>
     
   </channel>

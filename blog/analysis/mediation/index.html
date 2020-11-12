@@ -197,7 +197,7 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
 <ol>
-<li>Do reduced engagement with deviant peer groups and reduced experimentation with drugs mediate the effect of the family intervention during adolescence on future substance use disorder?
+<li>Does reduced engagement with deviant peer groups and reduced experimentation with drugs mediate the effect of the family intervention during adolescence on future substance use disorder?
 <ul>
 <li>In the example, we examine the causal chain &ldquo;Participation in family intervention -&gt; reduced engagement with deviant peer groups and experimentation with drugs -&gt; substance use disorder in young adulthood&rdquo;.</li>
 <li>In other words, we expect that participation in family intervention during adolescence reduces engagement with deviant peer groups and experimentation with drugs, which in turns reduces the likelihood for substance use disorder in young adulthood.</li>
@@ -216,7 +216,7 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
 </ol>
 
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
-<p>The first section of the codes is for <a href="../multiple_imputation" title="Multiple imputation">imputing missing data</a>. In the second section, we use the <code>mediate</code> function from the <code>intmed</code> package to conduct mediation analysis.</p>
+<p>The first section of the code is for <a href="../multiple_imputation" title="Multiple imputation">imputing missing data</a>. In the second section, we use the <code>mediate</code> function from the <code>intmed</code> package to conduct a mediation analysis.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>fam_int_1 <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>
 currentDataset<span style="color:#666">$</span>fam_int_1[currentDataset<span style="color:#666">$</span>fam_int <span style="color:#666">==</span> <span style="color:#4070a0">&#34;1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#40a070">1</span>
 currentDataset<span style="color:#666">$</span>fam_int_1[currentDataset<span style="color:#666">$</span>fam_int <span style="color:#666">==</span> <span style="color:#4070a0">&#34;0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#40a070">0</span>
@@ -264,7 +264,7 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to running the causal mediation analysis, we will need to conduct some <a href="../descriptive">descriptive analysis</a> and it is always a good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the causal mediation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always a good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
 <p>To run a causal mediation analysis,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -377,7 +377,7 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 </ul>
 </li>
 </ol>
-<p>The table below from the <strong>StatsNotebook</strong> summarises the odds ratio, 95% confidence intervals and p-value from these three models. With a significance level of 0.05, the results indicate that participation in family intervention reduces the odds of engagement with deviant peers, OR = 0.517, 95% CI (0.358, 0.747) and experimentation with drugs, OR = 0.539, 95% CI (0.369, 0.788). Family intervention may reduce odds of substance use disorder directly, OR = 0.603, 95% CI (0.331, 1.102), but this effect is not statistically significant. Engagement with deviant peers increased the odds of substance use disorder, OR = 4.132, 95% CI (1.891, 9.031). Experimentation with may increase the odds of substance use disorder, OR = 1.745, 95% CI (0.739, 4.123), but this effect is not statistically significant.</p>
+<p>The table below from the <strong>StatsNotebook</strong> summarises the odds ratio, 95% confidence intervals and p-value from these three models. With a significance level of 0.05, the results indicate that participation in family intervention reduces the odds of engagement with deviant peers, OR = 0.517, 95% CI (0.358, 0.747) and experimentation with drugs, OR = 0.539, 95% CI (0.369, 0.788). Family intervention may reduce odds of substance use disorder directly, OR = 0.603, 95% CI (0.331, 1.102), but this effect is not statistically significant. Engagement with deviant peers increased the odds of substance use disorder, OR = 4.132, 95% CI (1.891, 9.031). Experimentation with drugs may increase the odds of substance use disorder, OR = 1.745, 95% CI (0.739, 4.123), but this effect is not statistically significant.</p>
 <pre><code>The table below shows the estimates from the key regression models for the mediation analysis.
 
     variables     m1.b          m1.ci  m1.p    m2.b          m2.ci  m2.p

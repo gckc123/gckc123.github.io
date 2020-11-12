@@ -6,10 +6,19 @@
     <description>Recent content in R code on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/r-code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Marginal Structural Model using IPTW</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
+      <description>Coming soon&amp;hellip;</description>
+    </item>
     
     <item>
       <title>Line chart</title>
@@ -108,7 +117,7 @@ Log transformation Violation of distributional assumption is common. For example
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>Outliers and violation of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violatiosn of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</description>
+      <description>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</description>
     </item>
     
     <item>
@@ -127,7 +136,7 @@ StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo tec
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/multiple_imputation/</guid>
-      <description>Missing data is a norm rather than an exception in most area of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing value based on the available data. It can increase statistical power and reduce bias due to missing data.
+      <description>Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.
 StatsNotebook provides a simple interface for multiple imputation using the mice package. By default, numeric variables are imputed using predictive mean matching and categorical variables are imputed using multinomial logistic regression (for categorical variables with 3 or more level) or binary logistic regression (for categorical variables with 2 levels).</description>
     </item>
     
@@ -138,7 +147,7 @@ StatsNotebook provides a simple interface for multiple imputation using the mice
       
       <guid>https://statsnotebook.io/blog/analysis/moderation_interaction_regression/</guid>
       <description>Assumed knowledge in this tutorial: Linear regression
-Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In an other words, it is use to examine whether the moderator change the strength of the relationship between the independent and dependent variables.
+Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.
 Example research questions  Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for females than for males (moderator: sex)?</description>
     </item>
     
@@ -171,7 +180,7 @@ In this example, we will build a simple correlogram to visualise the relationshi
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/descriptive/</guid>
-      <description>This tutorial will give a short introduction on descriptive analysis using StatsNotebook. Descriptive statistcs such as mean, standard deviation, median and interquartile range can be easily obtained using the Explore panel.
+      <description>This tutorial will give a short introduction on descriptive analysis using StatsNotebook. Descriptive statistics such as mean, standard deviation, median and interquartile range can be easily obtained using the Explore panel.
 We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using the instructions provided here or can be downloaded from here.
 The Personality dataset contains data from 231 participants, with measures on the Big 5 personality factors (Agreeableness, Conscientiousness, Extraversion, Neuroticism and Openness), and three measures of mental health (Depression, Trait anxiety and State anxiety).</description>
     </item>
@@ -227,15 +236,6 @@ Example research questions  Are the Big 5 personality traits, Agreeableness, Con
       <description>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
 In our linear regression tutorial, we use the personality dataset to examine two research qeustions.
  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</description>
-    </item>
-    
-    <item>
-      <title>Marginal Structural Model using IPTW</title>
-      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
-      <description>Coming soon&amp;hellip;</description>
     </item>
     
   </channel>

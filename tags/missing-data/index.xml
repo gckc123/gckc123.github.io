@@ -17,7 +17,7 @@
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/multiple_imputation/</guid>
-      <description>Missing data is a norm rather than an exception in most area of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing value based on the available data. It can increase statistical power and reduce bias due to missing data.
+      <description>Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.
 StatsNotebook provides a simple interface for multiple imputation using the mice package. By default, numeric variables are imputed using predictive mean matching and categorical variables are imputed using multinomial logistic regression (for categorical variables with 3 or more level) or binary logistic regression (for categorical variables with 2 levels).</description>
     </item>
     
