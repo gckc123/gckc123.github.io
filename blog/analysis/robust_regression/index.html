@@ -185,27 +185,27 @@ Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
 
 <div class="container markdown top-pad">
     <p>Outliers and violation of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violatiosn of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</p>
-<p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
+<p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using the instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
 <p>In this dataset, there are two variables.</p>
 <ol>
 <li><strong>temperature</strong> represents the surface temperature of a star</li>
 <li><strong>light</strong> represents the light intensity of a star</li>
 </ol>
-<p>The figure below shows the scatterplot between <em>temperature</em> and <em>light</em> with a regression line. At first glance, there appears to be a downward trend. However, this trend might be caused by only a few outliers at the top left corner.</p>
+<p>The figure below shows the scatterplot between <em>temperature</em> and <em>light</em> with a regression line. At first glance, there appears to be a downward trend. However, this trend may only be caused by the few outliers at the top left corner.</p>
 <p><img src="../img/scatter_plot_outliers.png" alt="Scatterplot with Outliers" title="Scatterplot with outliers"></p>
-<p>We will now demonstrate using robust regression to adjust for these outliers.</p>
+<p>We will now demonstrate the use of robust regression to adjust for these outliers.</p>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Steps for running <strong>Robust regression</strong> in <strong>StatsNotebook</strong> is nearly the same as running <a href="../regression"><strong>linear regression</strong></a>.</p>
+<p>Steps for running a <strong>Robust regression</strong> in <strong>StatsNotebook</strong> are nearly the same as running a <a href="../regression"><strong>linear regression</strong></a>.</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top;</li>
-<li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numberic outcome)</strong> from the menu</li>
+<li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numeric outcome)</strong> from the menu</li>
 <li>In the left panel, select <em>light</em> into <em>Outcome</em>, and select <em>temperature</em> into <em>Covariates</em>.</li>
 <li>Expand the <strong>Analysis setting</strong> panel, and click <strong>Robust regression</strong></li>
 </ol>
 
 <h5 id="r-codes-explained" class="anchor-link"><a href="#r-codes-explained">R codes explained</a></h5>
-<p>The codes are for robust regression are nearly the same as those for linear regression, except that we use the <code>lmrob</code> function from the <code>robustbase</code> package instead of the <code>lm</code> function for linear regression.</p>
+<p>The codes are for a robust regression are nearly the same as those for linear regression, except that we use the <code>lmrob</code> function from the <code>robustbase</code> package instead of the <code>lm</code> function for linear regression.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(robustbase) 
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmrob</span>(light <span style="color:#666">~</span> temperature,
   data<span style="color:#666">=</span>currentDataset)
@@ -218,7 +218,7 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmrob</spa
 </code></pre></div><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>The output from robust regression are also very similar to those from linear regression, except that the observations are now weighted based on how deviant they are, and also robust standard errors will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), <em>p</em> =.005. We also show the regression line estimated from robust regression in the figure below. The <span style="color: blue"><b>blue</b></span> line is the regression line from ordinary linear regression and the <span style="color: red"><b>red</b></span> one is the regression line from robust regression.</p>
+<p>The output from robust regression is also very similar to those from linear regression. The only exception now is that that the observations are now weighted based on how deviant they are, and also robust standard errors will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), <em>p</em> =.005. We also show the regression line estimated from the robust regression in the figure below. The <span style="color: blue"><b>blue</b></span> line is the regression line from ordinary linear regression and the <span style="color: red"><b>red</b></span> one is the regression line from the robust regression.</p>
 <pre><code>Call:
 lmrob(formula = light ~ temperature, data = currentDataset)
  \--&gt; method = &quot;MM&quot;
