@@ -17,10 +17,10 @@
       <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/reshape/</guid>
-      <description>This tutorial will provide step-by-step guide on reshaping the data from
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+This tutorial will provide step-by-step guide on reshaping the data from
  Wide to Long Long to Wide  Wide to Long We will use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
-This dataset contains the following variables
- Region - Region from which the Human Development Index is calculated HDI_1990, &amp;hellip; , HDI_2018 - Human Development Index from 1990 to 2018 GDP_1990, &amp;hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018  This dataset is in wide format because each row contains data from multiple years (e.</description>
+This dataset contains the following variables</description>
     </item>
     
     <item>
@@ -29,9 +29,9 @@ This dataset contains the following variables
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/compute_variable/</guid>
-      <description>StatsNotebook provides a simple menu for creating new variables. We will give two examples below to demonstrate using StatsNotebook to compute new variables.
- Log transformation Creating a quadratic term  In these two examples, we will use the built-in Personality dataset. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
-Log transformation Violation of distributional assumption is common. For example, linear regression requires that the residuals to be normally distribution.</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+StatsNotebook provides a simple menu for creating new variables. We will give two examples below to demonstrate using StatsNotebook to compute new variables.
+ Log transformation Creating a quadratic term  In these two examples, we will use the built-in Personality dataset. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.</description>
     </item>
     
     <item>
@@ -40,7 +40,8 @@ Log transformation Violation of distributional assumption is common. For example
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/</guid>
-      <description>StatsNotebook provides intuitive interface for data management
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+StatsNotebook provides intuitive interface for data management
  Load Example Data  </description>
     </item>
     
@@ -50,8 +51,9 @@ Log transformation Violation of distributional assumption is common. For example
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/load_example_data/</guid>
-      <description>StatsNotebook comes with a rich data library for learning statistics. To load an example dataset,
- Click the Menu icon  at the top Click &amp;ldquo;Open&amp;rdquo; Select &amp;ldquo;Example Data&amp;rdquo; from the menu  Click on the example data we want to load.  </description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+StatsNotebook comes with a rich data library for learning statistics. To load an example dataset,
+ Click the Menu icon  at the top Click &amp;ldquo;Open&amp;rdquo; Select &amp;ldquo;Example Data&amp;rdquo; from the menu  Click on the example data we want to load.  Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates</description>
     </item>
     
     <item>
@@ -60,8 +62,8 @@ Log transformation Violation of distributional assumption is common. For example
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/set_reference/</guid>
-      <description>For categorical variable, it is important to set a &amp;ldquo;reference&amp;rdquo; category in many analyses. For example, for the variable Sex in our regression analysis tutorial, the default reference is Female. The coefficient of SexMale from the regression represents the effect of male relative to female. In this case, the coefficient -0.87 means that the depression score (the dependent variable in that analysis) for male is 0.87 lower than female.
-Coefficients: Estimate Std.</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+For categorical variable, it is important to set a &amp;ldquo;reference&amp;rdquo; category in many analyses. For example, for the variable Sex in our regression analysis tutorial, the default reference is Female. The coefficient of SexMale from the regression represents the effect of male relative to female. In this case, the coefficient -0.87 means that the depression score (the dependent variable in that analysis) for male is 0.</description>
     </item>
     
     <item>
@@ -70,8 +72,9 @@ Coefficients: Estimate Std.</description>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/data_management/variable_conversion/</guid>
-      <description>There are four major variable types in StatsNotebook: Categorical, Numeric, Date and Character. By default, when data is loaded into StatsNotebook, the variables are either Numeric or Character variables.
-Categorical variables Categorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc. For many analyses, we will also need to specify the reference category</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+There are four major variable types in StatsNotebook: Categorical, Numeric, Date and Character. By default, when data is loaded into StatsNotebook, the variables are either Numeric or Character variables.
+Categorical variables Categorical variables are variables that have two or more categories. For example, sex is a categorical variable that we can code into male and female. Another exapmle is color, which we can code into Yellow, Red, Orange, etc.</description>
     </item>
     
   </channel>

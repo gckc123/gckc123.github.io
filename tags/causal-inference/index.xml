@@ -26,8 +26,9 @@
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/mediation/</guid>
-      <description>Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).
-StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).
+StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis.</description>
     </item>
     
   </channel>

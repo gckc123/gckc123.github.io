@@ -26,7 +26,8 @@
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
-      <description>Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on moderation analysis, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are nested within postcodes.</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on moderation analysis, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states.</description>
     </item>
     
     <item>
@@ -35,7 +36,8 @@
       <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address. Robust regression is a technique that can reduce the impact of outliers and other forms of assumption violations.</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address.</description>
     </item>
     
     <item>
@@ -44,8 +46,9 @@
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/mediation/</guid>
-      <description>Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).
-StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).
+StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis.</description>
     </item>
     
     <item>
@@ -54,9 +57,9 @@ StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo tec
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/moderation_interaction_regression/</guid>
-      <description>Assumed knowledge in this tutorial: Linear regression
-Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.
-Example research questions  Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for females than for males (moderator: sex)?</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Assumed knowledge in this tutorial: Linear regression
+Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.</description>
     </item>
     
     <item>
@@ -65,8 +68,9 @@ Example research questions  Is the effect of psychotherapy (independent variable
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression/</guid>
-      <description>Linear regression is a technique for examining the relationship between a dependent variable (outcome) and a set of independent variables (predictors). This tutorial demonstrates how to conduct a linear regression in StatsNotebook using the following example. We will also provide an example write-up in APA style.
-Example research questions  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression? Is sex associated with depression? (i.</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Linear regression is a technique for examining the relationship between a dependent variable (outcome) and a set of independent variables (predictors). This tutorial demonstrates how to conduct a linear regression in StatsNotebook using the following example. We will also provide an example write-up in APA style.
+Example research questions  Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</description>
     </item>
     
     <item>
@@ -75,9 +79,9 @@ Example research questions  Are the Big 5 personality traits, Agreeableness, Con
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression_missingdata/</guid>
-      <description>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
-In our linear regression tutorial, we use the personality dataset to examine two research qeustions.
- Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
+In our linear regression tutorial, we use the personality dataset to examine two research qeustions.</description>
     </item>
     
   </channel>

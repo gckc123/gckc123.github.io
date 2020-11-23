@@ -17,8 +17,8 @@
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/multiple_imputation/</guid>
-      <description>Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.
-StatsNotebook provides a simple interface for multiple imputation using the mice package. By default, numeric variables are imputed using predictive mean matching and categorical variables are imputed using multinomial logistic regression (for categorical variables with 3 or more level) or binary logistic regression (for categorical variables with 2 levels).</description>
+      <description>Follow us on Facebook or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.</description>
     </item>
     
     <item>
@@ -27,9 +27,9 @@ StatsNotebook provides a simple interface for multiple imputation using the mice
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression_missingdata/</guid>
-      <description>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
-In our linear regression tutorial, we use the personality dataset to examine two research qeustions.
- Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
+In our linear regression tutorial, we use the personality dataset to examine two research qeustions.</description>
     </item>
     
   </channel>

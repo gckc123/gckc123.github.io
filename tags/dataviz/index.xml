@@ -17,7 +17,8 @@
       <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/line_graph/</guid>
-      <description>Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
 We use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
 We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions.</description>
     </item>
@@ -28,10 +29,9 @@ We will use line chart to visualise the evolution of Human Development Index fro
       <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/scatterplot/</guid>
-      <description>Scatterplot can be used to visualise the association between two numeric variables. StatsNotebook uses the geom_jitter function from the ggplot2 library to build scatterplot.
-We use the built-in UNDP dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a dataset of 199 countries compiled from the United Nations Development Programme.
-We will use the following three variables from this dataset
- HDI - Human Development Index in 2018 GDP - Gross Domestic Product per capital in 2018 Pop - Population (in millions) in 2018 Continent - Continent Schooling - Expected years of schooling  In this example, we will build</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Scatterplot can be used to visualise the association between two numeric variables. StatsNotebook uses the geom_jitter function from the ggplot2 library to build scatterplot.
+We use the built-in UNDP dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a dataset of 199 countries compiled from the United Nations Development Programme.</description>
     </item>
     
     <item>
@@ -40,10 +40,10 @@ We will use the following three variables from this dataset
       <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/barchart/</guid>
-      <description>Bar chart can be used to visualise the frequency or proportion of categorical variables. StatsNotebook uses the geom_bar() from ggplot2 to build bar chart.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Bar chart can be used to visualise the frequency or proportion of categorical variables. StatsNotebook uses the geom_bar() from ggplot2 to build bar chart.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset
- alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+We will use the following three variables from this dataset</description>
     </item>
     
     <item>
@@ -52,10 +52,10 @@ We will use the following three variables from this dataset
       <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/histogram/</guid>
-      <description>Histogram can be used to show the distribution of numeric variable. StatsNotebook uses geom_histogram() from ggplot2 to build density plot.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Histogram can be used to show the distribution of numeric variable. StatsNotebook uses geom_histogram() from ggplot2 to build density plot.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset
- alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+We will use the following three variables from this dataset</description>
     </item>
     
     <item>
@@ -64,10 +64,10 @@ We will use the following three variables from this dataset
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/density/</guid>
-      <description>Density plot can be used to show the distribution of numeric variables. StatsNotebook uses geom_density() from ggplot2 to build density plot.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Density plot can be used to show the distribution of numeric variables. StatsNotebook uses geom_density() from ggplot2 to build density plot.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset
- alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+We will use the following three variables from this dataset</description>
     </item>
     
     <item>
@@ -76,10 +76,10 @@ We will use the following three variables from this dataset
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/boxplot/</guid>
-      <description>Boxplot is commonly used to compare distribution of a numeric variables across several groups. StatsNotebook uses geom_boxplot() from ggplot2 to build boxplot.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Boxplot is commonly used to compare distribution of a numeric variables across several groups. StatsNotebook uses geom_boxplot() from ggplot2 to build boxplot.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset
- alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+We will use the following three variables from this dataset</description>
     </item>
     
     <item>
@@ -88,9 +88,9 @@ We will use the following three variables from this dataset
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/correlogram/</guid>
-      <description>Correlogram is a type of chart that visualise the pairwise association between variables. StatsNotebook uses the ggpairs() function from the GGally library to build correlogram. A publication ready correlogram can be built within a few minutes with StatsNotebook.
-We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.
-In this example, we will build a simple correlogram to visualise the relationship between four variables (three personality variables: Conscientiousness, Neuroticism, Openness and one mental health variable: Depression).</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Correlogram is a type of chart that visualise the pairwise association between variables. StatsNotebook uses the ggpairs() function from the GGally library to build correlogram. A publication ready correlogram can be built within a few minutes with StatsNotebook.
+We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.</description>
     </item>
     
     <item>
@@ -99,7 +99,8 @@ In this example, we will build a simple correlogram to visualise the relationshi
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/</guid>
-      <description>DataViz in StatsNotebook is largely based on ggplot2. Publication ready plots and figures are just a few clicks away.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+DataViz in StatsNotebook is largely based on ggplot2. Publication ready plots and figures are just a few clicks away.
 Numeric   Density    Histogram    Boxplot    Violin plot    Categorical   Bar Chart    Grouped Bar Chart    Stacked Bar Chart    Correlation   Scatterplot    Bubble plot    Correlogram    Line   Line Chart    </description>
     </item>
     
@@ -109,10 +110,10 @@ Numeric   Density    Histogram    Boxplot    Violin plot    Categorical   Bar Ch
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/violinplot/</guid>
-      <description>Violin plot can be used to visualise the distribution of a numeric variable across several groups. StatsNotebook uses geom_violin() from ggplot2 to build violin plot.
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Violin plot can be used to visualise the distribution of a numeric variable across several groups. StatsNotebook uses geom_violin() from ggplot2 to build violin plot.
 We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset
- alcohol - Number of standard drinks consumed in a month Remoteness - Capital city or regional area State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.</description>
+We will use the following three variables from this dataset</description>
     </item>
     
   </channel>
