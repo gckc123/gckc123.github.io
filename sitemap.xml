@@ -26,6 +26,31 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/tags/seminar/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/consultation/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/workshop/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/tags/analysis/</loc>
     <lastmod>2020-11-08T00:00:00+00:00</lastmod>
   </url>
@@ -47,16 +72,6 @@
   
   <url>
     <loc>https://statsnotebook.io/tags/regression/</loc>
-    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/</loc>
-    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/</loc>
     <lastmod>2020-11-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -229,7 +244,7 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/consultation/</loc>
+    <loc>https://statsnotebook.io/consultation/iptw_msm/</loc>
   </url>
   
 </urlset>

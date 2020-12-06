@@ -6,7 +6,7 @@
     <description>Recent content on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -177,7 +177,7 @@ StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo tec
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/multiple_imputation/</guid>
-      <description>Follow us on Facebook or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
 Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.</description>
     </item>
     
@@ -299,6 +299,16 @@ Example research questions  Are the Big 5 personality traits, Agreeableness, Con
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
 In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in StatsNotebook to handle missing data using multiple imputation.
 In our linear regression tutorial, we use the personality dataset to examine two research qeustions.</description>
+    </item>
+    
+    <item>
+      <title>IPTW/MSM</title>
+      <link>https://statsnotebook.io/consultation/iptw_msm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/consultation/iptw_msm/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+About this workshop Adjusting for time-varying confounders using IPTW for causal inference Randomized controlled trial is the gold standard for causal inference yet it is not always feasible. Multi-wave longitudinal data is increasingly used for causal inference. Standard methods such as regression yield biased results in the presence of time-varying confounders. In this workshop, I will demonstrate using Inverse probability treatment weight (IPTW) and marginal structural model (MSM) to adjust for time-varying confounders.</description>
     </item>
     
   </channel>

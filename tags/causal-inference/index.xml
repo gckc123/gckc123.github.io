@@ -31,5 +31,15 @@ Mediation analysis is a technique that examines the intermediate process by whic
 StatsNotebook uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis.</description>
     </item>
     
+    <item>
+      <title>IPTW/MSM</title>
+      <link>https://statsnotebook.io/consultation/iptw_msm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/consultation/iptw_msm/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+About this workshop Adjusting for time-varying confounders using IPTW for causal inference Randomized controlled trial is the gold standard for causal inference yet it is not always feasible. Multi-wave longitudinal data is increasingly used for causal inference. Standard methods such as regression yield biased results in the presence of time-varying confounders. In this workshop, I will demonstrate using Inverse probability treatment weight (IPTW) and marginal structural model (MSM) to adjust for time-varying confounders.</description>
+    </item>
+    
   </channel>
 </rss>
