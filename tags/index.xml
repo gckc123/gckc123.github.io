@@ -6,7 +6,7 @@
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Seminar</title>
       <link>https://statsnotebook.io/tags/seminar/</link>
-      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/seminar/</guid>
       <description></description>
@@ -23,9 +23,18 @@
     <item>
       <title>Workshop</title>
       <link>https://statsnotebook.io/tags/workshop/</link>
-      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/workshop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Causal inference</title>
+      <link>https://statsnotebook.io/tags/causal-inference/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
       <description></description>
     </item>
     
@@ -35,15 +44,6 @@
       <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Causal inference</title>
-      <link>https://statsnotebook.io/tags/causal-inference/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
       <description></description>
     </item>
     
