@@ -12,6 +12,24 @@
     
     
     <item>
+      <title>Analysis</title>
+      <link>https://statsnotebook.io/tags/analysis/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Causal Inference</title>
+      <link>https://statsnotebook.io/tags/causal-inference/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Seminar</title>
       <link>https://statsnotebook.io/tags/seminar/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
@@ -26,42 +44,6 @@
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/workshop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Causal inference</title>
-      <link>https://statsnotebook.io/tags/causal-inference/</link>
-      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Analysis</title>
-      <link>https://statsnotebook.io/tags/analysis/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R code</title>
-      <link>https://statsnotebook.io/tags/r-code/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/r-code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Regression</title>
-      <link>https://statsnotebook.io/tags/regression/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/regression/</guid>
       <description></description>
     </item>
     
@@ -84,11 +66,29 @@
     </item>
     
     <item>
+      <title>R code</title>
+      <link>https://statsnotebook.io/tags/r-code/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/r-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Linear model</title>
       <link>https://statsnotebook.io/tags/linear-model/</link>
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/linear-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>https://statsnotebook.io/tags/regression/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/regression/</guid>
       <description></description>
     </item>
     

@@ -39,6 +39,16 @@
     </item>
     
     <item>
+      <title>Inverse probability treatment weighting</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between an exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time varying confounder.</description>
+    </item>
+    
+    <item>
       <title>IPTW/MSM</title>
       <link>https://statsnotebook.io/consultation/iptw_msm/</link>
       <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
@@ -46,15 +56,6 @@
       <guid>https://statsnotebook.io/consultation/iptw_msm/</guid>
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
 About this workshop Adjusting for time-varying confounders using IPTW for causal inference Randomized controlled trial is the gold standard for causal inference yet it is not always feasible. Multi-wave longitudinal data is increasingly used for causal inference. Standard methods such as regression yield biased results in the presence of time-varying confounders. In this workshop, I will demonstrate using Inverse probability treatment weight (IPTW) and marginal structural model (MSM) to adjust for time-varying confounders.</description>
-    </item>
-    
-    <item>
-      <title>Marginal Structural Model using IPTW</title>
-      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
-      <description>Coming soon&amp;hellip;</description>
     </item>
     
     <item>

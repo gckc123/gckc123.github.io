@@ -6,18 +6,19 @@
     <description>Recent content in Analysis on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/analysis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Marginal Structural Model using IPTW</title>
+      <title>Inverse probability treatment weighting</title>
       <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
-      <description>Coming soon&amp;hellip;</description>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between an exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time varying confounder.</description>
     </item>
     
     <item>
