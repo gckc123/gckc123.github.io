@@ -6,10 +6,20 @@
     <description>Recent content in R code on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/r-code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Robust regression</title>
+      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using residual plots).</description>
+    </item>
     
     <item>
       <title>Line chart</title>
@@ -101,16 +111,6 @@ Data with multilevel (hierarchical) structure are common in many area of researc
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
 StatsNotebook provides a simple menu for creating new variables. We will give two examples below to demonstrate using StatsNotebook to compute new variables.
  Log transformation Creating a quadratic term  In these two examples, we will use the built-in Personality dataset. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.</description>
-    </item>
-    
-    <item>
-      <title>Robust regression</title>
-      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address.</description>
     </item>
     
     <item>

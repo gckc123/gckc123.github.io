@@ -18,7 +18,19 @@
       
       <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between an exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time varying confounder.</description>
+A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time-varying confounders.</description>
+    </item>
+    
+    <item>
+      <title>IPTW with missing data</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+This is a follow-up tutorial built on our tutorial on inverse probability treatment weight. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on inverse probability treatment weight first.
+The example data can be downloaded from here.
+If your dataset has missing data, multiple imputation can be firstly used to impute the missing value.</description>
     </item>
     
     <item>

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,27 @@
     <item>
       <title>Analysis</title>
       <link>https://statsnotebook.io/tags/analysis/</link>
-      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R code</title>
+      <link>https://statsnotebook.io/tags/r-code/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/r-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>https://statsnotebook.io/tags/regression/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/regression/</guid>
       <description></description>
     </item>
     
@@ -66,29 +84,11 @@
     </item>
     
     <item>
-      <title>R code</title>
-      <link>https://statsnotebook.io/tags/r-code/</link>
-      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/r-code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Linear model</title>
       <link>https://statsnotebook.io/tags/linear-model/</link>
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/linear-model/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Regression</title>
-      <link>https://statsnotebook.io/tags/regression/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/regression/</guid>
       <description></description>
     </item>
     

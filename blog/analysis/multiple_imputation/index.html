@@ -147,7 +147,7 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
     </h2>
     <div class="post-data">
         23 Sep, 2020 |
-        4 minutes read
+        5 minutes read
     </div>
     
     <div class="blog-share">
@@ -260,8 +260,9 @@ formulas<span style="color:#666">$</span>dev_peer <span style="color:#666">=</sp
 formulas<span style="color:#666">$</span>sub_exp <span style="color:#666">=</span>sub_exp <span style="color:#666">~</span> gender <span style="color:#666">+</span> conflict <span style="color:#666">+</span> dev_peer <span style="color:#666">+</span> fam_int <span style="color:#666">+</span> sub_disorder
 formulas<span style="color:#666">$</span>fam_int <span style="color:#666">=</span>fam_int <span style="color:#666">~</span> gender <span style="color:#666">+</span> conflict <span style="color:#666">+</span> dev_peer <span style="color:#666">+</span> sub_exp <span style="color:#666">+</span> sub_disorder
 formulas<span style="color:#666">$</span>sub_disorder <span style="color:#666">=</span>sub_disorder <span style="color:#666">~</span> gender <span style="color:#666">+</span> conflict <span style="color:#666">+</span> dev_peer <span style="color:#666">+</span> sub_exp <span style="color:#666">+</span> fam_int
-
-meth <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.method</span>(currentDataset)
+</code></pre></div><br/> 
+<p>After specifying what variables would be used to impute each of the variables, we use the following line of code to specify the imputation methods. By default, predictive mean matching will be used for numeric variables, binary logistic regression will be used for dichotomized variable and multinomial logistic regression will be used for categorical variables with two or more levels.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meth <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.method</span>(currentDataset)
 </code></pre></div><br/>
 <p>After the setup, the function <code>parlmice</code> will be used to impute missing data.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">imputedDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">parlmice</span>(currentDataset,

@@ -147,7 +147,7 @@ Inverse Probability Treatment Weighting - StatsNotebook - Simple. Powerful. Repr
     </h2>
     <div class="post-data">
         5 Dec, 2020 |
-        1 minute read
+        13 minutes read
     </div>
     
     <div class="blog-share">
@@ -183,7 +183,266 @@ Inverse Probability Treatment Weighting - StatsNotebook - Simple. Powerful. Repr
 
 <div class="container markdown top-pad">
     <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
-<p>A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between an exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time varying confounder. Inverse probability treatment weight and marginal structural model can be used to adjust for time-varying confounding.</p>
+<p>A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time-varying confounders. Inverse probability treatment weight and marginal structural model can be used to adjust for time-varying confounding.</p>
+<p>In this tutorial, we will use a simulated dataset to answer the following research question</p>
+<ul>
+<li><em>Does cannabis use during adolescence cause use of illicit drug in adulthood?</em></li>
+</ul>
+<p>The example data can be downloaded from <a href="../../data_management/example_data/iptw_example.csv">here</a>. In this example, we will use a complete dataset (i.e. no missing data). If your dataet has missing data, we would recommend that you read this tutorial and then our tutorial on <a href="../marginal_structural_model_iptw_with_missing">inverse probability treatment weighting with missing data</a>.</p>
+<p>Supposed that the data was collected over 5 time points, baseline (wave 0) and follow-up wave 1 to 4. The baseline and wave 1 to 3 were collected at Grade 7, 8, 9 and 10. Wave 4 was collected at age 25.</p>
+<p>In this dataset, there are several key variables.</p>
+<ol>
+<li>Academic grade (<strong>failed</strong>; 0: no failed subjects; failed at least one subject)</li>
+<li>Peers&rsquo; cannabis use (<strong>peer_can</strong>: 0: None; 1: 1-2 friends used cannabis; 2: 3 or more friends used cannabis)</li>
+<li>Antisocial behaviour (<strong>antisocial</strong>: 0: No antisocial behaviour; 1: engaged in antisocial behaviour)</li>
+<li>Cannabis use (<strong>can</strong>; 0: No use; 1: used)</li>
+<li>Sex (<strong>sex</strong>; 0: male; 1: female)</li>
+<li>Family history of drug use (<strong>family_drug_use</strong>; 0: no; 1: at least one immediate family member used drug. This is only measured at baseline.)</li>
+<li>Illicit drug use at age 25 (<strong>illicit</strong>: 0: No use; 1: used)</li>
+</ol>
+<p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represented the number of peers who used cannabis at baseline (wave 0).</p>
+<p>Given this design, we can now make our research question more specific</p>
+<ul>
+<li><em>Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?</em></li>
+</ul>
+<p>When estimating the relationship between adolescent cannabis use (wave 1 to wave 3) on future illicit drug use, many of the above variables are likely to be time-varying confounders. The exposure will also be time-varying. The figure below is a conceptual diagram demonstrating the complex relationship between the exposure, confounders and the outcome.</p>
+<p><img src="../img/iptw_figure.png" alt="iptw diagram" title="longitudinal data"></p>
+<p>B is a set of baseline covariates/ potential confounders (e.g. family history of drug use). It can be regarded as a special subset of C<sub>1</sub>. <br/>
+A<sub>1</sub>, A<sub>2</sub> and A<sub>3</sub> is the exposure (cannabise use) at Wave 1, 2 and 3. <br/>
+C<sub>1</sub>, C<sub>2</sub> and C<sub>3</sub> are the set of covariate/confounders for exposure at Wave 1, 2 and 3 (e.g. peers&rsquo; cannabis use). To retain the temporal order of exposure and confounders, the set C<sub>1</sub>, C<sub>2</sub> and C<sub>3</sub> should be selected from the preceding wave of the exposure. Therefore, the variables in the set C<sub>1</sub>, C<sub>2</sub> and C<sub>3</sub> should be from baseline, follow-up wave 1 and follow-up wave 2 respectively. <br/></p>
+<p>Y is the outcome (illicit drug use at age 25).<br/></p>
+<p>Take Peers&rsquo; cannabis use as an example. Peers&rsquo; cannabis use is likely to be a time-varying confounder because</p>
+<ol>
+<li>An individual&rsquo;s cannabis use in one wave is likely to increase affliation with cannabis using peer in future wave.</li>
+<li>Peers&rsquo; cannabis use in one wave is likely to increase risk of an individual&rsquo;s cannabis use and illicit drug use in future wave</li>
+</ol>
+<p><img src="../img/iptw_figure2.png" alt="iptw diagram 2" title="longitudinal data"></p>
+<p>Therefore, peers&rsquo; cannabis use is a time-varying mediator (because it was affected by previous cannabis use and would affect future illicit drug use) and a time-varying confounder (because it would affect both future cannabis use and future illicit drug use). Other variables, such as antisocial behaviour, is also likely to be time-varying confounders.</p>
+<p>Regression-based methods in general give biased estimates of the effects of time-varying exposures on outcome when there are time-varying confouners. In the above example, adjusting for peers&rsquo; cannabis use at wave 2 will block some of the effect of cannabis use at wave 1. Not adjusting for peers&rsquo; cannabis use at wave 2 will bias the estimate of cannabis use at wave 3 on future illicit drug use because peers&rsquo; cannabis use at wave 2 may confound the relationship between cannabis use at wave 3 and illicit drug use at the final wave. Therefore, regression analysis would produce biased estimate, regardless of whether adjustment is made for peers&rsquo; cannabis use.</p>
+<p>Inverse probability treatment weighting can be used to estimate the causal effect of cannabis use on future illicit drug use. Conceptually, IPTW attempts to fully adjust for measured confounders by balancing the confounders across levels of treatment with treatment weight. It creates a pseudo-population in which all measured confounders are balanced between different treatment groups (in the above example, it will be between different cannabis use trajectories). The data can be regarded as coming from a randomized controlled trials and causal inference thus can be made by simple comparisons between groups (i.e. t-test).</p>
+<p>For valid causal inference, the following key assumptions need to be met.</p>
+<ol>
+<li>
+<p>Exchangeability</p>
+<ul>
+<li>This is also known as the no unmeasured confounding assumption. It is assumed that all confounders are used to calculate IPTW. While it is nearly impossible to include all confounders in the IPTW calculation, we will need to select a wide range of potential confounders based on theoretical framework to improve the validity of this assumption. For example, in our example, we determine that family, peer and school variables are important confounders that could affect both adolescent cannabis use and future illicit drug use. We therefore include family history of drug use, peers&rsquo; cannabis use, academic grade and antisocial behaviour to calculate IPTW.</li>
+</ul>
+</li>
+<li>
+<p>Positivity</p>
+<ul>
+<li>The probability of receiving treatment (i.e. using cannabis in our example) and not receiving treatment are both non-zero. This assumption is violated if treatment is deterministic. (e.g. if all children of parents who used illicit drug will use cannabis, this assumption is violated.)</li>
+</ul>
+</li>
+<li>
+<p>Correctness of the model for calculating the IPTW</p>
+<ul>
+<li>Usually logistic regression will be used to estimate IPTW. Interaction terms can be included into the model to improve the validity of this assumption. Machine learning model can be used to calculate IPTW to capture potential non-linear effect.</li>
+</ul>
+</li>
+</ol>
+<p>Now we will demonstrate using the <a href="../../data_management/example_data/iptw_example.csv">simulated example data</a> to test <em>the cumulative exposure effect of cannabis use from follow-up wave 1 to wave 3 on future illicit drug use at wave 4</em>. We will provide a step-by-step guide on how to use <strong>StatsNotebook</strong> to generate the R codes to calculate IPTW and the conduct a weighted analysis on the weighted sample. The <code>ipw</code> package will be used to calculate the IPTW, and the <code>survey</code> package will be used to conduct weighted analysis.</p>
+<p>We will first calculate the weight at each time point by calculating the probability of receiving/ not receiving treatment, based on the treatment history from previous waves, the history of confounders and baseline confounders/ covariates. In our example, we will need to calculate the weight at follow-up wave 1 to 3 separately, and then calulate a final IPTW by multiplying the three weights from follow-up wave 1 to 3.</p>
+<ol>
+<li>To calculate the weight at follow-up wave 1, we use the variables from C<sub>1</sub>, including academic grade, peers&rsquo; cannabis, antisocial behaviour, cannabis use, sex and family history of drug use at baseline.</li>
+<li>To calculate the weight at follow-up wave 2, we use all the variables from the previous step, plus academic grade, peers&rsquo; cannabis and antisocial behaviour at follow-up wave 1 (history of all confounders), and cannabis use at follow-up wave 1 (exposure history).</li>
+<li>To calculate the weight at follow-up wave 3, we use all the variables from the previous step, plus academic grade, peers&rsquo; cannabis and antisocial behaviour at follow-up wave 2, and cannabis use at follow-up wave 2.</li>
+</ol>
+
+<h5 id="using-statsnotebook---calculating-iptw" class="anchor-link"><a href="#using-statsnotebook---calculating-iptw">Using StatsNotebook - Calculating IPTW</a></h5>
+<p>Prior to calculating the IPTW, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>To calculate the IPTW,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Causal</strong> in the top menu</li>
+<li>Click <strong>Inverse Probability Treatment Weighting (IPTW)</strong> in the pop-up menu</li>
+<li>In the left panel, select <em>can_1</em> into <em>Exposure</em>, and select <em>failed_0</em>, <em>peer_can_0</em> and <em>antisocial_0</em> into <em>Time-varying covariates</em>. As mentioned before, since baseline confounders/covariates can be regarded as a special subset of Time-varying covariates at Wave 1, we further select <em>family_drug_use</em>, <em>sex</em>  and <em>can_0</em> (baseline cannabis use) into <em>Time-varying covariates</em>.
+<ul>
+<li>To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for expsoure at follow-up wave 1.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/iptw_instruction1.png" alt="iptw instruction" title="iptw instruction"></p>
+<ol start="5">
+<li>Click the top <strong>+</strong> button on top of <em>Exposure</em> to add an extra time point (extra wave).</li>
+<li>Select <em>can_2</em> into <em>Exposure</em>, and select <em>failed_1</em>, <em>peer_can_1</em> and <em>antisocial_1</em> into <em>Time-varying covariates</em>.</li>
+</ol>
+<p><img src="../img/iptw_instruction2.png" alt="iptw instruction 2" title="iptw instruction 2"></p>
+<ol start="7">
+<li>Repeat step 5 and 6 for <em>can_3</em>.</li>
+<li>Expand the panel <em>Analysis Setting</em> at the below the variable selection panel.</li>
+<li>For <em>Distribution family</em>, select <em>Binomial</em>.
+<ul>
+<li>Since the exposure is a dichotomised variable (cannabis use or no cannabis use), logistic regression will be used to estimate the IPTW.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../img/iptw_instruction3.png" alt="iptw instruction 3" title="iptw instruction 3"></p>
+<ol start="10">
+<li>Click <strong>Code and Run</strong>. The R codes below will be generated and executed.</li>
+</ol>
+<p>Four new variables, <em>.ipw0</em>, <em>.ipw1</em>, <em>.ipw2</em> and <em>.final_weight</em> will be created. The first three are the IPTW at follow-up wave 1 to 3 and the last one is the product of the the first three weights and will be used for subsequent outcome modelling.</p>
+
+<h5 id="r-codes---calculating-iptw" class="anchor-link"><a href="#r-codes---calculating-iptw">R codes - Calculating IPTW</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(ipw)
+
+<span style="color:#4070a0">&#34;Calculate IPTW&#34;</span>
+
+weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_1, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> <span style="color:#40a070">1</span>,
+  denominator <span style="color:#666">=~</span> failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw0 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_2, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> can_1,
+  denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw1 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_3, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2,
+  denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1<span style="color:#666">+</span>failed_2<span style="color:#666">+</span>peer_can_2<span style="color:#666">+</span>antisocial_2,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw2 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+currentDataset<span style="color:#666">$</span>.final_weight <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>.ipw0<span style="color:#666">*</span>currentDataset<span style="color:#666">$</span>.ipw1<span style="color:#666">*</span>currentDataset<span style="color:#666">$</span>.ipw2
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+<span style="color:#4070a0">&#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="r-codes-explained---calculating-iptw" class="anchor-link"><a href="#r-codes-explained---calculating-iptw">R codes explained - Calculating IPTW</a></h5>
+<p>At each time point, we calculate the weight using the <code>ipwpoint</code> function. For example, the code below calculates the weight for follow-up wave 1 by estimating the probability of cannabis use at follow-up wave 1 (exposure; can_1) based on academic grade (failed_0), peers&rsquo; cannabis use (peer_can_0), antisocial behaviour (antisocial_0), family history of drug use (family_drug_use), sex (sex) and cannabis use at baseline (can_0).</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_1, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> <span style="color:#40a070">1</span>,
+  denominator <span style="color:#666">=~</span> failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw0 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+</code></pre></div><br/>
+We then similiarly calculate the weight for follow-up wave 2 and wave 3 using the code below.
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_2, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> can_1,
+  denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw1 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_3, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+  numerator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2,
+  denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>can_0<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1<span style="color:#666">+</span>failed_2<span style="color:#666">+</span>peer_can_2<span style="color:#666">+</span>antisocial_2,
+  trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(currentDataset))
+currentDataset<span style="color:#666">$</span>.ipw2 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+</code></pre></div><br/>
+And lastly, we multiply all these weights to form the final IPTW.
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>.final_weight <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>.ipw0<span style="color:#666">*</span>currentDataset<span style="color:#666">$</span>.ipw1<span style="color:#666">*</span>currentDataset<span style="color:#666">$</span>.ipw2
+</code></pre></div><br/>
+
+<h5 id="using-statsnotebook---weighted-analysis" class="anchor-link"><a href="#using-statsnotebook---weighted-analysis">Using StatsNotebook - Weighted analysis</a></h5>
+<p>After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of cumulative exposure, measured as the number of wave an individual reported using cannabis between follow-up wave 1 and wave 3, we first create a new variable (<em>cumulative</em>) by summing up <em>can_1</em>, <em>can_2</em> and <em>can_3</em>.</p>
+<p>To create this new variable in <strong>StatsNotebook</strong>,</p>
+<ol>
+<li>Click <strong>Data</strong> at the top</li>
+<li>Click <strong>Compute</strong> at the top menu</li>
+<li>Type <em>cumulative</em> in the <em>Target Variable</em> field.</li>
+<li>You can select variable in the <em>Variable</em> list and use <em>+</em> to add the corresponding variables up.</li>
+</ol>
+<p><img src="../img/compute_cumulative.png" alt="compute cumulative" title="compute cumulative"></p>
+<p>The <strong>R code</strong> for this operation is simple.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>cumulative <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>can_1<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_2<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_3
+</code></pre></div><br/> 
+<p>Once we have created the <em>cumulative</em> variable, we can use the <code>survey</code> package to conduct a weighted analysis to estimate the causal effect of cumulative use of cannabis during adolescence on illicit drug use in young adulthood (age 25). <strong>Logistic regression</strong> is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).</p>
+<p>To conduct a weighted analysis,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Regression</strong> at the top menu</li>
+<li>Click <strong>Logistic regression</strong> (linear regression can be used if the outcome is a numeric variable.)</li>
+<li>In the left panel, select <em>illicit</em> into <em>Outcome</em>, <em>cumulative</em> into <em>Covariate</em> and <em>.final_weight</em> into <em>Weight</em>.</li>
+</ol>
+<p><img src="../img/msm_instruction.png" alt="msm instruction" title="msm instruction"></p>
+
+<h5 id="r-codes---weighted-analysis" class="anchor-link"><a href="#r-codes---weighted-analysis">R codes - Weighted analysis</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(survey)
+
+clus <span style="color:#666">&lt;-</span> <span style="color:#06287e">svydesign</span>(id <span style="color:#666">=~</span> <span style="color:#40a070">1</span>, weights <span style="color:#666">=~</span> .final_weight, data <span style="color:#666">=</span> currentDataset)
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">svyglm</span>(illicit <span style="color:#666">~</span> cumulative, design <span style="color:#666">=</span> clus,family <span style="color:#666">=</span> binomial)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#4070a0">&#34;Model coefficients and confidence intervals&#34;</span>
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+<span style="color:#4070a0">&#34;Odds ratios and confidence intervals&#34;</span>
+<span style="color:#06287e">exp</span>(<span style="color:#06287e">cbind</span>(OR <span style="color:#666">=</span> <span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)))
+
+
+car<span style="color:#666">::</span><span style="color:#06287e">infIndexPlot</span>(res)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+<p>The code for a weighted logistic regression is straightforward. The <code>survey</code> package is loaded using the <code>library</code> function. The following line then specifies that the variable <em>.final_weight</em> is used the weighting variable.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">clus <span style="color:#666">&lt;-</span> <span style="color:#06287e">svydesign</span>(id <span style="color:#666">=~</span> <span style="color:#40a070">1</span>, weights <span style="color:#666">=~</span> .final_weight, data <span style="color:#666">=</span> currentDataset)
+</code></pre></div><br/>
+<p>We then use the following lines to run the weighted logistic regression and request the model results from R.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">res <span style="color:#666">&lt;-</span> <span style="color:#06287e">svyglm</span>(illicit <span style="color:#666">~</span> cumulative, design <span style="color:#666">=</span> clus,family <span style="color:#666">=</span> binomial)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#4070a0">&#34;Model coefficients and confidence intervals&#34;</span>
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+<span style="color:#4070a0">&#34;Odds ratios and confidence intervals&#34;</span>
+<span style="color:#06287e">exp</span>(<span style="color:#06287e">cbind</span>(OR <span style="color:#666">=</span> <span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)))
+</code></pre></div><br/>
+<p>The above codes produce the following results.</p>
+<pre><code>######################################################
+
+Call:
+svyglm(formula = illicit ~ cumulative, design = clus, family = binomial)
+
+Survey design:
+svydesign(id = ~1, weights = ~.final_weight, data = currentDataset)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -2.6639     0.2270 -11.734  &lt; 2e-16 ***
+cumulative    0.7865     0.2288   3.438 0.000649 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1.000884)
+
+Number of Fisher Scoring iterations: 5
+
+
+######################################################
+[1] &quot;Model coefficients and confidence intervals&quot;
+
+######################################################
+                            2.5 %    97.5 %
+(Intercept) -2.6639296 -3.1089045 -2.218955
+cumulative   0.7865248  0.3380718  1.234978
+
+######################################################
+[1] &quot;Odds ratios and confidence intervals&quot;
+
+######################################################
+                   OR      2.5 %    97.5 %
+(Intercept) 0.0696739 0.04464984 0.1087227
+cumulative  2.1957526 1.40224124 3.4383024
+
+######################################################
+</code></pre><br/>
+<p>It should be noted that you may also see the warning message below. This is expected because we have fractional weights.</p>
+<pre><code>######################################################
+Warning message: non-integer #successes in a binomial glm!
+
+######################################################
+</code></pre><br/>
+
+<h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
+<p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)</p>
 <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
 
 </div>

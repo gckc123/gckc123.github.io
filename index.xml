@@ -6,7 +6,7 @@
     <description>Recent content on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://statsnotebook.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -39,13 +39,35 @@
     </item>
     
     <item>
+      <title>Robust regression</title>
+      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using residual plots).</description>
+    </item>
+    
+    <item>
       <title>Inverse probability treatment weighting</title>
       <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between an exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time varying confounder.</description>
+A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time-varying confounders.</description>
+    </item>
+    
+    <item>
+      <title>IPTW with missing data</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</guid>
+      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
+This is a follow-up tutorial built on our tutorial on inverse probability treatment weight. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on inverse probability treatment weight first.
+The example data can be downloaded from here.
+If your dataset has missing data, multiple imputation can be firstly used to impute the missing value.</description>
     </item>
     
     <item>
@@ -159,16 +181,6 @@ StatsNotebook provides a simple menu for creating new variables. We will give tw
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
 A residual plot is an essential tool for checking the assumption of linearity and homoscedasticity. The following are examples of residual plots when (1) the assumptions are met, (2) the homoscedasticity assumption is violated and (3) the linearity assumption is violated.
 Assumption met When both the assumption of linearity and homoscedasticity are met, the points in the residual plot (plotting standardised residuals against predicted values) will be randomly scattered.</description>
-    </item>
-    
-    <item>
-      <title>Robust regression</title>
-      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
-      <pubDate>Thu, 24 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address.</description>
     </item>
     
     <item>
