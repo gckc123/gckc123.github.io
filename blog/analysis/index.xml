@@ -28,7 +28,7 @@ Outliers and violations of distributional assumptions are common in many area of
       
       <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
       <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-A time varying confounder is a variable that is affected by previous exposure, and also confounds the relationship between future exposure and outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear model produce bias estimates in the presence of time-varying confounders.</description>
+In multiwave longitudinal study, the exposure is often time-varying. A time varying confounder is a time varying variable that is affected by previous exposures, and also affect future exposure and outcome, thus confounding the relationship between the exposure and the outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear models produce biased estimates in the presence of time-varying confounders.</description>
     </item>
     
     <item>

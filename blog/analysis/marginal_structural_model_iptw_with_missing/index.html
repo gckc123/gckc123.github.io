@@ -185,20 +185,20 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
     <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
 <p>This is a follow-up tutorial built on our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a>. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a> first.</p>
 <p>The example data can be downloaded from <a href="../../data_management/example_data/iptw_example_with_missing.csv">here</a>.</p>
-<p>If your dataset has missing data, <a href="../multiple_imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calcution to impute the missing value. If more auxiliary variables are needed for the imputation, we can firstly <a href="../multiple_imputation">conduct the imputation manually</a>. This tutorial will demonsrate the shortcut method.</p>
+<p>If your dataset has missing data, <a href="../multiple_imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can <a href="../multiple_imputation">conduct the imputation manually</a> first. This tutorial will demonstrate the shortcut method.</p>
 <p>In the presence of missing data,</p>
 <ol>
-<li>Multiple imputation will be firstly use to impute missing values. As a rule of thubm, the number of imputation needed is roughly the same as the percentage of missing data.</li>
+<li>Multiple imputation will be used to impute missing values first. As a rule of thumb, the number of imputations needed is roughly the same as the percentage of missing data.</li>
 <li>IPTW is computed for each imputed dataset.</li>
-<li>The outcome model is then run on each imputed dataset.</li>
-<li>Results from different imputed dataset are combined using Rubin&rsquo;s formula.</li>
+<li>The outcome model will be run on each imputed dataset.</li>
+<li>Results from different imputed datasets are combined using Rubin&rsquo;s formula.</li>
 </ol>
-<p><strong>StatsNotebook</strong> uses the <code>mice</code> package for multiple imputation, and then uses the <code>mitools</code> package to combine results from outcome models to form final estimates using Rubin&rsquo;s formula.</p>
-<p>The section below will provide a step-by-step guide on using IPTW with multiple imputation to answer the research question</p>
+<p><strong>StatsNotebook</strong> uses the <code>mice</code> package for multiple imputation, and then uses the <code>mitools</code> package to combine results from the outcome models to form final estimates using Rubin&rsquo;s formula.</p>
+<p>The section below will provide a step-by-step guide on using IPTW with multiple imputations to answer the research question</p>
 <ul>
 <li><em>Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?</em></li>
 </ul>
-<p>In this exapmle dataset, the key variables are</p>
+<p>In this example dataset, the key variables are</p>
 <ol>
 <li>Academic grade (<strong>failed</strong>; 0: no failed subjects; failed at least one subject)</li>
 <li>Peers&rsquo; cannabis use (<strong>peer_can</strong>: 0: None; 1: 1-2 friends used cannabis; 2: 3 or more friends used cannabis)</li>
@@ -208,19 +208,19 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 <li>Family history of drug use (<strong>family_drug_use</strong>; 0: no; 1: at least one immediate family member used drug. This is only measured at baseline.)</li>
 <li>Illicit drug use at age 25 (<strong>illicit</strong>: 0: No use; 1: used)</li>
 </ol>
-<p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represented the number of peers who used cannabis at baseline (wave 0).</p>
+<p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represents the number of peers who used cannabis at baseline (wave 0).</p>
 <p>For the detailed setup of this analysis, please see our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a>, in which we used a complete dataset instead of one with missing data.</p>
 
 <h5 id="using-statsnotebook---calculating-iptw" class="anchor-link"><a href="#using-statsnotebook---calculating-iptw">Using StatsNotebook - Calculating IPTW</a></h5>
 <p>Prior to calculating the IPTW, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
-<p>To perform multiple imputation and then calculate the IPTW for each imputed dataset,</p>
+<p>To perform multiple imputation and then to calculate the IPTW for each imputed dataset,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
 <li>Click <strong>Causal</strong> in the top menu</li>
 <li>Click <strong>Inverse Probability Treatment Weighting (IPTW)</strong> in the pop-up menu</li>
 <li>In the left panel, select <em>can_1</em> into <em>Exposure</em>, and select <em>failed_0</em>, <em>peer_can_0</em> and <em>antisocial_0</em> into <em>Time-varying covariates</em>. As mentioned before, since baseline confounders/covariates can be regarded as a special subset of Time-varying covariates at Wave 1, we further select <em>family_drug_use</em>, <em>sex</em>  and <em>can_0</em> (baseline cannabis use) into <em>Time-varying covariates</em>.
 <ul>
-<li>To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for expsoure at follow-up wave 1.</li>
+<li>To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for the expsoure variable at follow-up wave 1.</li>
 </ul>
 </li>
 </ol>
@@ -235,9 +235,9 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 <p>Repeat step 5 and 6 for <em>can_3</em>.</p>
 </li>
 <li>
-<p>Select <em>ilicit</em> into <em>Outcome</em>.</p>
+<p>Select <em>illicit</em> into <em>Outcome</em>.</p>
 <ul>
-<li>This step is not necessary when there is no missing data. The variable in <em>Outcome</em> is only used for the multiple imputation but not for calcaluting IPTW.</li>
+<li>This step is not necessary when there is no missing data. The variable in <em>Outcome</em> is only used for the multiple imputation but not for calculating IPTW.</li>
 </ul>
 </li>
 <li>
@@ -252,13 +252,13 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 <li>
 <p>Click <em>Impute missing data</em>. In this example, we specify 20 imputations.</p>
 <ul>
-<li>As a rule of thumb, the number of imputation should be roughly the same as the percentage of missing data.</li>
+<li>As a rule of thumb, the number of imputations should be roughly the same as the percentage of missing data.</li>
 </ul>
 </li>
 </ol>
 <p><img src="../img/iptw_instruction3_missing.png" alt="iptw instruction 3" title="iptw instruction 3"></p>
 <ol start="12">
-<li>Click <strong>Code and Run</strong>. The codes below will be generated and excuted.</li>
+<li>Click <strong>Code and Run</strong>. The codes below will be generated and executed.</li>
 </ol>
 
 <h5 id="r-codes---calculating-iptw" class="anchor-link"><a href="#r-codes---calculating-iptw">R codes - Calculating IPTW</a></h5>
@@ -368,12 +368,12 @@ currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <span style="color:#4070a0">&#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&#34;</span>
 
 </code></pre></div><br/>
-<p>Given the complexity of the codes, we will only give a conceptual explanation. For detailed explanation for the specification of the multiple imputation model, see our tutorial on <a href="../multiple_imputation">multiple imputation</a>. Briefly, the top section of the above codes specify the variables used to impute each of the variable, perform the multiple imputation and generate the diagnostic plots for the imputation.</p>
-<p>In the second section, we compute the IPTW for each of the imputed dataset using a for loop.</p>
-<p>Six new variables will be created. <em>.imp</em> is the identifier for each of the imputed dataset. The original data will have a value of 0. The <em>.id</em> is the identifier for each observation in each imputed dataset. <em>.ipw0</em>, <em>.ipw1</em> and <em>.ipw2</em></p>
+<p>Given the complexity of the codes, we will only give a conceptual explanation. For a detailed explanation on the specification of the multiple imputation model, see our tutorial on <a href="../multiple_imputation">multiple imputation</a>. In brief, the top section of the codes from above specify the variables used to impute each of the variables with missing data, perform the multiple imputation and generate the diagnostic plots for the imputation.</p>
+<p>In the second section, we compute the IPTW for each of the imputed dataset using an iterative <code>for</code> loop.</p>
+<p>Six new variables will be created. <em>.imp</em> is the identifier for each of the imputed datasets. The original data will have a value of 0. The <em>.id</em> is the identifier for each observation in each imputed dataset. <em>.ipw0</em>, <em>.ipw1</em> and <em>.ipw2</em></p>
 
 <h5 id="using-statsnotebook---weighted-analysis" class="anchor-link"><a href="#using-statsnotebook---weighted-analysis">Using StatsNotebook - Weighted analysis</a></h5>
-<p>After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of cumulative exposure, measured as the number of wave an individual reported using cannabis between follow-up wave 1 and wave 3, we first create a new variable (<em>cumulative</em>) by summing up <em>can_1</em>, <em>can_2</em> and <em>can_3</em>.</p>
+<p>After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of the cumulative exposure (measured as the number of waves an individual reported using cannabis between follow-up wave 1 and wave 3), we first create a new variable (<em>cumulative</em>) by summing up <em>can_1</em>, <em>can_2</em> and <em>can_3</em>.</p>
 <p>To create this new variable in <strong>StatsNotebook</strong>,</p>
 <ol>
 <li>Click <strong>Data</strong> at the top</li>
@@ -385,7 +385,7 @@ currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <p>The <strong>R code</strong> for this operation is simple.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>cumulative <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>can_1<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_2<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_3
 </code></pre></div><br/>
-<p>Once we have created the <em>cumulative</em> variable, we can use the <code>survey</code> package to conduct a weighted analysis to estimate the causal effect of cumulative use of cannabis during adolescence on illicit drug use in young adulthood (age 25) to estimate the model parameters from each imputed dataset separately. The <code>mitools</code> package is used to pool the results to form a set of single estimates using Rubin&rsquo;s formula. <strong>Logistic regression</strong> is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).</p>
+<p>Once we have created the <em>cumulative</em> variable, we can use the <code>survey</code> package to conduct a weighted analysis to estimate the causal effect of cumulative cannabis use during adolescence on illicit drug use in young adulthood (age 25) to estimate the model parameters from each imputed dataset separately. The <code>mitools</code> package is used to pool the results to form a set of single estimates using Rubin&rsquo;s formula. <strong>Logistic regression</strong> is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).</p>
 <p>To conduct a weighted analysis,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -421,13 +421,13 @@ car<span style="color:#666">::</span><span style="color:#06287e">infIndexPlot</s
 <span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
 
 </code></pre></div><br/>
-<p>The above code will produce multiple warning message. This is expected and not of any concern because we have fractional weights.</p>
+<p>The code above will produce multiple warning message. This is expected and not of any concern because we have fractional weights.</p>
 <pre><code>######################################################
 Warning message: non-integer #successes in a binomial glm!
 
 ######################################################
 </code></pre><br/>
-<p>The key results from the above code are as follow.</p>
+<p>The key results from the code above are as follow.</p>
 <pre><code>Multiple imputation results:
       with(clus, svyglm(illicit ~ cumulative, family = binomial))
       MIcombine.default(res)
@@ -437,7 +437,7 @@ cumulative  2.15334681 0.48705061 1.38223761 3.3546349      2 %
 </code></pre><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 2.15, 95% CI = [1.38, 3.36] (Your results will be slightly different because multiple imputation is not deterministic - everytime the missing data is imputed, the value may be different). For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.15 times. It is likely that we can interpret this assoication as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)</p>
+<p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 2.15, 95% CI = [1.38, 3.36] (Your results will be slightly different because multiple imputation is not deterministic - every time the missing data is imputed, the value may be different). For every additional wave an individual used cannabis, the odds of using illicit drugs at age 25 increases by 2.15 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be smaller due to residual confounding (confounding effect not captured by the variables we used in the analysis.)</p>
 <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
 
 </div>
