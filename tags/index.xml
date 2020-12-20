@@ -6,11 +6,7 @@
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Analysis</title>
       <link>https://statsnotebook.io/tags/analysis/</link>

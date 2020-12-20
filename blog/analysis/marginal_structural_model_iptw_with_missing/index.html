@@ -182,7 +182,7 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
+    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 <p>This is a follow-up tutorial built on our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a>. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a> first.</p>
 <p>The example data can be downloaded from <a href="../../data_management/example_data/iptw_example_with_missing.csv">here</a>.</p>
 <p>If your dataset has missing data, <a href="../multiple_imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can <a href="../multiple_imputation">conduct the imputation manually</a> first. This tutorial will demonstrate the shortcut method.</p>
@@ -438,7 +438,7 @@ cumulative  2.15334681 0.48705061 1.38223761 3.3546349      2 %
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 2.15, 95% CI = [1.38, 3.36] (Your results will be slightly different because multiple imputation is not deterministic - every time the missing data is imputed, the value may be different). For every additional wave an individual used cannabis, the odds of using illicit drugs at age 25 increases by 2.15 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be smaller due to residual confounding (confounding effect not captured by the variables we used in the analysis.)</p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
+<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
 </div>
 

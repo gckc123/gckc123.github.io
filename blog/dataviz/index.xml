@@ -6,21 +6,68 @@
     <description>Recent content in DataViz on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://statsnotebook.io/blog/dataviz/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/blog/dataviz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Line chart</title>
       <link>https://statsnotebook.io/blog/dataviz/line_graph/</link>
       <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/line_graph/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
-We use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
-We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Line chart can be used to show the evoluation of &lt;strong&gt;numeric&lt;/strong&gt; variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_line()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build line chart.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;Human Development Index&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a data from the United Nations Development Programmes (UNDP).&lt;/p&gt;
+&lt;p&gt;We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions. This dataset contains the following variables&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Region - Region from which the Human Development Index is calculated&lt;/li&gt;
+&lt;li&gt;HDI_1990, &amp;hellip; , HDI_2018 - Human Development Index from 1990 to 2018&lt;/li&gt;
+&lt;li&gt;GDP_1990, &amp;hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This data is in wide format&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../img/wide_data.png&#34; alt=&#34;Wide data format&#34;&gt;&lt;/p&gt;
+&lt;p&gt;And we will need to &lt;a href=&#34;../../data_management/reshape&#34;&gt;reshape it to a long format&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../img/long_data.png&#34; alt=&#34;long data format&#34;&gt;&lt;/p&gt;
+&lt;p&gt;There will be only 4 variables after &lt;a href=&#34;../../data_management/reshape&#34;&gt;reshaping the data&lt;/a&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Region - Region from whcih the Human Development Index is calcuated&lt;/li&gt;
+&lt;li&gt;Year - Year&lt;/li&gt;
+&lt;li&gt;HDI - Human Development Index&lt;/li&gt;
+&lt;li&gt;GDP - Gross Domestic Product per capita&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will visualise the evolution of Human Development Index across six world regions.&lt;/p&gt;
+
+&lt;h5 id=&#34;line-chart-by-a-grouping-variable&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#line-chart-by-a-grouping-variable&#34;&gt;Line Chart by a grouping variable&lt;/a&gt;&lt;/h5&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Line&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Line graph/ Time Series&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;In the line graph panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt; and &lt;em&gt;Region&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Year&lt;/em&gt; can be treated as a numeric variable and &lt;em&gt;Region&lt;/em&gt; is a categorical variable. If these variables are not yet coded as &lt;strong&gt;numeric&lt;/strong&gt; and &lt;strong&gt;factor&lt;/strong&gt; respectively, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert them&lt;/a&gt; into the correct variable type.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../img/line_chart_instruction.png&#34; alt=&#34;line chart instruction&#34; title=&#34;Line chart by group&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Region) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Region)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_line&lt;/span&gt;(na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/line_chart_by_group.png&#34; alt=&#34;line graph by group&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -29,9 +76,121 @@ We will use line chart to visualise the evolution of Human Development Index fro
       <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/scatterplot/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Scatterplot can be used to visualise the association between two numeric variables. StatsNotebook uses the geom_jitter function from the ggplot2 library to build scatterplot.
-We use the built-in UNDP dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a dataset of 199 countries compiled from the United Nations Development Programme.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Scatterplot can be used to visualise the association between two numeric variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;geom_jitter&lt;/code&gt; function from the &lt;code&gt;ggplot2&lt;/code&gt; library to build scatterplot.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;UNDP&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a dataset of 199 countries compiled from the United Nations Development Programme.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;HDI - Human Development Index in 2018&lt;/li&gt;
+&lt;li&gt;GDP - Gross Domestic Product per capital in 2018&lt;/li&gt;
+&lt;li&gt;Pop - Population (in millions) in 2018&lt;/li&gt;
+&lt;li&gt;Continent - Continent&lt;/li&gt;
+&lt;li&gt;Schooling - Expected years of schooling&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#simple-scatterplot&#34;&gt;Simple scatterplot&lt;/a&gt;
+        &lt;a href=&#34;#simple-scatterplot&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/simple_scatterplot.png&#34; alt=&#34;Simple scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#bubble-plot&#34;&gt;Bubble plot&lt;/a&gt;
+        &lt;a href=&#34;#bubble-plot&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/bubble_plot2.png&#34; alt=&#34;Bubble plot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;Scatterplot with fitted line&lt;/a&gt;
+        &lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/scatterplot_with_line.png&#34; alt=&#34;Sctterplot with line of best fit&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;simple-scatterplot&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#simple-scatterplot&#34;&gt;Simple scatterplot&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a simple scatterplot visualising association between two numeric variables (e.g. HDI and GDP),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt; and &lt;em&gt;GDP&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and uncheck &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; GDP)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/simple_scatterplot.png&#34; alt=&#34;Simple scatterplot&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;bubble-plot&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#bubble-plot&#34;&gt;Bubble plot&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a bubble plot visualising the association between two numeric variables (e.g. HDI and GDP), with point size determined by a third continuous variable (e.g. Population size) and points color-coded by a categorical variable (e.g. continent)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;GDP&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, &lt;em&gt;Continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;, and &lt;em&gt;Pop&lt;/em&gt; to &lt;em&gt;Size&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and uncheck &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-1&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Continent, Pop) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; GDP, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Pop)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/bubble_plot1.png&#34; alt=&#34;Bubble plot 1&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;adjusting-bubble-size&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#adjusting-bubble-size&#34;&gt;Adjusting bubble size&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The size of the bubble can be changed by changing the following line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The minimum point size is 0.1 and the maximum is 8. The following code changes the minimum to 0.3 and the maximum to 15.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.3&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;15&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-updated-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-updated-r-codes&#34;&gt;Output from the updated R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/bubble_plot2.png&#34; alt=&#34;Bubble plot 2&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;scatterplot-with-line-of-best-fit&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;Scatterplot with line of best fit&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a bubble plot visualising the association between two numeric variables (e.g. HDI and Schooling) with a line of best fit and points color-coded by a categorical variable (e.g. continent),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;Schooling&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, and &lt;em&gt;Continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and check &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-2&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Continent) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Schooling)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_smooth&lt;/span&gt;(method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;lm&amp;#34;&lt;/span&gt;, se &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, show.legend &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/scatterplot_with_line.png&#34; alt=&#34;Scatter plot with line of best fit&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -40,10 +199,165 @@ We use the built-in UNDP dataset in this example. This dataset can be loaded int
       <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/barchart/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Bar chart can be used to visualise the frequency or proportion of categorical variables. StatsNotebook uses the geom_bar() from ggplot2 to build bar chart.
-We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Bar chart can be used to visualise the frequency or proportion of categorical variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;geom_bar()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build bar chart.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
+&lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
+&lt;li&gt;State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#simple-bar-chart&#34;&gt;Simple bar chart&lt;/a&gt;
+        &lt;a href=&#34;#simple-bar-chart&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/simple_barchart.png&#34; alt=&#34;Simple barchart&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#stacked-bar-chart&#34;&gt;Stacked bar chart&lt;/a&gt;
+        &lt;a href=&#34;#stacked-bar-chart&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/stacked_barchart.png&#34; alt=&#34;stacked barchart&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#grouped-bar-chart&#34;&gt;Grouped bar chart&lt;/a&gt;
+        &lt;a href=&#34;#grouped-bar-chart&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/grouped_barchart.png&#34; alt=&#34;Grouped barchart&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#multiple-bar-charts&#34;&gt;Multiple bar charts&lt;/a&gt;
+        &lt;a href=&#34;#multiple-bar-charts&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/multiple_barcharts.png&#34; alt=&#34;Multiple barcharts&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;simple-bar-chart&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#simple-bar-chart&#34;&gt;Simple bar chart&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a simple bar chart for a single categorical variable (e.g. &lt;em&gt;state&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Bar Chart&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the bar chart panel, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/simple_barchart.png&#34; alt=&#34;Simple bar chart&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;stacked-bar-chart&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#stacked-bar-chart&#34;&gt;Stacked bar chart&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a stacked bar chart for a single categorical variable (e.g. &lt;em&gt;State&lt;/em&gt;) by another categorical variable (e.g. &lt;em&gt;Year&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Bar Chart&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the bar chart panel, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt; and select &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by: Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/stacked_barchart.png&#34; alt=&#34;Stacked bar chart&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;grouped-bar-chart&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#grouped-bar-chart&#34;&gt;Grouped bar chart&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a grouped bar chart for a single categorical variable (e.g. &lt;em&gt;State&lt;/em&gt;) by another categorical variable (e.g. &lt;em&gt;Year&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Bar Chart&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the bar chart panel, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt; and select &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by: Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expaned the &lt;strong&gt;Bar Chart Setting&lt;/strong&gt; panel, check &lt;strong&gt;Separate bars by &lt;em&gt;Year&lt;/em&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;fill&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/grouped_barchart.png&#34; alt=&#34;grouped bar chart&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;multiple-bar-charts&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#multiple-bar-charts&#34;&gt;Multiple bar charts&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build multiple grouped bar charts for a single categorical variable (e.g. &lt;em&gt;State&lt;/em&gt;) by a categorical variable (e.g. &lt;em&gt;Year&lt;/em&gt;) in different facet by another categorical variable (e.g. &lt;em&gt;Remoteness&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Bar Chart&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the bar chart panel, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by: Fill color&lt;/em&gt;, and &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Facet&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expaned the &lt;strong&gt;Bar Chart Setting&lt;/strong&gt; panel, check &lt;strong&gt;Fill Chart&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year, Remoteness) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;dodge&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; Remoteness)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-3&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/multiple_barcharts.png&#34; alt=&#34;multiple bar charts&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -52,10 +366,125 @@ We will use the following three variables from this dataset</description>
       <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/histogram/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Histogram can be used to show the distribution of numeric variable. StatsNotebook uses geom_histogram() from ggplot2 to build density plot.
-We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Histogram can be used to show the distribution of &lt;strong&gt;numeric&lt;/strong&gt; variable. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_histogram()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build density plot.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
+&lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
+&lt;li&gt;State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#simple-histogram&#34;&gt;Simple histogram&lt;/a&gt;
+        &lt;a href=&#34;#simple-histogram&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/simple_histogram.png&#34; alt=&#34;Simple histogram&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#histogram-by-groups&#34;&gt;Histogram by groups&lt;/a&gt;
+        &lt;a href=&#34;#histogram-by-groups&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/histogram_by_group.png&#34; alt=&#34;Histogram by groups&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#multiple-histograms&#34;&gt;Multiple histograms&lt;/a&gt;
+        &lt;a href=&#34;#multiple-histograms&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/multiple_histograms_by_facet.png&#34; alt=&#34;Multiple histograms by facets&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;simple-histogram&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#simple-histogram&#34;&gt;Simple histogram&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a simple histogram for a single numeric variable (e.g. alcohol),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Histogram&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the Histogram panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.60&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;identity&amp;#34;&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/simple_histogram.png&#34; alt=&#34;Simple histogram&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;histogram-by-groups&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#histogram-by-groups&#34;&gt;Histogram by groups&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a histogram for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;Remoteness&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Histogram&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the Histogram panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt; and select &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Remoteness) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.60&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;identity&amp;#34;&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/histogram_by_group.png&#34; alt=&#34;Histogram by group&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;multiple-histograms&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#multiple-histograms&#34;&gt;Multiple histograms&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build histograms for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;Remoteness&lt;/em&gt;) in multiple facets (by another variable, e.g. &lt;em&gt;State&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Histogram&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the histogram panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt;, select &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Facet&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Remoteness, State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.60&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;identity&amp;#34;&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; State)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/multiple_histograms_by_facet.png&#34; alt=&#34;Multiple histogram by facet&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -64,10 +493,131 @@ We will use the following three variables from this dataset</description>
       <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/density/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Density plot can be used to show the distribution of numeric variables. StatsNotebook uses geom_density() from ggplot2 to build density plot.
-We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Density plot can be used to show the distribution of &lt;strong&gt;numeric&lt;/strong&gt; variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_density()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build density plot.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
+&lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
+&lt;li&gt;State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#simple-density-plot&#34;&gt;Simple density plot&lt;/a&gt;
+        &lt;a href=&#34;#simple-density-plot&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/simple_density.png&#34; alt=&#34;Simple density plot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#density-plot-by-groups&#34;&gt;Density plot by groups&lt;/a&gt;
+        &lt;a href=&#34;#density-plot-by-groups&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/density_by_group.png&#34; alt=&#34;Density plot by groups&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#multiple-density-plots&#34;&gt;Multiple density plots&lt;/a&gt;
+        &lt;a href=&#34;#multiple-density-plots&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/multiple_density_by_facet.png&#34; alt=&#34;Multiple density plots by facets&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;simple-density-plot&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#simple-density-plot&#34;&gt;Simple density plot&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a simple density plot for a single numeric variable (e.g. alcohol),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Density&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the density panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_density&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/simple_density.png&#34; alt=&#34;Simple density plot&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;density-plot-by-groups&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#density-plot-by-groups&#34;&gt;Density plot by groups&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a density plot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;Remoteness&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Density&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the density panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt; and select &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Remoteness) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_density&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/density_by_group.png&#34; alt=&#34;Density plot by group&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;multiple-density-plots&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#multiple-density-plots&#34;&gt;Multiple density plots&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build density plots for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;Remoteness&lt;/em&gt;) in multiple facets (by another variable, e.g. &lt;em&gt;State&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Density&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the density panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt;, select &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Facet&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Remoteness, State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_density&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; State)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/multiple_density_by_facet.png&#34; alt=&#34;Multiple density plots by facet&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -76,10 +626,161 @@ We will use the following three variables from this dataset</description>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/boxplot/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Boxplot is commonly used to compare distribution of a numeric variables across several groups. StatsNotebook uses geom_boxplot() from ggplot2 to build boxplot.
-We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Boxplot is commonly used to compare distribution of a numeric variables across several groups. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_boxplot()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build boxplot.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
+&lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
+&lt;li&gt;State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#simple-boxplot&#34;&gt;Simple boxplot&lt;/a&gt;
+        &lt;a href=&#34;#simple-boxplot&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/simple_boxplot.png&#34; alt=&#34;Simple boxplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#boxplot-by-one-grouping-variable&#34;&gt;Boxplot (one grouping variable)&lt;/a&gt;
+        &lt;a href=&#34;#boxplot-by-one-grouping-variable&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/boxplot_by_1group.png&#34; alt=&#34;Boxplot by one group&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#boxplot-by-two-grouping-variables&#34;&gt;Boxplot (two grouping variables)&lt;/a&gt;
+        &lt;a href=&#34;#boxplot-by-two-grouping-variables&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/boxplot_by_2groups.png&#34; alt=&#34;Boxplot by two groups&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#multiple-boxplots&#34;&gt;Multiple boxplots&lt;/a&gt;
+        &lt;a href=&#34;#multiple-boxplots&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/multiple_boxplot_by_facet.png&#34; alt=&#34;Multiple boxplots by facets&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;simple-boxplot&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#simple-boxplot&#34;&gt;Simple boxplot&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a simple boxplot for a single numeric variable (e.g. alcohol),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the Boxplot/ Violin plot panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_boxplot&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/simple_boxplot.png&#34; alt=&#34;Simple boxplot plot&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;boxplot-by-one-grouping-variable&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#boxplot-by-one-grouping-variable&#34;&gt;Boxplot by one grouping variable&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a boxplot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;State&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the boxplot panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt; and select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal aixs&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_boxplot&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/boxplot_by_1group.png&#34; alt=&#34;Boxplot by a grouping variable&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;boxplot-by-two-grouping-variables&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#boxplot-by-two-grouping-variables&#34;&gt;Boxplot by two grouping variables&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a boxplot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by two grouping variables (e.g. &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the boxplot panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt;, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal aixs&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_boxplot&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/boxplot_by_2groups.png&#34; alt=&#34;Boxplot by two grouping variables&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;multiple-boxplots&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#multiple-boxplots&#34;&gt;Multiple boxplots&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build multiple boxplot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;States&lt;/em&gt; abd &lt;em&gt;Year&lt;/em&gt;) in multiple facets (by another variable, e.g. &lt;em&gt;Remoteness&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the boxplot panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Facet&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Remoteness, State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Remoteness)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_density&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; State)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-3&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/multiple_boxplot_by_facet.png&#34; alt=&#34;Multiple boxplot plots by facet&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -88,9 +789,92 @@ We will use the following three variables from this dataset</description>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/correlogram/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Correlogram is a type of chart that visualise the pairwise association between variables. StatsNotebook uses the ggpairs() function from the GGally library to build correlogram. A publication ready correlogram can be built within a few minutes with StatsNotebook.
-We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using instruction here or can be downloaded from here.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Correlogram is a type of chart that visualise the pairwise association between variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;ggpairs()&lt;/code&gt; function from the &lt;code&gt;GGally&lt;/code&gt; library to build correlogram. A publication ready correlogram can be built within a few minutes with &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this example, we will build a &lt;a href=&#34;#correlogram-scatterplot-matrix&#34; title=&#34;Correlogram (Scatterplot matrix)&#34;&gt;simple correlogram&lt;/a&gt; to visualise the relationship between four variables (three personality variables: &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt; and one mental health variable: &lt;em&gt;Depression&lt;/em&gt;). We then build a &lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34; title=&#34;Correlogram (Scatterplot matrix by group)&#34;&gt;correlogram by Sex&lt;/a&gt; (Male and Female.)&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#correlogram-scatterplot-matrix&#34;&gt;Correlogram&lt;/a&gt;
+        &lt;a href=&#34;#correlogram-scatterplot-matrix&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/correlogram2.png&#34; alt=&#34;Simple density plot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34;&gt;Correlogram by groups&lt;/a&gt;
+        &lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/correlogram3.png&#34; alt=&#34;Density plot by groups&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;correlogram-scatterplot-matrix&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#correlogram-scatterplot-matrix&#34;&gt;Correlogram (Scatterplot matrix)&lt;/a&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Correlogram&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Correlogram&lt;/strong&gt; panel, select &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt;, and &lt;em&gt;Depression&lt;/em&gt; from the &lt;em&gt;Variables&lt;/em&gt; (left) to &lt;em&gt;Horizontal Axis&lt;/em&gt; (right).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../img/correlogram_instruction.png&#34; alt=&#34;Correlogram instruction&#34; title=&#34;Instruction for plotting simple correlogram&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R Codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(GGally)
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Conscientiousness, Neuroticism, Openness, Depression) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;select&lt;/span&gt;(Conscientiousness, Neuroticism, Openness, Depression) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggpairs&lt;/span&gt;(progress &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/correlogram2.png&#34; alt=&#34;Correlogram&#34; title=&#34;Correlogram (Scatterplot matrix)&#34;&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;correlogram-scatterplot-matrix-by-group&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34;&gt;Correlogram (Scatterplot matrix) by group&lt;/a&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Correlogram&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Correlogram&lt;/strong&gt; panel, select the &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt;, and &lt;em&gt;Depression&lt;/em&gt; from the &lt;em&gt;Variables&lt;/em&gt; (left) to &lt;em&gt;Horizontal Axis&lt;/em&gt; (right).&lt;/li&gt;
+&lt;li&gt;Select &lt;em&gt;Sex&lt;/em&gt; to &lt;em&gt;Split by: Fill color&lt;/em&gt; (right).
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Sex&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../img/correlogram_instruction2.png&#34; alt=&#34;Correlogram by group instruction&#34; title=&#34;Instruction for plotting correlogram by group&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-1&#34;&gt;R Codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(GGally)
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Conscientiousness, Neuroticism, Openness, Depression, Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;select&lt;/span&gt;(Conscientiousness, Neuroticism, Openness, Depression, Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggpairs&lt;/span&gt;(progress &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;,
+  ggplot2&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.65&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Sex))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/correlogram3.png&#34; alt=&#34;Correlogram by group&#34; title=&#34;Correlogram by group (Scatterplot matrix)&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -99,10 +883,137 @@ We use the built-in Personality dataset in this example. This dataset can be loa
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/dataviz/violinplot/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-Violin plot can be used to visualise the distribution of a numeric variable across several groups. StatsNotebook uses geom_violin() from ggplot2 to build violin plot.
-We use the built-in alcohol dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a simulated data of alcohol consumption from 3666 individuals.
-We will use the following three variables from this dataset</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Violin plot can be used to visualise the distribution of a numeric variable across several groups. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_violin()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build violin plot.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
+&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
+&lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
+&lt;li&gt;State - Seven states/territories in Australia: Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#violinplot-by-one-grouping-variable&#34;&gt;Violin plot (1 grouping variable)&lt;/a&gt;
+        &lt;a href=&#34;#violinplot-by-one-grouping-variable&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/violinplot_by_1group.png&#34; alt=&#34;Boxplot by one group&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#violinplot-by-two-grouping-variables&#34;&gt;Violin plot (2 grouping variables)&lt;/a&gt;
+        &lt;a href=&#34;#violinplot-by-two-grouping-variables&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/violinplot_by_2groups.png&#34; alt=&#34;Boxplot by two groups&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#multiple-violin-plots&#34;&gt;Multiple violin plots&lt;/a&gt;
+        &lt;a href=&#34;#multiple-violin-plots&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/multiple_violinplot_by_facet.png&#34; alt=&#34;Multiple boxplots by facets&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;a violin plot comparing distributions by one grouping variable&lt;/li&gt;
+&lt;li&gt;a violin plot comparing distributions by two grouping variables&lt;/li&gt;
+&lt;li&gt;multiple violin plots in different facets&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;violin-plot-by-one-grouping-variable&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#violin-plot-by-one-grouping-variable&#34;&gt;Violin plot by one grouping variable&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a violin plot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;State&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Boxplot/ violin plot&lt;/strong&gt; panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt; and select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal aixs&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand &lt;strong&gt;Boxplot/ Violin plot Setting&lt;/strong&gt; panel, check &lt;strong&gt;Violin plot&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_violin&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/violinplot_by_1group.png&#34; alt=&#34;Violin plot by a grouping variable&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;violin-plot-by-two-grouping-variables&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#violin-plot-by-two-grouping-variables&#34;&gt;Violin plot by two grouping variables&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a violin plot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by two grouping variables (e.g. &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;boxplot/ violin plot&lt;/strong&gt; panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt;, select &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal aixs&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand &lt;strong&gt;Boxplot/ Violin plot Setting&lt;/strong&gt; panel, check &lt;strong&gt;Violin plot&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_violin&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/violinplot_by_2groups.png&#34; alt=&#34;Violin plot by two grouping variables&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;multiple-violin-plots&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#multiple-violin-plots&#34;&gt;Multiple violin plots&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build multiple violin plot for a single numeric variable (e.g. &lt;em&gt;alcohol&lt;/em&gt;) by groups (e.g. &lt;em&gt;States&lt;/em&gt; abd &lt;em&gt;Year&lt;/em&gt;) in multiple facets (by another variable, e.g. &lt;em&gt;Remoteness&lt;/em&gt;),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Numeric&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Boxplot/ Violin plot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Boxplot/ violin plot&lt;/strong&gt; panel, select &lt;em&gt;alcohol&lt;/em&gt; to &lt;em&gt;Vertical axis&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; to &lt;em&gt;Split by: Fill Color&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; to &lt;em&gt;Facet&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Remoteness&lt;/em&gt;, &lt;em&gt;Year&lt;/em&gt; and &lt;em&gt;State&lt;/em&gt; are categorical variables. If they are not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, you will need to manually &lt;a href=&#34;../data_management/variable_conversion&#34;&gt;covert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand &lt;strong&gt;Boxplot/ Violin plot Setting&lt;/strong&gt; panel, check &lt;strong&gt;Violin plot&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(State, Year, Remoteness) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; alcohol, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; State, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Year)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_violin&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; Remoteness)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;../img/multiple_violinplot_by_facet.png&#34; alt=&#34;Multiple violin plot plots by facet&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h5&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

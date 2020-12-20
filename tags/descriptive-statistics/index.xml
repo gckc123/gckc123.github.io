@@ -6,20 +6,262 @@
     <description>Recent content in Descriptive statistics on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://statsnotebook.io/tags/descriptive-statistics/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/descriptive-statistics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Descriptive statistics</title>
       <link>https://statsnotebook.io/blog/analysis/descriptive/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/descriptive/</guid>
-      <description>Follow our Facebook page or our developer&amp;rsquo;s Twitter for more tutorials and future updates
-This tutorial will give a short introduction on descriptive analysis using StatsNotebook. Descriptive statistics such as mean, standard deviation, median and interquartile range can be easily obtained using the Explore panel.
-We use the built-in Personality dataset in this example. This dataset can be loaded into StatsNotebook using the instructions provided here or can be downloaded from here.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This tutorial will give a short introduction on descriptive analysis using &lt;strong&gt;StatsNotebook&lt;/strong&gt;. Descriptive statistics such as mean, standard deviation, median and interquartile range can be easily obtained using the &lt;strong&gt;Explore&lt;/strong&gt; panel.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Personality&lt;/strong&gt; dataset contains data from 231 participants, with measures on the Big 5 personality factors (&lt;em&gt;Agreeableness&lt;/em&gt;, &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Extraversion&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Openness&lt;/em&gt;), and three measures of mental health (&lt;em&gt;Depression&lt;/em&gt;, &lt;em&gt;Trait anxiety&lt;/em&gt; and &lt;em&gt;State anxiety&lt;/em&gt;). It also contains data on participants&amp;rsquo; sex.&lt;/p&gt;
+&lt;p&gt;We will demonstrate how to generate simple &lt;a href=&#34;#descriptive-statistics&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive statistics&lt;/a&gt;, and how to generate &lt;a href=&#34;#descriptive-statistics-by-group&#34; title=&#34;Descriptive statistics by group&#34;&gt;descriptive statistics by group&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;descriptive-statistics&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#descriptive-statistics&#34;&gt;Descriptive statistics&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;To calculate descriptive statistics,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Explore&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Descriptive statistics&lt;/strong&gt; on the menu&lt;/li&gt;
+&lt;li&gt;Select variables into &lt;strong&gt;Target Variables&lt;/strong&gt; on the right. In this example, we will select &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Depression&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as a &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../img/descriptive_statistics.png&#34; alt=&#34;descriptive statistics&#34; title=&#34;Descriptive statistics&#34;&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Statistics and plots&lt;/strong&gt; panel, by default, &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; are calculated for a numeric variable (&lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;); &lt;strong&gt;count&lt;/strong&gt; is calculated for a categorical (factor) variable (&lt;em&gt;Sex&lt;/em&gt;). Additional statistics, such as &lt;strong&gt;median&lt;/strong&gt; and &lt;strong&gt;interquartile range&lt;/strong&gt; can be requested here.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../img/statistics_plots.png&#34; alt=&#34;Statistics and plots&#34; title=&#34;Statistics and plots&#34;&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;r-codes---descriptive-statistics&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---descriptive-statistics&#34;&gt;R codes - Descriptive statistics&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The following is the R code generated by &lt;strong&gt;StatsNotebook&lt;/strong&gt;. We will explain these codes in the  &lt;a href=&#34;#r-codes-explained---descriptive-statistics&#34;&gt;next section&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(e1071)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ggplot2)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(GGally)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Sample size and missing data&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(), 
+  mis_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Neuroticism)), 
+  mis_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Depression)), 
+  mis_Sex &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Sex))
+  )
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Descriptive Statistics for numeric variables&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(),
+  M_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  M_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+  ) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#06287e&#34;&gt;print&lt;/span&gt;(width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt;, n &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;500&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism))
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression))
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Counts for categorical variables&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#06287e&#34;&gt;spread&lt;/span&gt;(key &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Sex, value &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; count)
+
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(stat &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;count&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Sex))
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;r-codes-explained---descriptive-statistics&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---descriptive-statistics&#34;&gt;R codes explained - Descriptive statistics&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The following is from the top section of the generated codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(e1071)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ggplot2)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(GGally)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Sample size and missing data&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(), 
+  mis_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Neuroticism)), 
+  mis_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Depression)), 
+  mis_Sex &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Sex))
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;First we load all the necessary libraries for this analysis, and then calculate the sample size and missing data in each of the variables. The above codes produce the summary below. Overall, there are 231 rows of data (&lt;strong&gt;N = 231&lt;/strong&gt;). There are &lt;strong&gt;14&lt;/strong&gt; missing data points for &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;strong&gt;33&lt;/strong&gt; missing data points for &lt;em&gt;Depression&lt;/em&gt;. There is no missing data for &lt;em&gt;Sex&lt;/em&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;######################################################
+[1] &amp;quot;Sample size and missing data&amp;quot;
+
+######################################################
+# A tibble: 1 x 4
+  count mis_Neuroticism mis_Depression mis_Sex
+  &amp;lt;int&amp;gt;           &amp;lt;int&amp;gt;          &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;
+1   231              14             33       0
+
+
+######################################################
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;The following code is then used to calculate the descriptive statistics for the numeric variables (&lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Descriptive Statistics&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Descriptive Statistics for numeric variables&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(),
+  M_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  M_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+  ) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#06287e&#34;&gt;print&lt;/span&gt;(width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt;, n &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;500&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;This code produces the following output. The mean of &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt; are &lt;strong&gt;87.7&lt;/strong&gt; (SD = 7.06) and &lt;strong&gt;23.1&lt;/strong&gt; (SD = 5.81) respectively.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;######################################################
+[1] &amp;quot;Descriptive Statistics for numeric variables&amp;quot;
+
+######################################################
+# A tibble: 1 x 5
+  count M_Neuroticism M_Depression SD_Neuroticism SD_Depression
+  &amp;lt;int&amp;gt;         &amp;lt;dbl&amp;gt;        &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;
+1   231          87.7         7.06           23.1          5.81
+
+######################################################
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;The following code is then used to produce normality plots and histograms.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism))
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression))
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The top two plots are for &lt;em&gt;Neuroticism&lt;/em&gt; and the bottom two for &lt;em&gt;Depression&lt;/em&gt;. The left plots are normality plots. If the data is normally distributed, the points will roughly follow a straight line. The histograms on the right show the distribution of the variables. These plots show that the distribution of &lt;em&gt;Neuroticism&lt;/em&gt; is approximately normal, but &lt;em&gt;Depression&lt;/em&gt; is skewed to the right.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../img/descriptive_plots.png&#34; alt=&#34;descriptive plot&#34; title=&#34;Normality plots and histograms&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Lastly, the following codes are used to calculate the frequency count for the categorical variable &lt;em&gt;Sex&lt;/em&gt; and to generate a simple bar graph.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Counts for categorical variables&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#06287e&#34;&gt;spread&lt;/span&gt;(key &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Sex, value &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; count)
+
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_bar&lt;/span&gt;(stat &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;count&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Sex))
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Below is the output from &lt;strong&gt;StatsNotebook&lt;/strong&gt;. Of the 231 participants, 70 are female and 161 are male.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 1 x 2
+  Female  Male
+   &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+1     70   161
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+
+&lt;h4 id=&#34;descriptive-statistics-by-group&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#descriptive-statistics-by-group&#34;&gt;Descriptive statistics by group&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;In this example, we will generate the descriptive statistics of &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt; by &lt;em&gt;Sex&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To do this, we can&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Explore&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Descriptive statistics&lt;/strong&gt; on the menu&lt;/li&gt;
+&lt;li&gt;Select variables into &lt;strong&gt;Target Variables&lt;/strong&gt; on the right. In this example, we will select &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Select the grouping variable (&lt;em&gt;Sex&lt;/em&gt;) into &lt;strong&gt;Split by&lt;/strong&gt; box on the right.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Statistics and plots&lt;/strong&gt; panel, by default, &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; are calculated for numeric variables (&lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;). Additional statistics, such as &lt;strong&gt;median&lt;/strong&gt; and &lt;strong&gt;interquartile range&lt;/strong&gt; can be requested here.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes---descriptive-statistics-by-group&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---descriptive-statistics-by-group&#34;&gt;R codes - Descriptive statistics by group&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;This code is very similar to those above, except now we have specified that the analysis split by group (&lt;em&gt;Sex&lt;/em&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(e1071)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ggplot2)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(GGally)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Sample size and missing data&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(), 
+  mis_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Neuroticism)), 
+  mis_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Depression)), 
+  mis_Sex &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;is.na&lt;/span&gt;(Sex))
+  )
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Descriptive Statistics for numeric variables&amp;#34;&lt;/span&gt;
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(Sex) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;summarize&lt;/span&gt;(count &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;n&lt;/span&gt;(),
+  M_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  M_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;mean&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Neuroticism &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Neuroticism, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+  SD_Depression &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;sd&lt;/span&gt;(Depression, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+  ) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#06287e&#34;&gt;print&lt;/span&gt;(width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt;, n &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;500&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;Sex)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(sample&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;Sex)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Neuroticism), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;Sex)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(currentDataset) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_histogram&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Depression), color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;Sex)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The output from &lt;strong&gt;StatsNotebook&lt;/strong&gt; are very similar to what we have before but is now stratified by &lt;em&gt;Sex&lt;/em&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;######################################################
+# A tibble: 2 x 6
+  Sex    count M_Neuroticism M_Depression SD_Neuroticism SD_Depression
+  &amp;lt;fct&amp;gt;  &amp;lt;int&amp;gt;         &amp;lt;dbl&amp;gt;        &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;
+1 Female    70          96.2         8.74           23.0          5.87
+2 Male     161          83.8         6.16           22.2          5.60
+
+######################################################
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>
