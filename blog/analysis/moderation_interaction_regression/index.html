@@ -181,11 +181,13 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
-<p><strong>Assumed knowledge in this tutorial:</strong> <a href="../regression">Linear regression</a></p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p><strong>Assumed knowledge in this tutorial:</strong> <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">Linear regression</a></p>
 <p>Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.</p>
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
@@ -203,9 +205,9 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 </ul>
 <p>In this tutorial, we will examine three scenarios.</p>
 <ul>
-<li><a href="#categorical-independent-variable-and-categorical-moderator">Categorical independent variable and categorical moderator</a></li>
-<li><a href="#numeric-independent-variable-and-categorical-moderator">Numeric independent variable and categorical moderator</a></li>
-<li><a href="#numeric-independent-variable-and-numeric-moderator">Numeric independent variable and numeric moderator</a></li>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator" title="categorical independent variable and categorical moderator">Categorical independent variable and categorical moderator</a></li>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-categorical-moderator" title="numeric independent variable and categorical moderator">Numeric independent variable and categorical moderator</a></li>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-numeric-moderator" title="numeric independent variable and numeric moderator">Numeric independent variable and numeric moderator</a></li>
 </ul>
 <p>For instances with a categorical independent variable and numeric moderator, the analytic strategy would be the same as conducting a moderation analysis with a numeric independent variable with categorical moderator.</p>
 
@@ -215,7 +217,7 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 <li>A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change in Queensland is larger than other states.</li>
 <li>In this analysis, we will test the interaction between <em>year</em> and <em>state</em>. (Does <em>state</em> change the effect of <em>year</em> on alcohol consumption?)</li>
 </ul>
-<p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset for this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset for this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
 
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -261,7 +263,7 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (categorical independent variable and categorical moderator),</p>
 <ol>
 <li>
@@ -274,24 +276,24 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 <p>In the left panel, select <em>alcohol</em> into <em>Outcome</em>, and select <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <em>Covariates</em>.</p>
 <ul>
 <li>We have added <em>Remoteness</em> into this analysis to adjust for its effect.</li>
-<li>We will need to code <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="../../data_management/variable_conversion">Converting variable type</a> for a step-by-step guide.</li>
-<li>For this analysis, because we compared <em>Queensland</em> against all other states, we set <em>QLD</em> as the <strong>reference</strong> level of <em>state</em>. See <a href="../../data_management/set_reference">Setting reference level for categorical variable</a> for a step-by-step guide.</li>
+<li>We will need to code <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide.</li>
+<li>For this analysis, because we compared <em>Queensland</em> against all other states, we set <em>QLD</em> as the <strong>reference</strong> level of <em>state</em>. See <a href="https://statsnotebook.io/blog/data_management/set_reference/" title="set reference">Setting reference level for categorical variable</a> for step-by-step guide.</li>
 </ul>
-<p><img src="../img/moderation_instruction1.png" alt="Moderation analysis 1" title="Moderation (interaction) analysis"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction1.png" alt="Moderation (interaction) analysis" title="Moderation (interaction) analysis"/></a>
 </li>
 <li>
 <p>Expand the panel <strong>Add interaction terms</strong>, select <em>State</em> and <em>Year</em> into <em>Interaction terms</em>.</p>
 <ul>
 <li>The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>State</em> first and then <em>Year</em>.</li>
 </ul>
-<p><img src="../img/add_interaction_term.png" alt="Add interactino term" title="Add interaction terms"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term.png" alt="add interaction term" title="add interaction term"/></a>
 </li>
 <li>
 <p>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>State*Year</em> on the variable list, and select <strong>Pairwise comparison</strong> and <strong>Interaction plot</strong>.</p>
-<p><img src="../img/moderation_emm.png" alt="Estimated marginal means" title="Estimated marginal means for interaction"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm.png" alt="estimated marginal means for interaction" title="estimated marginal means for interaction"/></a>
 </li>
 </ol>
-<p>** For this analysis, we should also adjust for <em>Postcode</em> because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the <strong>assumption of independent observation</strong>. For the purpose of understanding a moderation analysis, we can leave this out for now. See <a href="../linear_mixed_model">Linear mixed model</a> for how to adjust for data dependency.</p>
+<p>** For this analysis, we should also adjust for <em>Postcode</em> because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the <strong>assumption of independent observation</strong>. For the purpose of understanding a moderation analysis, we can leave this out for now. See <a href="https://statsnotebook.io/blog/analysis/linear_mixed_model/" title="Linear mixed model (Multilevel model)">Linear mixed model (Multilevel model)</a> for how to adjust for data dependency.</p>
 
 <h5 id="r-codes-explained---moderation-analysis" class="anchor-link"><a href="#r-codes-explained---moderation-analysis">R codes explained - Moderation analysis</a></h5>
 <p>The following are from the top section of the generated codes.</p>
@@ -432,7 +434,7 @@ These results indicate that there is significant change in Queensland between 20
   cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(),
   CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
 </code></pre></div><br/>
-<p><img src="../img/interaction_plot.png" alt="Interaction plot" title="Interaction plot"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/interaction_plot.png" alt="interaction plot" title="interaction plot"/></a>
 
 <h4 id="numeric-independent-variable-and-categorical-moderator" class="anchor-link"><a href="#numeric-independent-variable-and-categorical-moderator">Numeric independent variable and categorical moderator</a></h4>
 <p>In this example, we will look at the relationship between BMI, sex, age and depression. We want to test if the relationship between BMI and depression is different for males and females.</p>
@@ -441,7 +443,7 @@ These results indicate that there is significant change in Queensland between 20
 <li>Is the association between BMI and depression different for males and females?</li>
 </ul>
 <p>In this setup, <em>BMI</em> is an independent variable, <em>Sex</em> is a moderator and <em>depression</em> is the dependent variable.</p>
-<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
 
 <h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -495,7 +497,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook-1" class="anchor-link"><a href="#using-statsnotebook-1">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (numeric independent variable and categorical moderator),</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -503,11 +505,11 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>BMI</em>, <em>Sex</em> and <em>Age</em> into <em>Covariates</em>.
 <ul>
 <li>We will adjust for the effect of <em>Age</em> by adding it as one of the covariates.</li>
-<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="../../data_management/variable_conversion">Converting variable type</a> for a step-by-step guide.</li>
+<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide.</li>
 </ul>
 </li>
 </ol>
-<p><img src="../img/moderation_instruction2.png" alt="Moderation analysis 2" title="Moderation (interaction) analysis"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction2.png" alt="Moderation (interaction) analysis" title="Moderation (interaction) analysis"/></a>
 <ol start="4">
 <li>Expand the panel <strong>Add interaction terms</strong>, select <em>BMI</em> and <em>Sex</em> into <em>Interaction terms</em>.
 <ul>
@@ -515,11 +517,11 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </ul>
 </li>
 </ol>
-<p><img src="../img/add_interaction_term2.png" alt="Add interaction term 2" title="Add interaction terms"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term2.png" alt="add interaction terms" title="add interaction terms"/></a>
 <ol start="5">
 <li>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>BMI*Sex</em> on the variable list, and select <strong>Test for simple slope</strong> and <strong>Interaction plot</strong>.</li>
 </ol>
-<p><img src="../img/moderation_emm2.png" alt="Moderation EMMs" title="Estimated marginal mean"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm2.png" alt="estimated marginal mean" title="estimated marginal mean"/></a>
 
 <h5 id="r-codes-explained---moderation-analysis-1" class="anchor-link"><a href="#r-codes-explained---moderation-analysis-1">R codes explained - Moderation analysis</a></h5>
 <p>The following is from the top selection of the generated codes.</p>
@@ -624,7 +626,7 @@ $contrasts
 </ul>
 </li>
 </ul>
-<p>We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instructions provided <a href="../../data_management/load_example_data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
 
 <h5 id="r-codes-2" class="anchor-link"><a href="#r-codes-2">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -686,7 +688,7 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook-2" class="anchor-link"><a href="#using-statsnotebook-2">Using StatsNotebook</a></h5>
-<p>Prior to running the moderation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
 <p>To run a moderation analysis using linear regression (numeric independent variable and numeric moderator),</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -694,11 +696,11 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <li>In the left panel, select <em>Wellbeing</em> into <em>Outcome</em>, and select <em>Stress</em>, <em>SocialSupport</em> and <em>Sex</em> into <em>Covariates</em>.
 <ul>
 <li>We have added <em>Sex</em> into this analysis to adjust for its effect.</li>
-<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
+<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide</li>
 </ul>
 </li>
 </ol>
-<p><img src="../img/moderation_instruction3.png" alt="Moderation analysis 3" title="Moderatino (interaction) analysis"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction3.png" alt="moderation (interaction) analysis" title="moderation (interaction) analysis"/></a>
 <ol start="4">
 <li>Expand the panel **Add interaction terms&rdquo;, select <em>Stress</em> and <em>SocialSupport</em> into <em>Interaction terms</em>.
 <ul>
@@ -706,11 +708,11 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 </ul>
 </li>
 </ol>
-<p><img src="../img/add_interaction_term3.png" alt="Add interaction term 3" title="Add interaction terms"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term3.png" alt="add interaction terms" title="add interaction terms"/></a>
 <ol start="5">
 <li>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>Stress*SocialSupport</em> on the variable list, and select <strong>Test for simple slope</strong> and <strong>Interaction plot</strong>.</li>
 </ol>
-<p><img src="../img/moderation_emm3.png" alt="Moderation EMMs" title="Estimated marginal mean"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm3.png" alt="estimated marginal mean" title="estimated marginal mean"/></a>
 
 <h5 id="r-codes-explained---moderation-analysis-2" class="anchor-link"><a href="#r-codes-explained---moderation-analysis-2">R codes explained - Moderation analysis</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -828,9 +830,10 @@ P value adjustment: tukey method for comparing a family of 3 estimates
 <span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
 <span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
 
-</code></pre></div><p><img src="../img/interaction_plot3.png" alt="Interaction plot 3" title="Interaction plot - Psychological wellbeing by Stress and Social support"></p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</code></pre></div><img src="https://statsnotebook.io/blog/analysis/img/interaction_plot3.png" alt="Interaction plot - Psychological wellbeing by Stress and Social support" title="Interaction plot - Psychological wellbeing by Stress and Social support"/></a>
 
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

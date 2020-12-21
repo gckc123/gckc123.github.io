@@ -181,23 +181,25 @@ Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
-<p>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using <a href="../linearity_homoscedasticity">residual plots</a>). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the <em>linearity assumption</em> is still needed for proper inference using robust regression.</p>
-<p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using the instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using <a href="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/" title="Residual plots and assumption checking for linear regression">residual plots</a>). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the <em>linearity assumption</em> is still needed for proper inference using robust regression.</p>
+<p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
 <p>In this dataset, there are two variables.</p>
 <ol>
 <li><strong>temperature</strong> represents the surface temperature of a star</li>
 <li><strong>light</strong> represents the light intensity of a star</li>
 </ol>
 <p>The figure below shows the scatterplot between <em>temperature</em> and <em>light</em> with a regression line. At first glance, there appears to be a downward trend. However, this trend may only be caused by the few outliers at the top left corner.</p>
-<p><img src="../img/scatter_plot_outliers.png" alt="Scatterplot with Outliers" title="Scatterplot with outliers"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/scatter_plot_outliers.png" alt="scatterplot with outliers" title="scatterplot with outliers"/></a>
 <p>We will now demonstrate the use of robust regression to adjust for these outliers.</p>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Steps for running a <strong>Robust regression</strong> in <strong>StatsNotebook</strong> are nearly the same as running a <a href="../regression"><strong>linear regression</strong></a>.</p>
+<p>Steps for running a <strong>Robust regression</strong> in <strong>StatsNotebook</strong> are nearly the same as running a <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression"><strong>linear regression</strong></a>.</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top;</li>
 <li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numeric outcome)</strong> from the menu</li>
@@ -265,9 +267,10 @@ seed : int(0)
 (Intercept) -4.969388 -11.8375510 1.898775
 temperature  2.253161   0.7041936 3.802129
 </code></pre><br/>
-<p><img src="../img/robust_regression_line.png" alt="Line of best fit from robust regression" title="Line of best fit from robust regression"></p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+<img src="https://statsnotebook.io/blog/analysis/img/robust_regression_line.png" alt="Line of best fit from robust regression" title="Line of best fit from robust regression"/></a>
 
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

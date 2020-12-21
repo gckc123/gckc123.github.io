@@ -183,19 +183,21 @@ Linear Regression With Missing Data - StatsNotebook - Simple. Powerful. Reproduc
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
-<p>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in <strong>StatsNotebook</strong> to handle missing data using <a href="../multiple_imputation">multiple imputation</a>.</p>
-<p>In our <a href="../regression" title="linear regression">linear regression tutorial</a>, we use the personality dataset to examine two research qeustions.</p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in <strong>StatsNotebook</strong> to handle missing data using <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">multiple imputation</a>.</p>
+<p>In our <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">linear regression tutorial</a>, we use the personality dataset to examine two research qeustions.</p>
 <ol>
 <li>Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?</li>
 <li>Is sex associated with depression?</li>
 </ol>
 <p>In our original analysis, participants with missing data in any of the analysis variables are excluded. The initial sample size is 231. After excluding participants with missing data, the sample size reduces to 155 - a reduction of 33%.</p>
-<p><a href="../multiple_imputation" title="multiple imputation">Multiple imputation</a> is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. <strong>StatsNotebook</strong> provides a simple interface to incorporate multiple imputation into linear regression analysis.</p>
-<p>This tutorial builds on our tutorial on <a href="../regression" title="linear regression">linear regression</a>, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+<p><a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">Multiple imputation</a> is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. <strong>StatsNotebook</strong> provides a simple interface to incorporate multiple imputation into linear regression analysis.</p>
+<p>This tutorial builds on our tutorial on <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">linear regression</a>, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
 <p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
@@ -257,18 +259,18 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 </code></pre></div><br/>
 
 <h4 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h4>
-<p>Prior to running the linear regression analysis, it is always a good practice to <a href="/blog/dataviz">visualise the data</a> and conduct <a href="../descriptive">descriptive analysis</a>.</p>
+<p>Prior to running the linear regression analysis, it is always a good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a> and conduct <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a>.</p>
 <p>To conduct multiple imputation and linear regression analysis,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top;</li>
 <li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numberic outcome)</strong> from the menu</li>
 <li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em>, <em>Openness</em> and <em>Sex</em> into <em>Covariates</em>.
 <ul>
-<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">convert it into a <strong>factor</strong> variable</a>.</li>
 </ul>
 </li>
 </ol>
-<p><img src="../img/regression1.png" alt="StatsNotebook regression" title="Regression in StatsNotebook"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/regression1.png" alt="Regression in StatsNotebook" title="Regression in StatsNotebook"/></a>
 <ol start="4">
 <li>On the left panel, scroll down and expand the <strong>Analysis setting</strong> panel. Check <em>Impute missing data</em> and enter the number of imputation required. In this example, we request 35 imputations.
 <ul>
@@ -276,7 +278,7 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 </ul>
 </li>
 </ol>
-<p><img src="../img/regression_impute_missing.png" alt="StatNotebook regression imputation" title="Multiple imputation and regression in StatsNotebook"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/regression_impute_missing.png" alt="Multiple imputation and regression in StatsNotebook" title="Multiple imputation and regression in StatsNotebook"/></a>
 
 <h4 id="r-codes-explained---multiple-imputation" class="anchor-link"><a href="#r-codes-explained---multiple-imputation">R codes explained - Multiple imputation</a></h4>
 <p>The following is from the top section of the generated codes.</p>
@@ -306,9 +308,9 @@ imputedDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <span style="color:#06287e">plot</span>(imputedDataset)
 currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">complete</span>(imputedDataset, action <span style="color:#666">=</span> <span style="color:#4070a0">&#34;long&#34;</span>, include <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
 </code></pre></div><br/>
-<p>We use the <strong>mice</strong> library in R to perform multiple imputation. The above codes firstly specifies how each variables are imputed. Only variables used in the regression analysis will be used for imputation. To include additional variables in the imputation, see the <a href="../multiple_imputation" title="multiple imputation tutorial">multiple imputation</a>.</p>
+<p>We use the <strong>mice</strong> library in R to perform multiple imputation. The above codes firstly specifies how each variables are imputed. Only variables used in the regression analysis will be used for imputation. To include additional variables in the imputation, see the <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">multiple imputation</a>.</p>
 <p>The only visible output is a set of diagnostic plot. The lines in all plots should be freely intermingled. Non-convergence will be indicated by clearly separated lines.</p>
-<p><img src="../img/diagnostic_imputation.png" alt="imputation diagnostic" title="Diagnostic plot for imputation"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/diagnostic_imputation.png" alt="Diagnostic plot for imputation" title="Diagnostic plot for imputation"/></a>
 <p>The following codes are then used to conduct linear regression using the imputed datasets.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span>(imputedDataset,
@@ -334,7 +336,7 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span
 7 -2.72871486  0.27310912
 </code></pre>
 <h4 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h4>
-<p>In this example, the coefficients of the 5 personality traits from the analysis using imputation are similar to those from <a href="../regression" title="regression">complete data analysis</a>. However, it should be noted that the p-value of <em>openness</em> is now much smaller, indicating that the evidence for the association between openness and depression was stronger (despite the effect size being similar). This is due to increase power from multiple imputation.</p>
+<p>In this example, the coefficients of the 5 personality traits from the analysis using imputation are similar to those from <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">complete data analysis</a>. However, it should be noted that the p-value of <em>openness</em> is now much smaller, indicating that the evidence for the association between openness and depression was stronger (despite the effect size being similar). This is due to increase power from multiple imputation.</p>
 
 <h4 id="example-write-up" class="anchor-link"><a href="#example-write-up">Example Write-up</a></h4>
 <br/>
@@ -397,7 +399,6 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span
 
 <h4 id="model-diagnostic" class="anchor-link"><a href="#model-diagnostic">Model diagnostic</a></h4>
 <p>At the moment, model diagnostic is only based on the first imputed dataset. The interpretation for the model diagnostic is thus the same as those for analysis based on <a href="https://statsnotebook.io/blog/analysis/regression/#r-codes-explained---model-diagnostic">complete data analysis</a>.</p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
 <h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
 <pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
@@ -405,6 +406,8 @@ Chan, G (2020). Linear regression with missing data. Retrieved from https://www.
 R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
 Rubin, D. B. (2009). Multiple imputation for nonresponse in surveys. New York, John Wiley &amp; Sons.
 </code></pre>
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

@@ -179,13 +179,17 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
-<p>This is a follow-up tutorial built on our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a>. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a> first.</p>
-<p>The example data can be downloaded from <a href="../../data_management/example_data/iptw_example_with_missing.csv">here</a>.</p>
-<p>If your dataset has missing data, <a href="../multiple_imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can <a href="../multiple_imputation">conduct the imputation manually</a> first. This tutorial will demonstrate the shortcut method.</p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>This is a follow-up tutorial built on our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a>. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a> first.</p>
+<p>The example data can be downloaded from <a href="https://statsnotebook.io/blog/data_management/example_data/iptw_example_with_missing.csv"/>
+    here
+</a>.</p>
+<p>If your dataset has missing data, <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="multiple imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="multiple imputation">conduct the imputation manually</a> first. This tutorial will demonstrate the shortcut method.</p>
 <p>In the presence of missing data,</p>
 <ol>
 <li>Multiple imputation will be used to impute missing values first. As a rule of thumb, the number of imputations needed is roughly the same as the percentage of missing data.</li>
@@ -209,10 +213,10 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 <li>Illicit drug use at age 25 (<strong>illicit</strong>: 0: No use; 1: used)</li>
 </ol>
 <p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represents the number of peers who used cannabis at baseline (wave 0).</p>
-<p>For the detailed setup of this analysis, please see our tutorial on <a href="../marginal_structural_model_iptw">inverse probability treatment weight</a>, in which we used a complete dataset instead of one with missing data.</p>
+<p>For the detailed setup of this analysis, please see our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a>, in which we used a complete dataset instead of one with missing data.</p>
 
 <h5 id="using-statsnotebook---calculating-iptw" class="anchor-link"><a href="#using-statsnotebook---calculating-iptw">Using StatsNotebook - Calculating IPTW</a></h5>
-<p>Prior to calculating the IPTW, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to calculating the IPTW, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="Descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="dataviz">visualise the data</a>.</p>
 <p>To perform multiple imputation and then to calculate the IPTW for each imputed dataset,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -224,12 +228,12 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 </ul>
 </li>
 </ol>
-<p><img src="../img/iptw_instruction1.png" alt="iptw instruction" title="iptw instruction"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction1.png" alt="iptw instruction" title="iptw instruction"/></a>
 <ol start="5">
 <li>Click the top <strong>+</strong> button on top of <em>Exposure</em> to add an extra time point (extra wave).</li>
 <li>Select <em>can_2</em> into <em>Exposure</em>, and select <em>failed_1</em>, <em>peer_can_1</em> and <em>antisocial_1</em> into <em>Time-varying covariates</em>.</li>
 </ol>
-<p><img src="../img/iptw_instruction2.png" alt="iptw instruction 2" title="iptw instruction 2"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction2.png" alt="iptw instruction" title="iptw instruction"/></a>
 <ol start="7">
 <li>
 <p>Repeat step 5 and 6 for <em>can_3</em>.</p>
@@ -256,7 +260,7 @@ I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
 </ul>
 </li>
 </ol>
-<p><img src="../img/iptw_instruction3_missing.png" alt="iptw instruction 3" title="iptw instruction 3"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction3_missing.png" alt="iptw instruction" title="iptw instruction"/></a>
 <ol start="12">
 <li>Click <strong>Code and Run</strong>. The codes below will be generated and executed.</li>
 </ol>
@@ -368,7 +372,7 @@ currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <span style="color:#4070a0">&#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&#34;</span>
 
 </code></pre></div><br/>
-<p>Given the complexity of the codes, we will only give a conceptual explanation. For a detailed explanation on the specification of the multiple imputation model, see our tutorial on <a href="../multiple_imputation">multiple imputation</a>. In brief, the top section of the codes from above specify the variables used to impute each of the variables with missing data, perform the multiple imputation and generate the diagnostic plots for the imputation.</p>
+<p>Given the complexity of the codes, we will only give a conceptual explanation. For a detailed explanation on the specification of the multiple imputation model, see our tutorial on <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">multiple imputation</a>. In brief, the top section of the codes from above specify the variables used to impute each of the variables with missing data, perform the multiple imputation and generate the diagnostic plots for the imputation.</p>
 <p>In the second section, we compute the IPTW for each of the imputed dataset using an iterative <code>for</code> loop.</p>
 <p>Six new variables will be created. <em>.imp</em> is the identifier for each of the imputed datasets. The original data will have a value of 0. The <em>.id</em> is the identifier for each observation in each imputed dataset. <em>.ipw0</em>, <em>.ipw1</em> and <em>.ipw2</em></p>
 
@@ -381,7 +385,7 @@ currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <li>Type <em>cumulative</em> in the <em>Target Variable</em> field.</li>
 <li>You can select variable in the <em>Variable</em> list and use <em>+</em> to add the corresponding variables up.</li>
 </ol>
-<p><img src="../img/compute_cumulative.png" alt="compute cumulative" title="compute cumulative"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/compute_cumulative.png" alt="compute cumulative" title="compute cumulative"/></a>
 <p>The <strong>R code</strong> for this operation is simple.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>cumulative <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>can_1<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_2<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_3
 </code></pre></div><br/>
@@ -394,7 +398,7 @@ currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e"
 <li>In the left panel, select <em>illicit</em> into <em>Outcome</em>, <em>cumulative</em> into <em>Covariate</em> and <em>.final_weight</em> into <em>Weight</em>.</li>
 <li>Expand the <strong>Analysis setting</strong> panel, and check the box <em>This is an Imputed Dataset</em>.</li>
 </ol>
-<p><img src="../img/msm_instruction_missing.png" alt="msm instruction" title="msm instruction"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/msm_instruction_missing.png" alt="compute cumulative" title="compute cumulative"/></a>
 <br/> 
 
 <h5 id="r-codes---weighted-analysis" class="anchor-link"><a href="#r-codes---weighted-analysis">R codes - Weighted analysis</a></h5>
@@ -438,8 +442,9 @@ cumulative  2.15334681 0.48705061 1.38223761 3.3546349      2 %
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 2.15, 95% CI = [1.38, 3.36] (Your results will be slightly different because multiple imputation is not deterministic - every time the missing data is imputed, the value may be different). For every additional wave an individual used cannabis, the odds of using illicit drugs at age 25 increases by 2.15 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be smaller due to residual confounding (confounding effect not captured by the variables we used in the analysis.)</p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

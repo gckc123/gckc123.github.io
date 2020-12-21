@@ -13,8 +13,8 @@
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on &lt;a href=&#34;../moderation_interaction_regression&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt;, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are &lt;em&gt;nested&lt;/em&gt; within postcodes. Since it is likely that individuals from the same postcodes are more similar compared to individuals from different postcodes (because of similar local drinking culture, similar level of exposure to local advertisement, etc), the assumption of independent observation is likely to be violated. &lt;strong&gt;Linear mixed model&lt;/strong&gt; (also known as multilevel model and random effect model) can be used to account for the dependencies in the data.&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt;, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are &lt;em&gt;nested&lt;/em&gt; within postcodes. Since it is likely that individuals from the same postcodes are more similar compared to individuals from different postcodes (because of similar local drinking culture, similar level of exposure to local advertisement, etc), the assumption of independent observation is likely to be violated. &lt;strong&gt;Linear mixed model&lt;/strong&gt; (also known as multilevel model and random effect model) can be used to account for the dependencies in the data.&lt;/p&gt;
 
 &lt;h4 id=&#34;examples-of-nested-data-structure&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#examples-of-nested-data-structure&#34;&gt;Examples of nested data structure&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Other examples of data with nested structure include&lt;/p&gt;
@@ -25,21 +25,21 @@
 &lt;/ol&gt;
 &lt;p&gt;In this tutorial, we will look at two examples&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;#sleep-deprivation-and-reaction-time-repeated-measures-design&#34; title=&#34;Sleep deprivation and reactino time&#34;&gt;Sleep deprivation and reaction time&lt;/a&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#sleep-deprivation-and-reaction-time-repeated-measures-design&#34; title=&#34;Sleep deprivation and reactino time&#34;&gt;Sleep deprivation and reaction time&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;A study based on repeated measures of reaction time over 10 days of sleep deprivation (Belenky et al. 2003). Observations are nested within individuals, thus are not independent.&lt;/li&gt;
-&lt;li&gt;We will first run a &lt;a href=&#34;#random-intercept-model&#34;&gt;random intercept model&lt;/a&gt; that accounts for the repeated measures design (dependencies in the data), and then run a &lt;a href=&#34;#random-slope-model&#34;&gt;random slope model&lt;/a&gt; that allows the effect of sleep deprivation to vary across participants.&lt;/li&gt;
+&lt;li&gt;We will first run a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#random-intercept-model&#34; title=&#34;random intercept model&#34;&gt;random intercept model&lt;/a&gt; that accounts for the repeated measures design (dependencies in the data), and then run a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#random-slope-model&#34; title=&#34;random slope model&#34;&gt;random slope model&lt;/a&gt; that allows the effect of sleep deprivation to vary across participants.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#alcohol-tax-and-alcohol-consumption&#34; title=&#34;Alcohol tax and alcohol consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#alcohol-tax-and-alcohol-consumption&#34; title=&#34;Alcohol tax and alcohol consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;
 &lt;ul&gt;
-&lt;li&gt;revisit our alcohol tax example in the &lt;a href=&#34;../moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial. Individuals are nested within postcodes, thus the observations are not independent.&lt;/li&gt;
+&lt;li&gt;revisit our alcohol tax example in the &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial. Individuals are nested within postcodes, thus the observations are not independent.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h4 id=&#34;sleep-deprivation-and-reaction-time-repeated-measures-design&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#sleep-deprivation-and-reaction-time-repeated-measures-design&#34;&gt;Sleep deprivation and reaction time (repeated measures design)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Belenky et al (2003) studied the relationship between sleep deprivation and reaction time. We have included their data in &lt;strong&gt;StatsNotebook&lt;/strong&gt; as the &lt;strong&gt;Sleep&lt;/strong&gt; dataset. See &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;load example data&lt;/a&gt; for instruction on loading the data into &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Belenky et al (2003) studied the relationship between sleep deprivation and reaction time. We have included their data in &lt;strong&gt;StatsNotebook&lt;/strong&gt; as the &lt;strong&gt;Sleep&lt;/strong&gt; dataset. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;load example data&lt;/a&gt; for instruction on loading the data into &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;There are three variables in this dataset.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Reaction - Reaction time (ms)&lt;/li&gt;
@@ -50,7 +50,7 @@
 &lt;h5 id=&#34;research-question&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#research-question&#34;&gt;Research question&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Does the number of days of sleep deprivation affect reaction time?&lt;/p&gt;
 &lt;p&gt;It is tempting to address this research question by a simple linear regression (or a correlation analysis). However, linear regression is not appropriate because the data is not independent - Reaction time measured from the same participant are likely to be more similar to reaction time measures across participants.&lt;/p&gt;
-&lt;p&gt;In this analysis, we will run two separate models - a random intercept model and a random slope model. Prior to running these models, it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this analysis, we will run two separate models - a random intercept model and a random slope model. Prior to running these models, it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h5 id=&#34;random-intercept-model&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#random-intercept-model&#34;&gt;Random intercept model&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;We can account for the dependencies in the data by including a &lt;strong&gt;random intercept&lt;/strong&gt; for each individual. To run this model,&lt;/p&gt;
@@ -60,7 +60,7 @@
 &lt;li&gt;In the left panel, select &lt;em&gt;Reaction&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, &lt;em&gt;Days&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt; and &lt;em&gt;Subject&lt;/em&gt; into &lt;em&gt;Random effect&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_intercept_reaction.png&#34; alt=&#34;random intercept model - reaction time&#34; title=&#34;random intercept model - reaction time&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_intercept_reaction.png&#34; alt=&#34;random intercept model&#34; title=&#34;random intercept model&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lme4)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lmerTest)
@@ -169,7 +169,7 @@ Number of obs: 180, groups:  Subject, 18
 
 &lt;h5 id=&#34;random-slope-model&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#random-slope-model&#34;&gt;Random slope model&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;In the random intercept model, we assume that the effect of sleep deprivation on reaction time is the same across individuals. The following shows the scatterplot between reaction time and days of sleep deprivation for each participants.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope_reaction_individuals.png&#34; alt=&#34;Random slope individuals&#34; title=&#34;random slope individuals&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_reaction_individuals.png&#34; alt=&#34;random slope individuals&#34; title=&#34;random slope individuals&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;While for most of the participants, the association is positive (the line of best fit going up towards the top right corner of each plot), there is substantial variations - For some participants, the effect of sleep deprivation seems to be stronger (e.g. participant 308) others relatively weaker (e.g. participant 309). To account for these variations, we can run a random slope model allowing the effect of sleep deprivation to vary across participants.&lt;/p&gt;
 &lt;p&gt;To run a random slope model,&lt;/p&gt;
 &lt;ol&gt;
@@ -183,7 +183,7 @@ Number of obs: 180, groups:  Subject, 18
 &lt;li&gt;Check &lt;em&gt;Days&lt;/em&gt; and select it into &lt;em&gt;Random slope&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope.png&#34; alt=&#34;Random slope&#34; title=&#34;random slope&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope.png&#34; alt=&#34;random slope&#34; title=&#34;random slope&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lme4)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lmerTest)
@@ -364,13 +364,13 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;p&gt;A random slope model is used to test if sleep deprivation affects reaction time. To account for the repeated measures design, a random intercept was specified for participants. The random slope for days of sleep deprivation was included in the model to allow the effect of sleep deprivation to vary across participants. Results are shown in Table 1. Using a significant level of 0.05, results indicate that sleep deprivation significantly increased reaction time. On average, each additional day of sleep deprivation increased reaction time by 10.47ms (&lt;em&gt;b&lt;/em&gt; = 10.47, 95% CI = [7.44, 13.50], &lt;em&gt;p&lt;/em&gt; &amp;lt; .001). Model fit comparison between model with and without random slope for sleep deprivation shows that the effect of sleep deprivation varied across participants, χ&lt;sup&gt;2&lt;/sup&gt;(2)= 42.14, &lt;em&gt;p&lt;/em&gt; &amp;lt; .001. The 95% coverage interval for the random slope of sleep deprivation is (-1.14, 22.07), indicating that the effect of sleep deprivation was between -1.14 and 22.07 for 95% of the participants.&lt;/p&gt;
 
 &lt;h4 id=&#34;alcohol-tax-and-alcohol-consumption&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#alcohol-tax-and-alcohol-consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;In our alcohol tax example in the &lt;a href=&#34;../moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial, we investigated two research questions in the following scenario.&lt;/p&gt;
+&lt;p&gt;In our alcohol tax example in the &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial, we investigated two research questions in the following scenario.&lt;/p&gt;
 &lt;p&gt;Suppose that in Australia, Queensland implemented an increase in alcohol tax in 2018 and no change in tax in any other states (e.g. Victoria and New South Wales). We have collected data on alcohol consumption in 2017 and 2019, and we want to test if the change in alcohol consumption (measured in number of standard drinks consumed per month) in Queensland was different from other states.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change of alcohol consumption in Queensland is larger than other states.&lt;/li&gt;
 &lt;li&gt;In this analysis, we will test the interaction between &lt;em&gt;year&lt;/em&gt; and &lt;em&gt;state&lt;/em&gt;. (Does &lt;em&gt;state&lt;/em&gt; change the effect of &lt;em&gt;year&lt;/em&gt; on alcohol consumption?)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We have used the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in that example and the dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We have used the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in that example and the dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;Load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;There are 5 variables in this dataset.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Alcohol - Number of standard drinks consumed per month.&lt;/li&gt;
@@ -388,13 +388,13 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;li&gt;In the left panel, select &lt;em&gt;alcohol&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
 &lt;li&gt;We have added &lt;em&gt;Remoteness&lt;/em&gt; into this analysis to adjust for its effect.&lt;/li&gt;
-&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
-&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;State&lt;/em&gt;. See &lt;a href=&#34;../../data_management/set_reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;State&lt;/em&gt;. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/set_reference/&#34; title=&#34;set reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Select &lt;em&gt;Postcode&lt;/em&gt; into &lt;em&gt;Random Effect&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope_instruction1.png&#34; alt=&#34;Random slope model instruction 1&#34; title=&#34;random slope instruction 1&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_instruction1.png&#34; alt=&#34;random slope instruction&#34; title=&#34;random slope instruction&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Add interaction terms&lt;/strong&gt;, select &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; into &lt;em&gt;Interaction terms&lt;/em&gt;.
 &lt;ul&gt;
@@ -402,11 +402,11 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/add_interaction_term.png&#34; alt=&#34;Add interaction term&#34; title=&#34;Add interaction term&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/add_interaction_term.png&#34; alt=&#34;add interaction term&#34; title=&#34;add interaction term&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;6&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Estimated Marginal Means&lt;/strong&gt;, select &lt;em&gt;State*Year&lt;/em&gt; on the variable list, and select &lt;strong&gt;Pairwise comparison&lt;/strong&gt; and &lt;strong&gt;Interaction plot&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_emm.png&#34; alt=&#34;Estimated marginal mean&#34; title=&#34;Estimated marginal mean&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_emm.png&#34; alt=&#34;estimated marginal mean&#34; title=&#34;estimated marginal mean&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;7&#34;&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
@@ -540,7 +540,7 @@ Results are averaged over the levels of: Remoteness
 Degrees-of-freedom method: asymptotic 
 Confidence level used: 0.95 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above table contains estimates for alcohol consumption by &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt;, with 95% confidence intervals. For example, it is estimated that on average, participants in Queensland in 2017 consumed 67.5 standard drinks per month, with a 95% confidence interval of (54.4, 80.5).&lt;/p&gt;
-&lt;p&gt;It should be noted that the estimates from this random intercept model is very similar to those from a &lt;a href=&#34;../moderation_interaction_regression/#interpretation-1&#34;&gt;linear regression model&lt;/a&gt;. However, the confidence intervals of the random intercept model is wider.&lt;/p&gt;
+&lt;p&gt;It should be noted that the estimates from this random intercept model is very similar to those from a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#interpretation-1&#34; title=&#34;moderation analysis using linear regression&#34;&gt;moderation analysis using linear regression&lt;/a&gt;. However, the confidence intervals of the random intercept model is wider.&lt;/p&gt;
 &lt;p&gt;This table is then followed by a long table of pairwise comparisons. However, we will not be interested in most of these comparisons.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pairwise comparison&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$contrasts
@@ -598,8 +598,7 @@ These results indicate that there is significant change in Queensland between 20
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../img/random_slope_model_interaction.png&#34; alt=&#34;random slope model interaction&#34; title=&#34;random slope model interaction&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_model_interaction.png&#34; alt=&#34;random slope model interaction&#34; title=&#34;random slope model interaction&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     

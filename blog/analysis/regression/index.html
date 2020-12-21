@@ -181,10 +181,12 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
 <p>Linear regression is a technique for examining the relationship between a <em>dependent variable</em> (<em>outcome</em>) and a set of <em>independent variables</em> (<em>predictors</em>). This tutorial demonstrates how to conduct a linear regression in <strong>StatsNotebook</strong> using the following example. We will also provide an example write-up in APA style.</p>
 
 <h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
@@ -193,7 +195,7 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
 <li>Is sex associated with depression? (i.e. Are there sex differences in depression?)</li>
 </ol>
 <p>In this setup, the <em>dependent</em> variable is depression; the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by <strong>linear regression</strong>.</p>
-<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
@@ -229,20 +231,20 @@ res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstand
 </code></pre></div><br/>
 
 <h4 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h4>
-<p>Prior to running the linear regression analysis, it is always a good practice to <a href="/blog/dataviz">visualise the data</a> and conduct a <a href="../descriptive">descriptive analysis</a>.</p>
+<p>Prior to running the linear regression analysis, it is always a good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a> and conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a>.</p>
 <p>To run a linear regression,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top;</li>
 <li>Click <strong>Regression</strong> and select <strong>Linear Regression (Numeric outcome)</strong> from the menu</li>
 <li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em>, <em>Openness</em> and <em>Sex</em> into <em>Covariates</em>.
 <ul>
-<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="../../data_management/variable_conversion">convert it into a <strong>factor</strong> variable</a>.</li>
-<li>Female is chosen as the <strong>reference</strong> level for sex by default. To change the reference level, see <a href="../../data_management/set_reference">this</a>.</li>
+<li><strong>Sex</strong> is a categorical variable. If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">convert it into a <strong>factor</strong> variable</a>.</li>
+<li>Female is chosen as the <strong>reference</strong> level for sex by default. To change the reference level, see <a href="https://statsnotebook.io/blog/data_management/set_reference/" title="set reference">setting reference level for categorical variable</a> for step-by-step guide..</li>
 </ul>
 </li>
 <li>Click <strong>Code and Run</strong> at top. The above R code will be generated in a block on the right panel and the results will be presented below the R codes.</li>
 </ol>
-<p><img src="../img/regression1.png" alt="StatsNotebook regression" title="Regression in StatsNotebook"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/regression1.png" alt="regression in statsnotebook" title="regression in statsnotebook"/></a>
 
 <h4 id="r-codes-explained---regression-analysis" class="anchor-link"><a href="#r-codes-explained---regression-analysis">R codes explained - Regression analysis</a></h4>
 <p>The following is from the top section of the generated codes.</p>
@@ -296,7 +298,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 </code></pre><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
-<p>The R-sq indicates that the model explains 33.19% of the variance in depression. It should be noted that 76 observations have missing data and thus have been removed from the analysis. See <a href="../regression_missingdata">Regression with missing data</a> for a more appropriate way to handle the missing data in this analysis.</p>
+<p>The R-sq indicates that the model explains 33.19% of the variance in depression. It should be noted that 76 observations have missing data and thus have been removed from the analysis. See <a href="https://statsnotebook.io/blog/analysis/regression_missingdata/" title="Linear regression with missing data">Regression with missing data</a> for a more appropriate way to handle the missing data in this analysis.</p>
 <pre><code>Residual standard error: 5.091 on 148 degrees of freedom
   (76 observations deleted due to missingness)
 Multiple R-squared:  0.3319,	Adjusted R-squared:  0.3048 
@@ -339,7 +341,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 <li>Normality (residuals are normally distributed)</li>
 <li>Independence of observations</li>
 </ul>
-<p>The <strong>independence</strong> assumption can be ensured if the sample is a random sample. When there is dependency in the data, other statistical methods, such as <a href="../linear_mixed_model">Linear mixed model</a>, can be used.</p>
+<p>The <strong>independence</strong> assumption can be ensured if the sample is a random sample. When there is dependency in the data, other statistical methods, such as <a href="https://statsnotebook.io/blog/analysis/linear_mixed_model/" title="Linear mixed model (Multilevel model)">Linear mixed model</a>, can be used.</p>
 <p>In addition, we also need to check for multicollinearity, outliers and/or influential observations (i.e. observations that may have a large impact on the model coefficients).</p>
 <p>To check the other three assumptions (i.e. Linearity, homoscedasticity and normality) and perform model diagnostic, we will need to use several functions from the <strong>car</strong> library. To load this library, we use the following code.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(car)
@@ -349,7 +351,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 <span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
 </code></pre></div><br/>
 <p>All the points should be randomly scattered around 0, with approximately 95% of the points falling between -2 and 2 standardized residuals. Points with a large standardized residual may be outliers.</p>
-<p><img src="../img/residual.png" alt="Residual plot" title="Residual plot"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/residual.png" alt="residual plot" title="residual plot"/></a>
 <p>The following lines of codes allow us to examine if there are outliers and if there are any observations that might have a large influence on the model estimates.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&#34;</span>
 <span style="color:#06287e">outlierTest</span>(res)
@@ -367,7 +369,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 ######################################################
 </code></pre><br/>
 <p>The following plot is produced by the <strong>infIndexPlot</strong> function. We can focus on the top panel on <strong>Cook&rsquo;s distance</strong>. Observations with a <strong>Cook&rsquo;s distance</strong> close to 1 indicates a high impact on the model coefficients. There is no influence observation in this analysis despite the existence of two observations with large residuals.</p>
-<p><img src="../img/diagnosticplot.png" alt="Diagnostic plot" title="Diagnostic plot"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/diagnosticplot.png" alt="diagnostic plot" title="diagnostic plot"/></a>
 <p>The following code is used to produce more diagnostic plots and a normality plot.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
 <span style="color:#06287e">residualPlots</span>(res)
@@ -376,8 +378,8 @@ SexMale           -0.87264011 -2.62623258  0.880952360
   <span style="color:#06287e">geom_qq_line</span>()
 </code></pre></div><br/>
 <p>Below is a set of diagnostic plots.</p>
-<p><img src="../img/diagnostic2.png" alt="Diagnostic plot 2" title="A set of diagnostic plots"></p>
-<p>The residuals are plotted against each of the independent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See <a href="../linearity_homoscedasticity">Residual plots and assumption checking</a> for examples of plots that demonstrate a violation of the linearity assumption and the homoscedasticity assumption.</p>
+<img src="https://statsnotebook.io/blog/analysis/img/diagnostic2.png" alt="a set of diagnostic plots" title="a set of diagnostic plots"/></a>
+<p>The residuals are plotted against each of the independent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See <a href="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/" title="Residual plots and assumption checking for linear regression">Residual plots and assumption checking</a> for examples of plots that demonstrate a violation of the linearity assumption and the homoscedasticity assumption.</p>
 <p>The following are the results from curvature tests for each of the variables. A quadratic term is added to each of the plots and a curvature test tests if the quadratic term is zero. A test with a p-value &lt; .01 may indicate the presence of a non-linear trend (U-shape or inverted U-shape).</p>
 <pre><code>                  Test stat Pr(&gt;|Test stat|)  
 Agreeableness       -1.0679          0.28730  
@@ -390,8 +392,8 @@ Tukey test           1.7834          0.07452 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre><br/>
-<p>Below is a normality plot. If the residual is normally distributed, the points need to follow a straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try a <a href="../../data_management/compute_variable" title="log transformation">log-transformation</a> of the dependent variable or use other analytic methods such as <a href="../robust_regression" title="robust regression">robust regression</a> to evaluate whether the violation has a substantial impact on the model estimates.</p>
-<p><img src="../img/normality.png" alt="normality plot" title="normality plot"></p>
+<p>Below is a normality plot. If the residual is normally distributed, the points need to follow a straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try a <a href="https://statsnotebook.io/blog/data_management/compute_variable/" title="log transformation">log-transformation</a> of the dependent variable or use other analytic methods such as <a href="https://statsnotebook.io/blog/analysis/robust_regression/" title="Robust regression">robust regression</a> to evaluate whether the violation has a substantial impact on the model estimates.</p>
+<img src="https://statsnotebook.io/blog/analysis/img/normality.png" alt="normality plot" title="normality plot"/></a>
 <p>Lastly, the following codes compute the <strong>Variance Inflation Factor</strong> (VIF).</p>
 <pre><code>&quot;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&quot;
 vif(res)
@@ -461,12 +463,13 @@ vif(res)
 </tbody>
 </table>
 <p>Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Results are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (<em>b</em> = 0.14, 95% CI [0.11, 0.18], <em>p</em> &lt; .001) and lower openness (<em>b</em> = -0.05, 95% CI [-0.10, -0.01], <em>p</em> = .028) are associated with depression. Other variables were not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of the variance in depression. Analyses were conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020).</p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
 <h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
 <pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
 Chan, G (2020). Linear regression. Retrieved from https://www.statsnotebook.io/blog/analysis/regression/
 </code></pre>
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

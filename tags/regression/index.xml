@@ -13,20 +13,20 @@
       <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using &lt;a href=&#34;../linearity_homoscedasticity&#34;&gt;residual plots&lt;/a&gt;). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the &lt;em&gt;linearity assumption&lt;/em&gt; is still needed for proper inference using robust regression.&lt;/p&gt;
-&lt;p&gt;In this example, we will use the &lt;strong&gt;Stars&lt;/strong&gt; dataset from the &lt;code&gt;Robustbase&lt;/code&gt; package. We have built this example data into &lt;strong&gt;StatsNotebook&lt;/strong&gt; and it can be loaded using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/&#34; title=&#34;Residual plots and assumption checking for linear regression&#34;&gt;residual plots&lt;/a&gt;). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the &lt;em&gt;linearity assumption&lt;/em&gt; is still needed for proper inference using robust regression.&lt;/p&gt;
+&lt;p&gt;In this example, we will use the &lt;strong&gt;Stars&lt;/strong&gt; dataset from the &lt;code&gt;Robustbase&lt;/code&gt; package. We have built this example data into &lt;strong&gt;StatsNotebook&lt;/strong&gt; and it can be loaded using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;In this dataset, there are two variables.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;temperature&lt;/strong&gt; represents the surface temperature of a star&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;light&lt;/strong&gt; represents the light intensity of a star&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The figure below shows the scatterplot between &lt;em&gt;temperature&lt;/em&gt; and &lt;em&gt;light&lt;/em&gt; with a regression line. At first glance, there appears to be a downward trend. However, this trend may only be caused by the few outliers at the top left corner.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/scatter_plot_outliers.png&#34; alt=&#34;Scatterplot with Outliers&#34; title=&#34;Scatterplot with outliers&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/scatter_plot_outliers.png&#34; alt=&#34;scatterplot with outliers&#34; title=&#34;scatterplot with outliers&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;We will now demonstrate the use of robust regression to adjust for these outliers.&lt;/p&gt;
 
 &lt;h5 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Steps for running a &lt;strong&gt;Robust regression&lt;/strong&gt; in &lt;strong&gt;StatsNotebook&lt;/strong&gt; are nearly the same as running a &lt;a href=&#34;../regression&#34;&gt;&lt;strong&gt;linear regression&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Steps for running a &lt;strong&gt;Robust regression&lt;/strong&gt; in &lt;strong&gt;StatsNotebook&lt;/strong&gt; are nearly the same as running a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;&lt;strong&gt;linear regression&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; and select &lt;strong&gt;Linear Regression (Numeric outcome)&lt;/strong&gt; from the menu&lt;/li&gt;
@@ -94,8 +94,7 @@ seed : int(0)
 (Intercept) -4.969388 -11.8375510 1.898775
 temperature  2.253161   0.7041936 3.802129
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-&lt;p&gt;&lt;img src=&#34;../img/robust_regression_line.png&#34; alt=&#34;Line of best fit from robust regression&#34; title=&#34;Line of best fit from robust regression&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/robust_regression_line.png&#34; alt=&#34;Line of best fit from robust regression&#34; title=&#34;Line of best fit from robust regression&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     
@@ -105,8 +104,8 @@ temperature  2.253161   0.7041936 3.802129
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/linear_mixed_model/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on &lt;a href=&#34;../moderation_interaction_regression&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt;, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are &lt;em&gt;nested&lt;/em&gt; within postcodes. Since it is likely that individuals from the same postcodes are more similar compared to individuals from different postcodes (because of similar local drinking culture, similar level of exposure to local advertisement, etc), the assumption of independent observation is likely to be violated. &lt;strong&gt;Linear mixed model&lt;/strong&gt; (also known as multilevel model and random effect model) can be used to account for the dependencies in the data.&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Data with multilevel (hierarchical) structure are common in many area of research. In our tutorial on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt;, we examine the impact of increasing alcohol tax in Queensland on alcohol consumption. We compared changes in alcohol consumption for individuals from Queensland before and after the implementation of tax increase, compared to changes in alcohol consumption in other states. The data were collected from individuals from different postcodes in different states. Therefore, individual observations are &lt;em&gt;nested&lt;/em&gt; within postcodes. Since it is likely that individuals from the same postcodes are more similar compared to individuals from different postcodes (because of similar local drinking culture, similar level of exposure to local advertisement, etc), the assumption of independent observation is likely to be violated. &lt;strong&gt;Linear mixed model&lt;/strong&gt; (also known as multilevel model and random effect model) can be used to account for the dependencies in the data.&lt;/p&gt;
 
 &lt;h4 id=&#34;examples-of-nested-data-structure&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#examples-of-nested-data-structure&#34;&gt;Examples of nested data structure&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Other examples of data with nested structure include&lt;/p&gt;
@@ -117,21 +116,21 @@ temperature  2.253161   0.7041936 3.802129
 &lt;/ol&gt;
 &lt;p&gt;In this tutorial, we will look at two examples&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;#sleep-deprivation-and-reaction-time-repeated-measures-design&#34; title=&#34;Sleep deprivation and reactino time&#34;&gt;Sleep deprivation and reaction time&lt;/a&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#sleep-deprivation-and-reaction-time-repeated-measures-design&#34; title=&#34;Sleep deprivation and reactino time&#34;&gt;Sleep deprivation and reaction time&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;A study based on repeated measures of reaction time over 10 days of sleep deprivation (Belenky et al. 2003). Observations are nested within individuals, thus are not independent.&lt;/li&gt;
-&lt;li&gt;We will first run a &lt;a href=&#34;#random-intercept-model&#34;&gt;random intercept model&lt;/a&gt; that accounts for the repeated measures design (dependencies in the data), and then run a &lt;a href=&#34;#random-slope-model&#34;&gt;random slope model&lt;/a&gt; that allows the effect of sleep deprivation to vary across participants.&lt;/li&gt;
+&lt;li&gt;We will first run a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#random-intercept-model&#34; title=&#34;random intercept model&#34;&gt;random intercept model&lt;/a&gt; that accounts for the repeated measures design (dependencies in the data), and then run a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#random-slope-model&#34; title=&#34;random slope model&#34;&gt;random slope model&lt;/a&gt; that allows the effect of sleep deprivation to vary across participants.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#alcohol-tax-and-alcohol-consumption&#34; title=&#34;Alcohol tax and alcohol consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/#alcohol-tax-and-alcohol-consumption&#34; title=&#34;Alcohol tax and alcohol consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;
 &lt;ul&gt;
-&lt;li&gt;revisit our alcohol tax example in the &lt;a href=&#34;../moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial. Individuals are nested within postcodes, thus the observations are not independent.&lt;/li&gt;
+&lt;li&gt;revisit our alcohol tax example in the &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial. Individuals are nested within postcodes, thus the observations are not independent.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h4 id=&#34;sleep-deprivation-and-reaction-time-repeated-measures-design&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#sleep-deprivation-and-reaction-time-repeated-measures-design&#34;&gt;Sleep deprivation and reaction time (repeated measures design)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Belenky et al (2003) studied the relationship between sleep deprivation and reaction time. We have included their data in &lt;strong&gt;StatsNotebook&lt;/strong&gt; as the &lt;strong&gt;Sleep&lt;/strong&gt; dataset. See &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;load example data&lt;/a&gt; for instruction on loading the data into &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Belenky et al (2003) studied the relationship between sleep deprivation and reaction time. We have included their data in &lt;strong&gt;StatsNotebook&lt;/strong&gt; as the &lt;strong&gt;Sleep&lt;/strong&gt; dataset. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;load example data&lt;/a&gt; for instruction on loading the data into &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;There are three variables in this dataset.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Reaction - Reaction time (ms)&lt;/li&gt;
@@ -142,7 +141,7 @@ temperature  2.253161   0.7041936 3.802129
 &lt;h5 id=&#34;research-question&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#research-question&#34;&gt;Research question&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Does the number of days of sleep deprivation affect reaction time?&lt;/p&gt;
 &lt;p&gt;It is tempting to address this research question by a simple linear regression (or a correlation analysis). However, linear regression is not appropriate because the data is not independent - Reaction time measured from the same participant are likely to be more similar to reaction time measures across participants.&lt;/p&gt;
-&lt;p&gt;In this analysis, we will run two separate models - a random intercept model and a random slope model. Prior to running these models, it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this analysis, we will run two separate models - a random intercept model and a random slope model. Prior to running these models, it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h5 id=&#34;random-intercept-model&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#random-intercept-model&#34;&gt;Random intercept model&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;We can account for the dependencies in the data by including a &lt;strong&gt;random intercept&lt;/strong&gt; for each individual. To run this model,&lt;/p&gt;
@@ -152,7 +151,7 @@ temperature  2.253161   0.7041936 3.802129
 &lt;li&gt;In the left panel, select &lt;em&gt;Reaction&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, &lt;em&gt;Days&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt; and &lt;em&gt;Subject&lt;/em&gt; into &lt;em&gt;Random effect&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_intercept_reaction.png&#34; alt=&#34;random intercept model - reaction time&#34; title=&#34;random intercept model - reaction time&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_intercept_reaction.png&#34; alt=&#34;random intercept model&#34; title=&#34;random intercept model&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lme4)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lmerTest)
@@ -261,7 +260,7 @@ Number of obs: 180, groups:  Subject, 18
 
 &lt;h5 id=&#34;random-slope-model&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#random-slope-model&#34;&gt;Random slope model&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;In the random intercept model, we assume that the effect of sleep deprivation on reaction time is the same across individuals. The following shows the scatterplot between reaction time and days of sleep deprivation for each participants.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope_reaction_individuals.png&#34; alt=&#34;Random slope individuals&#34; title=&#34;random slope individuals&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_reaction_individuals.png&#34; alt=&#34;random slope individuals&#34; title=&#34;random slope individuals&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;While for most of the participants, the association is positive (the line of best fit going up towards the top right corner of each plot), there is substantial variations - For some participants, the effect of sleep deprivation seems to be stronger (e.g. participant 308) others relatively weaker (e.g. participant 309). To account for these variations, we can run a random slope model allowing the effect of sleep deprivation to vary across participants.&lt;/p&gt;
 &lt;p&gt;To run a random slope model,&lt;/p&gt;
 &lt;ol&gt;
@@ -275,7 +274,7 @@ Number of obs: 180, groups:  Subject, 18
 &lt;li&gt;Check &lt;em&gt;Days&lt;/em&gt; and select it into &lt;em&gt;Random slope&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope.png&#34; alt=&#34;Random slope&#34; title=&#34;random slope&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope.png&#34; alt=&#34;random slope&#34; title=&#34;random slope&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lme4)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lmerTest)
@@ -456,13 +455,13 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;p&gt;A random slope model is used to test if sleep deprivation affects reaction time. To account for the repeated measures design, a random intercept was specified for participants. The random slope for days of sleep deprivation was included in the model to allow the effect of sleep deprivation to vary across participants. Results are shown in Table 1. Using a significant level of 0.05, results indicate that sleep deprivation significantly increased reaction time. On average, each additional day of sleep deprivation increased reaction time by 10.47ms (&lt;em&gt;b&lt;/em&gt; = 10.47, 95% CI = [7.44, 13.50], &lt;em&gt;p&lt;/em&gt; &amp;lt; .001). Model fit comparison between model with and without random slope for sleep deprivation shows that the effect of sleep deprivation varied across participants, χ&lt;sup&gt;2&lt;/sup&gt;(2)= 42.14, &lt;em&gt;p&lt;/em&gt; &amp;lt; .001. The 95% coverage interval for the random slope of sleep deprivation is (-1.14, 22.07), indicating that the effect of sleep deprivation was between -1.14 and 22.07 for 95% of the participants.&lt;/p&gt;
 
 &lt;h4 id=&#34;alcohol-tax-and-alcohol-consumption&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#alcohol-tax-and-alcohol-consumption&#34;&gt;Alcohol tax and alcohol consumption&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;In our alcohol tax example in the &lt;a href=&#34;../moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial, we investigated two research questions in the following scenario.&lt;/p&gt;
+&lt;p&gt;In our alcohol tax example in the &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;moderation analysis&#34;&gt;moderation analysis&lt;/a&gt; tutorial, we investigated two research questions in the following scenario.&lt;/p&gt;
 &lt;p&gt;Suppose that in Australia, Queensland implemented an increase in alcohol tax in 2018 and no change in tax in any other states (e.g. Victoria and New South Wales). We have collected data on alcohol consumption in 2017 and 2019, and we want to test if the change in alcohol consumption (measured in number of standard drinks consumed per month) in Queensland was different from other states.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change of alcohol consumption in Queensland is larger than other states.&lt;/li&gt;
 &lt;li&gt;In this analysis, we will test the interaction between &lt;em&gt;year&lt;/em&gt; and &lt;em&gt;state&lt;/em&gt;. (Does &lt;em&gt;state&lt;/em&gt; change the effect of &lt;em&gt;year&lt;/em&gt; on alcohol consumption?)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We have used the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in that example and the dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We have used the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in that example and the dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;Load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;There are 5 variables in this dataset.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Alcohol - Number of standard drinks consumed per month.&lt;/li&gt;
@@ -480,13 +479,13 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;li&gt;In the left panel, select &lt;em&gt;alcohol&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
 &lt;li&gt;We have added &lt;em&gt;Remoteness&lt;/em&gt; into this analysis to adjust for its effect.&lt;/li&gt;
-&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
-&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;State&lt;/em&gt;. See &lt;a href=&#34;../../data_management/set_reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;State&lt;/em&gt;. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/set_reference/&#34; title=&#34;set reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Select &lt;em&gt;Postcode&lt;/em&gt; into &lt;em&gt;Random Effect&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/random_slope_instruction1.png&#34; alt=&#34;Random slope model instruction 1&#34; title=&#34;random slope instruction 1&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_instruction1.png&#34; alt=&#34;random slope instruction&#34; title=&#34;random slope instruction&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Add interaction terms&lt;/strong&gt;, select &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; into &lt;em&gt;Interaction terms&lt;/em&gt;.
 &lt;ul&gt;
@@ -494,11 +493,11 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/add_interaction_term.png&#34; alt=&#34;Add interaction term&#34; title=&#34;Add interaction term&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/add_interaction_term.png&#34; alt=&#34;add interaction term&#34; title=&#34;add interaction term&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;6&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Estimated Marginal Means&lt;/strong&gt;, select &lt;em&gt;State*Year&lt;/em&gt; on the variable list, and select &lt;strong&gt;Pairwise comparison&lt;/strong&gt; and &lt;strong&gt;Interaction plot&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_emm.png&#34; alt=&#34;Estimated marginal mean&#34; title=&#34;Estimated marginal mean&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_emm.png&#34; alt=&#34;estimated marginal mean&#34; title=&#34;estimated marginal mean&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;7&#34;&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;, the following R code will be generated in a block on the right panel, with output from R below the codes.&lt;/li&gt;
 &lt;/ol&gt;
@@ -632,7 +631,7 @@ Results are averaged over the levels of: Remoteness
 Degrees-of-freedom method: asymptotic 
 Confidence level used: 0.95 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above table contains estimates for alcohol consumption by &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt;, with 95% confidence intervals. For example, it is estimated that on average, participants in Queensland in 2017 consumed 67.5 standard drinks per month, with a 95% confidence interval of (54.4, 80.5).&lt;/p&gt;
-&lt;p&gt;It should be noted that the estimates from this random intercept model is very similar to those from a &lt;a href=&#34;../moderation_interaction_regression/#interpretation-1&#34;&gt;linear regression model&lt;/a&gt;. However, the confidence intervals of the random intercept model is wider.&lt;/p&gt;
+&lt;p&gt;It should be noted that the estimates from this random intercept model is very similar to those from a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#interpretation-1&#34; title=&#34;moderation analysis using linear regression&#34;&gt;moderation analysis using linear regression&lt;/a&gt;. However, the confidence intervals of the random intercept model is wider.&lt;/p&gt;
 &lt;p&gt;This table is then followed by a long table of pairwise comparisons. However, we will not be interested in most of these comparisons.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pairwise comparison&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$contrasts
@@ -690,8 +689,7 @@ These results indicate that there is significant change in Queensland between 20
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../img/random_slope_model_interaction.png&#34; alt=&#34;random slope model interaction&#34; title=&#34;random slope model interaction&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/random_slope_model_interaction.png&#34; alt=&#34;random slope model interaction&#34; title=&#34;random slope model interaction&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     
@@ -701,7 +699,7 @@ These results indicate that there is significant change in Queensland between 20
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/mediation/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle&lt;/p&gt;
 &lt;ol&gt;
@@ -721,7 +719,7 @@ These results indicate that there is significant change in Queensland between 20
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;In this example, the &lt;em&gt;dependent variable&lt;/em&gt; is &lt;em&gt;substance use disorder&lt;/em&gt; and the &lt;em&gt;independent variable&lt;/em&gt; is &lt;em&gt;family intervention&lt;/em&gt;. There are two mediators: &lt;em&gt;engaged with deviant peer group&lt;/em&gt; and &lt;em&gt;experimentation with drugs&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;We will first show the R codes for this analysis below, and then we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;substance&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We will first show the R codes for this analysis below, and then we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;substance&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;In this dataset,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;dev_peer&lt;/strong&gt; represents engagement with deviant peer groups and it was coded as &amp;ldquo;0: No&amp;rdquo; and &amp;ldquo;1: Yes&amp;rdquo;;&lt;/li&gt;
@@ -732,7 +730,7 @@ These results indicate that there is significant change in Queensland between 20
 &lt;/ol&gt;
 
 &lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;The first section of the code is for &lt;a href=&#34;../multiple_imputation&#34; title=&#34;Multiple imputation&#34;&gt;imputing missing data&lt;/a&gt;. In the second section, we use the &lt;code&gt;mediate&lt;/code&gt; function from the &lt;code&gt;intmed&lt;/code&gt; package to conduct a mediation analysis.&lt;/p&gt;
+&lt;p&gt;The first section of the code is for &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;Multiple imputation for missing data&#34;&gt;imputating missing data&lt;/a&gt;. In the second section, we use the &lt;code&gt;mediate&lt;/code&gt; function from the &lt;code&gt;intmed&lt;/code&gt; package to conduct a mediation analysis.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int_1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;
 currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int_1[currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
 currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int_1[currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
@@ -780,7 +778,7 @@ med_res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; intmed&lt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Prior to running the causal mediation analysis, we will need to conduct a &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt; and it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the causal mediation analysis, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To run a causal mediation analysis,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
@@ -788,11 +786,11 @@ med_res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; intmed&lt;
 &lt;li&gt;In the left panel, select &lt;em&gt;sub_disorder&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, &lt;em&gt;fam_int&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, &lt;em&gt;dev_peer&lt;/em&gt; and &lt;em&gt;sub_exp&lt;/em&gt; into &lt;em&gt;Mediator(s)&lt;/em&gt;, and &lt;em&gt;gender&lt;/em&gt; and &lt;em&gt;conflict&lt;/em&gt; into covariates.
 &lt;ul&gt;
 &lt;li&gt;We add &lt;em&gt;gender&lt;/em&gt; and &lt;em&gt;conflict&lt;/em&gt; as covariates to adjust for their effects.&lt;/li&gt;
-&lt;li&gt;All categorical variables will need to be coded as a &lt;strong&gt;factor&lt;/strong&gt; (such as &lt;em&gt;sub_disorder&lt;/em&gt;, &lt;em&gt;fam_int&lt;/em&gt;, &lt;em&gt;dev_peer&lt;/em&gt;, &lt;em&gt;sub_exp&lt;/em&gt; and &lt;em&gt;gender&lt;/em&gt;. In this example dataset, this has already been done). See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
+&lt;li&gt;All categorical variables will need to be coded as a &lt;strong&gt;factor&lt;/strong&gt; (such as &lt;em&gt;sub_disorder&lt;/em&gt;, &lt;em&gt;fam_int&lt;/em&gt;, &lt;em&gt;dev_peer&lt;/em&gt;, &lt;em&gt;sub_exp&lt;/em&gt; and &lt;em&gt;gender&lt;/em&gt;. In this example dataset, this has already been done). &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/causal_mediation.png&#34; alt=&#34;Mediation analysis instruction&#34; title=&#34;Causal Mediation Analysis&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/causal_mediation.png&#34; alt=&#34;causal mediation analysis&#34; title=&#34;causal mediation analysis&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Analysis Setting&lt;/strong&gt;.
 &lt;ul&gt;
@@ -822,7 +820,7 @@ med_res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; intmed&lt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/mediation_setting.png&#34; alt=&#34;Mediation analysis setting&#34; title=&#34;Mediation analysis setting&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/mediation_setting.png&#34; alt=&#34;mediation analysis setting&#34; title=&#34;mediation analysis setting&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Below is the output from &lt;strong&gt;StatsNotebook&lt;/strong&gt;. The analysis is conducted using the &lt;code&gt;intmed&lt;/code&gt; package and most of the output is self-explanatory.&lt;/p&gt;
@@ -937,7 +935,6 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
 &lt;p&gt;Since &lt;em&gt;sub_disorder&lt;/em&gt; is a dichotomised variable, the estimates are in a &lt;strong&gt;probability scale&lt;/strong&gt;. Overall, the total effect of &lt;em&gt;fam_int&lt;/em&gt; is -0.077, indicating that participation in family intervention reduces the probability of &lt;em&gt;sub_disorder&lt;/em&gt; by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through &lt;em&gt;dev_peer&lt;/em&gt; and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through &lt;em&gt;sub_exp&lt;/em&gt;. Overall, it is estimated that 21.8% of the total effect is mediated through &lt;em&gt;dev_peer&lt;/em&gt; and 7.8% through &lt;em&gt;sub_exp&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -947,8 +944,8 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/moderation_interaction_regression/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Assumed knowledge in this tutorial:&lt;/strong&gt; &lt;a href=&#34;../regression&#34;&gt;Linear regression&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Assumed knowledge in this tutorial:&lt;/strong&gt; &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;Linear regression&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.&lt;/p&gt;
 
 &lt;h4 id=&#34;example-research-questions&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#example-research-questions&#34;&gt;Example research questions&lt;/a&gt;&lt;/h4&gt;
@@ -966,9 +963,9 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 &lt;/ul&gt;
 &lt;p&gt;In this tutorial, we will examine three scenarios.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#categorical-independent-variable-and-categorical-moderator&#34;&gt;Categorical independent variable and categorical moderator&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#numeric-independent-variable-and-categorical-moderator&#34;&gt;Numeric independent variable and categorical moderator&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#numeric-independent-variable-and-numeric-moderator&#34;&gt;Numeric independent variable and numeric moderator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator&#34; title=&#34;categorical independent variable and categorical moderator&#34;&gt;Categorical independent variable and categorical moderator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-categorical-moderator&#34; title=&#34;numeric independent variable and categorical moderator&#34;&gt;Numeric independent variable and categorical moderator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-numeric-moderator&#34; title=&#34;numeric independent variable and numeric moderator&#34;&gt;Numeric independent variable and numeric moderator&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For instances with a categorical independent variable and numeric moderator, the analytic strategy would be the same as conducting a moderation analysis with a numeric independent variable with categorical moderator.&lt;/p&gt;
 
@@ -978,7 +975,7 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 &lt;li&gt;A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change in Queensland is larger than other states.&lt;/li&gt;
 &lt;li&gt;In this analysis, we will test the interaction between &lt;em&gt;year&lt;/em&gt; and &lt;em&gt;state&lt;/em&gt;. (Does &lt;em&gt;state&lt;/em&gt; change the effect of &lt;em&gt;year&lt;/em&gt; on alcohol consumption?)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset for this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
+&lt;p&gt;We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset for this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
 
 &lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
@@ -1024,7 +1021,7 @@ emm &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To run a moderation analysis using linear regression (categorical independent variable and categorical moderator),&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -1037,24 +1034,24 @@ emm &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style
 &lt;p&gt;In the left panel, select &lt;em&gt;alcohol&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;We have added &lt;em&gt;Remoteness&lt;/em&gt; into this analysis to adjust for its effect.&lt;/li&gt;
-&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
-&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;state&lt;/em&gt;. See &lt;a href=&#34;../../data_management/set_reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Year&lt;/em&gt;, &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Remoteness&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
+&lt;li&gt;For this analysis, because we compared &lt;em&gt;Queensland&lt;/em&gt; against all other states, we set &lt;em&gt;QLD&lt;/em&gt; as the &lt;strong&gt;reference&lt;/strong&gt; level of &lt;em&gt;state&lt;/em&gt;. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/set_reference/&#34; title=&#34;set reference&#34;&gt;Setting reference level for categorical variable&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_instruction1.png&#34; alt=&#34;Moderation analysis 1&#34; title=&#34;Moderation (interaction) analysis&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_instruction1.png&#34; alt=&#34;Moderation (interaction) analysis&#34; title=&#34;Moderation (interaction) analysis&#34;/&gt;&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Expand the panel &lt;strong&gt;Add interaction terms&lt;/strong&gt;, select &lt;em&gt;State&lt;/em&gt; and &lt;em&gt;Year&lt;/em&gt; into &lt;em&gt;Interaction terms&lt;/em&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click &lt;em&gt;State&lt;/em&gt; first and then &lt;em&gt;Year&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;../img/add_interaction_term.png&#34; alt=&#34;Add interactino term&#34; title=&#34;Add interaction terms&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/add_interaction_term.png&#34; alt=&#34;add interaction term&#34; title=&#34;add interaction term&#34;/&gt;&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Expand the panel &lt;strong&gt;Estimated Marginal Means&lt;/strong&gt;, select &lt;em&gt;State*Year&lt;/em&gt; on the variable list, and select &lt;strong&gt;Pairwise comparison&lt;/strong&gt; and &lt;strong&gt;Interaction plot&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_emm.png&#34; alt=&#34;Estimated marginal means&#34; title=&#34;Estimated marginal means for interaction&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_emm.png&#34; alt=&#34;estimated marginal means for interaction&#34; title=&#34;estimated marginal means for interaction&#34;/&gt;&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;** For this analysis, we should also adjust for &lt;em&gt;Postcode&lt;/em&gt; because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the &lt;strong&gt;assumption of independent observation&lt;/strong&gt;. For the purpose of understanding a moderation analysis, we can leave this out for now. See &lt;a href=&#34;../linear_mixed_model&#34;&gt;Linear mixed model&lt;/a&gt; for how to adjust for data dependency.&lt;/p&gt;
+&lt;p&gt;** For this analysis, we should also adjust for &lt;em&gt;Postcode&lt;/em&gt; because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the &lt;strong&gt;assumption of independent observation&lt;/strong&gt;. For the purpose of understanding a moderation analysis, we can leave this out for now. See &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/&#34; title=&#34;Linear mixed model (Multilevel model)&#34;&gt;Linear mixed model (Multilevel model)&lt;/a&gt; for how to adjust for data dependency.&lt;/p&gt;
 
 &lt;h5 id=&#34;r-codes-explained---moderation-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---moderation-analysis&#34;&gt;R codes explained - Moderation analysis&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;The following are from the top section of the generated codes.&lt;/p&gt;
@@ -1195,7 +1192,7 @@ These results indicate that there is significant change in Queensland between 20
   cov.keep &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;, at &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list&lt;/span&gt;(),
   CIs &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;, position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;jitter&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;&lt;img src=&#34;../img/interaction_plot.png&#34; alt=&#34;Interaction plot&#34; title=&#34;Interaction plot&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/interaction_plot.png&#34; alt=&#34;interaction plot&#34; title=&#34;interaction plot&#34;/&gt;&lt;/a&gt;
 
 &lt;h4 id=&#34;numeric-independent-variable-and-categorical-moderator&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#numeric-independent-variable-and-categorical-moderator&#34;&gt;Numeric independent variable and categorical moderator&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;In this example, we will look at the relationship between BMI, sex, age and depression. We want to test if the relationship between BMI and depression is different for males and females.&lt;/p&gt;
@@ -1204,7 +1201,7 @@ These results indicate that there is significant change in Queensland between 20
 &lt;li&gt;Is the association between BMI and depression different for males and females?&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;In this setup, &lt;em&gt;BMI&lt;/em&gt; is an independent variable, &lt;em&gt;Sex&lt;/em&gt; is a moderator and &lt;em&gt;depression&lt;/em&gt; is the dependent variable.&lt;/p&gt;
-&lt;p&gt;We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
+&lt;p&gt;We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
 
 &lt;h5 id=&#34;r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-1&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
@@ -1258,7 +1255,7 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;using-statsnotebook-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook-1&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To run a moderation analysis using linear regression (numeric independent variable and categorical moderator),&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
@@ -1266,11 +1263,11 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;li&gt;In the left panel, select &lt;em&gt;Depression&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;BMI&lt;/em&gt;, &lt;em&gt;Sex&lt;/em&gt; and &lt;em&gt;Age&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
 &lt;li&gt;We will adjust for the effect of &lt;em&gt;Age&lt;/em&gt; by adding it as one of the covariates.&lt;/li&gt;
-&lt;li&gt;We will need to code &lt;em&gt;Sex&lt;/em&gt; into a &lt;strong&gt;factor&lt;/strong&gt; because it is a &lt;strong&gt;categorical&lt;/strong&gt; variable. See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Sex&lt;/em&gt; into a &lt;strong&gt;factor&lt;/strong&gt; because it is a &lt;strong&gt;categorical&lt;/strong&gt; variable. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_instruction2.png&#34; alt=&#34;Moderation analysis 2&#34; title=&#34;Moderation (interaction) analysis&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_instruction2.png&#34; alt=&#34;Moderation (interaction) analysis&#34; title=&#34;Moderation (interaction) analysis&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Add interaction terms&lt;/strong&gt;, select &lt;em&gt;BMI&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt; into &lt;em&gt;Interaction terms&lt;/em&gt;.
 &lt;ul&gt;
@@ -1278,11 +1275,11 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/add_interaction_term2.png&#34; alt=&#34;Add interaction term 2&#34; title=&#34;Add interaction terms&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/add_interaction_term2.png&#34; alt=&#34;add interaction terms&#34; title=&#34;add interaction terms&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Estimated Marginal Means&lt;/strong&gt;, select &lt;em&gt;BMI*Sex&lt;/em&gt; on the variable list, and select &lt;strong&gt;Test for simple slope&lt;/strong&gt; and &lt;strong&gt;Interaction plot&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_emm2.png&#34; alt=&#34;Moderation EMMs&#34; title=&#34;Estimated marginal mean&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_emm2.png&#34; alt=&#34;estimated marginal mean&#34; title=&#34;estimated marginal mean&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;r-codes-explained---moderation-analysis-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---moderation-analysis-1&#34;&gt;R codes explained - Moderation analysis&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;The following is from the top selection of the generated codes.&lt;/p&gt;
@@ -1387,7 +1384,7 @@ $contrasts
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
+&lt;p&gt;We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;. We will also use the &lt;code&gt;emmeans&lt;/code&gt; package in R for pairwise comparisons and for building the interaction plot.&lt;/p&gt;
 
 &lt;h5 id=&#34;r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-2&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
@@ -1449,7 +1446,7 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;using-statsnotebook-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook-2&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the moderation analysis, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To run a moderation analysis using linear regression (numeric independent variable and numeric moderator),&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
@@ -1457,11 +1454,11 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;li&gt;In the left panel, select &lt;em&gt;Wellbeing&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Stress&lt;/em&gt;, &lt;em&gt;SocialSupport&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
 &lt;li&gt;We have added &lt;em&gt;Sex&lt;/em&gt; into this analysis to adjust for its effect.&lt;/li&gt;
-&lt;li&gt;We will need to code &lt;em&gt;Sex&lt;/em&gt; into a &lt;strong&gt;factor&lt;/strong&gt; because it is a &lt;strong&gt;categorical&lt;/strong&gt; variable. See &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide.&lt;/li&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Sex&lt;/em&gt; into a &lt;strong&gt;factor&lt;/strong&gt; because it is a &lt;strong&gt;categorical&lt;/strong&gt; variable. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for step-by-step guide&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_instruction3.png&#34; alt=&#34;Moderation analysis 3&#34; title=&#34;Moderatino (interaction) analysis&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_instruction3.png&#34; alt=&#34;moderation (interaction) analysis&#34; title=&#34;moderation (interaction) analysis&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Expand the panel **Add interaction terms&amp;rdquo;, select &lt;em&gt;Stress&lt;/em&gt; and &lt;em&gt;SocialSupport&lt;/em&gt; into &lt;em&gt;Interaction terms&lt;/em&gt;.
 &lt;ul&gt;
@@ -1469,11 +1466,11 @@ simpleSlope &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;sp
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/add_interaction_term3.png&#34; alt=&#34;Add interaction term 3&#34; title=&#34;Add interaction terms&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/add_interaction_term3.png&#34; alt=&#34;add interaction terms&#34; title=&#34;add interaction terms&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Expand the panel &lt;strong&gt;Estimated Marginal Means&lt;/strong&gt;, select &lt;em&gt;Stress*SocialSupport&lt;/em&gt; on the variable list, and select &lt;strong&gt;Test for simple slope&lt;/strong&gt; and &lt;strong&gt;Interaction plot&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/moderation_emm3.png&#34; alt=&#34;Moderation EMMs&#34; title=&#34;Estimated marginal mean&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/moderation_emm3.png&#34; alt=&#34;estimated marginal mean&#34; title=&#34;estimated marginal mean&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;r-codes-explained---moderation-analysis-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---moderation-analysis-2&#34;&gt;R codes explained - Moderation analysis&lt;/a&gt;&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
@@ -1591,8 +1588,7 @@ P value adjustment: tukey method for comparing a family of 3 estimates
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../img/interaction_plot3.png&#34; alt=&#34;Interaction plot 3&#34; title=&#34;Interaction plot - Psychological wellbeing by Stress and Social support&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/interaction_plot3.png&#34; alt=&#34;Interaction plot - Psychological wellbeing by Stress and Social support&#34; title=&#34;Interaction plot - Psychological wellbeing by Stress and Social support&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     
@@ -1602,7 +1598,7 @@ P value adjustment: tukey method for comparing a family of 3 estimates
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Linear regression is a technique for examining the relationship between a &lt;em&gt;dependent variable&lt;/em&gt; (&lt;em&gt;outcome&lt;/em&gt;) and a set of &lt;em&gt;independent variables&lt;/em&gt; (&lt;em&gt;predictors&lt;/em&gt;). This tutorial demonstrates how to conduct a linear regression in &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the following example. We will also provide an example write-up in APA style.&lt;/p&gt;
 
 &lt;h4 id=&#34;example-research-questions&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#example-research-questions&#34;&gt;Example research questions&lt;/a&gt;&lt;/h4&gt;
@@ -1611,7 +1607,7 @@ P value adjustment: tukey method for comparing a family of 3 estimates
 &lt;li&gt;Is sex associated with depression? (i.e. Are there sex differences in depression?)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;In this setup, the &lt;em&gt;dependent&lt;/em&gt; variable is depression; the &lt;em&gt;independent&lt;/em&gt; variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by &lt;strong&gt;linear regression&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
@@ -1647,20 +1643,20 @@ res.std &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h4 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Prior to running the linear regression analysis, it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt; and conduct a &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the linear regression analysis, it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt; and conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To run a linear regression,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; and select &lt;strong&gt;Linear Regression (Numeric outcome)&lt;/strong&gt; from the menu&lt;/li&gt;
 &lt;li&gt;In the left panel, select &lt;em&gt;Depression&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Agreeableness&lt;/em&gt;, &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Extraversion&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Female is chosen as the &lt;strong&gt;reference&lt;/strong&gt; level for sex by default. To change the reference level, see &lt;a href=&#34;../../data_management/set_reference&#34;&gt;this&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Female is chosen as the &lt;strong&gt;reference&lt;/strong&gt; level for sex by default. To change the reference level, see &lt;a href=&#34;https://statsnotebook.io/blog/data_management/set_reference/&#34; title=&#34;set reference&#34;&gt;setting reference level for categorical variable&lt;/a&gt; for step-by-step guide..&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt; at top. The above R code will be generated in a block on the right panel and the results will be presented below the R codes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/regression1.png&#34; alt=&#34;StatsNotebook regression&#34; title=&#34;Regression in StatsNotebook&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/regression1.png&#34; alt=&#34;regression in statsnotebook&#34; title=&#34;regression in statsnotebook&#34;/&gt;&lt;/a&gt;
 
 &lt;h4 id=&#34;r-codes-explained---regression-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---regression-analysis&#34;&gt;R codes explained - Regression analysis&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;The following is from the top section of the generated codes.&lt;/p&gt;
@@ -1714,7 +1710,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;The R-sq indicates that the model explains 33.19% of the variance in depression. It should be noted that 76 observations have missing data and thus have been removed from the analysis. See &lt;a href=&#34;../regression_missingdata&#34;&gt;Regression with missing data&lt;/a&gt; for a more appropriate way to handle the missing data in this analysis.&lt;/p&gt;
+&lt;p&gt;The R-sq indicates that the model explains 33.19% of the variance in depression. It should be noted that 76 observations have missing data and thus have been removed from the analysis. See &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression_missingdata/&#34; title=&#34;Linear regression with missing data&#34;&gt;Regression with missing data&lt;/a&gt; for a more appropriate way to handle the missing data in this analysis.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Residual standard error: 5.091 on 148 degrees of freedom
   (76 observations deleted due to missingness)
 Multiple R-squared:  0.3319,	Adjusted R-squared:  0.3048 
@@ -1757,7 +1753,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 &lt;li&gt;Normality (residuals are normally distributed)&lt;/li&gt;
 &lt;li&gt;Independence of observations&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The &lt;strong&gt;independence&lt;/strong&gt; assumption can be ensured if the sample is a random sample. When there is dependency in the data, other statistical methods, such as &lt;a href=&#34;../linear_mixed_model&#34;&gt;Linear mixed model&lt;/a&gt;, can be used.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;independence&lt;/strong&gt; assumption can be ensured if the sample is a random sample. When there is dependency in the data, other statistical methods, such as &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linear_mixed_model/&#34; title=&#34;Linear mixed model (Multilevel model)&#34;&gt;Linear mixed model&lt;/a&gt;, can be used.&lt;/p&gt;
 &lt;p&gt;In addition, we also need to check for multicollinearity, outliers and/or influential observations (i.e. observations that may have a large impact on the model coefficients).&lt;/p&gt;
 &lt;p&gt;To check the other three assumptions (i.e. Linearity, homoscedasticity and normality) and perform model diagnostic, we will need to use several functions from the &lt;strong&gt;car&lt;/strong&gt; library. To load this library, we use the following code.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(car)
@@ -1767,7 +1763,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 &lt;span style=&#34;color:#06287e&#34;&gt;plot&lt;/span&gt;(res.std, ylab&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Standardized Residuals&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;All the points should be randomly scattered around 0, with approximately 95% of the points falling between -2 and 2 standardized residuals. Points with a large standardized residual may be outliers.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/residual.png&#34; alt=&#34;Residual plot&#34; title=&#34;Residual plot&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/residual.png&#34; alt=&#34;residual plot&#34; title=&#34;residual plot&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;The following lines of codes allow us to examine if there are outliers and if there are any observations that might have a large influence on the model estimates.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Outlier Test. Observations with a Bonferroni p &amp;lt; .01 might be considered as outliers and might need further investigation.&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;outlierTest&lt;/span&gt;(res)
@@ -1785,7 +1781,7 @@ SexMale           -0.87264011 -2.62623258  0.880952360
 ######################################################
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
 &lt;p&gt;The following plot is produced by the &lt;strong&gt;infIndexPlot&lt;/strong&gt; function. We can focus on the top panel on &lt;strong&gt;Cook&amp;rsquo;s distance&lt;/strong&gt;. Observations with a &lt;strong&gt;Cook&amp;rsquo;s distance&lt;/strong&gt; close to 1 indicates a high impact on the model coefficients. There is no influence observation in this analysis despite the existence of two observations with large residuals.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/diagnosticplot.png&#34; alt=&#34;Diagnostic plot&#34; title=&#34;Diagnostic plot&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/diagnosticplot.png&#34; alt=&#34;diagnostic plot&#34; title=&#34;diagnostic plot&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;The following code is used to produce more diagnostic plots and a normality plot.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Residual plots, curvature tests and normality plot&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#06287e&#34;&gt;residualPlots&lt;/span&gt;(res)
@@ -1794,8 +1790,8 @@ SexMale           -0.87264011 -2.62623258  0.880952360
   &lt;span style=&#34;color:#06287e&#34;&gt;geom_qq_line&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;Below is a set of diagnostic plots.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/diagnostic2.png&#34; alt=&#34;Diagnostic plot 2&#34; title=&#34;A set of diagnostic plots&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The residuals are plotted against each of the independent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See &lt;a href=&#34;../linearity_homoscedasticity&#34;&gt;Residual plots and assumption checking&lt;/a&gt; for examples of plots that demonstrate a violation of the linearity assumption and the homoscedasticity assumption.&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/diagnostic2.png&#34; alt=&#34;a set of diagnostic plots&#34; title=&#34;a set of diagnostic plots&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;The residuals are plotted against each of the independent variables and the fitted values. Ideally, points on these plots need to be randomly scattered around 0. Any non-linear pattern (e.g. curvature) in the residual plots indicate that the linearity assumption is violated. A fanning in or fanning out pattern indicates the homoscedasticity assumption is violated. See &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/&#34; title=&#34;Residual plots and assumption checking for linear regression&#34;&gt;Residual plots and assumption checking&lt;/a&gt; for examples of plots that demonstrate a violation of the linearity assumption and the homoscedasticity assumption.&lt;/p&gt;
 &lt;p&gt;The following are the results from curvature tests for each of the variables. A quadratic term is added to each of the plots and a curvature test tests if the quadratic term is zero. A test with a p-value &amp;lt; .01 may indicate the presence of a non-linear trend (U-shape or inverted U-shape).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                  Test stat Pr(&amp;gt;|Test stat|)  
 Agreeableness       -1.0679          0.28730  
@@ -1808,8 +1804,8 @@ Tukey test           1.7834          0.07452 .
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-&lt;p&gt;Below is a normality plot. If the residual is normally distributed, the points need to follow a straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try a &lt;a href=&#34;../../data_management/compute_variable&#34; title=&#34;log transformation&#34;&gt;log-transformation&lt;/a&gt; of the dependent variable or use other analytic methods such as &lt;a href=&#34;../robust_regression&#34; title=&#34;robust regression&#34;&gt;robust regression&lt;/a&gt; to evaluate whether the violation has a substantial impact on the model estimates.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/normality.png&#34; alt=&#34;normality plot&#34; title=&#34;normality plot&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Below is a normality plot. If the residual is normally distributed, the points need to follow a straight line. In this case, there is evidence that the normality assumption is violated. When the normality assumption is violated, we can try a &lt;a href=&#34;https://statsnotebook.io/blog/data_management/compute_variable/&#34; title=&#34;log transformation&#34;&gt;log-transformation&lt;/a&gt; of the dependent variable or use other analytic methods such as &lt;a href=&#34;https://statsnotebook.io/blog/analysis/robust_regression/&#34; title=&#34;Robust regression&#34;&gt;robust regression&lt;/a&gt; to evaluate whether the violation has a substantial impact on the model estimates.&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/normality.png&#34; alt=&#34;normality plot&#34; title=&#34;normality plot&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;Lastly, the following codes compute the &lt;strong&gt;Variance Inflation Factor&lt;/strong&gt; (VIF).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;Variance inflation factor (VIF &amp;gt;=5 indicates high level of multicollinearity)&amp;quot;
 vif(res)
@@ -1879,7 +1875,6 @@ vif(res)
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Linear regression is used to examine the association between depression and agreeableness, conscientiousness, extraversion, neuroticism, openness and sex. Results are shown in Table 1. Using a significance level of 0.05, results indicate that higher neuroticism (&lt;em&gt;b&lt;/em&gt; = 0.14, 95% CI [0.11, 0.18], &lt;em&gt;p&lt;/em&gt; &amp;lt; .001) and lower openness (&lt;em&gt;b&lt;/em&gt; = -0.05, 95% CI [-0.10, -0.01], &lt;em&gt;p&lt;/em&gt; = .028) are associated with depression. Other variables were not significantly associated with depression, and their effects are close to zero. Overall, the model explains 33.19% of the variance in depression. Analyses were conducted in StatsNotebook (Chan and StatsNotebook Team, 2020) with R (R Core Team, 2020).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
@@ -1893,16 +1888,16 @@ Chan, G (2020). Linear regression. Retrieved from https://www.statsnotebook.io/b
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/regression_missingdata/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in &lt;strong&gt;StatsNotebook&lt;/strong&gt; to handle missing data using &lt;a href=&#34;../multiple_imputation&#34;&gt;multiple imputation&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;In our &lt;a href=&#34;../regression&#34; title=&#34;linear regression&#34;&gt;linear regression tutorial&lt;/a&gt;, we use the personality dataset to examine two research qeustions.&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;In many area of research, missing data is a norm rather than an exception. Dropping observations/ participants with missing data is usually not appropriate as it reduces statistical power and also may introduce bias in analysis. This tutorial will demonstrate a simple way in &lt;strong&gt;StatsNotebook&lt;/strong&gt; to handle missing data using &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;Multiple imputation for missing data&#34;&gt;multiple imputation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In our &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;linear regression tutorial&lt;/a&gt;, we use the personality dataset to examine two research qeustions.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Are the Big 5 personality traits, Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness, associated with depression?&lt;/li&gt;
 &lt;li&gt;Is sex associated with depression?&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;In our original analysis, participants with missing data in any of the analysis variables are excluded. The initial sample size is 231. After excluding participants with missing data, the sample size reduces to 155 - a reduction of 33%.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;../multiple_imputation&#34; title=&#34;multiple imputation&#34;&gt;Multiple imputation&lt;/a&gt; is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. &lt;strong&gt;StatsNotebook&lt;/strong&gt; provides a simple interface to incorporate multiple imputation into linear regression analysis.&lt;/p&gt;
-&lt;p&gt;This tutorial builds on our tutorial on &lt;a href=&#34;../regression&#34; title=&#34;linear regression&#34;&gt;linear regression&lt;/a&gt;, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;Multiple imputation for missing data&#34;&gt;Multiple imputation&lt;/a&gt; is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. &lt;strong&gt;StatsNotebook&lt;/strong&gt; provides a simple interface to incorporate multiple imputation into linear regression analysis.&lt;/p&gt;
+&lt;p&gt;This tutorial builds on our tutorial on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;linear regression&lt;/a&gt;, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Two variables, &lt;strong&gt;.imp&lt;/strong&gt; and &lt;strong&gt;.id&lt;/strong&gt; will be added to the dataset on successful imputation. The &lt;strong&gt;.imp&lt;/strong&gt; is the imputation number, and zero indicates the original dataset. The &lt;strong&gt;.id&lt;/strong&gt; is a unique identifier for each observation in the dataset.&lt;/p&gt;
 
 &lt;h4 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h4&gt;
@@ -1964,18 +1959,18 @@ res.std &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h4 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;Prior to running the linear regression analysis, it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;../descriptive&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prior to running the linear regression analysis, it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt; and conduct &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To conduct multiple imputation and linear regression analysis,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; and select &lt;strong&gt;Linear Regression (Numberic outcome)&lt;/strong&gt; from the menu&lt;/li&gt;
 &lt;li&gt;In the left panel, select &lt;em&gt;Depression&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;Agreeableness&lt;/em&gt;, &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Extraversion&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/regression1.png&#34; alt=&#34;StatsNotebook regression&#34; title=&#34;Regression in StatsNotebook&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/regression1.png&#34; alt=&#34;Regression in StatsNotebook&#34; title=&#34;Regression in StatsNotebook&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;On the left panel, scroll down and expand the &lt;strong&gt;Analysis setting&lt;/strong&gt; panel. Check &lt;em&gt;Impute missing data&lt;/em&gt; and enter the number of imputation required. In this example, we request 35 imputations.
 &lt;ul&gt;
@@ -1983,7 +1978,7 @@ res.std &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span s
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/regression_impute_missing.png&#34; alt=&#34;StatNotebook regression imputation&#34; title=&#34;Multiple imputation and regression in StatsNotebook&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/regression_impute_missing.png&#34; alt=&#34;Multiple imputation and regression in StatsNotebook&#34; title=&#34;Multiple imputation and regression in StatsNotebook&#34;/&gt;&lt;/a&gt;
 
 &lt;h4 id=&#34;r-codes-explained---multiple-imputation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---multiple-imputation&#34;&gt;R codes explained - Multiple imputation&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;The following is from the top section of the generated codes.&lt;/p&gt;
@@ -2013,9 +2008,9 @@ imputedDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt
 &lt;span style=&#34;color:#06287e&#34;&gt;plot&lt;/span&gt;(imputedDataset)
 currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;complete&lt;/span&gt;(imputedDataset, action &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;long&amp;#34;&lt;/span&gt;, include &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;We use the &lt;strong&gt;mice&lt;/strong&gt; library in R to perform multiple imputation. The above codes firstly specifies how each variables are imputed. Only variables used in the regression analysis will be used for imputation. To include additional variables in the imputation, see the &lt;a href=&#34;../multiple_imputation&#34; title=&#34;multiple imputation tutorial&#34;&gt;multiple imputation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We use the &lt;strong&gt;mice&lt;/strong&gt; library in R to perform multiple imputation. The above codes firstly specifies how each variables are imputed. Only variables used in the regression analysis will be used for imputation. To include additional variables in the imputation, see the &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;Multiple imputation for missing data&#34;&gt;multiple imputation&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The only visible output is a set of diagnostic plot. The lines in all plots should be freely intermingled. Non-convergence will be indicated by clearly separated lines.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/diagnostic_imputation.png&#34; alt=&#34;imputation diagnostic&#34; title=&#34;Diagnostic plot for imputation&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/diagnostic_imputation.png&#34; alt=&#34;Diagnostic plot for imputation&#34; title=&#34;Diagnostic plot for imputation&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;The following codes are then used to conduct linear regression using the imputed datasets.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Linear regression&amp;#34;&lt;/span&gt;
 res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;with&lt;/span&gt;(imputedDataset,
@@ -2041,7 +2036,7 @@ res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style
 7 -2.72871486  0.27310912
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;In this example, the coefficients of the 5 personality traits from the analysis using imputation are similar to those from &lt;a href=&#34;../regression&#34; title=&#34;regression&#34;&gt;complete data analysis&lt;/a&gt;. However, it should be noted that the p-value of &lt;em&gt;openness&lt;/em&gt; is now much smaller, indicating that the evidence for the association between openness and depression was stronger (despite the effect size being similar). This is due to increase power from multiple imputation.&lt;/p&gt;
+&lt;p&gt;In this example, the coefficients of the 5 personality traits from the analysis using imputation are similar to those from &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;complete data analysis&lt;/a&gt;. However, it should be noted that the p-value of &lt;em&gt;openness&lt;/em&gt; is now much smaller, indicating that the evidence for the association between openness and depression was stronger (despite the effect size being similar). This is due to increase power from multiple imputation.&lt;/p&gt;
 
 &lt;h4 id=&#34;example-write-up&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#example-write-up&#34;&gt;Example Write-up&lt;/a&gt;&lt;/h4&gt;
 &lt;br/&gt;
@@ -2104,7 +2099,6 @@ res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style
 
 &lt;h4 id=&#34;model-diagnostic&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#model-diagnostic&#34;&gt;Model diagnostic&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;At the moment, model diagnostic is only based on the first imputed dataset. The interpretation for the model diagnostic is thus the same as those for analysis based on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/#r-codes-explained---model-diagnostic&#34;&gt;complete data analysis&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io

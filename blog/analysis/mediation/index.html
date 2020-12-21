@@ -183,10 +183,12 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
 <p>Mediation analysis is a technique that examines the intermediate process by which the independent variable affects the dependent variable. For example, family intervention during adolescence (independent variable) can reduce engagement with deviant peer group (mediator) and their experimentation with drugs, which in turn reduces risk of substance use disorder in young adulthood (dependent variable).</p>
 <p><strong>StatsNotebook</strong> uses the cutting-edge counterfactual framework and Monte Carlo technique to conduct causal mediation analysis. It can handle</p>
 <ol>
@@ -206,7 +208,7 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
 </li>
 </ol>
 <p>In this example, the <em>dependent variable</em> is <em>substance use disorder</em> and the <em>independent variable</em> is <em>family intervention</em>. There are two mediators: <em>engaged with deviant peer group</em> and <em>experimentation with drugs</em>.</p>
-<p>We will first show the R codes for this analysis below, and then we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>substance</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="../../data_management/load_example_data">here</a>.</p>
+<p>We will first show the R codes for this analysis below, and then we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>substance</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example">here</a>.</p>
 <p>In this dataset,</p>
 <ol>
 <li><strong>dev_peer</strong> represents engagement with deviant peer groups and it was coded as &ldquo;0: No&rdquo; and &ldquo;1: Yes&rdquo;;</li>
@@ -217,7 +219,7 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
 </ol>
 
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
-<p>The first section of the code is for <a href="../multiple_imputation" title="Multiple imputation">imputing missing data</a>. In the second section, we use the <code>mediate</code> function from the <code>intmed</code> package to conduct a mediation analysis.</p>
+<p>The first section of the code is for <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">imputating missing data</a>. In the second section, we use the <code>mediate</code> function from the <code>intmed</code> package to conduct a mediation analysis.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>fam_int_1 <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>
 currentDataset<span style="color:#666">$</span>fam_int_1[currentDataset<span style="color:#666">$</span>fam_int <span style="color:#666">==</span> <span style="color:#4070a0">&#34;1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#40a070">1</span>
 currentDataset<span style="color:#666">$</span>fam_int_1[currentDataset<span style="color:#666">$</span>fam_int <span style="color:#666">==</span> <span style="color:#4070a0">&#34;0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#40a070">0</span>
@@ -265,7 +267,7 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 </code></pre></div><br/>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to running the causal mediation analysis, we will need to conduct a <a href="../descriptive">descriptive analysis</a> and it is always a good practice to <a href="/blog/dataviz">visualise the data</a>.</p>
+<p>Prior to running the causal mediation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="Descriptive statistics">descriptive analysis</a> and it is always a good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="dataviz">visualise the data</a>.</p>
 <p>To run a causal mediation analysis,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
@@ -273,11 +275,11 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 <li>In the left panel, select <em>sub_disorder</em> into <em>Outcome</em>, <em>fam_int</em> into <em>Exposure</em>, <em>dev_peer</em> and <em>sub_exp</em> into <em>Mediator(s)</em>, and <em>gender</em> and <em>conflict</em> into covariates.
 <ul>
 <li>We add <em>gender</em> and <em>conflict</em> as covariates to adjust for their effects.</li>
-<li>All categorical variables will need to be coded as a <strong>factor</strong> (such as <em>sub_disorder</em>, <em>fam_int</em>, <em>dev_peer</em>, <em>sub_exp</em> and <em>gender</em>. In this example dataset, this has already been done). See <a href="../../data_management/variable_conversion">Converting variable type</a> for step-by-step guide.</li>
+<li>All categorical variables will need to be coded as a <strong>factor</strong> (such as <em>sub_disorder</em>, <em>fam_int</em>, <em>dev_peer</em>, <em>sub_exp</em> and <em>gender</em>. In this example dataset, this has already been done). <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide.</li>
 </ul>
 </li>
 </ol>
-<p><img src="../img/causal_mediation.png" alt="Mediation analysis instruction" title="Causal Mediation Analysis"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/causal_mediation.png" alt="causal mediation analysis" title="causal mediation analysis"/></a>
 <ol start="4">
 <li>Expand the panel <strong>Analysis Setting</strong>.
 <ul>
@@ -307,7 +309,7 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 </ul>
 </li>
 </ol>
-<p><img src="../img/mediation_setting.png" alt="Mediation analysis setting" title="Mediation analysis setting"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/mediation_setting.png" alt="mediation analysis setting" title="mediation analysis setting"/></a>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Below is the output from <strong>StatsNotebook</strong>. The analysis is conducted using the <code>intmed</code> package and most of the output is self-explanatory.</p>
@@ -422,8 +424,9 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 
 </code></pre><br/>
 <p>Since <em>sub_disorder</em> is a dichotomised variable, the estimates are in a <strong>probability scale</strong>. Overall, the total effect of <em>fam_int</em> is -0.077, indicating that participation in family intervention reduces the probability of <em>sub_disorder</em> by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through <em>dev_peer</em> and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through <em>sub_exp</em>. Overall, it is estimated that 21.8% of the total effect is mediated through <em>dev_peer</em> and 7.8% through <em>sub_exp</em>.</p>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 

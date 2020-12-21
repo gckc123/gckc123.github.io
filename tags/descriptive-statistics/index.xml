@@ -13,11 +13,13 @@
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/descriptive/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;This tutorial will give a short introduction on descriptive analysis using &lt;strong&gt;StatsNotebook&lt;/strong&gt;. Descriptive statistics such as mean, standard deviation, median and interquartile range can be easily obtained using the &lt;strong&gt;Explore&lt;/strong&gt; panel.&lt;/p&gt;
-&lt;p&gt;We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;Load example data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;/&gt;
+    here
+&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;Personality&lt;/strong&gt; dataset contains data from 231 participants, with measures on the Big 5 personality factors (&lt;em&gt;Agreeableness&lt;/em&gt;, &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Extraversion&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Openness&lt;/em&gt;), and three measures of mental health (&lt;em&gt;Depression&lt;/em&gt;, &lt;em&gt;Trait anxiety&lt;/em&gt; and &lt;em&gt;State anxiety&lt;/em&gt;). It also contains data on participants&amp;rsquo; sex.&lt;/p&gt;
-&lt;p&gt;We will demonstrate how to generate simple &lt;a href=&#34;#descriptive-statistics&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive statistics&lt;/a&gt;, and how to generate &lt;a href=&#34;#descriptive-statistics-by-group&#34; title=&#34;Descriptive statistics by group&#34;&gt;descriptive statistics by group&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We will demonstrate how to generate simple &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/#descriptive-statistics&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive statistics&lt;/a&gt;, and how to generate &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/#descriptive-statistics-by-group&#34; title=&#34;Descriptive statistics by group&#34;&gt;descriptive statistics by group&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4 id=&#34;descriptive-statistics&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#descriptive-statistics&#34;&gt;Descriptive statistics&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;To calculate descriptive statistics,&lt;/p&gt;
@@ -27,18 +29,18 @@
 &lt;li&gt;Select &lt;strong&gt;Descriptive statistics&lt;/strong&gt; on the menu&lt;/li&gt;
 &lt;li&gt;Select variables into &lt;strong&gt;Target Variables&lt;/strong&gt; on the right. In this example, we will select &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Depression&lt;/em&gt; and &lt;em&gt;Sex&lt;/em&gt;.
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as a &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as a &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/descriptive_statistics.png&#34; alt=&#34;descriptive statistics&#34; title=&#34;Descriptive statistics&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/analysis/img/descriptive_statistics.png&#34; alt=&#34;Descriptive statistics&#34; title=&#34;Descriptive statistics&#34;/&gt;&lt;/a&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Expand the &lt;strong&gt;Statistics and plots&lt;/strong&gt; panel, by default, &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; are calculated for a numeric variable (&lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;); &lt;strong&gt;count&lt;/strong&gt; is calculated for a categorical (factor) variable (&lt;em&gt;Sex&lt;/em&gt;). Additional statistics, such as &lt;strong&gt;median&lt;/strong&gt; and &lt;strong&gt;interquartile range&lt;/strong&gt; can be requested here.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;../img/statistics_plots.png&#34; alt=&#34;Statistics and plots&#34; title=&#34;Statistics and plots&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/analysis/img/statistics_plots.png&#34; alt=&#34;statistics and plots&#34; title=&#34;statistics and plots&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;r-codes---descriptive-statistics&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---descriptive-statistics&#34;&gt;R codes - Descriptive statistics&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;The following is the R code generated by &lt;strong&gt;StatsNotebook&lt;/strong&gt;. We will explain these codes in the  &lt;a href=&#34;#r-codes-explained---descriptive-statistics&#34;&gt;next section&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The following is the R code generated by &lt;strong&gt;StatsNotebook&lt;/strong&gt;. We will explain these codes in the  &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/#r-codes-explained---descriptive-statistics&#34; title=&#34;R codes explained&#34;&gt;next section&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(e1071)
 &lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ggplot2)
@@ -166,7 +168,7 @@ currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;The top two plots are for &lt;em&gt;Neuroticism&lt;/em&gt; and the bottom two for &lt;em&gt;Depression&lt;/em&gt;. The left plots are normality plots. If the data is normally distributed, the points will roughly follow a straight line. The histograms on the right show the distribution of the variables. These plots show that the distribution of &lt;em&gt;Neuroticism&lt;/em&gt; is approximately normal, but &lt;em&gt;Depression&lt;/em&gt; is skewed to the right.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../img/descriptive_plots.png&#34; alt=&#34;descriptive plot&#34; title=&#34;Normality plots and histograms&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/analysis/img/descriptive_plots.png&#34; alt=&#34;normality plots and histogram&#34; title=&#34;normality plots and histogram&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;Lastly, the following codes are used to calculate the frequency count for the categorical variable &lt;em&gt;Sex&lt;/em&gt; and to generate a simple bar graph.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Counts for categorical variables&amp;#34;&lt;/span&gt;
 
@@ -198,7 +200,7 @@ currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;li&gt;Select variables into &lt;strong&gt;Target Variables&lt;/strong&gt; on the right. In this example, we will select &lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Select the grouping variable (&lt;em&gt;Sex&lt;/em&gt;) into &lt;strong&gt;Split by&lt;/strong&gt; box on the right.
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;../../data_management/variable_conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sex&lt;/strong&gt; is a categorical variable. If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable conversion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Expand the &lt;strong&gt;Statistics and plots&lt;/strong&gt; panel, by default, &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; are calculated for numeric variables (&lt;em&gt;Neuroticism&lt;/em&gt; and &lt;em&gt;Depression&lt;/em&gt;). Additional statistics, such as &lt;strong&gt;median&lt;/strong&gt; and &lt;strong&gt;interquartile range&lt;/strong&gt; can be requested here.&lt;/li&gt;
@@ -260,8 +262,7 @@ currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 2 Male     161          83.8         6.16           22.2          5.60
 
 ######################################################
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates.&lt;/strong&gt;&lt;/p&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

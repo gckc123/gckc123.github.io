@@ -181,13 +181,15 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
         
     </p>
     
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 <div class="container markdown top-pad">
-    <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
 <p>Missing data is a norm rather than an exception in most areas of research. Excluding observations with missing data reduces statistical power and potentially introduces bias in model estimates. Multiple imputation is a technique that fills in missing values based on the available data. It can increase statistical power and reduce the bias due to missing data.</p>
 <p><strong>StatsNotebook</strong> provides a simple interface for multiple imputation using the <code>mice</code> package. By default, numeric variables are imputed using predictive mean matching and categorical variables are imputed using multinomial logistic regression (for categorical variables with 3 or more level) or binary logistic regression (for categorical variables with 2 levels).</p>
-<p>In this tutorial, we will use the built-in <strong>substance</strong> dataset. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions <a href="../../data_management/load_example_data">here</a>. It is a simulated dataset on the effects of a family intervention during adolescence on engagement with deviant peer group, experimentation with drugs and risk of substance use disorder in young adulthood. See <a href="../mediation">Causal Mediation Analysis</a> for an example based on this dataset.</p>
+<p>In this tutorial, we will use the built-in <strong>substance</strong> dataset. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="Load example data">here</a>. It is a simulated dataset on the effects of a family intervention during adolescence on engagement with deviant peer group, experimentation with drugs and risk of substance use disorder in young adulthood. See <a href="https://statsnotebook.io/blog/analysis/mediation/" title="Causal mediation analysis">Causal Mediation Analysis</a> for an example based on this dataset.</p>
 <p>In this dataset,</p>
 <ol>
 <li><strong>dev_peer</strong> represents engagement with deviant peer groups and it was coded as &ldquo;0: No&rdquo; and &ldquo;1: Yes&rdquo;;</li>
@@ -199,14 +201,14 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
 <p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
-<p>Prior to imputing missing data, all categorical variables will need to be specified as <strong>categorical</strong> (i.e. <strong>factor</strong> variable in R). See <a href="../../data_management/variable_conversion">this</a> for instructions to convert variable type.</p>
+<p>Prior to imputing missing data, all categorical variables will need to be specified as <strong>categorical</strong> (i.e. <strong>factor</strong> variable in R). See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for a step-by-step guide.</p>
 <p>To impute missing data,</p>
 <ol>
 <li>Click <strong>Analysis</strong> at the top</li>
 <li>Click <strong>Imputation</strong> and select <strong>Multiple imputation</strong> from the menu</li>
 <li>In the left panel, select all variables that we want to include in our imputation. Variables with no missing data can also be included as information from these variables will be used to impute missing data in other variables.</li>
 </ol>
-<p><img src="../img/imputation.png" alt="Imputation" title="Multiple imputation in StatsNotebook"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/imputation.png" alt="Multiple imputation in StatsNotebook" title="Multiple imputation in StatsNotebook"/></a>
 <ol start="4">
 <li>Expand the panel <strong>Passive imputation</strong> if we need to include interaction terms in the imputation. In this example, we do not include any interaction.</li>
 <li>Expand the panel <strong>Analysis Setting</strong> to specify the number of imputations.
@@ -215,11 +217,11 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
 </ul>
 </li>
 </ol>
-<p><img src="../img/imputation_setting.png" alt="Imputation Setting" title="Imputation settting"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/imputation_setting.png" alt="Imputation setting" title="Imputation setting"/></a>
 
 <h5 id="interpretaion" class="anchor-link"><a href="#interpretaion">Interpretaion</a></h5>
 <p>The only output from <strong>StatsNotebook</strong> is a set of diagnostic plots from the imputation model. The lines in all plots should be freely intermingled. Non-convergence will be indicated by clearly separated lines.</p>
-<p><img src="../img/imputation_output.png" alt="Imputation output" title="Imputation output"></p>
+<img src="https://statsnotebook.io/blog/analysis/img/imputation_output.png" alt="imputation output" title="imputation output"/></a>
 
 <h5 id="r-codes-explained" class="anchor-link"><a href="#r-codes-explained">R codes explained</a></h5>
 <p>The following is the code generated by <strong>StatsNotebook</strong>.</p>
@@ -272,13 +274,14 @@ formulas<span style="color:#666">$</span>sub_disorder <span style="color:#666">=
   n.core <span style="color:#666">=</span> <span style="color:#40a070">15</span>, 
   n.imp.core <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
 </code></pre></div><br/>
-<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 
 <h5 id="citations" class="anchor-link"><a href="#citations">Citations</a></h5>
 <pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io
 R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org
 Buuren, S. v. and K. Groothuis-Oudshoorn (2010). mice: Multivariate imputation by chained equations in R. Journal of Statistical Software: 1-68.
 </code></pre>
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
 </div>
 
 
