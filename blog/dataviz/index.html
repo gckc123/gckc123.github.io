@@ -141,7 +141,7 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
                 
     <div class="container markdown top-pad">
         <p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates</strong></p>
-<p>DataViz in <strong>StatsNotebook</strong> is largely based on ggplot2. Publication ready plots and figures are just a few clicks away.</p>
+<p>DataViz in <strong>StatsNotebook</strong> is largely based on <code>ggplot2</code>. Publication ready plots and figures are just a few clicks away.</p>
 
 <h4 id="numeric" class="anchor-link"><a href="#numeric">Numeric</a></h4>
 <br/>
@@ -179,6 +179,10 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
         <a href="./barchart/#stacked-bar-chart">Stacked Bar Chart</a>
         <a href="./barchart/#stacked-bar-chart"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/stacked_barchart.png" alt="stacked bar chart"></a>
     </div>
+    <div>
+        <a href="./animate#animated-bar-chart">Animated Barchart</a>
+        <a href="./animate#animated-bar-chart"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_bar_chart.gif" alt="Animated bar chart"></a>
+    </div>
 </div>
 
 <h4 id="correlation" class="anchor-link"><a href="#correlation">Correlation</a></h4>
@@ -193,8 +197,24 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
         <a href="./scatterplot/#bubble-plot"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/bubble_plot2.png" alt="Bubble plot"></a>
     </div>
     <div>
+        <a href="./scatterplot/#scatterplots-in-multiple-facets">Scatterplot in facets</a>
+        <a href="./scatterplot/#scatterplots-in-multiple-facets"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/scatterplot_with_line_by_groups_with_facets.png" alt="Scatterplot in facets"></a>
+    </div>
+    <div>
         <a href="./correlogram">Correlogram</a>
         <a href="./correlogram"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/correlogram3.png" alt="correlogram"></a>
+    </div>
+    <div>
+        <a href="./animate#animated-scatterplot-1">Animated scatterplot 1</a>
+        <a href="./animate#animated-scatterplot-1"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_scatterplot.gif" alt="Animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="./animate#animated-scatterplot-2">Animated scatterplot 2</a>
+        <a href="./animate#animated-scatterplot-2"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_scatterplot2.gif" alt="Animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="./animate#animated-scatterplot-3">Animated scatterplot 3</a>
+        <a href="./animate#animated-scatterplot-3"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_scatterplot3.gif" alt="Animated scatterplot"></a>
     </div>
 </div>
 
@@ -205,6 +225,19 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
         <a href="./line_graph">Line Chart</a>
         <a href="./line_graph"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/line_chart_by_group.png" alt="line graph"></a>
     </div>
+    <div>
+        <a href="./animate#animated-line-graph">Animated line graph</a>
+        <a href="./animate#animated-line-graph"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_line_graph.gif" alt="Animated line grpah"></a>
+    </div>
+</div>
+
+<h4 id="world-map" class="anchor-link"><a href="#world-map">World Map</a></h4>
+<br/>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="./animate#animated-world-map">Animated World Map</a>
+        <a href="./animate#animated-world-map"><img style="min-width: 100px; max-width: 250px; align: left" src="./img/animated_world_map_1s.gif" alt="Animated world map"></a>
+    </div>
 </div>
 
     </div>
@@ -212,19 +245,18 @@ Data Viz - StatsNotebook - Simple. Powerful. Reproducible.
         
         <h2 class="title is-2 top-pad">Latest Post</h2>
         
-        <div class="summary">27 Oct, 2020
+        <div class="summary">26 Dec, 2020
             <h3 class="title is-3 strong-post-title">
-                <a href="https://statsnotebook.io/blog/dataviz/line_graph/">
-                    Line chart
+                <a href="https://statsnotebook.io/blog/dataviz/animate/">
+                    Animated plots
                 </a>
             </h3>
             <div class="markdown">
                 The tutorial is based on R and StatsNotebook, a graphical interface for R.
-Line chart can be used to show the evoluation of numeric variables. StatsNotebook uses geom_line() from ggplot2 to build line chart.
-We use the built-in Human Development Index dataset in this example. This dataset can be loaded into StatsNotebook using instruction here. This is a data from the United Nations Development Programmes (UNDP).
-We will use line chart to visualise the evolution of Human Development Index from 1990 to 2018 across six regions.
+Animated plots can be created using the gganimate package, an extension of the ggplot2 package.
+We will use the built-in Gapminder dataset for scatterplot example and the COVID-19 data for the line graph, world map and barchart. This dataset can be loaded into StatsNotebook using instruction here. The UNDP data can be downloaded from here here  and the COVID-19 data can also be downloaded from here here .
                 
-                <a href="https://statsnotebook.io/blog/dataviz/line_graph/">Read more</a>
+                <a href="https://statsnotebook.io/blog/dataviz/animate/">Read more</a>
                 
             </div>
         </div>
@@ -234,19 +266,23 @@ We will use line chart to visualise the evolution of Human Development Index fro
         <h2 class="title is-2 top-pad">All Posts</h2>
         
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/analysis/">Analysis</a></span> - <span>23 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/reshape/">Reshaping data</a></span> - <span>27 Oct, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/dataviz/">DataViz</a></span> - <span>20 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/compute_variable/">Compute variables</a></span> - <span>16 Oct, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/data_management/">Data Management</a></span> - <span>20 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/variable_conversion/">Variable types in R and StatsNotebook</a></span> - <span>20 Sep, 2020</span>
     </li>
 
     <li class="post-item">
-        <span><a href="https://statsnotebook.io/blog/betarelease/">Beta version now available</a></span> - <span>18 Sep, 2020</span>
+        <span><a href="https://statsnotebook.io/blog/data_management/set_reference/">Set reference for categorical variables</a></span> - <span>20 Sep, 2020</span>
+    </li>
+
+    <li class="post-item">
+        <span><a href="https://statsnotebook.io/blog/data_management/load_example_data/">Load Example Data</a></span> - <span>20 Sep, 2020</span>
     </li>
 
 

@@ -217,7 +217,10 @@ Causal Mediation Analysis - StatsNotebook - Simple. Powerful. Reproducible.
 <li><strong>sub_disorder</strong> represents diagnosis of substance use disorder in young adulthood and it was coded as &ldquo;0: No: and &ldquo;1: Yes&rdquo;.</li>
 <li><strong>conflict</strong> represents level of family conflict. It will be used as a covariate in this analysis.</li>
 </ol>
-
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/substance.csv&#34;</span>)
+</code></pre></div>
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
 <p>The first section of the code is for <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">imputating missing data</a>. In the second section, we use the <code>mediate</code> function from the <code>intmed</code> package to conduct a mediation analysis.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>fam_int_1 <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>
@@ -313,53 +316,53 @@ med_res <span style="color:#666">&lt;-</span> intmed<span style="color:#666">::<
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Below is the output from <strong>StatsNotebook</strong>. The analysis is conducted using the <code>intmed</code> package and most of the output is self-explanatory.</p>
-<pre><code>There were 25.86% cases with missing data. Multiple imputation was used to impute missing data (Rubin, 2009) and 20 datasets were imputed using the R package MICE (van Buuren, 2010).
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">There were <span style="color:#40a070">25.86</span>% cases with missing data. Multiple imputation was used to impute missing <span style="color:#06287e">data </span>(Rubin, <span style="color:#40a070">2009</span>) and <span style="color:#40a070">20</span> datasets were imputed using the R package <span style="color:#06287e">MICE </span>(van Buuren, <span style="color:#40a070">2010</span>).
 
 The table below shows the estimates from the key regression models for the mediation analysis.
 
     variables     m1.b          m1.ci  m1.p    m2.b          m2.ci  m2.p
-1 (Intercept)    0.708 (0.388, 1.292) 0.260   0.980 (0.536, 1.791) 0.947
-2    conflict    1.220 (0.963, 1.545) 0.099   1.213 (0.953, 1.544) 0.117
-3  genderMale    1.234 (0.861, 1.771) 0.252   1.156 (0.804, 1.661) 0.434
-4   fam_int_1 0.517*** (0.358, 0.747) 0.000 0.539** (0.369, 0.788) 0.001
-5   dev_peer1     &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;
-6    sub_exp1     &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;
+<span style="color:#40a070">1</span> (Intercept)    <span style="color:#40a070">0.708</span> (<span style="color:#40a070">0.388</span>, <span style="color:#40a070">1.292</span>) <span style="color:#40a070">0.260</span>   <span style="color:#40a070">0.980</span> (<span style="color:#40a070">0.536</span>, <span style="color:#40a070">1.791</span>) <span style="color:#40a070">0.947</span>
+<span style="color:#40a070">2</span>    conflict    <span style="color:#40a070">1.220</span> (<span style="color:#40a070">0.963</span>, <span style="color:#40a070">1.545</span>) <span style="color:#40a070">0.099</span>   <span style="color:#40a070">1.213</span> (<span style="color:#40a070">0.953</span>, <span style="color:#40a070">1.544</span>) <span style="color:#40a070">0.117</span>
+<span style="color:#40a070">3</span>  genderMale    <span style="color:#40a070">1.234</span> (<span style="color:#40a070">0.861</span>, <span style="color:#40a070">1.771</span>) <span style="color:#40a070">0.252</span>   <span style="color:#40a070">1.156</span> (<span style="color:#40a070">0.804</span>, <span style="color:#40a070">1.661</span>) <span style="color:#40a070">0.434</span>
+<span style="color:#40a070">4</span>   fam_int_1 <span style="color:#40a070">0.517</span><span style="color:#666">***</span> (<span style="color:#40a070">0.358</span>, <span style="color:#40a070">0.747</span>) <span style="color:#40a070">0.000</span> <span style="color:#40a070">0.539</span><span style="color:#666">**</span> (<span style="color:#40a070">0.369</span>, <span style="color:#40a070">0.788</span>) <span style="color:#40a070">0.001</span>
+<span style="color:#40a070">5</span>   dev_peer1     <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>    <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>
+<span style="color:#40a070">6</span>    sub_exp1     <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>    <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>
        y.b           y.ci   y.p
-1 0.061*** (0.019, 0.200) 0.000
-2    0.820 (0.531, 1.267) 0.371
-3    1.396 (0.779, 2.501) 0.262
-4    0.603 (0.331, 1.102) 0.100
-5 4.132*** (1.891, 9.031) 0.000
-6    1.745 (0.739, 4.123) 0.203
+<span style="color:#40a070">1</span> <span style="color:#40a070">0.061</span><span style="color:#666">***</span> (<span style="color:#40a070">0.019</span>, <span style="color:#40a070">0.200</span>) <span style="color:#40a070">0.000</span>
+<span style="color:#40a070">2</span>    <span style="color:#40a070">0.820</span> (<span style="color:#40a070">0.531</span>, <span style="color:#40a070">1.267</span>) <span style="color:#40a070">0.371</span>
+<span style="color:#40a070">3</span>    <span style="color:#40a070">1.396</span> (<span style="color:#40a070">0.779</span>, <span style="color:#40a070">2.501</span>) <span style="color:#40a070">0.262</span>
+<span style="color:#40a070">4</span>    <span style="color:#40a070">0.603</span> (<span style="color:#40a070">0.331</span>, <span style="color:#40a070">1.102</span>) <span style="color:#40a070">0.100</span>
+<span style="color:#40a070">5</span> <span style="color:#40a070">4.132</span><span style="color:#666">***</span> (<span style="color:#40a070">1.891</span>, <span style="color:#40a070">9.031</span>) <span style="color:#40a070">0.000</span>
+<span style="color:#40a070">6</span>    <span style="color:#40a070">1.745</span> (<span style="color:#40a070">0.739</span>, <span style="color:#40a070">4.123</span>) <span style="color:#40a070">0.203</span>
 
-Mediation analysis was performed based on the counter-factual framework and the interventional effect (Vansteelandt and Daniel, 2017; Chan and Leung, 2020). The analysis was conducted in R using the intmed package (Chan and Leung, 2020) with 1000 simulations.
+Mediation analysis was performed based on the counter<span style="color:#666">-</span>factual framework and the interventional <span style="color:#06287e">effect </span>(Vansteelandt and Daniel, <span style="color:#40a070">2017</span>; Chan and Leung, <span style="color:#40a070">2020</span>). The analysis was conducted in R using the intmed <span style="color:#06287e">package </span>(Chan and Leung, <span style="color:#40a070">2020</span>) with <span style="color:#40a070">1000</span> simulations.
 
                                                  effect    est               ci
-1                    indirect effect through mediator 1 -0.018 (-0.037, -0.004)
-2                    indirect effect through mediator 2 -0.007 (-0.021,  0.004)
-3 indirect effect through interaction between mediators  0.001 (-0.002,  0.005)
-4  indirect effect through dependence between mediators  0.000 (-0.009,  0.009)
-5                                         direct effect -0.055 (-0.120,  0.010)
-6                                          total effect -0.077 (-0.143, -0.016)
-7               proportion of effect through mediator 1  0.218                 
-8               proportion of effect through mediator 2  0.078                 
+<span style="color:#40a070">1</span>                    indirect effect through mediator <span style="color:#40a070">1</span> <span style="color:#40a070">-0.018</span> (<span style="color:#40a070">-0.037</span>, <span style="color:#40a070">-0.004</span>)
+<span style="color:#40a070">2</span>                    indirect effect through mediator <span style="color:#40a070">2</span> <span style="color:#40a070">-0.007</span> (<span style="color:#40a070">-0.021</span>,  <span style="color:#40a070">0.004</span>)
+<span style="color:#40a070">3</span> indirect effect through interaction between mediators  <span style="color:#40a070">0.001</span> (<span style="color:#40a070">-0.002</span>,  <span style="color:#40a070">0.005</span>)
+<span style="color:#40a070">4</span>  indirect effect through dependence between mediators  <span style="color:#40a070">0.000</span> (<span style="color:#40a070">-0.009</span>,  <span style="color:#40a070">0.009</span>)
+<span style="color:#40a070">5</span>                                         direct effect <span style="color:#40a070">-0.055</span> (<span style="color:#40a070">-0.120</span>,  <span style="color:#40a070">0.010</span>)
+<span style="color:#40a070">6</span>                                          total effect <span style="color:#40a070">-0.077</span> (<span style="color:#40a070">-0.143</span>, <span style="color:#40a070">-0.016</span>)
+<span style="color:#40a070">7</span>               proportion of effect through mediator <span style="color:#40a070">1</span>  <span style="color:#40a070">0.218</span>                 
+<span style="color:#40a070">8</span>               proportion of effect through mediator <span style="color:#40a070">2</span>  <span style="color:#40a070">0.078</span>                 
       p
-1 0.005
-2 0.202
-3 0.448
-4 0.975
-5 0.099
-6 0.011
-7      
-8      
+<span style="color:#40a070">1</span> <span style="color:#40a070">0.005</span>
+<span style="color:#40a070">2</span> <span style="color:#40a070">0.202</span>
+<span style="color:#40a070">3</span> <span style="color:#40a070">0.448</span>
+<span style="color:#40a070">4</span> <span style="color:#40a070">0.975</span>
+<span style="color:#40a070">5</span> <span style="color:#40a070">0.099</span>
+<span style="color:#40a070">6</span> <span style="color:#40a070">0.011</span>
+<span style="color:#40a070">7</span>      
+<span style="color:#40a070">8</span>      
 
 Reference
-Rubin DB. Multiple imputation for nonresponse in surveys. New York: John Wiley &amp; Sons; 2009.
-Buuren Sv, Groothuis-Oudshoorn K. mice: Multivariate imputation by chained equations in R. Journal of statistical software. 2010:1-68.
-Vansteelandt S, Daniel RM. Interventional effects for mediation analysis with multiple mediators. Epidemiology (Cambridge, Mass). 2017; 28(2):258.
-Chan G, Leung J. Causal mediation analysis using the interventional effect approach. A refined definition. Paper uner review. 2020.
+Rubin DB. Multiple imputation for nonresponse in surveys. New York<span style="color:#666">:</span> John Wiley <span style="color:#666">&amp;</span> Sons; <span style="color:#40a070">2009</span>.
+Buuren Sv, Groothuis<span style="color:#666">-</span>Oudshoorn K. mice<span style="color:#666">:</span> Multivariate imputation by chained equations in R. Journal of statistical software. <span style="color:#40a070">2010</span><span style="color:#666">:</span><span style="color:#40a070">1-68</span>.
+Vansteelandt S, Daniel RM. Interventional effects for mediation analysis with multiple mediators. <span style="color:#06287e">Epidemiology </span>(Cambridge, Mass). 2017; <span style="color:#40a070">28</span>(<span style="color:#40a070">2</span>)<span style="color:#666">:</span><span style="color:#40a070">258</span>.
+Chan G, Leung J. Causal mediation analysis using the interventional effect approach. A refined definition. Paper uner review. <span style="color:#40a070">2020</span>.
 
-</code></pre><br/>
+</code></pre></div><br/>
 <p>There are two key sections of the output: Results from regression models and Results from mediation analysis.</p>
 <p><strong>Results from regression models</strong></p>
 <p>Behind the scene, three key regression models are run.</p>
@@ -381,48 +384,48 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 </li>
 </ol>
 <p>The table below from the <strong>StatsNotebook</strong> summarises the odds ratio, 95% confidence intervals and p-value from these three models. With a significance level of 0.05, the results indicate that participation in family intervention reduces the odds of engagement with deviant peers, OR = 0.517, 95% CI (0.358, 0.747) and experimentation with drugs, OR = 0.539, 95% CI (0.369, 0.788). Family intervention may reduce odds of substance use disorder directly, OR = 0.603, 95% CI (0.331, 1.102), but this effect is not statistically significant. Engagement with deviant peers increased the odds of substance use disorder, OR = 4.132, 95% CI (1.891, 9.031). Experimentation with drugs may increase the odds of substance use disorder, OR = 1.745, 95% CI (0.739, 4.123), but this effect is not statistically significant.</p>
-<pre><code>The table below shows the estimates from the key regression models for the mediation analysis.
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">The table below shows the estimates from the key regression models for the mediation analysis.
 
     variables     m1.b          m1.ci  m1.p    m2.b          m2.ci  m2.p
-1 (Intercept)    0.708 (0.388, 1.292) 0.260   0.980 (0.536, 1.791) 0.947
-2    conflict    1.220 (0.963, 1.545) 0.099   1.213 (0.953, 1.544) 0.117
-3  genderMale    1.234 (0.861, 1.771) 0.252   1.156 (0.804, 1.661) 0.434
-4   fam_int_1 0.517*** (0.358, 0.747) 0.000 0.539** (0.369, 0.788) 0.001
-5   dev_peer1     &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;
-6    sub_exp1     &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;           &lt;NA&gt;  &lt;NA&gt;
+<span style="color:#40a070">1</span> (Intercept)    <span style="color:#40a070">0.708</span> (<span style="color:#40a070">0.388</span>, <span style="color:#40a070">1.292</span>) <span style="color:#40a070">0.260</span>   <span style="color:#40a070">0.980</span> (<span style="color:#40a070">0.536</span>, <span style="color:#40a070">1.791</span>) <span style="color:#40a070">0.947</span>
+<span style="color:#40a070">2</span>    conflict    <span style="color:#40a070">1.220</span> (<span style="color:#40a070">0.963</span>, <span style="color:#40a070">1.545</span>) <span style="color:#40a070">0.099</span>   <span style="color:#40a070">1.213</span> (<span style="color:#40a070">0.953</span>, <span style="color:#40a070">1.544</span>) <span style="color:#40a070">0.117</span>
+<span style="color:#40a070">3</span>  genderMale    <span style="color:#40a070">1.234</span> (<span style="color:#40a070">0.861</span>, <span style="color:#40a070">1.771</span>) <span style="color:#40a070">0.252</span>   <span style="color:#40a070">1.156</span> (<span style="color:#40a070">0.804</span>, <span style="color:#40a070">1.661</span>) <span style="color:#40a070">0.434</span>
+<span style="color:#40a070">4</span>   fam_int_1 <span style="color:#40a070">0.517</span><span style="color:#666">***</span> (<span style="color:#40a070">0.358</span>, <span style="color:#40a070">0.747</span>) <span style="color:#40a070">0.000</span> <span style="color:#40a070">0.539</span><span style="color:#666">**</span> (<span style="color:#40a070">0.369</span>, <span style="color:#40a070">0.788</span>) <span style="color:#40a070">0.001</span>
+<span style="color:#40a070">5</span>   dev_peer1     <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>    <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>
+<span style="color:#40a070">6</span>    sub_exp1     <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>    <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>           <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>  <span style="color:#666">&lt;</span><span style="color:#007020;font-weight:bold">NA</span><span style="color:#666">&gt;</span>
        y.b           y.ci   y.p
-1 0.061*** (0.019, 0.200) 0.000
-2    0.820 (0.531, 1.267) 0.371
-3    1.396 (0.779, 2.501) 0.262
-4    0.603 (0.331, 1.102) 0.100
-5 4.132*** (1.891, 9.031) 0.000
-6    1.745 (0.739, 4.123) 0.203
+<span style="color:#40a070">1</span> <span style="color:#40a070">0.061</span><span style="color:#666">***</span> (<span style="color:#40a070">0.019</span>, <span style="color:#40a070">0.200</span>) <span style="color:#40a070">0.000</span>
+<span style="color:#40a070">2</span>    <span style="color:#40a070">0.820</span> (<span style="color:#40a070">0.531</span>, <span style="color:#40a070">1.267</span>) <span style="color:#40a070">0.371</span>
+<span style="color:#40a070">3</span>    <span style="color:#40a070">1.396</span> (<span style="color:#40a070">0.779</span>, <span style="color:#40a070">2.501</span>) <span style="color:#40a070">0.262</span>
+<span style="color:#40a070">4</span>    <span style="color:#40a070">0.603</span> (<span style="color:#40a070">0.331</span>, <span style="color:#40a070">1.102</span>) <span style="color:#40a070">0.100</span>
+<span style="color:#40a070">5</span> <span style="color:#40a070">4.132</span><span style="color:#666">***</span> (<span style="color:#40a070">1.891</span>, <span style="color:#40a070">9.031</span>) <span style="color:#40a070">0.000</span>
+<span style="color:#40a070">6</span>    <span style="color:#40a070">1.745</span> (<span style="color:#40a070">0.739</span>, <span style="color:#40a070">4.123</span>) <span style="color:#40a070">0.203</span>
 
-</code></pre><br/>
+</code></pre></div><br/>
 <p><strong>Results from mediation analysis</strong></p>
 <p>The second table shows the results from mediation analysis.</p>
-<pre><code>Mediation analysis was performed based on the counter-factual framework and the interventional effect (Vansteelandt and Daniel, 2017; Chan and Leung, 2020). The analysis was conducted in R using the intmed package (Chan and Leung, 2020) with 1000 simulations.
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Mediation analysis was performed based on the counter<span style="color:#666">-</span>factual framework and the interventional <span style="color:#06287e">effect </span>(Vansteelandt and Daniel, <span style="color:#40a070">2017</span>; Chan and Leung, <span style="color:#40a070">2020</span>). The analysis was conducted in R using the intmed <span style="color:#06287e">package </span>(Chan and Leung, <span style="color:#40a070">2020</span>) with <span style="color:#40a070">1000</span> simulations.
 
                                                  effect    est               ci
-1                    indirect effect through mediator 1 -0.018 (-0.037, -0.004)
-2                    indirect effect through mediator 2 -0.007 (-0.021,  0.004)
-3 indirect effect through interaction between mediators  0.001 (-0.002,  0.005)
-4  indirect effect through dependence between mediators  0.000 (-0.009,  0.009)
-5                                         direct effect -0.055 (-0.120,  0.010)
-6                                          total effect -0.077 (-0.143, -0.016)
-7               proportion of effect through mediator 1  0.218                 
-8               proportion of effect through mediator 2  0.078                 
+<span style="color:#40a070">1</span>                    indirect effect through mediator <span style="color:#40a070">1</span> <span style="color:#40a070">-0.018</span> (<span style="color:#40a070">-0.037</span>, <span style="color:#40a070">-0.004</span>)
+<span style="color:#40a070">2</span>                    indirect effect through mediator <span style="color:#40a070">2</span> <span style="color:#40a070">-0.007</span> (<span style="color:#40a070">-0.021</span>,  <span style="color:#40a070">0.004</span>)
+<span style="color:#40a070">3</span> indirect effect through interaction between mediators  <span style="color:#40a070">0.001</span> (<span style="color:#40a070">-0.002</span>,  <span style="color:#40a070">0.005</span>)
+<span style="color:#40a070">4</span>  indirect effect through dependence between mediators  <span style="color:#40a070">0.000</span> (<span style="color:#40a070">-0.009</span>,  <span style="color:#40a070">0.009</span>)
+<span style="color:#40a070">5</span>                                         direct effect <span style="color:#40a070">-0.055</span> (<span style="color:#40a070">-0.120</span>,  <span style="color:#40a070">0.010</span>)
+<span style="color:#40a070">6</span>                                          total effect <span style="color:#40a070">-0.077</span> (<span style="color:#40a070">-0.143</span>, <span style="color:#40a070">-0.016</span>)
+<span style="color:#40a070">7</span>               proportion of effect through mediator <span style="color:#40a070">1</span>  <span style="color:#40a070">0.218</span>                 
+<span style="color:#40a070">8</span>               proportion of effect through mediator <span style="color:#40a070">2</span>  <span style="color:#40a070">0.078</span>                 
       p
-1 0.005
-2 0.202
-3 0.448
-4 0.975
-5 0.099
-6 0.011
-7      
-8      
+<span style="color:#40a070">1</span> <span style="color:#40a070">0.005</span>
+<span style="color:#40a070">2</span> <span style="color:#40a070">0.202</span>
+<span style="color:#40a070">3</span> <span style="color:#40a070">0.448</span>
+<span style="color:#40a070">4</span> <span style="color:#40a070">0.975</span>
+<span style="color:#40a070">5</span> <span style="color:#40a070">0.099</span>
+<span style="color:#40a070">6</span> <span style="color:#40a070">0.011</span>
+<span style="color:#40a070">7</span>      
+<span style="color:#40a070">8</span>      
 
-</code></pre><br/>
+</code></pre></div><br/>
 <p>Since <em>sub_disorder</em> is a dichotomised variable, the estimates are in a <strong>probability scale</strong>. Overall, the total effect of <em>fam_int</em> is -0.077, indicating that participation in family intervention reduces the probability of <em>sub_disorder</em> by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through <em>dev_peer</em> and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through <em>sub_exp</em>. Overall, it is estimated that 21.8% of the total effect is mediated through <em>dev_peer</em> and 7.8% through <em>sub_exp</em>.</p>
 
 	<br/>

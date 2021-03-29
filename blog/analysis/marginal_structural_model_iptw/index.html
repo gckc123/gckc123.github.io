@@ -205,7 +205,10 @@ Inverse Probability Treatment Weighting - StatsNotebook - Simple. Powerful. Repr
 <li>Illicit drug use at age 25 (<strong>illicit</strong>: 0: No use; 1: used)</li>
 </ol>
 <p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represent the number of peers who used cannabis at baseline (wave 0).</p>
-<p>Given this design, we can now make our research question more specific</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&#34;</span>)
+</code></pre></div><p>Given this design, we can now make our research question more specific</p>
 <ul>
 <li><em>Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?</em></li>
 </ul>
@@ -402,50 +405,50 @@ car<span style="color:#666">::</span><span style="color:#06287e">infIndexPlot</s
 <span style="color:#06287e">exp</span>(<span style="color:#06287e">cbind</span>(OR <span style="color:#666">=</span> <span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)))
 </code></pre></div><br/>
 <p>The codes above produce the following results.</p>
-<pre><code>######################################################
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">######################################################</span>
 
-Call:
-svyglm(formula = illicit ~ cumulative, design = clus, family = binomial)
+Call<span style="color:#666">:</span>
+<span style="color:#06287e">svyglm</span>(formula <span style="color:#666">=</span> illicit <span style="color:#666">~</span> cumulative, design <span style="color:#666">=</span> clus, family <span style="color:#666">=</span> binomial)
 
-Survey design:
-svydesign(id = ~1, weights = ~.final_weight, data = currentDataset)
+Survey design<span style="color:#666">:</span>
+<span style="color:#06287e">svydesign</span>(id <span style="color:#666">=</span> <span style="color:#666">~</span><span style="color:#40a070">1</span>, weights <span style="color:#666">=</span> <span style="color:#666">~</span>.final_weight, data <span style="color:#666">=</span> currentDataset)
 
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  -2.6639     0.2270 -11.734  &lt; 2e-16 ***
-cumulative    0.7865     0.2288   3.438 0.000649 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Coefficients<span style="color:#666">:</span>
+            Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept)  <span style="color:#40a070">-2.6639</span>     <span style="color:#40a070">0.2270</span> <span style="color:#40a070">-11.734</span>  <span style="color:#666">&lt;</span> <span style="color:#40a070">2e-16</span> <span style="color:#666">***</span>
+cumulative    <span style="color:#40a070">0.7865</span>     <span style="color:#40a070">0.2288</span>   <span style="color:#40a070">3.438</span> <span style="color:#40a070">0.000649</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-(Dispersion parameter for binomial family taken to be 1.000884)
+(Dispersion parameter for binomial family taken to be <span style="color:#40a070">1.000884</span>)
 
-Number of Fisher Scoring iterations: 5
+Number of Fisher Scoring iterations<span style="color:#666">:</span> <span style="color:#40a070">5</span>
 
 
-######################################################
-[1] &quot;Model coefficients and confidence intervals&quot;
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+[1] <span style="color:#4070a0">&#34;Model coefficients and confidence intervals&#34;</span>
 
-######################################################
-                            2.5 %    97.5 %
-(Intercept) -2.6639296 -3.1089045 -2.218955
-cumulative   0.7865248  0.3380718  1.234978
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                            <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+(Intercept) <span style="color:#40a070">-2.6639296</span> <span style="color:#40a070">-3.1089045</span> <span style="color:#40a070">-2.218955</span>
+cumulative   <span style="color:#40a070">0.7865248</span>  <span style="color:#40a070">0.3380718</span>  <span style="color:#40a070">1.234978</span>
 
-######################################################
-[1] &quot;Odds ratios and confidence intervals&quot;
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+[1] <span style="color:#4070a0">&#34;Odds ratios and confidence intervals&#34;</span>
 
-######################################################
-                   OR      2.5 %    97.5 %
-(Intercept) 0.0696739 0.04464984 0.1087227
-cumulative  2.1957526 1.40224124 3.4383024
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                   OR      <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+(Intercept) <span style="color:#40a070">0.0696739</span> <span style="color:#40a070">0.04464984</span> <span style="color:#40a070">0.1087227</span>
+cumulative  <span style="color:#40a070">2.1957526</span> <span style="color:#40a070">1.40224124</span> <span style="color:#40a070">3.4383024</span>
 
-######################################################
-</code></pre><br/>
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+</code></pre></div><br/>
 <p>It should be noted that you may also see the warning message below. This is expected because we have fractional weights.</p>
-<pre><code>######################################################
-Warning message: non-integer #successes in a binomial glm!
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">######################################################</span>
+Warning message<span style="color:#666">:</span> non<span style="color:#666">-</span>integer <span style="color:#60a0b0;font-style:italic">#successes in a binomial glm!</span>
 
-######################################################
-</code></pre><br/>
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+</code></pre></div><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)</p>

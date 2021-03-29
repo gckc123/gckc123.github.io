@@ -147,7 +147,7 @@ Correlogram - StatsNotebook - Simple. Powerful. Reproducible.
     </h2>
     <div class="post-data">
         20 Sep, 2020 |
-        2 minutes read
+        3 minutes read
     </div>
     
     <div class="blog-share">
@@ -187,7 +187,10 @@ Correlogram - StatsNotebook - Simple. Powerful. Reproducible.
     <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
 <p>Correlogram is a type of chart that visualise the pairwise association between variables. <strong>StatsNotebook</strong> uses the <code>ggpairs()</code> function from the <code>GGally</code> library to build correlogram. A publication ready correlogram can be built within a few minutes with <strong>StatsNotebook</strong>.</p>
 <p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="../../data_management/load_example_data">here</a> or can be downloaded from <a href="../../data_management/example_data/personality.csv">here</a>.</p>
-<p>In this example, we will build a <a href="#correlogram-scatterplot-matrix" title="Correlogram (Scatterplot matrix)">simple correlogram</a> to visualise the relationship between four variables (three personality variables: <em>Conscientiousness</em>, <em>Neuroticism</em>, <em>Openness</em> and one mental health variable: <em>Depression</em>). We then build a <a href="#correlogram-scatterplot-matrix-by-group" title="Correlogram (Scatterplot matrix by group)">correlogram by Sex</a> (Male and Female.)</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div><p>In this example, we will build a <a href="#correlogram-scatterplot-matrix" title="Correlogram (Scatterplot matrix)">simple correlogram</a> to visualise the relationship between four variables (three personality variables: <em>Conscientiousness</em>, <em>Neuroticism</em>, <em>Openness</em> and one mental health variable: <em>Depression</em>). We then build a <a href="#correlogram-scatterplot-matrix-by-group" title="Correlogram (Scatterplot matrix by group)">correlogram by Sex</a> (Male and Female.)</p>
 <div style="display: flex; flex-wrap: wrap; padding: 0px"> 
     <div>
         <a href="#correlogram-scatterplot-matrix">Correlogram</a>

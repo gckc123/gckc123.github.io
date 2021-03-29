@@ -195,9 +195,13 @@ Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
 <li>Is sex associated with depression? (i.e. Are there sex differences in depression?)</li>
 </ol>
 <p>In this setup, the <em>dependent</em> variable is depression; the <em>independent</em> variables are Agreeableness, Conscientiousness, Extraversion, Neuroticism, Openness and sex. The above two research questions will be addressed by <strong>linear regression</strong>.</p>
-<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the <strong>Personality</strong>, which can be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div><br/>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
+<p>The following is the compete codes for our linear regression and multiple imputation example.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> Agreeableness <span style="color:#666">+</span> Conscientiousness <span style="color:#666">+</span> Extraversion <span style="color:#666">+</span> Neuroticism <span style="color:#666">+</span> Openness <span style="color:#666">+</span> Sex,
   data<span style="color:#666">=</span>currentDataset)

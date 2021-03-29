@@ -191,7 +191,10 @@ Descriptive Statistics - StatsNotebook - Simple. Powerful. Reproducible.
 <p>We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="Load example data">here</a> or can be downloaded from <a href="https://statsnotebook.io/blog/data_management/example_data/personality.csv"/>
     here
 </a>.</p>
-<p>The <strong>Personality</strong> dataset contains data from 231 participants, with measures on the Big 5 personality factors (<em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em> and <em>Openness</em>), and three measures of mental health (<em>Depression</em>, <em>Trait anxiety</em> and <em>State anxiety</em>). It also contains data on participants&rsquo; sex.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div><p>The <strong>Personality</strong> dataset contains data from 231 participants, with measures on the Big 5 personality factors (<em>Agreeableness</em>, <em>Conscientiousness</em>, <em>Extraversion</em>, <em>Neuroticism</em> and <em>Openness</em>), and three measures of mental health (<em>Depression</em>, <em>Trait anxiety</em> and <em>State anxiety</em>). It also contains data on participants&rsquo; sex.</p>
 <p>We will demonstrate how to generate simple <a href="https://statsnotebook.io/blog/analysis/descriptive/#descriptive-statistics" title="Descriptive statistics">descriptive statistics</a>, and how to generate <a href="https://statsnotebook.io/blog/analysis/descriptive/#descriptive-statistics-by-group" title="Descriptive statistics by group">descriptive statistics by group</a>.</p>
 
 <h4 id="descriptive-statistics" class="anchor-link"><a href="#descriptive-statistics">Descriptive statistics</a></h4>

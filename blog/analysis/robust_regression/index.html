@@ -189,7 +189,10 @@ Robust Regression - StatsNotebook - Simple. Powerful. Reproducible.
     <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
 <p>Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using <a href="https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/" title="Residual plots and assumption checking for linear regression">residual plots</a>). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the <em>linearity assumption</em> is still needed for proper inference using robust regression.</p>
 <p>In this example, we will use the <strong>Stars</strong> dataset from the <code>Robustbase</code> package. We have built this example data into <strong>StatsNotebook</strong> and it can be loaded using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
-<p>In this dataset, there are two variables.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/stars.csv&#34;</span>)
+</code></pre></div><p>In this dataset, there are two variables.</p>
 <ol>
 <li><strong>temperature</strong> represents the surface temperature of a star</li>
 <li><strong>light</strong> represents the light intensity of a star</li>
@@ -222,51 +225,51 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmrob</spa
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>The output from robust regression is also very similar to those from linear regression. The only exception now is that that the observations are now weighted based on how deviant they are, and also robust standard errors will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), <em>p</em> =.005. We also show the regression line estimated from the robust regression in the figure below. The <span style="color: blue"><b>blue</b></span> line is the regression line from ordinary linear regression and the <span style="color: red"><b>red</b></span> one is the regression line from the robust regression.</p>
-<pre><code>Call:
-lmrob(formula = light ~ temperature, data = currentDataset)
- \--&gt; method = &quot;MM&quot;
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.80959 -0.28838  0.00282  0.36668  3.39585 
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Call<span style="color:#666">:</span>
+<span style="color:#06287e">lmrob</span>(formula <span style="color:#666">=</span> light <span style="color:#666">~</span> temperature, data <span style="color:#666">=</span> currentDataset)
+ \<span style="color:#666">--&gt;</span> method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;MM&#34;</span>
+Residuals<span style="color:#666">:</span>
+     Min       <span style="color:#40a070">1</span>Q   Median       <span style="color:#40a070">3</span>Q      Max 
+<span style="color:#40a070">-0.80959</span> <span style="color:#40a070">-0.28838</span>  <span style="color:#40a070">0.00282</span>  <span style="color:#40a070">0.36668</span>  <span style="color:#40a070">3.39585</span> 
 
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept)  -4.9694     3.4100  -1.457  0.15198   
-temperature   2.2532     0.7691   2.930  0.00531 **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Coefficients<span style="color:#666">:</span>
+            Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)   
+(Intercept)  <span style="color:#40a070">-4.9694</span>     <span style="color:#40a070">3.4100</span>  <span style="color:#40a070">-1.457</span>  <span style="color:#40a070">0.15198</span>   
+temperature   <span style="color:#40a070">2.2532</span>     <span style="color:#40a070">0.7691</span>   <span style="color:#40a070">2.930</span>  <span style="color:#40a070">0.00531</span> <span style="color:#666">**</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-Robust residual standard error: 0.4715 
-Multiple R-squared:  0.3737,	Adjusted R-squared:  0.3598 
-Convergence in 15 IRWLS iterations
+Robust residual standard error<span style="color:#666">:</span> <span style="color:#40a070">0.4715</span> 
+Multiple R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.3737</span>,	Adjusted R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.3598</span> 
+Convergence in <span style="color:#40a070">15</span> IRWLS iterations
 
-Robustness weights: 
- 4 observations c(11,20,30,34) are outliers with |weight| = 0 ( &lt; 0.0021); 
- 4 weights are ~= 1. The remaining 39 ones are summarized as
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.6533  0.9171  0.9593  0.9318  0.9848  0.9986 
-Algorithmic parameters: 
+Robustness weights<span style="color:#666">:</span> 
+ <span style="color:#40a070">4</span> observations <span style="color:#06287e">c</span>(<span style="color:#40a070">11</span>,<span style="color:#40a070">20</span>,<span style="color:#40a070">30</span>,<span style="color:#40a070">34</span>) are outliers with <span style="color:#666">|</span>weight<span style="color:#666">|</span> <span style="color:#666">=</span> <span style="color:#40a070">0</span> ( <span style="color:#666">&lt;</span> <span style="color:#40a070">0.0021</span>); 
+ <span style="color:#40a070">4</span> weights are <span style="color:#666">~=</span> <span style="color:#40a070">1</span>. The remaining <span style="color:#40a070">39</span> ones are summarized as
+   Min. <span style="color:#40a070">1</span>st Qu.  Median    Mean <span style="color:#40a070">3</span>rd Qu.    Max. 
+ <span style="color:#40a070">0.6533</span>  <span style="color:#40a070">0.9171</span>  <span style="color:#40a070">0.9593</span>  <span style="color:#40a070">0.9318</span>  <span style="color:#40a070">0.9848</span>  <span style="color:#40a070">0.9986</span> 
+Algorithmic parameters<span style="color:#666">:</span> 
        tuning.chi                bb        tuning.psi        refine.tol 
-        1.548e+00         5.000e-01         4.685e+00         1.000e-07 
+        <span style="color:#40a070">1.548e+00</span>         <span style="color:#40a070">5.000e-01</span>         <span style="color:#40a070">4.685e+00</span>         <span style="color:#40a070">1.000e-07</span> 
           rel.tol         scale.tol         solve.tol       eps.outlier 
-        1.000e-07         1.000e-10         1.000e-07         2.128e-03 
+        <span style="color:#40a070">1.000e-07</span>         <span style="color:#40a070">1.000e-10</span>         <span style="color:#40a070">1.000e-07</span>         <span style="color:#40a070">2.128e-03</span> 
             eps.x warn.limit.reject warn.limit.meanrw 
-        8.404e-12         5.000e-01         5.000e-01 
+        <span style="color:#40a070">8.404e-12</span>         <span style="color:#40a070">5.000e-01</span>         <span style="color:#40a070">5.000e-01</span> 
      nResample         max.it       best.r.s       k.fast.s          k.max 
-           500             50              2              1            200 
+           <span style="color:#40a070">500</span>             <span style="color:#40a070">50</span>              <span style="color:#40a070">2</span>              <span style="color:#40a070">1</span>            <span style="color:#40a070">200</span> 
    maxit.scale      trace.lev            mts     compute.rd fast.s.large.n 
-           200              0           1000              0           2000 
+           <span style="color:#40a070">200</span>              <span style="color:#40a070">0</span>           <span style="color:#40a070">1000</span>              <span style="color:#40a070">0</span>           <span style="color:#40a070">2000</span> 
                   psi           subsampling                   cov 
-           &quot;bisquare&quot;         &quot;nonsingular&quot;         &quot;.vcov.avar1&quot; 
+           <span style="color:#4070a0">&#34;bisquare&#34;</span>         <span style="color:#4070a0">&#34;nonsingular&#34;</span>         <span style="color:#4070a0">&#34;.vcov.avar1&#34;</span> 
 compute.outlier.stats 
-                 &quot;SM&quot; 
-seed : int(0) 
+                 <span style="color:#4070a0">&#34;SM&#34;</span> 
+seed <span style="color:#666">:</span> <span style="color:#06287e">int</span>(<span style="color:#40a070">0</span>) 
 
-######################################################
-                            2.5 %   97.5 %
-(Intercept) -4.969388 -11.8375510 1.898775
-temperature  2.253161   0.7041936 3.802129
-</code></pre><br/>
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                            <span style="color:#40a070">2.5</span> <span style="color:#666">%   97.5 %</span>
+(Intercept) <span style="color:#40a070">-4.969388</span> <span style="color:#40a070">-11.8375510</span> <span style="color:#40a070">1.898775</span>
+temperature  <span style="color:#40a070">2.253161</span>   <span style="color:#40a070">0.7041936</span> <span style="color:#40a070">3.802129</span>
+</code></pre></div><br/>
 <img src="https://statsnotebook.io/blog/analysis/img/robust_regression_line.png" alt="Line of best fit from robust regression" title="Line of best fit from robust regression"/></a>
 
 	<br/>

@@ -218,7 +218,10 @@ Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Sim
 <li>In this analysis, we will test the interaction between <em>year</em> and <em>state</em>. (Does <em>state</em> change the effect of <em>year</em> on alcohol consumption?)</li>
 </ul>
 <p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset for this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
-
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&#34;</span>)
+</code></pre></div>
 <h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(alcohol <span style="color:#666">~</span> Year <span style="color:#666">+</span> State <span style="color:#666">+</span> Remoteness <span style="color:#666">+</span> State<span style="color:#666">*</span>Year,
@@ -306,39 +309,39 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(
 </code></pre></div><br/>
 <p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>State*Year</strong> as an extra term. The results from this regression analysis are then printed out using the <strong>summary</strong> function. Finally, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
 <p>The above code produces the model summary below.</p>
-<pre><code>Call:
-lm(formula = alcohol ~ Year + State + Remoteness + State * Year, 
-    data = currentDataset)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Call<span style="color:#666">:</span>
+<span style="color:#06287e">lm</span>(formula <span style="color:#666">=</span> alcohol <span style="color:#666">~</span> Year <span style="color:#666">+</span> State <span style="color:#666">+</span> Remoteness <span style="color:#666">+</span> State <span style="color:#666">*</span> Year, 
+    data <span style="color:#666">=</span> currentDataset)
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--75.968 -35.474  -8.968  27.053 192.976 
+Residuals<span style="color:#666">:</span>
+    Min      <span style="color:#40a070">1</span>Q  Median      <span style="color:#40a070">3</span>Q     Max 
+<span style="color:#40a070">-75.968</span> <span style="color:#40a070">-35.474</span>  <span style="color:#40a070">-8.968</span>  <span style="color:#40a070">27.053</span> <span style="color:#40a070">192.976</span> 
 
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)          72.032      3.914  18.401  &lt; 2e-16 ***
-Year2019            -21.224      5.097  -4.164 3.20e-05 ***
-StateNSW              3.936      4.433   0.888 0.374659    
-StateNT              -1.829      4.820  -0.379 0.704419    
-StateSA              -5.948      4.692  -1.268 0.205040    
-StateTAS              1.506      5.329   0.283 0.777544    
-StateVIC             -9.680      4.333  -2.234 0.025549 *  
-StateWA             -12.796      5.743  -2.228 0.025940 *  
-RemotenessRegional   -9.597      2.136  -4.492 7.28e-06 ***
-Year2019:StateNSW    17.690      6.071   2.914 0.003592 ** 
-Year2019:StateNT     17.983      6.740   2.668 0.007664 ** 
-Year2019:StateSA     20.301      6.549   3.100 0.001952 ** 
-Year2019:StateTAS     8.212      7.170   1.145 0.252149    
-Year2019:StateVIC    15.456      6.000   2.576 0.010029 *  
-Year2019:StateWA     24.608      6.986   3.522 0.000433 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Coefficients<span style="color:#666">:</span>
+                   Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept)          <span style="color:#40a070">72.032</span>      <span style="color:#40a070">3.914</span>  <span style="color:#40a070">18.401</span>  <span style="color:#666">&lt;</span> <span style="color:#40a070">2e-16</span> <span style="color:#666">***</span>
+Year2019            <span style="color:#40a070">-21.224</span>      <span style="color:#40a070">5.097</span>  <span style="color:#40a070">-4.164</span> <span style="color:#40a070">3.20e-05</span> <span style="color:#666">***</span>
+StateNSW              <span style="color:#40a070">3.936</span>      <span style="color:#40a070">4.433</span>   <span style="color:#40a070">0.888</span> <span style="color:#40a070">0.374659</span>    
+StateNT              <span style="color:#40a070">-1.829</span>      <span style="color:#40a070">4.820</span>  <span style="color:#40a070">-0.379</span> <span style="color:#40a070">0.704419</span>    
+StateSA              <span style="color:#40a070">-5.948</span>      <span style="color:#40a070">4.692</span>  <span style="color:#40a070">-1.268</span> <span style="color:#40a070">0.205040</span>    
+StateTAS              <span style="color:#40a070">1.506</span>      <span style="color:#40a070">5.329</span>   <span style="color:#40a070">0.283</span> <span style="color:#40a070">0.777544</span>    
+StateVIC             <span style="color:#40a070">-9.680</span>      <span style="color:#40a070">4.333</span>  <span style="color:#40a070">-2.234</span> <span style="color:#40a070">0.025549</span> <span style="color:#666">*</span>  
+StateWA             <span style="color:#40a070">-12.796</span>      <span style="color:#40a070">5.743</span>  <span style="color:#40a070">-2.228</span> <span style="color:#40a070">0.025940</span> <span style="color:#666">*</span>  
+RemotenessRegional   <span style="color:#40a070">-9.597</span>      <span style="color:#40a070">2.136</span>  <span style="color:#40a070">-4.492</span> <span style="color:#40a070">7.28e-06</span> <span style="color:#666">***</span>
+Year2019<span style="color:#666">:</span>StateNSW    <span style="color:#40a070">17.690</span>      <span style="color:#40a070">6.071</span>   <span style="color:#40a070">2.914</span> <span style="color:#40a070">0.003592</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateNT     <span style="color:#40a070">17.983</span>      <span style="color:#40a070">6.740</span>   <span style="color:#40a070">2.668</span> <span style="color:#40a070">0.007664</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateSA     <span style="color:#40a070">20.301</span>      <span style="color:#40a070">6.549</span>   <span style="color:#40a070">3.100</span> <span style="color:#40a070">0.001952</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateTAS     <span style="color:#40a070">8.212</span>      <span style="color:#40a070">7.170</span>   <span style="color:#40a070">1.145</span> <span style="color:#40a070">0.252149</span>    
+Year2019<span style="color:#666">:</span>StateVIC    <span style="color:#40a070">15.456</span>      <span style="color:#40a070">6.000</span>   <span style="color:#40a070">2.576</span> <span style="color:#40a070">0.010029</span> <span style="color:#666">*</span>  
+Year2019<span style="color:#666">:</span>StateWA     <span style="color:#40a070">24.608</span>      <span style="color:#40a070">6.986</span>   <span style="color:#40a070">3.522</span> <span style="color:#40a070">0.000433</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-Residual standard error: 45.2 on 3651 degrees of freedom
-Multiple R-squared:  0.03092,	Adjusted R-squared:  0.02721 
-F-statistic: 8.321 on 14 and 3651 DF,  p-value: &lt; 2.2e-16
+Residual standard error<span style="color:#666">:</span> <span style="color:#40a070">45.2</span> on <span style="color:#40a070">3651</span> degrees of freedom
+Multiple R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.03092</span>,	Adjusted R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.02721</span> 
+F<span style="color:#666">-</span>statistic<span style="color:#666">:</span> <span style="color:#40a070">8.321</span> on <span style="color:#40a070">14</span> and <span style="color:#40a070">3651</span> DF,  p<span style="color:#666">-</span>value<span style="color:#666">:</span> <span style="color:#666">&lt;</span> <span style="color:#40a070">2.2e-16</span>
 
-</code></pre><br/>
+</code></pre></div><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>Using a significance level of 0.05, most of the interaction terms between Year and States are significant. This indicates that the changes in alcohol consumption in Queensland are different from the changes in other states. However, interpreting these coefficients is not straightforward.</p>
@@ -407,27 +410,27 @@ WA 2017 - WA 2019     -3.384 4.78 3651 -0.708  1.0000
 These results indicate that there is significant change in Queensland between 2017 and 2019 only. On average, consumption decreased by 21.22 standard drinks. The p-value is adjusted for a family of 14 estimates using Tukey's method. This adjustment is necessary to protect against an increased rate of false positives due to multiple testing.  
 <p>Lastly, the pairwise comparisons is accompanied by a table of effect sizes.</p>
 <p><strong>Effect size</strong></p>
-<pre><code> contrast              effect.size     SE   df lower.CL upper.CL
- (QLD 2017 - NSW 2017)    -0.08708 0.0981 3651 -0.27938  0.10522
- (QLD 2017 - NT 2017)      0.04046 0.1066 3651 -0.16862  0.24954
- (QLD 2017 - SA 2017)      0.13159 0.1038 3651 -0.07197  0.33514
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> contrast              effect.size     SE   df lower.CL <span style="color:#06287e">upper.CL
+</span><span style="color:#06287e"> </span>(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2017</span>)    <span style="color:#40a070">-0.08708</span> <span style="color:#40a070">0.0981</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.27938</span>  <span style="color:#40a070">0.10522</span>
+ (QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2017</span>)      <span style="color:#40a070">0.04046</span> <span style="color:#40a070">0.1066</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.16862</span>  <span style="color:#40a070">0.24954</span>
+ (QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2017</span>)      <span style="color:#40a070">0.13159</span> <span style="color:#40a070">0.1038</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.07197</span>  <span style="color:#40a070">0.33514</span>
  .
  .
- .
- (TAS 2019 - VIC 2019)     0.08719 0.1028 3651 -0.11438  0.28877
- (TAS 2019 - WA 2019)     -0.04636 0.0973 3651 -0.23715  0.14444
- (VIC 2019 - WA 2019)     -0.13355 0.0840 3651 -0.29822  0.03112
-</code></pre><br/>
+ <span style="color:#06287e">.
+</span><span style="color:#06287e"> </span>(TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.08719</span> <span style="color:#40a070">0.1028</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.11438</span>  <span style="color:#40a070">0.28877</span>
+ (TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.04636</span> <span style="color:#40a070">0.0973</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.23715</span>  <span style="color:#40a070">0.14444</span>
+ (VIC <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.13355</span> <span style="color:#40a070">0.0840</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.29822</span>  <span style="color:#40a070">0.03112</span>
+</code></pre></div><br/>
 <p>Similarly, we will be only interested in the 2017 and 2019 comparisons in each state.</p>
-<pre><code> contrast              effect.size     SE   df lower.CL upper.CL
- (QLD 2017 - QLD 2019)     0.46955 0.1129 3651  0.24820  0.69091
- (NSW 2017 - NSW 2019)     0.07819 0.0734 3651 -0.06569  0.22207
- (NT 2017 - NT 2019)       0.07169 0.0976 3651 -0.11964  0.26302
- (SA 2017 - SA 2019)       0.02041 0.0909 3651 -0.15772  0.19855
- (TAS 2017 - TAS 2019)     0.28788 0.1116 3651  0.06905  0.50670
- (VIC 2017 - VIC 2019)     0.12761 0.0701 3651 -0.00976  0.26497
- (WA 2017 - WA 2019)      -0.07488 0.1057 3651 -0.28213  0.13237
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> contrast              effect.size     SE   df lower.CL <span style="color:#06287e">upper.CL
+</span><span style="color:#06287e"> </span>(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> QLD <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.46955</span> <span style="color:#40a070">0.1129</span> <span style="color:#40a070">3651</span>  <span style="color:#40a070">0.24820</span>  <span style="color:#40a070">0.69091</span>
+ (NSW <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.07819</span> <span style="color:#40a070">0.0734</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.06569</span>  <span style="color:#40a070">0.22207</span>
+ (NT <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.07169</span> <span style="color:#40a070">0.0976</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.11964</span>  <span style="color:#40a070">0.26302</span>
+ (SA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.02041</span> <span style="color:#40a070">0.0909</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.15772</span>  <span style="color:#40a070">0.19855</span>
+ (TAS <span style="color:#40a070">2017</span> <span style="color:#666">-</span> TAS <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.28788</span> <span style="color:#40a070">0.1116</span> <span style="color:#40a070">3651</span>  <span style="color:#40a070">0.06905</span>  <span style="color:#40a070">0.50670</span>
+ (VIC <span style="color:#40a070">2017</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.12761</span> <span style="color:#40a070">0.0701</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.00976</span>  <span style="color:#40a070">0.26497</span>
+ (WA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)      <span style="color:#40a070">-0.07488</span> <span style="color:#40a070">0.1057</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.28213</span>  <span style="color:#40a070">0.13237</span>
+</code></pre></div><br/>
 <p>These effect sizes can be interpreted according to Cohen&rsquo;s rule: 0.2 represents a small effect size, 0.5 represents a medium effect size and 0.8 represents a large effect size.</p>
 <p>The <code>emmeans</code> package provides a handy function <code>emmip</code> to visualise the interaction.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, Year <span style="color:#666">~</span> State,
@@ -443,8 +446,11 @@ These results indicate that there is significant change in Queensland between 20
 <li>Is the association between BMI and depression different for males and females?</li>
 </ul>
 <p>In this setup, <em>BMI</em> is an independent variable, <em>Sex</em> is a moderator and <em>depression</em> is the dependent variable.</p>
-<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
-
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div>
 <h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI<span style="color:#666">*</span>Sex,
@@ -533,27 +539,27 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(
 </code></pre></div><br/>
 <p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>BMI*Sex</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
 <p>These codes will produce the model summary below.</p>
-<pre><code>Call:
-lm(formula = Depression ~ BMI + Sex + Age + BMI * Sex, data = currentDataset)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Call<span style="color:#666">:</span>
+<span style="color:#06287e">lm</span>(formula <span style="color:#666">=</span> Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI <span style="color:#666">*</span> Sex, data <span style="color:#666">=</span> currentDataset)
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--28.383  -7.878  -0.261   7.397  40.032 
+Residuals<span style="color:#666">:</span>
+    Min      <span style="color:#40a070">1</span>Q  Median      <span style="color:#40a070">3</span>Q     Max 
+<span style="color:#40a070">-28.383</span>  <span style="color:#40a070">-7.878</span>  <span style="color:#40a070">-0.261</span>   <span style="color:#40a070">7.397</span>  <span style="color:#40a070">40.032</span> 
 
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -1.46366    6.49795  -0.225 0.821875    
-BMI          1.73313    0.26220   6.610 9.66e-11 ***
-SexMale     24.43426    9.47073   2.580 0.010158 *  
-Age         -0.15025    0.04341  -3.461 0.000583 ***
-BMI:SexMale -1.31631    0.37599  -3.501 0.000504 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Coefficients<span style="color:#666">:</span>
+            Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept) <span style="color:#40a070">-1.46366</span>    <span style="color:#40a070">6.49795</span>  <span style="color:#40a070">-0.225</span> <span style="color:#40a070">0.821875</span>    
+BMI          <span style="color:#40a070">1.73313</span>    <span style="color:#40a070">0.26220</span>   <span style="color:#40a070">6.610</span> <span style="color:#40a070">9.66e-11</span> <span style="color:#666">***</span>
+SexMale     <span style="color:#40a070">24.43426</span>    <span style="color:#40a070">9.47073</span>   <span style="color:#40a070">2.580</span> <span style="color:#40a070">0.010158</span> <span style="color:#666">*</span>  
+Age         <span style="color:#40a070">-0.15025</span>    <span style="color:#40a070">0.04341</span>  <span style="color:#40a070">-3.461</span> <span style="color:#40a070">0.000583</span> <span style="color:#666">***</span>
+BMI<span style="color:#666">:</span>SexMale <span style="color:#40a070">-1.31631</span>    <span style="color:#40a070">0.37599</span>  <span style="color:#40a070">-3.501</span> <span style="color:#40a070">0.000504</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-Residual standard error: 10.98 on 513 degrees of freedom
-Multiple R-squared:  0.1727,	Adjusted R-squared:  0.1662 
-F-statistic: 26.77 on 4 and 513 DF,  p-value: &lt; 2.2e-16
-</code></pre><br/>
+Residual standard error<span style="color:#666">:</span> <span style="color:#40a070">10.98</span> on <span style="color:#40a070">513</span> degrees of freedom
+Multiple R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.1727</span>,	Adjusted R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.1662</span> 
+F<span style="color:#666">-</span>statistic<span style="color:#666">:</span> <span style="color:#40a070">26.77</span> on <span style="color:#40a070">4</span> and <span style="color:#40a070">513</span> DF,  p<span style="color:#666">-</span>value<span style="color:#666">:</span> <span style="color:#666">&lt;</span> <span style="color:#40a070">2.2e-16</span>
+</code></pre></div><br/>
 
 <h5 id="interpretation-2" class="anchor-link"><a href="#interpretation-2">Interpretation</a></h5>
 <p>Using a significance level of 0.05, the interaction terms between BMI and Sex is highly significant. This indicates that the effect of BMI on depression is different for males and for females.</p>
@@ -581,34 +587,34 @@ simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">em
 <h5 id="interpretation-3" class="anchor-link"><a href="#interpretation-3">Interpretation</a></h5>
 <p>The output from this code can be broken down into two sections: Estimated marginal means and Simple slope analysis.</p>
 <p><strong>Estimated marginal means</strong></p>
-<pre><code>[1] &quot;Estimated Marginal Means&quot;
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">[1] <span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
 
-######################################################
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
   BMI Sex    emmean    SE  df lower.CL upper.CL
- 22.2 Female   31.9 0.832 513     30.3     33.5
- 24.9 Female   36.6 0.676 513     35.2     37.9
- 27.6 Female   41.2 1.104 513     39.1     43.4
- 22.2 Male     27.1 1.203 513     24.7     29.4
- 24.9 Male     28.2 0.759 513     26.7     29.7
- 27.6 Male     29.3 0.872 513     27.6     31.0
+ <span style="color:#40a070">22.2</span> Female   <span style="color:#40a070">31.9</span> <span style="color:#40a070">0.832</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">30.3</span>     <span style="color:#40a070">33.5</span>
+ <span style="color:#40a070">24.9</span> Female   <span style="color:#40a070">36.6</span> <span style="color:#40a070">0.676</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">35.2</span>     <span style="color:#40a070">37.9</span>
+ <span style="color:#40a070">27.6</span> Female   <span style="color:#40a070">41.2</span> <span style="color:#40a070">1.104</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">39.1</span>     <span style="color:#40a070">43.4</span>
+ <span style="color:#40a070">22.2</span> Male     <span style="color:#40a070">27.1</span> <span style="color:#40a070">1.203</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">24.7</span>     <span style="color:#40a070">29.4</span>
+ <span style="color:#40a070">24.9</span> Male     <span style="color:#40a070">28.2</span> <span style="color:#40a070">0.759</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">26.7</span>     <span style="color:#40a070">29.7</span>
+ <span style="color:#40a070">27.6</span> Male     <span style="color:#40a070">29.3</span> <span style="color:#40a070">0.872</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">27.6</span>     <span style="color:#40a070">31.0</span>
 
-Confidence level used: 0.95 
-</code></pre><br/>
+Confidence level used<span style="color:#666">:</span> <span style="color:#40a070">0.95</span> 
+</code></pre></div><br/>
 <p>The above table contains the estimated marginal means of Depression at different levels of <em>BMI</em> for males and females, with 95% confidence intervals. For example, the estimated Depression score for females with BMI one standard deviation above the mean is 41.2 (95% CI [39.1, 43.4]). For females with BMI one standard deviation below the mean, their estimated Depression score is 31.9 (95% CI [30.3, 33.5]). Therefore, there is quite a substantial difference in Depression between females at higher and lower levels of BMI.</p>
 <p>For males, the difference is much smaller. For males with high BMI, the estimated Depression score is 29.3 (95% CI [27.6, 31.0]); for male with low BMI, the estimated Depression score is 27.1 (95% CI [24.7, 29.4]).</p>
 <p>The marginal mean table is followed by a table of simple slopes - The slope of BMI for males and females are presented separately.</p>
 <p><strong>Simple slope analysis</strong></p>
-<pre><code>$emtrends
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#666">$</span>emtrends
  Sex    BMI.trend    SE  df lower.CL upper.CL
- Female     1.733 0.262 513    1.218    2.248
- Male       0.417 0.270 513   -0.114    0.947
+ Female     <span style="color:#40a070">1.733</span> <span style="color:#40a070">0.262</span> <span style="color:#40a070">513</span>    <span style="color:#40a070">1.218</span>    <span style="color:#40a070">2.248</span>
+ Male       <span style="color:#40a070">0.417</span> <span style="color:#40a070">0.270</span> <span style="color:#40a070">513</span>   <span style="color:#40a070">-0.114</span>    <span style="color:#40a070">0.947</span>
 
-Confidence level used: 0.95 
+Confidence level used<span style="color:#666">:</span> <span style="color:#40a070">0.95</span> 
 
-$contrasts
+<span style="color:#666">$</span>contrasts
  contrast      estimate    SE  df t.ratio p.value
- Female - Male     1.32 0.376 513 3.501   0.0005 
-</code></pre><br/>
+ Female <span style="color:#666">-</span> Male     <span style="color:#40a070">1.32</span> <span style="color:#40a070">0.376</span> <span style="color:#40a070">513</span> <span style="color:#40a070">3.501</span>   <span style="color:#40a070">0.0005</span> 
+</code></pre></div><br/>
 <p>Simple slopes analysis shows that for males, each unit increase in BMI is associated with 0.417 unit increase in Depression score (b = 0.417, 95% CI [-0.114, 0.947]), and it is not statistically significant. For female, each unit increase in BMI is significantly associated with 1.733 unit increase in Depression score (b = 1.733, 95% CI [1.218, 2.248]). The slope of BMI on Depression for female is significantly larger than for male (difference = 1.32, p &lt; .001).</p>
 <p>Lastly, we can use the <code>emmip</code> function to visualise the interaction.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, Sex <span style="color:#666">~</span> BMI,
@@ -626,8 +632,11 @@ $contrasts
 </ul>
 </li>
 </ul>
-<p>We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
-
+<p>We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Wellbeing</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/wellbeing.csv&#34;</span>)
+</code></pre></div>
 <h5 id="r-codes-2" class="anchor-link"><a href="#r-codes-2">R codes</a></h5>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
 res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Wellbeing <span style="color:#666">~</span> Stress <span style="color:#666">+</span> SocialSupport <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Stress<span style="color:#666">*</span>SocialSupport,

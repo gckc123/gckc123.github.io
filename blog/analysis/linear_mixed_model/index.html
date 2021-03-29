@@ -221,7 +221,10 @@ Linear Mixed Model ( Multilevel Model) - StatsNotebook - Simple. Powerful. Repro
 <li>Days - Number of days of sleep deprivation. On day 0, the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night.</li>
 <li>Subject - Participant ID.</li>
 </ol>
-
+<p>This dataset can also be loaded using the following codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&#34;</span>)
+</code></pre></div>
 <h5 id="research-question" class="anchor-link"><a href="#research-question">Research question</a></h5>
 <p>Does the number of days of sleep deprivation affect reaction time?</p>
 <p>It is tempting to address this research question by a simple linear regression (or a correlation analysis). However, linear regression is not appropriate because the data is not independent - Reaction time measured from the same participant are likely to be more similar to reaction time measures across participants.</p>
@@ -276,41 +279,41 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmer</span
 </code></pre></div><br/>
 <p>These codes tell R to run a linear mixed model using the <code>lmer</code> from the <code>lme4</code> library. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies <em>days</em> as the independent variable. The code <code>(1 | Subject)</code> specifies a random intercept for each participant. The <code>summary</code> function is used to print out the results from the random intercept model and the <code>confint</code> function is used to print the model coefficients with the corresponding 95% confidence intervals.</p>
 <p>The following is the model summary from the above codes.</p>
-<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: Reaction ~ Days + (1 | Subject)
-   Data: currentDataset
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Linear mixed model fit by REML. t<span style="color:#666">-</span>tests use Satterthwaite<span style="color:#4070a0">&#39;s method [
+</span><span style="color:#4070a0">lmerModLmerTest]
+</span><span style="color:#4070a0">Formula: Reaction ~ Days + (1 | Subject)
+</span><span style="color:#4070a0">   Data: currentDataset
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">REML criterion at convergence: 1786.5
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Scaled residuals: 
+</span><span style="color:#4070a0">    Min      1Q  Median      3Q     Max 
+</span><span style="color:#4070a0">-3.2257 -0.5529  0.0109  0.5188  4.2506 
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Random effects:
+</span><span style="color:#4070a0"> Groups   Name        Variance Std.Dev.
+</span><span style="color:#4070a0"> Subject  (Intercept) 1378.2   37.12   
+</span><span style="color:#4070a0"> Residual              960.5   30.99   
+</span><span style="color:#4070a0">Number of obs: 180, groups:  Subject, 18
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Fixed effects:
+</span><span style="color:#4070a0">            Estimate Std. Error       df t value Pr(&gt;|t|)    
+</span><span style="color:#4070a0">(Intercept) 251.4051     9.7467  22.8102   25.79   &lt;2e-16 ***
+</span><span style="color:#4070a0">Days         10.4673     0.8042 161.0000   13.02   &lt;2e-16 ***
+</span><span style="color:#4070a0">---
+</span><span style="color:#4070a0">Signif. codes:  0 &#39;</span><span style="color:#666">***</span><span style="color:#4070a0">&#39; 0.001 &#39;</span><span style="color:#666">**</span><span style="color:#4070a0">&#39; 0.01 &#39;</span><span style="color:#666">*</span><span style="color:#4070a0">&#39; 0.05 &#39;</span>.&#39; <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-REML criterion at convergence: 1786.5
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--3.2257 -0.5529  0.0109  0.5188  4.2506 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- Subject  (Intercept) 1378.2   37.12   
- Residual              960.5   30.99   
-Number of obs: 180, groups:  Subject, 18
-
-Fixed effects:
-            Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept) 251.4051     9.7467  22.8102   25.79   &lt;2e-16 ***
-Days         10.4673     0.8042 161.0000   13.02   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
+Correlation of Fixed Effects<span style="color:#666">:</span>
      (Intr)
-Days -0.371
+Days <span style="color:#40a070">-0.371</span>
 
-######################################################
-                 2.5 %    97.5 %
-.sig01              NA        NA
-.sigma              NA        NA
-(Intercept) 232.301892 270.50832
-Days          8.891041  12.04353
-</code></pre><br/>
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                 <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+.sig01              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sigma              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#06287e">NA
+</span><span style="color:#06287e"></span>(Intercept) <span style="color:#40a070">232.301892</span> <span style="color:#40a070">270.50832</span>
+Days          <span style="color:#40a070">8.891041</span>  <span style="color:#40a070">12.04353</span>
+</code></pre></div><br/>
 
 <h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
 <p>From the <strong>fixed effects</strong> section of the model summary, we can conclude that there is strong evidence that number of days of sleep deprivation significantly increased reaction time under a significance level of 0.05. On average, for each additional day of sleep deprivation, the reaction time increased by 10.47ms (b = 10.47, SE = 0.80, p &lt; .001).</p>
@@ -323,24 +326,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 </code></pre><br/>
 <p>We are 95% confident that the average increase was between 8.89 and 12.04.</p>
-<pre><code>                 2.5 %    97.5 %
-.sig01              NA        NA
-.sigma              NA        NA
-(Intercept) 232.301892 270.50832
-Days          8.891041  12.04353
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">                 <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+.sig01              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sigma              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#06287e">NA
+</span><span style="color:#06287e"></span>(Intercept) <span style="color:#40a070">232.301892</span> <span style="color:#40a070">270.50832</span>
+Days          <span style="color:#40a070">8.891041</span>  <span style="color:#40a070">12.04353</span>
+</code></pre></div><br/>
 <p>In the above, we estimate that the average intercept across all participants is 251.4. Results from the <strong>random effects</strong> section below show that the variance of the intercept for <em>Subject</em> is 1378.2. Taking the square root, the standard deviation of the intercept is thus 37.1.</p>
-<pre><code>Random effects:
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Random effects<span style="color:#666">:</span>
  Groups   Name        Variance Std.Dev.
- Subject  (Intercept) 1378.2   37.12   
- Residual              960.5   30.99   
-Number of obs: 180, groups:  Subject, 18
-</code></pre><br/>
+ <span style="color:#06287e">Subject  </span>(Intercept) <span style="color:#40a070">1378.2</span>   <span style="color:#40a070">37.12</span>   
+ Residual              <span style="color:#40a070">960.5</span>   <span style="color:#40a070">30.99</span>   
+Number of obs<span style="color:#666">:</span> <span style="color:#40a070">180</span>, groups<span style="color:#666">:</span>  Subject, <span style="color:#40a070">18</span>
+</code></pre></div><br/>
 <p>We can calculate the <strong>95% coverage interval</strong> as <strong>251.4 ± 1.96*37.1</strong>. The lower bound of the 95% coverage interval is thus 178.7 and the upper bound is 324.1. We therefore estimated that 95% of the participants have an intercept between 178.7 and 324.1. This means that 95% of the participants have a reaction time between 178.7 and 324.1 at Day 0. This is not to be confused with the <strong>95% confidence interval</strong> of the intercept. The <strong>95% confidence interval</strong> is (232.3, 270.5), and this indicates that we are 95% confident that the <em>average intercept</em> is somewhere between 232.3 and 270.5.</p>
 <p>In this model, we have accounted for the repeated measures design (observations nested within individuals) by including a random intercept for each participants. Each individual has his/her own intercept. The effect of sleep deprivation on reaction time is assumed to be the same across individuals. This assumption can be relaxed by fitting a <strong>random slope model</strong>.</p>
 <p>Before running the <strong>random slope model</strong>, we can store the estimates from the <strong>random intercept model</strong> into a variable for future model comparison. By default, <strong>StatsNotebook</strong> stores the model estimates into the variable <code>res</code>. We now store these estimates into the variable <code>m1</code>. Enter the following code into a new block on the right panel and run it. This line of code must be run right after running the random intercept model.</p>
-<pre><code>m1 &lt;- res
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m1 <span style="color:#666">&lt;-</span> res
+</code></pre></div><br/>
 
 <h5 id="random-slope-model" class="anchor-link"><a href="#random-slope-model">Random slope model</a></h5>
 <p>In the random intercept model, we assume that the effect of sleep deprivation on reaction time is the same across individuals. The following shows the scatterplot between reaction time and days of sleep deprivation for each participants.</p>
@@ -397,44 +400,44 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmer</span
 </code></pre></div><br/>
 <p>These codes are very similar to those for the random intercept model, except that now we use the code <code>(1 + Days | Subject)</code> to specify a random intercept for each <em>Subject</em>, and a random slope of <em>Days</em> for each <em>Subject</em>. This allows both the intercept and the slope of days to vary across participants.</p>
 <p>The following is the model summary from the above codes.</p>
-<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: Reaction ~ Days + (1 + Days | Subject)
-   Data: currentDataset
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Linear mixed model fit by REML. t<span style="color:#666">-</span>tests use Satterthwaite<span style="color:#4070a0">&#39;s method [
+</span><span style="color:#4070a0">lmerModLmerTest]
+</span><span style="color:#4070a0">Formula: Reaction ~ Days + (1 + Days | Subject)
+</span><span style="color:#4070a0">   Data: currentDataset
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">REML criterion at convergence: 1743.6
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Scaled residuals: 
+</span><span style="color:#4070a0">    Min      1Q  Median      3Q     Max 
+</span><span style="color:#4070a0">-3.9536 -0.4634  0.0231  0.4634  5.1793 
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Random effects:
+</span><span style="color:#4070a0"> Groups   Name        Variance Std.Dev. Corr
+</span><span style="color:#4070a0"> Subject  (Intercept) 612.10   24.741       
+</span><span style="color:#4070a0">          Days         35.07    5.922   0.07
+</span><span style="color:#4070a0"> Residual             654.94   25.592       
+</span><span style="color:#4070a0">Number of obs: 180, groups:  Subject, 18
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Fixed effects:
+</span><span style="color:#4070a0">            Estimate Std. Error      df t value Pr(&gt;|t|)    
+</span><span style="color:#4070a0">(Intercept)  251.405      6.825  17.000  36.838  &lt; 2e-16 ***
+</span><span style="color:#4070a0">Days          10.467      1.546  17.000   6.771 3.26e-06 ***
+</span><span style="color:#4070a0">---
+</span><span style="color:#4070a0">Signif. codes:  0 &#39;</span><span style="color:#666">***</span><span style="color:#4070a0">&#39; 0.001 &#39;</span><span style="color:#666">**</span><span style="color:#4070a0">&#39; 0.01 &#39;</span><span style="color:#666">*</span><span style="color:#4070a0">&#39; 0.05 &#39;</span>.&#39; <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
 
-REML criterion at convergence: 1743.6
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--3.9536 -0.4634  0.0231  0.4634  5.1793 
-
-Random effects:
- Groups   Name        Variance Std.Dev. Corr
- Subject  (Intercept) 612.10   24.741       
-          Days         35.07    5.922   0.07
- Residual             654.94   25.592       
-Number of obs: 180, groups:  Subject, 18
-
-Fixed effects:
-            Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)  251.405      6.825  17.000  36.838  &lt; 2e-16 ***
-Days          10.467      1.546  17.000   6.771 3.26e-06 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
+Correlation of Fixed Effects<span style="color:#666">:</span>
      (Intr)
-Days -0.138
+Days <span style="color:#40a070">-0.138</span>
 
-######################################################
-                 2.5 %    97.5 %
-.sig01              NA        NA
-.sig02              NA        NA
-.sig03              NA        NA
-.sigma              NA        NA
-(Intercept) 238.029141 264.78107
-Days          7.437594  13.49698
-</code></pre><br/>
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                 <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+.sig01              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sig02              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sig03              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sigma              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#06287e">NA
+</span><span style="color:#06287e"></span>(Intercept) <span style="color:#40a070">238.029141</span> <span style="color:#40a070">264.78107</span>
+Days          <span style="color:#40a070">7.437594</span>  <span style="color:#40a070">13.49698</span>
+</code></pre></div><br/>
 
 <h5 id="interpretation-1" class="anchor-link"><a href="#interpretation-1">Interpretation</a></h5>
 <p>From the <strong>fixed effects</strong> section of the model summary, we can conclude that there is strong evidence that number of days of sleep deprivation significantly increased reaction time under a significance level of 0.05. On average, for each additional day of sleep deprivation, reaction time increased by 10.47ms (b = 10.47, SE = 1.55, p &lt; .001).</p>
@@ -446,44 +449,44 @@ Days          10.467      1.546  17.000   6.771 3.26e-06 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre><br/>
 <p>We are 95% confident that the average increase was between 7.44 and 13.50.</p>
-<pre><code>                 2.5 %    97.5 %
-.sig01              NA        NA
-.sig02              NA        NA
-.sig03              NA        NA
-.sigma              NA        NA
-(Intercept) 238.029141 264.78107
-Days          7.437594  13.49698
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">                 <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+.sig01              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sig02              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sig03              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#007020;font-weight:bold">NA</span>
+.sigma              <span style="color:#007020;font-weight:bold">NA</span>        <span style="color:#06287e">NA
+</span><span style="color:#06287e"></span>(Intercept) <span style="color:#40a070">238.029141</span> <span style="color:#40a070">264.78107</span>
+Days          <span style="color:#40a070">7.437594</span>  <span style="color:#40a070">13.49698</span>
+</code></pre></div><br/>
 <p>From the <strong>fixed effects</strong> section, we estimated the average intercept and average effect of days of sleep deprivation (slopes of <em>Days</em>). We also estimated the corresponding 95% confidence intervals. Using the results from the <strong>random effects</strong> section, we can calculate the coverage intervals for both the intercept and the slope.</p>
-<pre><code>Random effects:
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Random effects<span style="color:#666">:</span>
  Groups   Name        Variance Std.Dev. Corr
- Subject  (Intercept) 612.10   24.741       
-          Days         35.07    5.922   0.07
- Residual             654.94   25.592       
-Number of obs: 180, groups:  Subject, 18
-</code></pre><br/>
+ <span style="color:#06287e">Subject  </span>(Intercept) <span style="color:#40a070">612.10</span>   <span style="color:#40a070">24.741</span>       
+          Days         <span style="color:#40a070">35.07</span>    <span style="color:#40a070">5.922</span>   <span style="color:#40a070">0.07</span>
+ Residual             <span style="color:#40a070">654.94</span>   <span style="color:#40a070">25.592</span>       
+Number of obs<span style="color:#666">:</span> <span style="color:#40a070">180</span>, groups<span style="color:#666">:</span>  Subject, <span style="color:#40a070">18</span>
+</code></pre></div><br/>
 <p>The variance of the intercept and for the slope of <em>Days</em> is 612.1 and 35.1 respectively. Taking their square root, the corresponding standard deviations are 24.7 and 5.9. The 95% coverage interval of the intercept is 251.4 ± 1.96*24.7. The lower bound is 203.0 and the upper bound is 299.8. It is therefore estimated that 95% of the participants had a reaction time between 203.0 and 299.8 at Day 0.</p>
 <p>The 95% coverage interval of the slope of <em>Days</em> is 10.5 ± 1.96*5.9. The lower bound is -1.1 and the upper bound is 22.1. It is therefore estimated that for 95% of the participants, the effect of each additional day of sleep deprivation was between -1.1 and 22.1. This is not to be confused with the 95% confidence interval (7.4 and 13.5), which means that we are 95% confident that <em>average effect</em> (across all participants) of each additional day of sleep deprivation on reaction time was between 7.4 and 13.5.</p>
 
 <h5 id="random-intercept-or-random-slope-model" class="anchor-link"><a href="#random-intercept-or-random-slope-model">Random intercept or random slope model?</a></h5>
 <p>A random intercept model is more parsimonious. Random slope model is more flexible as it allows the effect of days of sleep deprivation to vary across participants. So which one should we use? We can test the model fit of these two models and select the one that fits the data better. After running the random intercept model, we stored the model estimates into <code>m1</code>. We now store the model estimates from the random slope model into <code>m2</code>.</p>
 <p>The following line of code must be run right after the random slope model.</p>
-<pre><code>m2 &lt;- res
-</code></pre><br/> 
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m2 <span style="color:#666">&lt;-</span> res
+</code></pre></div><br/> 
 <p>We can now compare the model fit of the random intercept model (stored in <code>m1</code>) and random slope model (stored in <code>m2</code>) with a <strong>likelihood ratio test</strong> using the following line of code.</p>
-<pre><code>anova(m1, m2)
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">anova</span>(m1, m2)
+</code></pre></div><br/>
 <p>The above code produces the following results.</p>
-<pre><code>Data: currentDataset
-Models:
-m1: Reaction ~ Days + (1 | Subject)
-m2: Reaction ~ Days + (1 + Days | Subject)
-   npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
-m1    4 1802.1 1814.8 -897.04   1794.1                         
-m2    6 1763.9 1783.1 -875.97   1751.9 42.139  2  7.072e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Data<span style="color:#666">:</span> currentDataset
+Models<span style="color:#666">:</span>
+m1<span style="color:#666">:</span> Reaction <span style="color:#666">~</span> Days <span style="color:#666">+</span> (<span style="color:#40a070">1</span> <span style="color:#666">|</span> Subject)
+m2<span style="color:#666">:</span> Reaction <span style="color:#666">~</span> Days <span style="color:#666">+</span> (<span style="color:#40a070">1</span> <span style="color:#666">+</span> Days <span style="color:#666">|</span> Subject)
+   npar    AIC    BIC  logLik deviance  Chisq Df <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;</span>Chisq)    
+m1    <span style="color:#40a070">4</span> <span style="color:#40a070">1802.1</span> <span style="color:#40a070">1814.8</span> <span style="color:#40a070">-897.04</span>   <span style="color:#40a070">1794.1</span>                         
+m2    <span style="color:#40a070">6</span> <span style="color:#40a070">1763.9</span> <span style="color:#40a070">1783.1</span> <span style="color:#40a070">-875.97</span>   <span style="color:#40a070">1751.9</span> <span style="color:#40a070">42.139</span>  <span style="color:#40a070">2</span>  <span style="color:#40a070">7.072e-10</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
+</code></pre></div><br/>
 <p>Results from the likelihood ratio test shows that the random slope model fits the data significantly better than the random intercept model, χ<sup>2</sup>(2) = 42.1, p &lt; .001. This indicates that there is significant variation (between participants) in the effect of days of sleep deprivation on reaction time.</p>
 
 <h5 id="example-write-up-apa-style" class="anchor-link"><a href="#example-write-up-apa-style">Example write-up (APA style)</a></h5>
@@ -554,7 +557,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 <li>State - Seven states/territories in Australia, namely, Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia</li>
 <li>Remoteness - Capital city or regional area.</li>
 </ol>
-<p>In our original example, we have performed the moderation analysis using linear regression. However, it is likely that drinking culture differs between different local communities. Therefore, individuals from the same postcode might be more similar than individuals from different postcodes, and this would violate the assumption of independent observation.</p>
+<p>This data can also be loaded using the following codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&#34;</span>)
+</code></pre></div><p>In our original example, we have performed the moderation analysis using linear regression. However, it is likely that drinking culture differs between different local communities. Therefore, individuals from the same postcode might be more similar than individuals from different postcodes, and this would violate the assumption of independent observation.</p>
 <p>In this tutorial, we revisit this example and fit a random intercept model to account for the dependencies due to participants residing in the same postcode.</p>
 <p>To fit a random intercept model,</p>
 <ol>
@@ -639,43 +645,43 @@ res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lmer</span
 </code></pre></div><br/>
 <p>These codes tell R to run a linear mixed model using the <code>lmer</code> from the <code>lme4</code> library. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>alcohol</em> as the <em>dependent variable</em>; the right side specifices <em>State</em>, <em>Remoteness</em>, <em>Year</em> and the interaction of <em>State and Year</em> as the independent variable. The code <code>(1 | Postcode)</code> specifies a random intercept for each <em>Postcode</em>. The <code>summary</code> function is used to print out the results from the random intercept model.</p>
 <p>The following is the model summary from the above codes.</p>
-<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: alcohol ~ State + Remoteness + Year + State * Year + (1 | Postcode)
-   Data: currentDataset
-
-REML criterion at convergence: 38231.5
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--1.9021 -0.7711 -0.1916  0.5797  4.2157 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- Postcode (Intercept)   59.24   7.697  
- Residual             2001.97  44.743  
-Number of obs: 3666, groups:  Postcode, 35
-
-Fixed effects:
-                   Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept)          72.639      6.988   28.022  10.395 4.03e-11 ***
-StateNSW              2.605      7.652   30.117   0.340  0.73593    
-StateNT               1.689      8.302   31.530   0.203  0.84011    
-StateSA              -6.905      7.950   30.890  -0.869  0.39179    
-StateTAS              2.193      8.889   33.801   0.247  0.80663    
-StateVIC             -9.671      7.967   26.721  -1.214  0.23540    
-StateWA             -10.466      8.785   41.141  -1.191  0.24036    
-RemotenessRegional  -10.373      4.502   23.524  -2.304  0.03036 *  
-Year2019            -21.028      5.060 3635.689  -4.156 3.32e-05 ***
-StateNSW:Year2019    16.702      6.051 3650.901   2.760  0.00581 ** 
-StateNT:Year2019     14.589      6.894 3201.952   2.116  0.03440 *  
-StateSA:Year2019     18.909      6.526 3649.459   2.898  0.00378 ** 
-StateTAS:Year2019     6.764      7.438 2549.967   0.909  0.36324    
-StateVIC:Year2019    15.187      5.953 3634.067   2.551  0.01078 *  
-StateWA:Year2019     22.251      7.019 3644.024   3.170  0.00154 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Linear mixed model fit by REML. t<span style="color:#666">-</span>tests use Satterthwaite<span style="color:#4070a0">&#39;s method [
+</span><span style="color:#4070a0">lmerModLmerTest]
+</span><span style="color:#4070a0">Formula: alcohol ~ State + Remoteness + Year + State * Year + (1 | Postcode)
+</span><span style="color:#4070a0">   Data: currentDataset
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">REML criterion at convergence: 38231.5
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Scaled residuals: 
+</span><span style="color:#4070a0">    Min      1Q  Median      3Q     Max 
+</span><span style="color:#4070a0">-1.9021 -0.7711 -0.1916  0.5797  4.2157 
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Random effects:
+</span><span style="color:#4070a0"> Groups   Name        Variance Std.Dev.
+</span><span style="color:#4070a0"> Postcode (Intercept)   59.24   7.697  
+</span><span style="color:#4070a0"> Residual             2001.97  44.743  
+</span><span style="color:#4070a0">Number of obs: 3666, groups:  Postcode, 35
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">Fixed effects:
+</span><span style="color:#4070a0">                   Estimate Std. Error       df t value Pr(&gt;|t|)    
+</span><span style="color:#4070a0">(Intercept)          72.639      6.988   28.022  10.395 4.03e-11 ***
+</span><span style="color:#4070a0">StateNSW              2.605      7.652   30.117   0.340  0.73593    
+</span><span style="color:#4070a0">StateNT               1.689      8.302   31.530   0.203  0.84011    
+</span><span style="color:#4070a0">StateSA              -6.905      7.950   30.890  -0.869  0.39179    
+</span><span style="color:#4070a0">StateTAS              2.193      8.889   33.801   0.247  0.80663    
+</span><span style="color:#4070a0">StateVIC             -9.671      7.967   26.721  -1.214  0.23540    
+</span><span style="color:#4070a0">StateWA             -10.466      8.785   41.141  -1.191  0.24036    
+</span><span style="color:#4070a0">RemotenessRegional  -10.373      4.502   23.524  -2.304  0.03036 *  
+</span><span style="color:#4070a0">Year2019            -21.028      5.060 3635.689  -4.156 3.32e-05 ***
+</span><span style="color:#4070a0">StateNSW:Year2019    16.702      6.051 3650.901   2.760  0.00581 ** 
+</span><span style="color:#4070a0">StateNT:Year2019     14.589      6.894 3201.952   2.116  0.03440 *  
+</span><span style="color:#4070a0">StateSA:Year2019     18.909      6.526 3649.459   2.898  0.00378 ** 
+</span><span style="color:#4070a0">StateTAS:Year2019     6.764      7.438 2549.967   0.909  0.36324    
+</span><span style="color:#4070a0">StateVIC:Year2019    15.187      5.953 3634.067   2.551  0.01078 *  
+</span><span style="color:#4070a0">StateWA:Year2019     22.251      7.019 3644.024   3.170  0.00154 ** 
+</span><span style="color:#4070a0">---
+</span><span style="color:#4070a0">Signif. codes:  0 &#39;</span><span style="color:#666">***</span><span style="color:#4070a0">&#39; 0.001 &#39;</span><span style="color:#666">**</span><span style="color:#4070a0">&#39; 0.01 &#39;</span><span style="color:#666">*</span><span style="color:#4070a0">&#39; 0.05 &#39;</span>.&#39; <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
+</code></pre></div><br/>
 
 <h5 id="interpretation-2" class="anchor-link"><a href="#interpretation-2">Interpretation</a></h5>
 <p>Using a significance level of 0.05, most of the interaction term between Year and States are significant. This indicates that changes in alcohol consumption in Queensland is different from the changes in other states. However, interpreting these coefficients is not straightforward.</p>
@@ -694,75 +700,75 @@ emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</s
 <h5 id="interpretation-3" class="anchor-link"><a href="#interpretation-3">Interpretation</a></h5>
 <p>These few lines of codes will produce a long list of output that can be broken down into three major section.</p>
 <p><strong>Estimated Marginal Means</strong></p>
-<pre><code>$emmeans
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#666">$</span>emmeans
  State Year emmean   SE  df asymp.LCL asymp.UCL
- QLD   2017   67.5 6.64 Inf      54.4      80.5
- NSW   2017   70.1 3.80 Inf      62.6      77.5
- NT    2017   69.1 4.94 Inf      59.5      78.8
- SA    2017   60.5 4.33 Inf      52.1      69.0
- TAS   2017   69.6 5.87 Inf      58.1      81.2
- VIC   2017   57.8 4.40 Inf      49.2      66.4
- WA    2017   57.0 5.71 Inf      45.8      68.2
- QLD   2019   46.4 6.45 Inf      33.8      59.1
- NSW   2019   65.7 4.07 Inf      57.8      73.7
- NT    2019   62.7 5.42 Inf      52.1      73.3
- SA    2019   58.4 4.88 Inf      48.9      68.0
- TAS   2019   55.4 5.92 Inf      43.8      67.0
- VIC   2019   51.9 4.60 Inf      42.9      61.0
- WA    2019   58.2 4.57 Inf      49.3      67.2
+ QLD   <span style="color:#40a070">2017</span>   <span style="color:#40a070">67.5</span> <span style="color:#40a070">6.64</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">54.4</span>      <span style="color:#40a070">80.5</span>
+ NSW   <span style="color:#40a070">2017</span>   <span style="color:#40a070">70.1</span> <span style="color:#40a070">3.80</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">62.6</span>      <span style="color:#40a070">77.5</span>
+ NT    <span style="color:#40a070">2017</span>   <span style="color:#40a070">69.1</span> <span style="color:#40a070">4.94</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">59.5</span>      <span style="color:#40a070">78.8</span>
+ SA    <span style="color:#40a070">2017</span>   <span style="color:#40a070">60.5</span> <span style="color:#40a070">4.33</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">52.1</span>      <span style="color:#40a070">69.0</span>
+ TAS   <span style="color:#40a070">2017</span>   <span style="color:#40a070">69.6</span> <span style="color:#40a070">5.87</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">58.1</span>      <span style="color:#40a070">81.2</span>
+ VIC   <span style="color:#40a070">2017</span>   <span style="color:#40a070">57.8</span> <span style="color:#40a070">4.40</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">49.2</span>      <span style="color:#40a070">66.4</span>
+ WA    <span style="color:#40a070">2017</span>   <span style="color:#40a070">57.0</span> <span style="color:#40a070">5.71</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">45.8</span>      <span style="color:#40a070">68.2</span>
+ QLD   <span style="color:#40a070">2019</span>   <span style="color:#40a070">46.4</span> <span style="color:#40a070">6.45</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">33.8</span>      <span style="color:#40a070">59.1</span>
+ NSW   <span style="color:#40a070">2019</span>   <span style="color:#40a070">65.7</span> <span style="color:#40a070">4.07</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">57.8</span>      <span style="color:#40a070">73.7</span>
+ NT    <span style="color:#40a070">2019</span>   <span style="color:#40a070">62.7</span> <span style="color:#40a070">5.42</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">52.1</span>      <span style="color:#40a070">73.3</span>
+ SA    <span style="color:#40a070">2019</span>   <span style="color:#40a070">58.4</span> <span style="color:#40a070">4.88</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">48.9</span>      <span style="color:#40a070">68.0</span>
+ TAS   <span style="color:#40a070">2019</span>   <span style="color:#40a070">55.4</span> <span style="color:#40a070">5.92</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">43.8</span>      <span style="color:#40a070">67.0</span>
+ VIC   <span style="color:#40a070">2019</span>   <span style="color:#40a070">51.9</span> <span style="color:#40a070">4.60</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">42.9</span>      <span style="color:#40a070">61.0</span>
+ WA    <span style="color:#40a070">2019</span>   <span style="color:#40a070">58.2</span> <span style="color:#40a070">4.57</span> <span style="color:#007020;font-weight:bold">Inf</span>      <span style="color:#40a070">49.3</span>      <span style="color:#40a070">67.2</span>
 
-Results are averaged over the levels of: Remoteness 
-Degrees-of-freedom method: asymptotic 
-Confidence level used: 0.95 
-</code></pre><p>The above table contains estimates for alcohol consumption by <em>State</em> and <em>Year</em>, with 95% confidence intervals. For example, it is estimated that on average, participants in Queensland in 2017 consumed 67.5 standard drinks per month, with a 95% confidence interval of (54.4, 80.5).</p>
+Results are averaged over the levels of<span style="color:#666">:</span> Remoteness 
+Degrees<span style="color:#666">-</span>of<span style="color:#666">-</span>freedom method<span style="color:#666">:</span> asymptotic 
+Confidence level used<span style="color:#666">:</span> <span style="color:#40a070">0.95</span> 
+</code></pre></div><p>The above table contains estimates for alcohol consumption by <em>State</em> and <em>Year</em>, with 95% confidence intervals. For example, it is estimated that on average, participants in Queensland in 2017 consumed 67.5 standard drinks per month, with a 95% confidence interval of (54.4, 80.5).</p>
 <p>It should be noted that the estimates from this random intercept model is very similar to those from a <a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#interpretation-1" title="moderation analysis using linear regression">moderation analysis using linear regression</a>. However, the confidence intervals of the random intercept model is wider.</p>
 <p>This table is then followed by a long table of pairwise comparisons. However, we will not be interested in most of these comparisons.</p>
 <p><strong>Pairwise comparison</strong></p>
-<pre><code>$contrasts
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#666">$</span>contrasts
  contrast            estimate   SE  df z.ratio p.value
- QLD 2017 - NSW 2017   -2.604 7.65 Inf -0.340  1.0000 
- QLD 2017 - NT 2017    -1.689 8.30 Inf -0.203  1.0000 
- QLD 2017 - SA 2017     6.905 7.95 Inf  0.869  0.9999 
+ QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2017</span>   <span style="color:#40a070">-2.604</span> <span style="color:#40a070">7.65</span> <span style="color:#007020;font-weight:bold">Inf</span> <span style="color:#40a070">-0.340</span>  <span style="color:#40a070">1.0000</span> 
+ QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2017</span>    <span style="color:#40a070">-1.689</span> <span style="color:#40a070">8.30</span> <span style="color:#007020;font-weight:bold">Inf</span> <span style="color:#40a070">-0.203</span>  <span style="color:#40a070">1.0000</span> 
+ QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2017</span>     <span style="color:#40a070">6.905</span> <span style="color:#40a070">7.95</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">0.869</span>  <span style="color:#40a070">0.9999</span> 
  .
  .
  .
-  TAS 2019 - VIC 2019    3.441 7.55 Inf  0.456  1.0000 
- TAS 2019 - WA 2019    -2.829 6.77 Inf -0.418  1.0000 
- VIC 2019 - WA 2019    -6.270 6.54 Inf -0.958  0.9996 
-</code></pre><br/>
+  TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>    <span style="color:#40a070">3.441</span> <span style="color:#40a070">7.55</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">0.456</span>  <span style="color:#40a070">1.0000</span> 
+ TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>    <span style="color:#40a070">-2.829</span> <span style="color:#40a070">6.77</span> <span style="color:#007020;font-weight:bold">Inf</span> <span style="color:#40a070">-0.418</span>  <span style="color:#40a070">1.0000</span> 
+ VIC <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>    <span style="color:#40a070">-6.270</span> <span style="color:#40a070">6.54</span> <span style="color:#007020;font-weight:bold">Inf</span> <span style="color:#40a070">-0.958</span>  <span style="color:#40a070">0.9996</span> 
+</code></pre></div><br/>
 <p>We will only be interested in the 2017 and 2019 comparison in each state.</p>
-<pre><code>contrast            estimate   SE  df z.ratio p.value
-QLD 2017 - QLD 2019   21.028 5.06 Inf  4.156  0.0026 
-NSW 2017 - NSW 2019    4.326 3.32 Inf  1.302  0.9907 
-NT 2017 - NT 2019      6.439 4.68 Inf  1.375  0.9847 
-SA 2017 - SA 2019      2.119 4.12 Inf  0.514  1.0000 
-TAS 2017 - TAS 2019   14.264 5.45 Inf  2.616  0.3296 
-VIC 2017 - VIC 2019    5.841 3.14 Inf  1.863  0.8467 
-WA 2017 - WA 2019     -1.223 4.86 Inf -0.251  1.0000 
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">contrast            estimate   SE  df z.ratio p.value
+QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> QLD <span style="color:#40a070">2019</span>   <span style="color:#40a070">21.028</span> <span style="color:#40a070">5.06</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">4.156</span>  <span style="color:#40a070">0.0026</span> 
+NSW <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2019</span>    <span style="color:#40a070">4.326</span> <span style="color:#40a070">3.32</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">1.302</span>  <span style="color:#40a070">0.9907</span> 
+NT <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2019</span>      <span style="color:#40a070">6.439</span> <span style="color:#40a070">4.68</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">1.375</span>  <span style="color:#40a070">0.9847</span> 
+SA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2019</span>      <span style="color:#40a070">2.119</span> <span style="color:#40a070">4.12</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">0.514</span>  <span style="color:#40a070">1.0000</span> 
+TAS <span style="color:#40a070">2017</span> <span style="color:#666">-</span> TAS <span style="color:#40a070">2019</span>   <span style="color:#40a070">14.264</span> <span style="color:#40a070">5.45</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">2.616</span>  <span style="color:#40a070">0.3296</span> 
+VIC <span style="color:#40a070">2017</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>    <span style="color:#40a070">5.841</span> <span style="color:#40a070">3.14</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">1.863</span>  <span style="color:#40a070">0.8467</span> 
+WA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>     <span style="color:#40a070">-1.223</span> <span style="color:#40a070">4.86</span> <span style="color:#007020;font-weight:bold">Inf</span> <span style="color:#40a070">-0.251</span>  <span style="color:#40a070">1.0000</span> 
+</code></pre></div><br/>
 These results indicate that there is significant change in Queensland between 2017 and 2019 only. On average, consumption decreased by 21.03 standard drinks. The p-value is adjusted for a family of 14 estimates using Tukey's method. This adjustment is necessary to protect against increased rate of false positives due to multiple testing.  
 <p>Lastly, the pairwise comparisons are accompanied by a table of effect sizes.</p>
 <p><strong>Effect size</strong></p>
-<pre><code>contrast              effect.size     SE  df asymp.LCL asymp.UCL
-(QLD 2017 - NSW 2017)    -0.05821 0.1710 Inf  -0.39339   0.27697
-(QLD 2017 - NT 2017)     -0.03774 0.1855 Inf  -0.40140   0.32591
-(QLD 2017 - SA 2017)      0.15433 0.1777 Inf  -0.19393   0.50258
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">contrast              effect.size     SE  df asymp.LCL <span style="color:#06287e">asymp.UCL
+</span><span style="color:#06287e"></span>(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2017</span>)    <span style="color:#40a070">-0.05821</span> <span style="color:#40a070">0.1710</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.39339</span>   <span style="color:#40a070">0.27697</span>
+(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2017</span>)     <span style="color:#40a070">-0.03774</span> <span style="color:#40a070">0.1855</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.40140</span>   <span style="color:#40a070">0.32591</span>
+(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2017</span>)      <span style="color:#40a070">0.15433</span> <span style="color:#40a070">0.1777</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.19393</span>   <span style="color:#40a070">0.50258</span>
 .
 .
-.
-(TAS 2019 - VIC 2019)     0.07691 0.1688 Inf  -0.25391   0.40773
-(TAS 2019 - WA 2019)     -0.06322 0.1514 Inf  -0.35988   0.23344
-(VIC 2019 - WA 2019)     -0.14012 0.1463 Inf  -0.42681   0.14657
-</code></pre><br/>
+<span style="color:#06287e">.
+</span><span style="color:#06287e"></span>(TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.07691</span> <span style="color:#40a070">0.1688</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.25391</span>   <span style="color:#40a070">0.40773</span>
+(TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.06322</span> <span style="color:#40a070">0.1514</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.35988</span>   <span style="color:#40a070">0.23344</span>
+(VIC <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.14012</span> <span style="color:#40a070">0.1463</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.42681</span>   <span style="color:#40a070">0.14657</span>
+</code></pre></div><br/>
 <p>Similarly, we will be only interested in the 2017 and 2019 comparison in each state.</p>
-<pre><code>(QLD 2017 - QLD 2019)     0.46998 0.1131 Inf   0.24832   0.69164
-(NSW 2017 - NSW 2019)     0.09669 0.0743 Inf  -0.04891   0.24228
-(NT 2017 - NT 2019)       0.14391 0.1046 Inf  -0.06119   0.34900
-(SA 2017 - SA 2019)       0.04736 0.0921 Inf  -0.13307   0.22779
-(TAS 2017 - TAS 2019)     0.31880 0.1218 Inf   0.07998   0.55762
-(VIC 2017 - VIC 2019)     0.13055 0.0701 Inf  -0.00682   0.26793
-(WA 2017 - WA 2019)      -0.02733 0.1087 Inf  -0.24039   0.18572
-</code></pre><br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> QLD <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.46998</span> <span style="color:#40a070">0.1131</span> <span style="color:#007020;font-weight:bold">Inf</span>   <span style="color:#40a070">0.24832</span>   <span style="color:#40a070">0.69164</span>
+(NSW <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.09669</span> <span style="color:#40a070">0.0743</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.04891</span>   <span style="color:#40a070">0.24228</span>
+(NT <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.14391</span> <span style="color:#40a070">0.1046</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.06119</span>   <span style="color:#40a070">0.34900</span>
+(SA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.04736</span> <span style="color:#40a070">0.0921</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.13307</span>   <span style="color:#40a070">0.22779</span>
+(TAS <span style="color:#40a070">2017</span> <span style="color:#666">-</span> TAS <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.31880</span> <span style="color:#40a070">0.1218</span> <span style="color:#007020;font-weight:bold">Inf</span>   <span style="color:#40a070">0.07998</span>   <span style="color:#40a070">0.55762</span>
+(VIC <span style="color:#40a070">2017</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.13055</span> <span style="color:#40a070">0.0701</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.00682</span>   <span style="color:#40a070">0.26793</span>
+(WA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)      <span style="color:#40a070">-0.02733</span> <span style="color:#40a070">0.1087</span> <span style="color:#007020;font-weight:bold">Inf</span>  <span style="color:#40a070">-0.24039</span>   <span style="color:#40a070">0.18572</span>
+</code></pre></div><br/>
 <p>These effect sizes can be interpreted according to Cohen&rsquo;s rule: 0.2 represents a small effect size, 0.5 represents a medium effect size and 0.8 represents a large effect size.</p>
 <p>The <code>emmeans</code> package provides a handy function <code>emmip</code> to visualise the interaction.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, Year <span style="color:#666">~</span> State,

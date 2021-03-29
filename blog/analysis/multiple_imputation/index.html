@@ -198,7 +198,10 @@ Multiple Imputation - StatsNotebook - Simple. Powerful. Reproducible.
 <li><strong>sub_disorder</strong> represents diagnosis of substance use disorder in young adulthood and it was coded as &ldquo;0: No: and &ldquo;1: Yes&rdquo;.</li>
 <li><strong>conflict</strong> represents level of family conflict. It will be used as a covariate in this analysis.</li>
 </ol>
-<p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div><p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
 
 <h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
 <p>Prior to imputing missing data, all categorical variables will need to be specified as <strong>categorical</strong> (i.e. <strong>factor</strong> variable in R). See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for a step-by-step guide.</p>

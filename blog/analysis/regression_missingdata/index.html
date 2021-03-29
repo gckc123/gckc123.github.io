@@ -197,10 +197,14 @@ Linear Regression With Missing Data - StatsNotebook - Simple. Powerful. Reproduc
 </ol>
 <p>In our original analysis, participants with missing data in any of the analysis variables are excluded. The initial sample size is 231. After excluding participants with missing data, the sample size reduces to 155 - a reduction of 33%.</p>
 <p><a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">Multiple imputation</a> is a widely used method to handle missing data. This can generally increase power and reduce bias due to missingness. <strong>StatsNotebook</strong> provides a simple interface to incorporate multiple imputation into linear regression analysis.</p>
-<p>This tutorial builds on our tutorial on <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">linear regression</a>, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>.</p>
+<p>This tutorial builds on our tutorial on <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">linear regression</a>, and re-examine the above two research questions using multiple imputation and linear regression. We firstly show the R codes for this analysis, and will provide a step-by-step guide on how to complete this analysis. We use the <strong>Personality</strong> dataset in this example, which can be loaded into using the following codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div><br/>
 <p>Two variables, <strong>.imp</strong> and <strong>.id</strong> will be added to the dataset on successful imputation. The <strong>.imp</strong> is the imputation number, and zero indicates the original dataset. The <strong>.id</strong> is a unique identifier for each observation in the dataset.</p>
 
 <h4 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h4>
+<p>The following is the compete codes for our linear regression example.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Impute missing data&#34;</span>
 <span style="color:#06287e">library</span>(mice)
 

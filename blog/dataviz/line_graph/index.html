@@ -193,7 +193,10 @@ Line Chart - StatsNotebook - Simple. Powerful. Reproducible.
 <li>HDI_1990, &hellip; , HDI_2018 - Human Development Index from 1990 to 2018</li>
 <li>GDP_1990, &hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018</li>
 </ol>
-<p>This data is in wide format</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/HDI.csv&#34;</span>)
+</code></pre></div><p>This data is in wide format</p>
 <p><img src="../img/wide_data.png" alt="Wide data format"></p>
 <p>And we will need to <a href="../../data_management/reshape">reshape it to a long format</a>.</p>
 <p><img src="../img/long_data.png" alt="long data format"></p>

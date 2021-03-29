@@ -8,6 +8,561 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 20 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/blog/dataviz/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Animated plots</title>
+      <link>https://statsnotebook.io/blog/dataviz/animate/</link>
+      <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/dataviz/animate/</guid>
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Animated plots can be created using the &lt;code&gt;gganimate&lt;/code&gt; package, an extension of the &lt;code&gt;ggplot2&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;We will use the built-in &lt;strong&gt;Gapminder&lt;/strong&gt; dataset for scatterplot example and the &lt;strong&gt;COVID-19&lt;/strong&gt; data for the line graph, world map and barchart. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;Load example data&#34;&gt;here&lt;/a&gt;. The &lt;strong&gt;UNDP&lt;/strong&gt; data can be downloaded from here &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv&#34;/&gt;
+    here
+&lt;/a&gt; and the &lt;strong&gt;COVID-19&lt;/strong&gt; data can also be downloaded from here &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/covid19_long.csv&#34;/&gt;
+    here
+&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this tutorial, we will build&lt;/p&gt;
+&lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-scatterplot-1&#34;&gt;Animated scatterplot 1&lt;/a&gt;
+        &lt;a href=&#34;#animated-scatterplot-1&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot.gif&#34; alt=&#34;Animated scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-scatterplot-2&#34;&gt;Animated scatterplot 2&lt;/a&gt;
+        &lt;a href=&#34;#animated-scatterplot-2&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot2.gif&#34; alt=&#34;Animated scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-scatterplot-3&#34;&gt;Animated scatterplot 3&lt;/a&gt;
+        &lt;a href=&#34;#animated-scatterplot-3&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot3.gif&#34; alt=&#34;Animated scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-line-graph&#34;&gt;Animated line graph&lt;/a&gt;
+        &lt;a href=&#34;#animated-line-graph&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_line_graph.gif&#34; alt=&#34;Animated line graph&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-world-map&#34;&gt;Animated World Map&lt;/a&gt;
+        &lt;a href=&#34;#animated-world-map&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_world_map_1s.gif&#34; alt=&#34;Animated world map&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#animated-bar-chart&#34;&gt;Animated Barchart&lt;/a&gt;
+        &lt;a href=&#34;#animated-bar-chart&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_bar_chart.gif&#34; alt=&#34;Animated bar chart&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;description-of-the-gapminder-data&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#description-of-the-gapminder-data&#34;&gt;Description of the Gapminder data&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The Gapminder dataset is a dataset of 199 countries compiled from the United Nations Development Programme. This dataset will be used for the scatterplot examples. The following variables will be used.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;lifeExp - Life expectany in years&lt;/li&gt;
+&lt;li&gt;gdpPercap - Gross domestic product per capita in US dollar (inflation adjusted)&lt;/li&gt;
+&lt;li&gt;continent - Continent of the countries&lt;/li&gt;
+&lt;li&gt;pop - Population size&lt;/li&gt;
+&lt;li&gt;year - Year&lt;/li&gt;
+&lt;li&gt;country - Country name&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/gapminder.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&#34;description-of-the-covid-19-data&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#description-of-the-covid-19-data&#34;&gt;Description of the COVID-19 data&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;This is a data compiled by the Johns Hopkin University between 22nd Jan 2020 and 29th Dec 2020. This dataset will be used for the &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#animated-line-graph&#34; title=&#34;line graph&#34;&gt;line graph&lt;/a&gt;, &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#animated-world-map-1&#34; title=&#34;world map&#34;&gt;world map&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#animated-bar-chart&#34; title=&#34;barchart&#34;&gt;barchart&lt;/a&gt; examples. The data is in wide format and will need to be rearranged into a long format. The following variables will be used.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Country - Country name&lt;/li&gt;
+&lt;li&gt;Lat - Latitude of the country&lt;/li&gt;
+&lt;li&gt;Long - Longitude of the country&lt;/li&gt;
+&lt;li&gt;Date - Date.&lt;/li&gt;
+&lt;li&gt;total_case - Number of total case since 22/01/2020.&lt;/li&gt;
+&lt;li&gt;new_case - Number of new cases each day.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/covid19_long.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&#34;animated-scatterplot-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-scatterplot-1&#34;&gt;Animated scatterplot 1&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;In this example, we will use the &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#description-of-the-gapminder-data&#34; title=&#34;COVID-19 data&#34;&gt;Gapminder&lt;/a&gt; data
+To build a basis animated scatterplot visualising the association between two numerica variables (e.g. Life expectancy and Per capital GDP [in log scale]), and animate over a third variable (e.g. Year),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;lifeExp&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;gdpPercap&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt; and &lt;em&gt;year&lt;/em&gt; to &lt;em&gt;Frame&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;To show the data in different color, select &lt;em&gt;continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;. We will need to code &lt;em&gt;continent&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;li&gt;To show the display the data point by population size, select &lt;em&gt;pop&lt;/em&gt; to &lt;em&gt;Size&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;check &lt;strong&gt;Log scale for the horizontal axis&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Set the &lt;strong&gt;width&lt;/strong&gt; and &lt;strong&gt;height&lt;/strong&gt; of the plot in pixels. In this example, both width and height are set to 700.&lt;/li&gt;
+&lt;li&gt;Enter the file name of the plot, in this example, we set the file name to &amp;ldquo;animated_scatterplot&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;To fine tune the plot, expand the &lt;strong&gt;Label, Settings and Theme&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;Click &lt;strong&gt;Switch to Advanced Mode&lt;/strong&gt; for customisable setting (e.g. font size, color schemes, etc).&lt;/li&gt;
+&lt;li&gt;For &lt;strong&gt;Title&lt;/strong&gt;, we will use &amp;ldquo;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;For &lt;strong&gt;horizontal axis&lt;/strong&gt;, we will use &amp;ldquo;Per capita gross domestic product, US$, (inflation adjusted)&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;For &lt;strong&gt;Vertical axis&lt;/strong&gt;, we will use &amp;ldquo;Life expectancy&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;For &lt;strong&gt;Legends&lt;/strong&gt;, we will set &amp;ldquo;Continent&amp;rdquo; as Color Fill Label and &amp;ldquo;Population&amp;rdquo; as Size label. We will also set the Legend position to &amp;ldquo;Right&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R Codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(continent, pop) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;()&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Per capita gross domestic product, US$, (inflation adjusted)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population&amp;#34;&lt;/span&gt;)
+plot
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_time&lt;/span&gt;(year)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;year: {frame_time}&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;animated_scatterplot.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Animated plot saved at &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;getwd&lt;/span&gt;()) 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex1.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;further-customisation-with-manual-codings&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#further-customisation-with-manual-codings&#34;&gt;Further customisation with manual codings&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;First, we can adjust the scale of population to million by changing the line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1000000&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;To reflect the new scale, we change the legend label by changing the line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Second, we can adjust the size of the bubble and break point of the legend by changing the line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;250&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;750&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;1250&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The smallest bubble will now have a size of 2 and the largest one will have a size of 20. The break point of the legend will be at 250, 750 and 1250 (millions).&lt;/p&gt;
+&lt;p&gt;Third, we can change the number presentation in the x-axis from scientic notation to normal by changing the line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;()&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Forth, we can adjust the size of the font in various section of the plots (e.g. title, x-axis/y-axis title, etc) by adding the following codes at the end of the &lt;strong&gt;ggplot&lt;/strong&gt; function. We will need to also add the &lt;strong&gt;+&lt;/strong&gt; sign to the previous line of code to concatenate the codes for the &lt;strong&gt;ggplot&lt;/strong&gt; function. The last line of code is to adjust the size of the color legend.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;guides&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;guide_legend&lt;/span&gt;(override.aes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;complete-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#complete-r-codes&#34;&gt;Complete R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;br/&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(continent, pop) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1000000&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;250&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;750&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;1250&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Per capita Gross domestic product, US$ (inflation adjusted)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;guides&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;guide_legend&lt;/span&gt;(override.aes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;)))
+plot
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_time&lt;/span&gt;(year)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Year: {frame_time}&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;animated_scatterplot.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Animated plot saved at &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;getwd&lt;/span&gt;()) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex2.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;animated-scatterplot-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-scatterplot-2&#34;&gt;Animated scatterplot 2&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To plot different continent in different sub-plot, follow the above steps and add the following line to the &lt;strong&gt;ggplot&lt;/strong&gt; function. Depending the position you insert this line, you will need to add a &lt;strong&gt;+&lt;/strong&gt; sign to the previous line and also the end of this line.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; continent)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-1&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Below is the complete R codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(continent, pop) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1000000&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;250&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;750&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;1250&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; continent)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Per capita Gross domestic product, US$ (inflation adjusted)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;guides&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;guide_legend&lt;/span&gt;(override.aes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;)))
+plot
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_time&lt;/span&gt;(year)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Year: {frame_time}&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;animated_scatterplot.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Animated plot saved at &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;getwd&lt;/span&gt;()) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex3.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;animated-scatterplot-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-scatterplot-3&#34;&gt;Animated scatterplot 3&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To show year in different color and continents in different frame, the steps will be very similar to those in the above examples, except that now we select &lt;em&gt;year&lt;/em&gt; into &lt;em&gt;Fill color&lt;/em&gt; and &lt;em&gt;continent&lt;/em&gt; into &lt;em&gt;Frame&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h5 id=&#34;complete-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#complete-r-codes-1&#34;&gt;Complete R Codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;In the codes below, we have also included all the customisation codes from above.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(year, pop) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lifeExp, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; gdpPercap, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pop&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1000000&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; year), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_size&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;12&lt;/span&gt;), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;250&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;750&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;1250&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_log10&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Per capita gross domestic product (log-scale) and life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Per capita gross domestic product, US$ (inflation adjusted)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Life expectancy&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Year&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Year&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))
+plot
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_states&lt;/span&gt;(continent, transition_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, state_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent: {closest_state}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;enter_fade&lt;/span&gt;()&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;exit_shrink&lt;/span&gt;()
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;animated_scatterplot.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Animated plot saved at &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;getwd&lt;/span&gt;()) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-3&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex4.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;animated-line-graph&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-line-graph&#34;&gt;Animated line graph&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Animated line graph is often used to show the evoluation of a time series. Creating an animated line graph in &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt; is similar to creating a &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/line_graph/&#34; title=&#34;static line graph&#34;&gt;static line graph&lt;/a&gt;. In this example, we limit the data to Australia and New Zealand. To do this, we will need to run the following codes after loading the data.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;filter&lt;/span&gt;(Country &lt;span style=&#34;color:#666&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Australia&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;New Zealand&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;To create a line graph showing the number of new COVID-19 cases in Australia and New Zealand, we can&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Line&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Line graph/ Time Series&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Line graph&lt;/strong&gt; panel, select &lt;em&gt;new_case&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;date&lt;/em&gt; to &lt;em&gt;Horizontal axis&lt;/em&gt; and &lt;em&gt;Country&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;We will need to code &lt;em&gt;Country&lt;/em&gt; into &lt;strong&gt;factor&lt;/strong&gt; because they are &lt;strong&gt;categorical&lt;/strong&gt; variables. See &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;Converting variable type&lt;/a&gt; for a step-by-step guide.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Line Graph Setting&lt;/strong&gt; panel, check &lt;em&gt;Animate&lt;/em&gt;
+&lt;ul&gt;
+&lt;li&gt;We can set the Width and Height for your animated plot. In this example, we use 700 for width and 656 for height.&lt;/li&gt;
+&lt;li&gt;We can also set the file name of the plot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;To set the title, horizontal and vertical axis and font size, we can expand the &lt;strong&gt;Label and Theme&lt;/strong&gt; panel, and
+&lt;ul&gt;
+&lt;li&gt;Click on &lt;strong&gt;Switch to Advanced mode&lt;/strong&gt; and set the corresponding attributes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br/&gt;
+
+&lt;h5 id=&#34;r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-2&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; new_case, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; date, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_line&lt;/span&gt;(na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.8&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of new COVID19 cases&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Date&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of new cases&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Country&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;))
+plot
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_reveal&lt;/span&gt;(date)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;animated_linegraph.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Animated plot saved at &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;getwd&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-4&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-4&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_line_graph.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;animated-world-map&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-world-map&#34;&gt;Animated world map&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Point-and-click menu for plotting world map is not yet available in &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;. To draw the boundary of each countries, we will use world map data returned by the &lt;code&gt;map_data&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt;. After loading the &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#description-of-the-covid-19-data&#34; title=&#34;COVID-19 data&#34;&gt;COVID-19&lt;/a&gt; data, we run the following code to load the world map data into the variable &lt;code&gt;world_map&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;world_map &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;map_data&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;world&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We then only retain rows with 1 or more cases by using the following line.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;filter&lt;/span&gt;(total_case &lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the &lt;code&gt;geom_polygon&lt;/code&gt; function to draw the boundary of each country based on the latitude and longitude data from the variable &lt;code&gt;world_map&lt;/code&gt;. We use the size of the data point to represent the number of total cases in each country by using the &lt;code&gt;size&lt;/code&gt; aesthetic. Finally, we use the &lt;code&gt;theme&lt;/code&gt; function to setup the canvas for plotting maps with &lt;code&gt;ggplot&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We use the following codes to set up the plot.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_polygon&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; world_map, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;lightgray&amp;#34;&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; long, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lat, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; group)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_point&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; covid19_long, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Long, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Lat, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_size_continuous&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;), labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.ticks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.line &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.border &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;35&lt;/span&gt;),
+        plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;25&lt;/span&gt;),
+        legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.02&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;0.08&lt;/span&gt;),
+        legend.justification &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.02&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;0.08&lt;/span&gt;),
+        legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;),
+        legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;12&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of cases&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We then use the &lt;code&gt;transition_states&lt;/code&gt; function from the &lt;code&gt;gganimate&lt;/code&gt; library to specify the transition to be based on the &lt;strong&gt;data&lt;/strong&gt; variable.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_states&lt;/span&gt;(date, transition_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, state_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of COVID-19 cases&amp;#34;&lt;/span&gt;,
+       subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Date: {closest_state}&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Lastly, we use the &lt;code&gt;animate&lt;/code&gt; function to create the animated plot. We can use the &lt;em&gt;weight&lt;/em&gt; and &lt;em&gt;height&lt;/em&gt; parameter to set the size of the plot. we can use the &lt;em&gt;nframes&lt;/em&gt; parameter to set the total number of frame in the animation, and the &lt;em&gt;fps&lt;/em&gt; parameter to set the frame per second. We then use the &lt;code&gt;anim_save&lt;/code&gt; function to save the plot.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, nframes&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;800&lt;/span&gt;, fps &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1200&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;800&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;tmp_map.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt; 
+
+&lt;h5 id=&#34;complete-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#complete-r-codes-2&#34;&gt;Complete R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Suppose the &lt;strong&gt;COVID-19&lt;/strong&gt; data was alreadly loaded into the dataframe &lt;strong&gt;currentDataset&lt;/strong&gt;, the following is the complete code for creating an animated world map showing the evolution of COVID-19 around the world.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;world_map &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;map_data&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;world&amp;#34;&lt;/span&gt;)
+
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;filter&lt;/span&gt;(total_case &lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;)
+
+plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_polygon&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; world_map, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;lightgray&amp;#34;&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; long, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lat, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; group)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_point&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Long, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Lat, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.5&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_size_continuous&lt;/span&gt;(range &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;), labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.ticks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.line &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.border &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        plot.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;35&lt;/span&gt;),
+        plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;25&lt;/span&gt;),
+        legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.02&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;0.08&lt;/span&gt;),
+        legend.justification &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0.02&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;0.08&lt;/span&gt;),
+        legend.title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;),
+        legend.text &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;12&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of cases&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_states&lt;/span&gt;(date, transition_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, state_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of COVID-19 cases&amp;#34;&lt;/span&gt;,
+       subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Date: {closest_state}&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, nframes&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;800&lt;/span&gt;, fps &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1200&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;800&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;tmp_map.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt; 
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-5&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-5&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_world_map_1.gif&#34; alt=&#34;animated world map&#34; title=&#34;animated world map&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;animated-bar-chart&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#animated-bar-chart&#34;&gt;Animated bar chart&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Point-and-click menu for creating racing barchart is not yet available in &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;. Both the &lt;code&gt;geom_bar&lt;/code&gt; and &lt;code&gt;geom_tile&lt;/code&gt; can be used to create animated bar chart. In this example, we use &lt;code&gt;geom_tile&lt;/code&gt;. After loading the &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/animate/#description-of-the-covid-19-data&#34; title=&#34;COVID-19 data&#34;&gt;COVID-19&lt;/a&gt; data, we run the following code to rank the countries by number of tocal COVID cases on each day, and only retain the top ten countries on each day.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;mutate&lt;/span&gt;(rank &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;rank&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;total_case)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(Country) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;filter&lt;/span&gt;(rank &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ungroup&lt;/span&gt;()
+
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;rank &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;round&lt;/span&gt;(currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;rank)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We then use the following codes to create the plot. We use &lt;code&gt;geom_text&lt;/code&gt; to add the country name and number of cases at the front and end of the bars. We use &lt;code&gt;coord_flip&lt;/code&gt; to flip the coordinate system to create the horizontal bars.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;plot &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(rank, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country, 
+                fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_tile&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;,
+                height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case,
+                width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.9&lt;/span&gt;), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.8&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_text&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;, label &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(Country, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;)), hjust &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_text&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;total_case,label &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;, total_case), ), hjust&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;coord_flip&lt;/span&gt;(clip &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;off&amp;#34;&lt;/span&gt;, expand &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_y_continuous&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_reverse&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;guides&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.line &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.ticks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;,
+        panel.background &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.border &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.major &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.minor &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.major.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_line&lt;/span&gt;( size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;.1&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt; ),
+        panel.grid.minor.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_line&lt;/span&gt;( size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;.1&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt; ),
+        plot.title  &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;35&lt;/span&gt;, face&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;, colour&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;25&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.caption &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.background&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        plot.margin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;cm&amp;#34;&lt;/span&gt;))
+       
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We then use the &lt;code&gt;transition_states&lt;/code&gt; function from the &lt;code&gt;gganimate&lt;/code&gt; library to specify the transition to be based on the &lt;strong&gt;date&lt;/strong&gt; variable. Since this is not a typical use of the &lt;code&gt;geom_tile&lt;/code&gt; function and R would issue warnings about its use. We disable the warnings in the first line.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;options&lt;/span&gt;(warn &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-1&lt;/span&gt;)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_states&lt;/span&gt;(date, transition_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;, state_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;view_follow&lt;/span&gt;(fixed_x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)  &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of COVID-19 cases&amp;#34;&lt;/span&gt;,  
+       subtitle  &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Top 10 Countries&amp;#34;&lt;/span&gt;,
+       caption &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Date: {closest_state}&amp;#34;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Lastly, we use the &lt;code&gt;animate&lt;/code&gt; function to create the animated plot. We can use the &lt;em&gt;weight&lt;/em&gt; and &lt;em&gt;height&lt;/em&gt; parameter to set the size of the plot. we can use the &lt;em&gt;nframes&lt;/em&gt; parameter to set the total number of frame in the animation, and the &lt;em&gt;fps&lt;/em&gt; parameter to set the frame per second. We then use the &lt;code&gt;anim_save&lt;/code&gt; function to save the plot.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, nframes&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1200&lt;/span&gt;, fps &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;tmp.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;complete-r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#complete-r-codes-3&#34;&gt;Complete R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;mutate&lt;/span&gt;(rank &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;rank&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;total_case)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;group_by&lt;/span&gt;(Country) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;filter&lt;/span&gt;(rank &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ungroup&lt;/span&gt;()
+    
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;rank &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;round&lt;/span&gt;(currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;rank)
+
+plot &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(rank, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country, 
+                fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Country)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_tile&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;,
+                height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; total_case,
+                width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.9&lt;/span&gt;), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.8&lt;/span&gt;, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_text&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;, label &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(Country, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;)), hjust &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;geom_text&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;total_case,label &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;, total_case), ), hjust&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;, size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;coord_flip&lt;/span&gt;(clip &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;off&amp;#34;&lt;/span&gt;, expand &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_y_continuous&lt;/span&gt;(labels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; scales&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;comma) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;scale_x_reverse&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;guides&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(axis.line &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.text.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.ticks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        axis.title.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+         axis.title.y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;,
+        panel.background &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.border &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.major &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.minor &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+        panel.grid.major.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_line&lt;/span&gt;( size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;.1&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt; ),
+        panel.grid.minor.x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_line&lt;/span&gt;( size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;.1&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt; ),
+        plot.title  &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;35&lt;/span&gt;, face&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;, colour&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.subtitle &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;25&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.caption &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;element_text&lt;/span&gt;(size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;, color&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gray&amp;#34;&lt;/span&gt;),
+        plot.background&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#06287e&#34;&gt;element_blank&lt;/span&gt;(),
+       plot.margin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;cm&amp;#34;&lt;/span&gt;))
+       
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(gifski)
+
+&lt;span style=&#34;color:#06287e&#34;&gt;options&lt;/span&gt;(warn &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-1&lt;/span&gt;)
+animated_plot &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;plot &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;transition_states&lt;/span&gt;(date, transition_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;, state_length &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;view_follow&lt;/span&gt;(fixed_x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)  &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(title &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;# of COVID-19 cases&amp;#34;&lt;/span&gt;,  
+       subtitle  &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Top 10 Countries&amp;#34;&lt;/span&gt;,
+       caption &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Date: {closest_state}&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;animate&lt;/span&gt;(animated_plot, nframes&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1200&lt;/span&gt;, fps &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;, width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;700&lt;/span&gt;, height &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;656&lt;/span&gt;, renderer &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;gifski_renderer&lt;/span&gt;())
+
+&lt;span style=&#34;color:#06287e&#34;&gt;anim_save&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;tmp.gif&amp;#34;&lt;/span&gt;, animation &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;last_animation&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-6&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-6&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/animated_bar_chart.gif&#34; alt=&#34;animated scatterplot&#34; title=&#34;animated scatterplot&#34;/&gt;&lt;/a&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Line chart</title>
       <link>https://statsnotebook.io/blog/dataviz/line_graph/</link>
       <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
@@ -22,7 +577,10 @@
 &lt;li&gt;HDI_1990, &amp;hellip; , HDI_2018 - Human Development Index from 1990 to 2018&lt;/li&gt;
 &lt;li&gt;GDP_1990, &amp;hellip; , GDP_2018 - Gross Domestic Product per capita from 1990 to 2018&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;This data is in wide format&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/HDI.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This data is in wide format&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../img/wide_data.png&#34; alt=&#34;Wide data format&#34;&gt;&lt;/p&gt;
 &lt;p&gt;And we will need to &lt;a href=&#34;../../data_management/reshape&#34;&gt;reshape it to a long format&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../img/long_data.png&#34; alt=&#34;long data format&#34;&gt;&lt;/p&gt;
@@ -77,7 +635,9 @@
       <guid>https://statsnotebook.io/blog/dataviz/scatterplot/</guid>
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Scatterplot can be used to visualise the association between two numeric variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;geom_jitter&lt;/code&gt; function from the &lt;code&gt;ggplot2&lt;/code&gt; library to build scatterplot.&lt;/p&gt;
-&lt;p&gt;We use the built-in &lt;strong&gt;UNDP&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a dataset of 199 countries compiled from the United Nations Development Programme.&lt;/p&gt;
+&lt;p&gt;We use the built-in &lt;strong&gt;UNDP&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;Load example data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv&#34;/&gt;
+    here
+&lt;/a&gt;. This is a dataset of 199 countries compiled from the United Nations Development Programme.&lt;/p&gt;
 &lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;HDI - Human Development Index in 2018&lt;/li&gt;
@@ -86,7 +646,10 @@
 &lt;li&gt;Continent - Continent&lt;/li&gt;
 &lt;li&gt;Schooling - Expected years of schooling&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;In this example, we will build&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, we will build&lt;/p&gt;
 &lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
     &lt;div&gt;
         &lt;a href=&#34;#simple-scatterplot&#34;&gt;Simple scatterplot&lt;/a&gt;
@@ -97,8 +660,28 @@
         &lt;a href=&#34;#bubble-plot&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/bubble_plot2.png&#34; alt=&#34;Bubble plot&#34;&gt;&lt;/a&gt;
     &lt;/div&gt;
     &lt;div&gt;
-        &lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;Scatterplot with fitted line&lt;/a&gt;
+        &lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;Scatterplot with a fitted line&lt;/a&gt;
         &lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/scatterplot_with_line.png&#34; alt=&#34;Sctterplot with line of best fit&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#scatterplot-with-line-of-best-fit-by-groups&#34;&gt;Scatterplot with fitted lines&lt;/a&gt;
+        &lt;a href=&#34;#scatterplot-with-line-of-best-fit-by-groups&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/scatterplot_with_line_by_groups.png&#34; alt=&#34;Sctterplot with line of best fit&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;#scatterplots-in-multiple-facets&#34;&gt;Scatterplots in facets&lt;/a&gt;
+        &lt;a href=&#34;#scatterplots-in-multiple-facets&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/scatterplot_with_line_by_groups_with_facets.png&#34; alt=&#34;Sctterplot with line of best fit&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;../animate&#34;&gt;Animated scatterplot&lt;/a&gt;
+        &lt;a href=&#34;../animate&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot.gif&#34; alt=&#34;animated scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;../animate&#34;&gt;Animated scatterplot 2&lt;/a&gt;
+        &lt;a href=&#34;../animate&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot2.gif&#34; alt=&#34;animated scatterplot&#34;&gt;&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a href=&#34;../animate&#34;&gt;Animated scatterplot 3&lt;/a&gt;
+        &lt;a href=&#34;../animate&#34;&gt;&lt;img style=&#34;min-width: 100px; max-width: 250px; align: left&#34; src=&#34;../img/animated_scatterplot3.gif&#34; alt=&#34;animated scatterplot&#34;&gt;&lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -110,6 +693,14 @@
 &lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
 &lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt; and &lt;em&gt;GDP&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and uncheck &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Label, Settings and Theme&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;Click &lt;strong&gt;Switch to Advanced Mode&lt;/strong&gt; for customisable setting (e.g. font size, color schemes, etc).&lt;/li&gt;
+&lt;li&gt;For Title, we used &amp;ldquo;Scatterplot of Gross domestic product and Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Horizontal axis, we used &amp;ldquo;Gross domestic product (GDP, 2018 US$)&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Vertical axis, we used &amp;ldquo;Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -120,11 +711,15 @@
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Gross domestic product and Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Gross domestic product (GDP, 2018 US$)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The variables for the vertial (y) and horizontal (x) are specified in the function &lt;code&gt;ggplot&lt;/code&gt;. For scatterplot, we use &lt;code&gt;geom_jitter&lt;/code&gt; instead of &lt;code&gt;geom_point&lt;/code&gt; to add a small amount of noise to each point so that the points will not be overlapping with each other.&lt;/p&gt;
 
 &lt;h5 id=&#34;output-from-the-above-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;../img/simple_scatterplot.png&#34; alt=&#34;Simple scatterplot&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/simple_scatterplot.png&#34; alt=&#34;simple scatterplot&#34; title=&#34;simple scatterplot&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;bubble-plot&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#bubble-plot&#34;&gt;Bubble plot&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;To build a bubble plot visualising the association between two numeric variables (e.g. HDI and GDP), with point size determined by a third continuous variable (e.g. Population size) and points color-coded by a categorical variable (e.g. continent)&lt;/p&gt;
@@ -134,6 +729,17 @@
 &lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
 &lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;GDP&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, &lt;em&gt;Continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;, and &lt;em&gt;Pop&lt;/em&gt; to &lt;em&gt;Size&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and uncheck &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Label, Settings and Theme&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;Click &lt;strong&gt;Switch to Advanced Mode&lt;/strong&gt; for customisable setting (e.g. font size, color schemes, etc).&lt;/li&gt;
+&lt;li&gt;For Title, we used &amp;ldquo;Scatterplot of Gross domestic product and Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Horizontal axis, we used &amp;ldquo;Gross domestic product (GDP, 2010 US$)&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Vertical axis, we used &amp;ldquo;Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Color fill label, we used &amp;ldquo;Continent&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Size label, we used &amp;ldquo;Population (millions)&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Since we have two legends, one for &lt;em&gt;Color&lt;/em&gt; and one for &lt;em&gt;Size&lt;/em&gt;, we set legend position to &amp;ldquo;Right&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -146,11 +752,23 @@
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Gross domestic product and Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Gross domestic product (GDP, 2018 US$)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;output-from-the-above-r-codes-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-1&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;../img/bubble_plot1.png&#34; alt=&#34;Bubble plot 1&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/bubble_plot1.png&#34; alt=&#34;bubble plot&#34; title=&#34;bubble plot&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;changing-legend-position&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#changing-legend-position&#34;&gt;Changing legend position&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Part of the legends is cut-off (bottom left) because we are running out of space. We can place the legend to the right hand size of the plot by changing the last line of codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;right&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/bubble_plot1b.png&#34; alt=&#34;bubble plot&#34; title=&#34;bubble plot&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;adjusting-bubble-size&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#adjusting-bubble-size&#34;&gt;Adjusting bubble size&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;The size of the bubble can be changed by changing the following line&lt;/p&gt;
@@ -161,16 +779,32 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;output-from-the-updated-r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-updated-r-codes&#34;&gt;Output from the updated R codes&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;../img/bubble_plot2.png&#34; alt=&#34;Bubble plot 2&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/bubble_plot2.png&#34; alt=&#34;bubble plot&#34; title=&#34;bubble plot&#34;/&gt;&lt;/a&gt;
 
 &lt;h5 id=&#34;scatterplot-with-line-of-best-fit&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#scatterplot-with-line-of-best-fit&#34;&gt;Scatterplot with line of best fit&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;To build a bubble plot visualising the association between two numeric variables (e.g. HDI and Schooling) with a line of best fit and points color-coded by a categorical variable (e.g. continent),&lt;/p&gt;
+&lt;p&gt;To build a scatterplot visualising the association between two numeric variables (e.g. HDI and Schooling) with points color-coded by a categorical variable (e.g. continent) and an overall line of best fit,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
 &lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;Schooling&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, and &lt;em&gt;Continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel and check &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;check &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;check &lt;strong&gt;By fill color&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Label, Settings and Theme&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;Click &lt;strong&gt;Switch to Advanced Mode&lt;/strong&gt; for customisable setting (e.g. font size, color schemes, etc).&lt;/li&gt;
+&lt;li&gt;For Title, we used &amp;ldquo;Scatterplot of Years of schooling and Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Horizontal axis, we used &amp;ldquo;Years of schooling&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Vertical axis, we used &amp;ldquo;Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Color fill label, we used &amp;ldquo;Continent&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Size label, we used &amp;ldquo;Population (millions)&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Since we have two legends, one for &lt;em&gt;Color&lt;/em&gt; and one for &lt;em&gt;Size&lt;/em&gt;, we set legend position to &amp;ldquo;Right&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -183,11 +817,90 @@
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Years of schooling and Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Years of schooling&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
     &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;In the above R codes, we have specified the vertial axis (y-axis) to be &lt;em&gt;HDI&lt;/em&gt; and horizontal to be &lt;em&gt;Schooling&lt;/em&gt; globally in the line&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Schooling))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;and then requested the points to be colored by &lt;em&gt;Continent&lt;/em&gt; in the &lt;code&gt;geom_jitter&lt;/code&gt; function.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, &lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent), na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;To specify one line of best fit for each &lt;em&gt;Continent&lt;/em&gt;, we can specified the color globally as shown in the following example.&lt;/p&gt;
 
 &lt;h5 id=&#34;output-from-the-above-r-codes-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-2&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;../img/scatterplot_with_line.png&#34; alt=&#34;Scatter plot with line of best fit&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line.png&#34; alt=&#34;scatterplot with line of best fit&#34; title=&#34;scatterplot with line of best fit&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;scatterplot-with-line-of-best-fit-by-groups&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#scatterplot-with-line-of-best-fit-by-groups&#34;&gt;Scatterplot with line of best fit by groups&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;To build a scatterplot visualising the association between two numeric variables (e.g. HDI and Schooling) with a line of best fit and points color-coded by a categorical variable (e.g. continent),&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;DataViz&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Correlation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;Scatterplot&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Scatterplot&lt;/strong&gt; panel, select &lt;em&gt;HDI&lt;/em&gt; to &lt;em&gt;Vertical Axis&lt;/em&gt;, &lt;em&gt;Schooling&lt;/em&gt; to &lt;em&gt;Horizontal Axis&lt;/em&gt;, and &lt;em&gt;Continent&lt;/em&gt; to &lt;em&gt;Fill color&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Scatterplot Setting&lt;/strong&gt; panel, check &lt;strong&gt;Add a fitted line&lt;/strong&gt; (A line of best fit will be added to the plot by default).&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Label, Settings and Theme&lt;/strong&gt; panel
+&lt;ul&gt;
+&lt;li&gt;Click &lt;strong&gt;Switch to Advanced Mode&lt;/strong&gt; for customisable setting (e.g. font size, color schemes, etc).&lt;/li&gt;
+&lt;li&gt;For Title, we used &amp;ldquo;Scatterplot of Years of schooling and Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Horizontal axis, we used &amp;ldquo;Years of schooling&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Vertical axis, we used &amp;ldquo;Human development index&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Color fill label, we used &amp;ldquo;Continent&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;For Size label, we used &amp;ldquo;Population (millions)&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Since we have two legends, one for &lt;em&gt;Color&lt;/em&gt; and one for &lt;em&gt;Size&lt;/em&gt;, we set legend position to &amp;ldquo;Right&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-3&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Continent) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Schooling, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_smooth&lt;/span&gt;(method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;lm&amp;#34;&lt;/span&gt;, se &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, show.legend &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Years of schooling and Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Years of schooling&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;In this example, the color of the point is specified globally in the &lt;code&gt;ggplot&lt;/code&gt; function&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Schooling, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;As a result, separate lines of best fit will be added for each &lt;em&gt;continent&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h5 id=&#34;output-from-the-above-r-codes-3&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#output-from-the-above-r-codes-3&#34;&gt;Output from the above R codes&lt;/a&gt;&lt;/h5&gt;
+&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line_by_groups.png&#34; alt=&#34;scatterplot with lines of best fit by groups&#34; title=&#34;scatterplot with lines of best fit by groups&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;scatterplots-in-multiple-facets&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#scatterplots-in-multiple-facets&#34;&gt;Scatterplots in multiple facets&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The above plot of years of schooling and human development index is a bit busy. We can use the &lt;code&gt;facet&lt;/code&gt; to plot separate scatterplots by &lt;em&gt;continent&lt;/em&gt; by adding an extra line of codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; Continent)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Below is the complete code for generating scatterplots by &lt;em&gt;continent&lt;/em&gt; in different facets.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;drop_na&lt;/span&gt;(Continent) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#06287e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; HDI, x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Schooling, color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Continent)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_jitter&lt;/span&gt;(alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.6&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;geom_smooth&lt;/span&gt;(method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;lm&amp;#34;&lt;/span&gt;, se &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;, show.legend &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_fill_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;scale_color_brewer&lt;/span&gt;(palette &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Set2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme_bw&lt;/span&gt;(base_family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;sans&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ggtitle&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Scatterplot of Years of schooling and Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Years of schooling&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Human development index&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(color &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;, fill &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Continent&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;labs&lt;/span&gt;(size &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Population (millions)&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#06287e&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; Continent)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line_by_groups_with_facets.png&#34; alt=&#34;scatterplot with lines of best fit by groups&#34; title=&#34;scatterplot with lines of best fit by groups&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     
@@ -200,7 +913,10 @@
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Bar chart can be used to visualise the frequency or proportion of categorical variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;geom_bar()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build bar chart.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
-&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
 &lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
@@ -366,7 +1082,10 @@
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Histogram can be used to show the distribution of &lt;strong&gt;numeric&lt;/strong&gt; variable. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_histogram()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build density plot.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
-&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
 &lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
@@ -492,7 +1211,10 @@ Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag N
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Density plot can be used to show the distribution of &lt;strong&gt;numeric&lt;/strong&gt; variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_density()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build density plot.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
-&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
 &lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
@@ -624,7 +1346,10 @@ Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag N
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Boxplot is commonly used to compare distribution of a numeric variables across several groups. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_boxplot()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build boxplot.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
-&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
 &lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
@@ -786,7 +1511,10 @@ Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag N
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Correlogram is a type of chart that visualise the pairwise association between variables. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses the &lt;code&gt;ggpairs()&lt;/code&gt; function from the &lt;code&gt;GGally&lt;/code&gt; library to build correlogram. A publication ready correlogram can be built within a few minutes with &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;Personality&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt; or can be downloaded from &lt;a href=&#34;../../data_management/example_data/personality.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;In this example, we will build a &lt;a href=&#34;#correlogram-scatterplot-matrix&#34; title=&#34;Correlogram (Scatterplot matrix)&#34;&gt;simple correlogram&lt;/a&gt; to visualise the relationship between four variables (three personality variables: &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt; and one mental health variable: &lt;em&gt;Depression&lt;/em&gt;). We then build a &lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34; title=&#34;Correlogram (Scatterplot matrix by group)&#34;&gt;correlogram by Sex&lt;/a&gt; (Male and Female.)&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, we will build a &lt;a href=&#34;#correlogram-scatterplot-matrix&#34; title=&#34;Correlogram (Scatterplot matrix)&#34;&gt;simple correlogram&lt;/a&gt; to visualise the relationship between four variables (three personality variables: &lt;em&gt;Conscientiousness&lt;/em&gt;, &lt;em&gt;Neuroticism&lt;/em&gt;, &lt;em&gt;Openness&lt;/em&gt; and one mental health variable: &lt;em&gt;Depression&lt;/em&gt;). We then build a &lt;a href=&#34;#correlogram-scatterplot-matrix-by-group&#34; title=&#34;Correlogram (Scatterplot matrix by group)&#34;&gt;correlogram by Sex&lt;/a&gt; (Male and Female.)&lt;/p&gt;
 &lt;div style=&#34;display: flex; flex-wrap: wrap; padding: 0px&#34;&gt; 
     &lt;div&gt;
         &lt;a href=&#34;#correlogram-scatterplot-matrix&#34;&gt;Correlogram&lt;/a&gt;
@@ -879,7 +1607,10 @@ Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag N
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
 &lt;p&gt;Violin plot can be used to visualise the distribution of a numeric variable across several groups. &lt;strong&gt;StatsNotebook&lt;/strong&gt; uses &lt;code&gt;geom_violin()&lt;/code&gt; from &lt;code&gt;ggplot2&lt;/code&gt; to build violin plot.&lt;/p&gt;
 &lt;p&gt;We use the built-in &lt;strong&gt;alcohol&lt;/strong&gt; dataset in this example. This dataset can be loaded into &lt;strong&gt;StatsNotebook&lt;/strong&gt; using instruction &lt;a href=&#34;../../data_management/load_example_data&#34;&gt;here&lt;/a&gt;. This is a simulated data of alcohol consumption from 3666 individuals.&lt;/p&gt;
-&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will use the following three variables from this dataset&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;alcohol - Number of standard drinks consumed in a month&lt;/li&gt;
 &lt;li&gt;Remoteness - Capital city or regional area&lt;/li&gt;
