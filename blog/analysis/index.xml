@@ -298,103 +298,9 @@ plot
     </item>
     
     <item>
-      <title>Robust regression</title>
-      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
-      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
-      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
-&lt;p&gt;Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/&#34; title=&#34;Residual plots and assumption checking for linear regression&#34;&gt;residual plots&lt;/a&gt;). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the &lt;em&gt;linearity assumption&lt;/em&gt; is still needed for proper inference using robust regression.&lt;/p&gt;
-&lt;p&gt;In this example, we will use the &lt;strong&gt;Stars&lt;/strong&gt; dataset from the &lt;code&gt;Robustbase&lt;/code&gt; package. We have built this example data into &lt;strong&gt;StatsNotebook&lt;/strong&gt; and it can be loaded using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
-currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/stars.csv&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this dataset, there are two variables.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;temperature&lt;/strong&gt; represents the surface temperature of a star&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;light&lt;/strong&gt; represents the light intensity of a star&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The figure below shows the scatterplot between &lt;em&gt;temperature&lt;/em&gt; and &lt;em&gt;light&lt;/em&gt; with a regression line. At first glance, there appears to be a downward trend. However, this trend may only be caused by the few outliers at the top left corner.&lt;/p&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/scatter_plot_outliers.png&#34; alt=&#34;scatterplot with outliers&#34; title=&#34;scatterplot with outliers&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;We will now demonstrate the use of robust regression to adjust for these outliers.&lt;/p&gt;
-
-&lt;h5 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Steps for running a &lt;strong&gt;Robust regression&lt;/strong&gt; in &lt;strong&gt;StatsNotebook&lt;/strong&gt; are nearly the same as running a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;&lt;strong&gt;linear regression&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; and select &lt;strong&gt;Linear Regression (Numeric outcome)&lt;/strong&gt; from the menu&lt;/li&gt;
-&lt;li&gt;In the left panel, select &lt;em&gt;light&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;temperature&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;Expand the &lt;strong&gt;Analysis setting&lt;/strong&gt; panel, and click &lt;strong&gt;Robust regression&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&#34;r-codes-explained&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained&#34;&gt;R codes explained&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;The codes for a robust regression are nearly the same as those for linear regression, except that we use the &lt;code&gt;lmrob&lt;/code&gt; function from the &lt;code&gt;robustbase&lt;/code&gt; package instead of the &lt;code&gt;lm&lt;/code&gt; function for linear regression.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(robustbase) 
-res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;lmrob&lt;/span&gt;(light &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; temperature,
-  data&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;currentDataset)
-&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
-&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res),&lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
-
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-
-&lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;The output from robust regression is also very similar to those from linear regression. The only exception now is that that the observations are now weighted based on how deviant they are, and also robust standard errors will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), &lt;em&gt;p&lt;/em&gt; =.005. We also show the regression line estimated from the robust regression in the figure below. The &lt;span style=&#34;color: blue&#34;&gt;&lt;b&gt;blue&lt;/b&gt;&lt;/span&gt; line is the regression line from ordinary linear regression and the &lt;span style=&#34;color: red&#34;&gt;&lt;b&gt;red&lt;/b&gt;&lt;/span&gt; one is the regression line from the robust regression.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;lmrob&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; light &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; temperature, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
- \&lt;span style=&#34;color:#666&#34;&gt;--&amp;gt;&lt;/span&gt; method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;MM&amp;#34;&lt;/span&gt;
-Residuals&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-     Min       &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;Q   Median       &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;Q      Max 
-&lt;span style=&#34;color:#40a070&#34;&gt;-0.80959&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.28838&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.00282&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.36668&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;3.39585&lt;/span&gt; 
-
-Coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-            Estimate Std. Error t value &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)   
-(Intercept)  &lt;span style=&#34;color:#40a070&#34;&gt;-4.9694&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;3.4100&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;-1.457&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.15198&lt;/span&gt;   
-temperature   &lt;span style=&#34;color:#40a070&#34;&gt;2.2532&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.7691&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;2.930&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.00531&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;**&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
-Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
-
-Robust residual standard error&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.4715&lt;/span&gt; 
-Multiple R&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;squared&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3737&lt;/span&gt;,	Adjusted R&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;squared&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3598&lt;/span&gt; 
-Convergence in &lt;span style=&#34;color:#40a070&#34;&gt;15&lt;/span&gt; IRWLS iterations
-
-Robustness weights&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; 
- &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; observations &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;11&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;34&lt;/span&gt;) are outliers with &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;weight&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; ( &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.0021&lt;/span&gt;); 
- &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; weights are &lt;span style=&#34;color:#666&#34;&gt;~=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;. The remaining &lt;span style=&#34;color:#40a070&#34;&gt;39&lt;/span&gt; ones are summarized as
-   Min. &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;st Qu.  Median    Mean &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;rd Qu.    Max. 
- &lt;span style=&#34;color:#40a070&#34;&gt;0.6533&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9171&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9593&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9318&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9848&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9986&lt;/span&gt; 
-Algorithmic parameters&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; 
-       tuning.chi                bb        tuning.psi        refine.tol 
-        &lt;span style=&#34;color:#40a070&#34;&gt;1.548e+00&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;4.685e+00&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt; 
-          rel.tol         scale.tol         solve.tol       eps.outlier 
-        &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-10&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;2.128e-03&lt;/span&gt; 
-            eps.x warn.limit.reject warn.limit.meanrw 
-        &lt;span style=&#34;color:#40a070&#34;&gt;8.404e-12&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt; 
-     nResample         max.it       best.r.s       k.fast.s          k.max 
-           &lt;span style=&#34;color:#40a070&#34;&gt;500&lt;/span&gt;             &lt;span style=&#34;color:#40a070&#34;&gt;50&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;            &lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt; 
-   maxit.scale      trace.lev            mts     compute.rd fast.s.large.n 
-           &lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;           &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;           &lt;span style=&#34;color:#40a070&#34;&gt;2000&lt;/span&gt; 
-                  psi           subsampling                   cov 
-           &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bisquare&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;nonsingular&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;.vcov.avar1&amp;#34;&lt;/span&gt; 
-compute.outlier.stats 
-                 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;SM&amp;#34;&lt;/span&gt; 
-seed &lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;int&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;) 
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-                            &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%   97.5 %&lt;/span&gt;
-(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;-4.969388&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-11.8375510&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1.898775&lt;/span&gt;
-temperature  &lt;span style=&#34;color:#40a070&#34;&gt;2.253161&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;0.7041936&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3.802129&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/robust_regression_line.png&#34; alt=&#34;Line of best fit from robust regression&#34; title=&#34;Line of best fit from robust regression&#34;/&gt;&lt;/a&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Inverse probability treatment weighting</title>
       <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
       <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
@@ -665,6 +571,100 @@ Warning message&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; non&lt;span
 
 &lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &amp;lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Robust regression</title>
+      <link>https://statsnotebook.io/blog/analysis/robust_regression/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/robust_regression/</guid>
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Outliers and violations of distributional assumptions are common in many area of research. These issues might introduce substantial bias in the analysis and potentially lead to grossly incorrect inferences. Traditionally, outliers are identified through manual inspection of the data; violations of normality are often addressed by data transformation. Other forms of assumption violations, such as heterogeneity in variance, can be more challenging to address (Assumptions for linear regression can be checked using &lt;a href=&#34;https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/&#34; title=&#34;Residual plots and assumption checking for linear regression&#34;&gt;residual plots&lt;/a&gt;). Robust regression is a technique that can reduce the impact of outliers, violation of the distribution assumption and heterogeneity in variance. It should be noted that the &lt;em&gt;linearity assumption&lt;/em&gt; is still needed for proper inference using robust regression.&lt;/p&gt;
+&lt;p&gt;In this example, we will use the &lt;strong&gt;Stars&lt;/strong&gt; dataset from the &lt;code&gt;Robustbase&lt;/code&gt; package. We have built this example data into &lt;strong&gt;StatsNotebook&lt;/strong&gt; and it can be loaded using the instructions provided &lt;a href=&#34;https://statsnotebook.io/blog/data_management/load_example_data/&#34; title=&#34;load example data&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/stars.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this dataset, there are two variables.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;temperature&lt;/strong&gt; represents the surface temperature of a star&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;light&lt;/strong&gt; represents the light intensity of a star&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The figure below shows the scatterplot between &lt;em&gt;temperature&lt;/em&gt; and &lt;em&gt;light&lt;/em&gt; with a regression line. At first glance, there appears to be a downward trend. However, this trend may only be caused by the few outliers at the top left corner.&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/scatter_plot_outliers.png&#34; alt=&#34;scatterplot with outliers&#34; title=&#34;scatterplot with outliers&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;We will now demonstrate the use of robust regression to adjust for these outliers.&lt;/p&gt;
+
+&lt;h5 id=&#34;using-statsnotebook&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook&#34;&gt;Using StatsNotebook&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Steps for running a &lt;strong&gt;Robust regression&lt;/strong&gt; in &lt;strong&gt;StatsNotebook&lt;/strong&gt; are nearly the same as running a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/regression/&#34; title=&#34;Linear regression&#34;&gt;&lt;strong&gt;linear regression&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; and select &lt;strong&gt;Linear Regression (Numeric outcome)&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the left panel, select &lt;em&gt;light&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, and select &lt;em&gt;temperature&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the &lt;strong&gt;Analysis setting&lt;/strong&gt; panel, and click &lt;strong&gt;Robust regression&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;r-codes-explained&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained&#34;&gt;R codes explained&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The codes for a robust regression are nearly the same as those for linear regression, except that we use the &lt;code&gt;lmrob&lt;/code&gt; function from the &lt;code&gt;robustbase&lt;/code&gt; package instead of the &lt;code&gt;lm&lt;/code&gt; function for linear regression.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(robustbase) 
+res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;lmrob&lt;/span&gt;(light &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; temperature,
+  data&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;currentDataset)
+&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
+&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res),&lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;The output from robust regression is also very similar to those from linear regression. The only exception now is that that the observations are now weighted based on how deviant they are, and also robust standard errors will be computed for model estimates. After adjusting for a few outliers, we find that temperature is positively associated with light intensity, b = 2.25, 95% CI (0.70, 3.80), &lt;em&gt;p&lt;/em&gt; =.005. We also show the regression line estimated from the robust regression in the figure below. The &lt;span style=&#34;color: blue&#34;&gt;&lt;b&gt;blue&lt;/b&gt;&lt;/span&gt; line is the regression line from ordinary linear regression and the &lt;span style=&#34;color: red&#34;&gt;&lt;b&gt;red&lt;/b&gt;&lt;/span&gt; one is the regression line from the robust regression.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;lmrob&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; light &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; temperature, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
+ \&lt;span style=&#34;color:#666&#34;&gt;--&amp;gt;&lt;/span&gt; method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;MM&amp;#34;&lt;/span&gt;
+Residuals&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+     Min       &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;Q   Median       &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;Q      Max 
+&lt;span style=&#34;color:#40a070&#34;&gt;-0.80959&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.28838&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.00282&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.36668&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;3.39585&lt;/span&gt; 
+
+Coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+            Estimate Std. Error t value &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)   
+(Intercept)  &lt;span style=&#34;color:#40a070&#34;&gt;-4.9694&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;3.4100&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;-1.457&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.15198&lt;/span&gt;   
+temperature   &lt;span style=&#34;color:#40a070&#34;&gt;2.2532&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.7691&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;2.930&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.00531&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;**&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
+Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
+
+Robust residual standard error&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.4715&lt;/span&gt; 
+Multiple R&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;squared&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3737&lt;/span&gt;,	Adjusted R&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;squared&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3598&lt;/span&gt; 
+Convergence in &lt;span style=&#34;color:#40a070&#34;&gt;15&lt;/span&gt; IRWLS iterations
+
+Robustness weights&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; 
+ &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; observations &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;11&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;34&lt;/span&gt;) are outliers with &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;weight&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; ( &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.0021&lt;/span&gt;); 
+ &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; weights are &lt;span style=&#34;color:#666&#34;&gt;~=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;. The remaining &lt;span style=&#34;color:#40a070&#34;&gt;39&lt;/span&gt; ones are summarized as
+   Min. &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;st Qu.  Median    Mean &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;rd Qu.    Max. 
+ &lt;span style=&#34;color:#40a070&#34;&gt;0.6533&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9171&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9593&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9318&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9848&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.9986&lt;/span&gt; 
+Algorithmic parameters&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; 
+       tuning.chi                bb        tuning.psi        refine.tol 
+        &lt;span style=&#34;color:#40a070&#34;&gt;1.548e+00&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;4.685e+00&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt; 
+          rel.tol         scale.tol         solve.tol       eps.outlier 
+        &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-10&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;1.000e-07&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;2.128e-03&lt;/span&gt; 
+            eps.x warn.limit.reject warn.limit.meanrw 
+        &lt;span style=&#34;color:#40a070&#34;&gt;8.404e-12&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;5.000e-01&lt;/span&gt; 
+     nResample         max.it       best.r.s       k.fast.s          k.max 
+           &lt;span style=&#34;color:#40a070&#34;&gt;500&lt;/span&gt;             &lt;span style=&#34;color:#40a070&#34;&gt;50&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;            &lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt; 
+   maxit.scale      trace.lev            mts     compute.rd fast.s.large.n 
+           &lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;           &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt;              &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;           &lt;span style=&#34;color:#40a070&#34;&gt;2000&lt;/span&gt; 
+                  psi           subsampling                   cov 
+           &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;bisquare&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;nonsingular&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;.vcov.avar1&amp;#34;&lt;/span&gt; 
+compute.outlier.stats 
+                 &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;SM&amp;#34;&lt;/span&gt; 
+seed &lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;int&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;) 
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                            &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%   97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;-4.969388&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-11.8375510&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1.898775&lt;/span&gt;
+temperature  &lt;span style=&#34;color:#40a070&#34;&gt;2.253161&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;0.7041936&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3.802129&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/robust_regression_line.png&#34; alt=&#34;Line of best fit from robust regression&#34; title=&#34;Line of best fit from robust regression&#34;/&gt;&lt;/a&gt;
 </description>
     </item>
     
