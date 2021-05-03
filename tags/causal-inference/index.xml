@@ -34,7 +34,10 @@
 &lt;li&gt;Illicit drug use at age 25 (&lt;strong&gt;illicit&lt;/strong&gt;: 0: No use; 1: used)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represent the number of peers who used cannabis at baseline (wave 0).&lt;/p&gt;
-&lt;p&gt;Given this design, we can now make our research question more specific&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Given this design, we can now make our research question more specific&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;em&gt;Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -231,50 +234,50 @@ car&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;col
 &lt;span style=&#34;color:#06287e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(OR &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;The codes above produce the following results.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;######################################################
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
 
-Call:
-svyglm(formula = illicit ~ cumulative, design = clus, family = binomial)
+Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
 
-Survey design:
-svydesign(id = ~1, weights = ~.final_weight, data = currentDataset)
+Survey design&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;.final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
 
-Coefficients:
-            Estimate Std. Error t value Pr(&amp;gt;|t|)    
-(Intercept)  -2.6639     0.2270 -11.734  &amp;lt; 2e-16 ***
-cumulative    0.7865     0.2288   3.438 0.000649 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+Coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+            Estimate Std. Error t value &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)    
+(Intercept)  &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2270&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-11.734&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2e-16&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+cumulative    &lt;span style=&#34;color:#40a070&#34;&gt;0.7865&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2288&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;3.438&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.000649&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
+Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
 
-(Dispersion parameter for binomial family taken to be 1.000884)
+(Dispersion parameter for binomial family taken to be &lt;span style=&#34;color:#40a070&#34;&gt;1.000884&lt;/span&gt;)
 
-Number of Fisher Scoring iterations: 5
+Number of Fisher Scoring iterations&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;
 
 
-######################################################
-[1] &amp;quot;Model coefficients and confidence intervals&amp;quot;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
 
-######################################################
-                            2.5 %    97.5 %
-(Intercept) -2.6639296 -3.1089045 -2.218955
-cumulative   0.7865248  0.3380718  1.234978
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                            &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639296&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-3.1089045&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-2.218955&lt;/span&gt;
+cumulative   &lt;span style=&#34;color:#40a070&#34;&gt;0.7865248&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3380718&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;1.234978&lt;/span&gt;
 
-######################################################
-[1] &amp;quot;Odds ratios and confidence intervals&amp;quot;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
 
-######################################################
-                   OR      2.5 %    97.5 %
-(Intercept) 0.0696739 0.04464984 0.1087227
-cumulative  2.1957526 1.40224124 3.4383024
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                   OR      &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;0.0696739&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.04464984&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1087227&lt;/span&gt;
+cumulative  &lt;span style=&#34;color:#40a070&#34;&gt;2.1957526&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1.40224124&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3.4383024&lt;/span&gt;
 
-######################################################
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;It should be noted that you may also see the warning message below. This is expected because we have fractional weights.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;######################################################
-Warning message: non-integer #successes in a binomial glm!
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+Warning message&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; non&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;integer &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#successes in a binomial glm!&lt;/span&gt;
 
-######################################################
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 
 &lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &amp;lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)&lt;/p&gt;
@@ -292,7 +295,10 @@ Warning message: non-integer #successes in a binomial glm!
 &lt;p&gt;The example data can be downloaded from &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example_with_missing.csv&#34;/&gt;
     here
 &lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;If your dataset has missing data, &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;multiple imputation&#34;&gt;multiple imputation&lt;/a&gt; can be firstly used to impute the missing value. &lt;strong&gt;StatsNotebook&lt;/strong&gt; provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;multiple imputation&#34;&gt;conduct the imputation manually&lt;/a&gt; first. This tutorial will demonstrate the shortcut method.&lt;/p&gt;
+&lt;p&gt;This data can also be loaded using the following codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example_with_missing.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If your dataset has missing data, &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;multiple imputation&#34;&gt;multiple imputation&lt;/a&gt; can be firstly used to impute the missing value. &lt;strong&gt;StatsNotebook&lt;/strong&gt; provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;multiple imputation&#34;&gt;conduct the imputation manually&lt;/a&gt; first. This tutorial will demonstrate the shortcut method.&lt;/p&gt;
 &lt;p&gt;In the presence of missing data,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Multiple imputation will be used to impute missing values first. As a rule of thumb, the number of imputations needed is roughly the same as the percentage of missing data.&lt;/li&gt;
@@ -607,7 +613,10 @@ cumulative  2.15334681 0.48705061 1.38223761 3.3546349      2 %
 &lt;li&gt;&lt;strong&gt;sub_disorder&lt;/strong&gt; represents diagnosis of substance use disorder in young adulthood and it was coded as &amp;ldquo;0: No: and &amp;ldquo;1: Yes&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;conflict&lt;/strong&gt; represents level of family conflict. It will be used as a covariate in this analysis.&lt;/li&gt;
 &lt;/ol&gt;
-
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/substance.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h5 id=&#34;r-codes&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes&#34;&gt;R codes&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;The first section of the code is for &lt;a href=&#34;https://statsnotebook.io/blog/analysis/multiple_imputation/&#34; title=&#34;Multiple imputation for missing data&#34;&gt;imputating missing data&lt;/a&gt;. In the second section, we use the &lt;code&gt;mediate&lt;/code&gt; function from the &lt;code&gt;intmed&lt;/code&gt; package to conduct a mediation analysis.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;fam_int_1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;
@@ -703,53 +712,53 @@ med_res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; intmed&lt;
 
 &lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Below is the output from &lt;strong&gt;StatsNotebook&lt;/strong&gt;. The analysis is conducted using the &lt;code&gt;intmed&lt;/code&gt; package and most of the output is self-explanatory.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;There were 25.86% cases with missing data. Multiple imputation was used to impute missing data (Rubin, 2009) and 20 datasets were imputed using the R package MICE (van Buuren, 2010).
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;There were &lt;span style=&#34;color:#40a070&#34;&gt;25.86&lt;/span&gt;% cases with missing data. Multiple imputation was used to impute missing &lt;span style=&#34;color:#06287e&#34;&gt;data &lt;/span&gt;(Rubin, &lt;span style=&#34;color:#40a070&#34;&gt;2009&lt;/span&gt;) and &lt;span style=&#34;color:#40a070&#34;&gt;20&lt;/span&gt; datasets were imputed using the R package &lt;span style=&#34;color:#06287e&#34;&gt;MICE &lt;/span&gt;(van Buuren, &lt;span style=&#34;color:#40a070&#34;&gt;2010&lt;/span&gt;).
 
 The table below shows the estimates from the key regression models for the mediation analysis.
 
     variables     m1.b          m1.ci  m1.p    m2.b          m2.ci  m2.p
-1 (Intercept)    0.708 (0.388, 1.292) 0.260   0.980 (0.536, 1.791) 0.947
-2    conflict    1.220 (0.963, 1.545) 0.099   1.213 (0.953, 1.544) 0.117
-3  genderMale    1.234 (0.861, 1.771) 0.252   1.156 (0.804, 1.661) 0.434
-4   fam_int_1 0.517*** (0.358, 0.747) 0.000 0.539** (0.369, 0.788) 0.001
-5   dev_peer1     &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;
-6    sub_exp1     &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; (Intercept)    &lt;span style=&#34;color:#40a070&#34;&gt;0.708&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.388&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.292&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.260&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;0.980&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.536&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.791&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.947&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;    conflict    &lt;span style=&#34;color:#40a070&#34;&gt;1.220&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.963&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.545&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.099&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;1.213&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.953&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.544&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.117&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;  genderMale    &lt;span style=&#34;color:#40a070&#34;&gt;1.234&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.861&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.771&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.252&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;1.156&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.804&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.661&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.434&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;   fam_int_1 &lt;span style=&#34;color:#40a070&#34;&gt;0.517&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.358&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.747&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.539&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;**&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.369&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.788&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;   dev_peer1     &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;    &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;    sub_exp1     &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;    &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;
        y.b           y.ci   y.p
-1 0.061*** (0.019, 0.200) 0.000
-2    0.820 (0.531, 1.267) 0.371
-3    1.396 (0.779, 2.501) 0.262
-4    0.603 (0.331, 1.102) 0.100
-5 4.132*** (1.891, 9.031) 0.000
-6    1.745 (0.739, 4.123) 0.203
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.061&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.019&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.200&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.820&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.531&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.267&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.371&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;1.396&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.779&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;2.501&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.262&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.603&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.331&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.102&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.100&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;4.132&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;1.891&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;9.031&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;1.745&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.739&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;4.123&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.203&lt;/span&gt;
 
-Mediation analysis was performed based on the counter-factual framework and the interventional effect (Vansteelandt and Daniel, 2017; Chan and Leung, 2020). The analysis was conducted in R using the intmed package (Chan and Leung, 2020) with 1000 simulations.
+Mediation analysis was performed based on the counter&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;factual framework and the interventional &lt;span style=&#34;color:#06287e&#34;&gt;effect &lt;/span&gt;(Vansteelandt and Daniel, &lt;span style=&#34;color:#40a070&#34;&gt;2017&lt;/span&gt;; Chan and Leung, &lt;span style=&#34;color:#40a070&#34;&gt;2020&lt;/span&gt;). The analysis was conducted in R using the intmed &lt;span style=&#34;color:#06287e&#34;&gt;package &lt;/span&gt;(Chan and Leung, &lt;span style=&#34;color:#40a070&#34;&gt;2020&lt;/span&gt;) with &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt; simulations.
 
                                                  effect    est               ci
-1                    indirect effect through mediator 1 -0.018 (-0.037, -0.004)
-2                    indirect effect through mediator 2 -0.007 (-0.021,  0.004)
-3 indirect effect through interaction between mediators  0.001 (-0.002,  0.005)
-4  indirect effect through dependence between mediators  0.000 (-0.009,  0.009)
-5                                         direct effect -0.055 (-0.120,  0.010)
-6                                          total effect -0.077 (-0.143, -0.016)
-7               proportion of effect through mediator 1  0.218                 
-8               proportion of effect through mediator 2  0.078                 
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;                    indirect effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.018&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.037&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;-0.004&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;                    indirect effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.007&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.021&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.004&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; indirect effect through interaction between mediators  &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.002&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.005&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;  indirect effect through dependence between mediators  &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.009&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.009&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;                                         direct effect &lt;span style=&#34;color:#40a070&#34;&gt;-0.055&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.120&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.010&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;                                          total effect &lt;span style=&#34;color:#40a070&#34;&gt;-0.077&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.143&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;-0.016&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;               proportion of effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.218&lt;/span&gt;                 
+&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;               proportion of effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.078&lt;/span&gt;                 
       p
-1 0.005
-2 0.202
-3 0.448
-4 0.975
-5 0.099
-6 0.011
-7      
-8      
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.005&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.202&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.448&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.975&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.099&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.011&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;      
+&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;      
 
 Reference
-Rubin DB. Multiple imputation for nonresponse in surveys. New York: John Wiley &amp;amp; Sons; 2009.
-Buuren Sv, Groothuis-Oudshoorn K. mice: Multivariate imputation by chained equations in R. Journal of statistical software. 2010:1-68.
-Vansteelandt S, Daniel RM. Interventional effects for mediation analysis with multiple mediators. Epidemiology (Cambridge, Mass). 2017; 28(2):258.
-Chan G, Leung J. Causal mediation analysis using the interventional effect approach. A refined definition. Paper uner review. 2020.
+Rubin DB. Multiple imputation for nonresponse in surveys. New York&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; John Wiley &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt; Sons; &lt;span style=&#34;color:#40a070&#34;&gt;2009&lt;/span&gt;.
+Buuren Sv, Groothuis&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;Oudshoorn K. mice&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; Multivariate imputation by chained equations in R. Journal of statistical software. &lt;span style=&#34;color:#40a070&#34;&gt;2010&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1-68&lt;/span&gt;.
+Vansteelandt S, Daniel RM. Interventional effects for mediation analysis with multiple mediators. &lt;span style=&#34;color:#06287e&#34;&gt;Epidemiology &lt;/span&gt;(Cambridge, Mass). 2017; &lt;span style=&#34;color:#40a070&#34;&gt;28&lt;/span&gt;(&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;258&lt;/span&gt;.
+Chan G, Leung J. Causal mediation analysis using the interventional effect approach. A refined definition. Paper uner review. &lt;span style=&#34;color:#40a070&#34;&gt;2020&lt;/span&gt;.
 
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;There are two key sections of the output: Results from regression models and Results from mediation analysis.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Results from regression models&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Behind the scene, three key regression models are run.&lt;/p&gt;
@@ -771,48 +780,48 @@ Chan G, Leung J. Causal mediation analysis using the interventional effect appro
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The table below from the &lt;strong&gt;StatsNotebook&lt;/strong&gt; summarises the odds ratio, 95% confidence intervals and p-value from these three models. With a significance level of 0.05, the results indicate that participation in family intervention reduces the odds of engagement with deviant peers, OR = 0.517, 95% CI (0.358, 0.747) and experimentation with drugs, OR = 0.539, 95% CI (0.369, 0.788). Family intervention may reduce odds of substance use disorder directly, OR = 0.603, 95% CI (0.331, 1.102), but this effect is not statistically significant. Engagement with deviant peers increased the odds of substance use disorder, OR = 4.132, 95% CI (1.891, 9.031). Experimentation with drugs may increase the odds of substance use disorder, OR = 1.745, 95% CI (0.739, 4.123), but this effect is not statistically significant.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;The table below shows the estimates from the key regression models for the mediation analysis.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;The table below shows the estimates from the key regression models for the mediation analysis.
 
     variables     m1.b          m1.ci  m1.p    m2.b          m2.ci  m2.p
-1 (Intercept)    0.708 (0.388, 1.292) 0.260   0.980 (0.536, 1.791) 0.947
-2    conflict    1.220 (0.963, 1.545) 0.099   1.213 (0.953, 1.544) 0.117
-3  genderMale    1.234 (0.861, 1.771) 0.252   1.156 (0.804, 1.661) 0.434
-4   fam_int_1 0.517*** (0.358, 0.747) 0.000 0.539** (0.369, 0.788) 0.001
-5   dev_peer1     &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;
-6    sub_exp1     &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; (Intercept)    &lt;span style=&#34;color:#40a070&#34;&gt;0.708&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.388&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.292&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.260&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;0.980&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.536&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.791&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.947&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;    conflict    &lt;span style=&#34;color:#40a070&#34;&gt;1.220&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.963&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.545&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.099&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;1.213&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.953&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.544&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.117&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;  genderMale    &lt;span style=&#34;color:#40a070&#34;&gt;1.234&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.861&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.771&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.252&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;1.156&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.804&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.661&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.434&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;   fam_int_1 &lt;span style=&#34;color:#40a070&#34;&gt;0.517&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.358&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.747&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.539&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;**&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.369&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.788&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;   dev_peer1     &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;    &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;    sub_exp1     &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;    &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt;
        y.b           y.ci   y.p
-1 0.061*** (0.019, 0.200) 0.000
-2    0.820 (0.531, 1.267) 0.371
-3    1.396 (0.779, 2.501) 0.262
-4    0.603 (0.331, 1.102) 0.100
-5 4.132*** (1.891, 9.031) 0.000
-6    1.745 (0.739, 4.123) 0.203
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.061&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.019&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;0.200&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.820&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.531&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.267&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.371&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;1.396&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.779&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;2.501&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.262&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.603&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.331&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;1.102&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.100&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;4.132&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;1.891&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;9.031&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;1.745&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0.739&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;4.123&lt;/span&gt;) &lt;span style=&#34;color:#40a070&#34;&gt;0.203&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;&lt;strong&gt;Results from mediation analysis&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The second table shows the results from mediation analysis.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Mediation analysis was performed based on the counter-factual framework and the interventional effect (Vansteelandt and Daniel, 2017; Chan and Leung, 2020). The analysis was conducted in R using the intmed package (Chan and Leung, 2020) with 1000 simulations.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;Mediation analysis was performed based on the counter&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;factual framework and the interventional &lt;span style=&#34;color:#06287e&#34;&gt;effect &lt;/span&gt;(Vansteelandt and Daniel, &lt;span style=&#34;color:#40a070&#34;&gt;2017&lt;/span&gt;; Chan and Leung, &lt;span style=&#34;color:#40a070&#34;&gt;2020&lt;/span&gt;). The analysis was conducted in R using the intmed &lt;span style=&#34;color:#06287e&#34;&gt;package &lt;/span&gt;(Chan and Leung, &lt;span style=&#34;color:#40a070&#34;&gt;2020&lt;/span&gt;) with &lt;span style=&#34;color:#40a070&#34;&gt;1000&lt;/span&gt; simulations.
 
                                                  effect    est               ci
-1                    indirect effect through mediator 1 -0.018 (-0.037, -0.004)
-2                    indirect effect through mediator 2 -0.007 (-0.021,  0.004)
-3 indirect effect through interaction between mediators  0.001 (-0.002,  0.005)
-4  indirect effect through dependence between mediators  0.000 (-0.009,  0.009)
-5                                         direct effect -0.055 (-0.120,  0.010)
-6                                          total effect -0.077 (-0.143, -0.016)
-7               proportion of effect through mediator 1  0.218                 
-8               proportion of effect through mediator 2  0.078                 
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;                    indirect effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.018&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.037&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;-0.004&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;                    indirect effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-0.007&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.021&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.004&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; indirect effect through interaction between mediators  &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.002&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.005&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;  indirect effect through dependence between mediators  &lt;span style=&#34;color:#40a070&#34;&gt;0.000&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.009&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.009&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;                                         direct effect &lt;span style=&#34;color:#40a070&#34;&gt;-0.055&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.120&lt;/span&gt;,  &lt;span style=&#34;color:#40a070&#34;&gt;0.010&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;                                          total effect &lt;span style=&#34;color:#40a070&#34;&gt;-0.077&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;-0.143&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;-0.016&lt;/span&gt;)
+&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;               proportion of effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.218&lt;/span&gt;                 
+&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;               proportion of effect through mediator &lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.078&lt;/span&gt;                 
       p
-1 0.005
-2 0.202
-3 0.448
-4 0.975
-5 0.099
-6 0.011
-7      
-8      
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.005&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.202&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.448&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.975&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.099&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.011&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;      
+&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt;      
 
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;p&gt;Since &lt;em&gt;sub_disorder&lt;/em&gt; is a dichotomised variable, the estimates are in a &lt;strong&gt;probability scale&lt;/strong&gt;. Overall, the total effect of &lt;em&gt;fam_int&lt;/em&gt; is -0.077, indicating that participation in family intervention reduces the probability of &lt;em&gt;sub_disorder&lt;/em&gt; by 0.077 (i.e. 7.7%). Of this total effect, 0.018 (est = -0.018, 95% CI [-0.037, -0.004]) is significantly mediated through &lt;em&gt;dev_peer&lt;/em&gt; and 0.007 (est = -0.007, 95% CI [-0.021, 0.004]) is mediated through &lt;em&gt;sub_exp&lt;/em&gt;. Overall, it is estimated that 21.8% of the total effect is mediated through &lt;em&gt;dev_peer&lt;/em&gt; and 7.8% through &lt;em&gt;sub_exp&lt;/em&gt;.&lt;/p&gt;
 </description>
     </item>
