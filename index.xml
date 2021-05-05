@@ -6,7 +6,7 @@
     <description>Recent content on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Analysis</title>
       <link>https://statsnotebook.io/projects/analysis/</link>
@@ -34,6 +34,283 @@
       
       <guid>https://statsnotebook.io/projects/data_management/</guid>
       <description>&lt;p&gt;Common data management tasks can be done with just a few clicks in &lt;strong&gt;StatsNotebook&lt;/strong&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Causal inference: Inverse probability treatment weighting</title>
+      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;In multiwave longitudinal study, the exposure is often time-varying. A time varying confounder is a time varying variable that is affected by previous exposures, and also affect future exposure and outcome, thus confounding the relationship between the exposure and the outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear models produce biased estimates in the presence of time-varying confounders. Inverse probability treatment weight and marginal structural model can be used to adjust for time-varying confounding.&lt;/p&gt;
+&lt;p&gt;In this tutorial, we will use a simulated dataset to answer the following research question&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Does cannabis use during adolescence cause illicit drug use in adulthood?&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The example data can be downloaded from &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&#34;/&gt;
+    here
+&lt;/a&gt;. In this example, we will use a complete dataset (i.e. no missing data). If your dataet has missing data, we would recommend that you read this tutorial and then our tutorial on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/&#34; title=&#34;iptw with missing data&#34;&gt;inverse probability treatment weighting with missing data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Supposed that the data was collected over 5 time points, baseline (wave 0) and follow-up wave 1 to 4. The baseline and wave 1 to 3 were collected at Grade 7, 8, 9 and 10. Wave 4 was collected at age 25.&lt;/p&gt;
+&lt;p&gt;In this dataset, there are several key variables.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Academic grade (&lt;strong&gt;failed&lt;/strong&gt;; 0: no failed subjects; failed at least one subject)&lt;/li&gt;
+&lt;li&gt;Peers&amp;rsquo; cannabis use (&lt;strong&gt;peer_can&lt;/strong&gt;: 0: None; 1: 1-2 friends used cannabis; 2: 3 or more friends used cannabis)&lt;/li&gt;
+&lt;li&gt;Antisocial behaviour (&lt;strong&gt;antisocial&lt;/strong&gt;: 0: No antisocial behaviour; 1: engaged in antisocial behaviour)&lt;/li&gt;
+&lt;li&gt;Cannabis use (&lt;strong&gt;can&lt;/strong&gt;; 0: No use; 1: used)&lt;/li&gt;
+&lt;li&gt;Sex (&lt;strong&gt;sex&lt;/strong&gt;; 0: male; 1: female)&lt;/li&gt;
+&lt;li&gt;Family history of drug use (&lt;strong&gt;family_drug_use&lt;/strong&gt;; 0: no; 1: at least one immediate family member used drug. This is only measured at baseline.)&lt;/li&gt;
+&lt;li&gt;Illicit drug use at age 25 (&lt;strong&gt;illicit&lt;/strong&gt;: 0: No use; 1: used)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represent the number of peers who used cannabis at baseline (wave 0).&lt;/p&gt;
+&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Given this design, we can now make our research question more specific&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this research question, cannabis use is the exposure variable and is time-varying. When estimating the relationship between adolescent cannabis use (wave 1 to wave 3) on future illicit drug use, many of the variables above are likely to be time-varying confounders. The figure below is a conceptual diagram demonstrating the complex relationships between the exposure, confounders and the outcome.&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_figure.png&#34; alt=&#34;longitudinal data&#34; title=&#34;longitudinal data&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;B represents a set of baseline covariates/ potential confounders (e.g. family history of drug use). It can be regarded as a special subset of C&lt;sub&gt;1&lt;/sub&gt;. &lt;br/&gt;
+A&lt;sub&gt;1&lt;/sub&gt;, A&lt;sub&gt;2&lt;/sub&gt; and A&lt;sub&gt;3&lt;/sub&gt; represent the exposures (cannabis use) at Wave 1, 2 and 3. &lt;br/&gt;
+C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; represent the set of covariates/confounders for the exposure variable at Wave 1, 2 and 3 (e.g. peers&amp;rsquo; cannabis use). To retain the temporal order of exposure and confounders, the set C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; should be selected from the preceding wave of the exposure. Therefore, the variables in the set C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; should be from baseline, follow-up wave 1 and follow-up wave 2 respectively. &lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Y is the outcome (illicit drug use at age 25).&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Take Peers&amp;rsquo; cannabis use as an example. Peers&amp;rsquo; cannabis use is likely to be a time-varying confounder because&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;An individual&amp;rsquo;s cannabis use in one wave is likely to increase affiliation with cannabis using peers in future waves.&lt;/li&gt;
+&lt;li&gt;Peers&amp;rsquo; cannabis use in one wave is likely to increase the risk of an individual&amp;rsquo;s cannabis use and illicit drug use in future waves&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_figure2.png&#34; alt=&#34;iptw longitudinal data&#34; title=&#34;iptw longitudinal data&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;Therefore, peers&amp;rsquo; cannabis use is a time-varying mediator (because it was affected by previous cannabis use and would affect future illicit drug use) and a time-varying confounder (because it would affect both future cannabis use and future illicit drug use). Other variables, such as antisocial behaviour, are also likely to be time-varying confounders.&lt;/p&gt;
+&lt;p&gt;Regression-based methods generally give biased estimates of the effects of time-varying exposures on an outcome when time-varying confounders are present. In the example above, adjusting for peers&amp;rsquo; cannabis use at wave 2 will block some of the effect of cannabis use at wave 1. Not adjusting for peers&amp;rsquo; cannabis use at wave 2 will bias the estimate of cannabis use at wave 3 on future illicit drug use. This is because peers&amp;rsquo; cannabis use at wave 2 may confound the relationship between cannabis use at wave 3 and illicit drug use at the final wave. Therefore, performing a regression analysis would produce biased estimate, regardless of whether adjustment is made for peers&amp;rsquo; cannabis use.&lt;/p&gt;
+&lt;p&gt;Inverse probability treatment weighting (IPTW) can be used to estimate the causal effect of cannabis use on future illicit drug use. Conceptually, IPTW attempts to fully adjust for measured confounders by balancing the confounders across levels of treatment with treatment weight. It creates a pseudo-population in which all measured confounders are balanced between different treatment groups (in the example above, it will be between different cannabis use trajectories). The data can be regarded as coming from a randomized controlled trial and thus causal inference can be made by simple comparisons between groups (i.e. t-test).&lt;/p&gt;
+&lt;p&gt;For valid causal inference, the following key assumptions need to be met.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Exchangeability&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This is also known as the no unmeasured confounding assumption. It is assumed that all confounders are used to calculate IPTW. While it is nearly impossible to include all confounders in the IPTW calculation, we will need to select a wide range of potential confounders based on a theoretical framework to improve the validity of this assumption. In our example, we determine that family, peer and school variables are important confounders that could affect both adolescent cannabis use and future illicit drug use. We therefore include family history of drug use, peers&amp;rsquo; cannabis use, academic grade and antisocial behaviour to calculate IPTW.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Positivity&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The probability of receiving treatment (i.e. using cannabis in our example) and not receiving treatment are both non-zero. This assumption is violated if treatment is deterministic. (e.g. if all children of parents who have used illicit drugs will later use cannabis, this assumption is violated.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Correctness of the model for calculating the IPTW&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Logistic regressions are usually used to estimate IPTW. Interaction terms can be included into the model to improve the validity of this assumption. Machine learning models can also be used to calculate IPTW to capture potential non-linear effect.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now we will demonstrate using the &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&#34;/&gt;
+    simulated example data
+&lt;/a&gt; to test &lt;em&gt;the cumulative exposure effect of cannabis use from follow-up wave 1 to wave 3 on future illicit drug use at wave 4&lt;/em&gt;. We will provide a step-by-step guide on how to use &lt;strong&gt;StatsNotebook&lt;/strong&gt; to generate the R codes to calculate IPTW. Then we will conduct a weighted analysis on the weighted sample. The &lt;code&gt;ipw&lt;/code&gt; package will be used to calculate the IPTW, and the &lt;code&gt;survey&lt;/code&gt; package will be used to conduct the weighted analysis.&lt;/p&gt;
+&lt;p&gt;We will first calculate the weight at each time point by calculating the probability of receiving/ not receiving treatment, based on the treatment history from previous waves, the history of confounders and baseline confounders/ covariates. In our example, we will need to calculate the weight at follow-up wave 1 to 3 separately, and then calulate a final IPTW by multiplying the three weights from follow-up wave 1 to 3.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;To calculate the weight at follow-up wave 1, we use the variables from C&lt;sub&gt;1&lt;/sub&gt;, including academic grade, peers&amp;rsquo; cannabis, antisocial behaviour, cannabis use, sex and family history of drug use at baseline.&lt;/li&gt;
+&lt;li&gt;To calculate the weight at follow-up wave 2, we use all the variables from the previous step, plus academic grade, peers&amp;rsquo; cannabis and antisocial behaviour at follow-up wave 1 (history of all confounders), and cannabis use at follow-up wave 1 (exposure history).&lt;/li&gt;
+&lt;li&gt;To calculate the weight at follow-up wave 3, we use all the variables from the previous step, plus academic grade, peers&amp;rsquo; cannabis and antisocial behaviour at follow-up wave 2, and cannabis use at follow-up wave 2.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;using-statsnotebook---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook---calculating-iptw&#34;&gt;Using StatsNotebook - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Prior to calculating the IPTW, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To calculate the IPTW,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Causal&lt;/strong&gt; in the top menu&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Inverse Probability Treatment Weighting (IPTW)&lt;/strong&gt; in the pop-up menu&lt;/li&gt;
+&lt;li&gt;In the left panel, select &lt;em&gt;can_1&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, and select &lt;em&gt;failed_0&lt;/em&gt;, &lt;em&gt;peer_can_0&lt;/em&gt; and &lt;em&gt;antisocial_0&lt;/em&gt; into &lt;em&gt;Time-varying covariates&lt;/em&gt;. As mentioned before, since baseline confounders/covariates can be regarded as a special subset of Time-varying covariates at Wave 1, we further select &lt;em&gt;family_drug_use&lt;/em&gt;, &lt;em&gt;sex&lt;/em&gt;  and &lt;em&gt;can_0&lt;/em&gt; (baseline cannabis use) into &lt;em&gt;Time-varying covariates&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for exopsure at follow-up wave 1.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction1.png&#34; alt=&#34;iptw instruction&#34; title=&#34;iptw instruction&#34;/&gt;&lt;/a&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Click the top &lt;strong&gt;+&lt;/strong&gt; button on top of &lt;em&gt;Exposure&lt;/em&gt; to add an extra time point (extra wave).&lt;/li&gt;
+&lt;li&gt;Select &lt;em&gt;can_2&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, and select &lt;em&gt;failed_1&lt;/em&gt;, &lt;em&gt;peer_can_1&lt;/em&gt; and &lt;em&gt;antisocial_1&lt;/em&gt; into &lt;em&gt;Time-varying covariates&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction2.png&#34; alt=&#34;iptw instruction 2&#34; title=&#34;iptw instruction 2&#34;/&gt;&lt;/a&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Repeat step 5 and 6 for &lt;em&gt;can_3&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Expand the panel &lt;em&gt;Analysis Setting&lt;/em&gt; at the below the variable selection panel.&lt;/li&gt;
+&lt;li&gt;For &lt;em&gt;Distribution family&lt;/em&gt;, select &lt;em&gt;Binomial&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;Since the exposure is a dichotomised variable (cannabis use or no cannabis use), logistic regression will be used to estimate the IPTW.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction3.png&#34; alt=&#34;iptw instruction 3&#34; title=&#34;iptw instruction 3&#34;/&gt;&lt;/a&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;. The R codes below will be generated and executed.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Four new variables, &lt;em&gt;.ipw0&lt;/em&gt;, &lt;em&gt;.ipw1&lt;/em&gt;, &lt;em&gt;.ipw2&lt;/em&gt; and &lt;em&gt;.final_weight&lt;/em&gt; will be created. The first three are the IPTW at follow-up wave 1 to 3 and the last one is the product of the first three weights and will be used for subsequent outcome modelling.&lt;/p&gt;
+
+&lt;h5 id=&#34;r-codes---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---calculating-iptw&#34;&gt;R codes - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ipw)
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Calculate IPTW&amp;#34;&lt;/span&gt;
+
+weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_1, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+
+weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_2, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+
+weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_3, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_2,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.final_weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;r-codes-explained---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---calculating-iptw&#34;&gt;R codes explained - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;At each time point, we calculate the weight using the &lt;code&gt;ipwpoint&lt;/code&gt; function. For example, the code below calculates the weight for follow-up wave 1 by estimating the probability of cannabis use at follow-up wave 1 (exposure; can_1) based on academic grade (failed_0), peers&amp;rsquo; cannabis use (peer_can_0), antisocial behaviour (antisocial_0), family history of drug use (family_drug_use), sex (sex) and cannabis use at baseline (can_0).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_1, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+Similiarly, we will calculate the weight for follow-up wave 2 and wave 3 using the code below.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_2, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+
+weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_3, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
+  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2,
+  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_2,
+  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+And lastly, we will multiply all these weights to form the final IPTW.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.final_weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;using-statsnotebook---weighted-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook---weighted-analysis&#34;&gt;Using StatsNotebook - Weighted analysis&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of cumulative exposure, measured as the number of wave an individual reported using cannabis between follow-up wave 1 and wave 3, we first create a new variable (&lt;em&gt;cumulative&lt;/em&gt;) by summing up &lt;em&gt;can_1&lt;/em&gt;, &lt;em&gt;can_2&lt;/em&gt; and &lt;em&gt;can_3&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To create this new variable in &lt;strong&gt;StatsNotebook&lt;/strong&gt;,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Data&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Compute&lt;/strong&gt; at the top menu&lt;/li&gt;
+&lt;li&gt;Type &lt;em&gt;cumulative&lt;/em&gt; in the &lt;em&gt;Target Variable&lt;/em&gt; field.&lt;/li&gt;
+&lt;li&gt;You can select variable in the &lt;em&gt;Variable&lt;/em&gt; list and use &lt;strong&gt;+&lt;/strong&gt; to add the corresponding variables up.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/compute_cumulative.png&#34; alt=&#34;compute cumulative&#34; title=&#34;compute cumulative&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;The &lt;strong&gt;R code&lt;/strong&gt; for this operation is simple.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;cumulative &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt; 
+&lt;p&gt;Once we have created the &lt;em&gt;cumulative&lt;/em&gt; variable, we can use the &lt;code&gt;survey&lt;/code&gt; package to conduct a weighted analysis to estimate the causal effect of cumulative use for cannabis use during adolescence on illicit drug use in young adulthood (age 25). &lt;strong&gt;Logistic regression&lt;/strong&gt; is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).&lt;/p&gt;
+&lt;p&gt;To conduct a weighted analysis,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; at the top menu&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Logistic regression&lt;/strong&gt; (linear regression can be used if the outcome is a numeric variable.)&lt;/li&gt;
+&lt;li&gt;In the left panel, select &lt;em&gt;illicit&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, &lt;em&gt;cumulative&lt;/em&gt; into &lt;em&gt;Covariate&lt;/em&gt; and &lt;em&gt;.final_weight&lt;/em&gt; into &lt;em&gt;Weight&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/msm_instruction.png&#34; alt=&#34;msm instruction&#34; title=&#34;msm instruction&#34;/&gt;&lt;/a&gt;
+
+&lt;h5 id=&#34;r-codes---weighted-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---weighted-analysis&#34;&gt;R codes - Weighted analysis&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(survey)
+
+clus &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; .final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
+res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus,family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
+&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(OR &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)))
+
+
+car&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#06287e&#34;&gt;infIndexPlot&lt;/span&gt;(res)
+
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The code for a weighted logistic regression is straightforward. The &lt;code&gt;survey&lt;/code&gt; package is loaded using the &lt;code&gt;library&lt;/code&gt; function. The following line then specifies that the variable &lt;em&gt;.final_weight&lt;/em&gt; is used as the weighting variable.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;clus &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; .final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Then we use the following lines to run the weighted logistic regression and request the model results from R.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus,family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
+&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(OR &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;The codes above produce the following results.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+
+Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
+
+Survey design&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;.final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
+
+Coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+            Estimate Std. Error t value &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)    
+(Intercept)  &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2270&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-11.734&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2e-16&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+cumulative    &lt;span style=&#34;color:#40a070&#34;&gt;0.7865&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2288&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;3.438&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.000649&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
+Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
+
+(Dispersion parameter for binomial family taken to be &lt;span style=&#34;color:#40a070&#34;&gt;1.000884&lt;/span&gt;)
+
+Number of Fisher Scoring iterations&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                            &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639296&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-3.1089045&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-2.218955&lt;/span&gt;
+cumulative   &lt;span style=&#34;color:#40a070&#34;&gt;0.7865248&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3380718&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;1.234978&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                   OR      &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;0.0696739&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.04464984&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1087227&lt;/span&gt;
+cumulative  &lt;span style=&#34;color:#40a070&#34;&gt;2.1957526&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1.40224124&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3.4383024&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;It should be noted that you may also see the warning message below. This is expected because we have fractional weights.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+Warning message&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; non&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;integer &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#successes in a binomial glm!&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &amp;lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)&lt;/p&gt;
 </description>
     </item>
     
@@ -324,283 +601,6 @@ plot
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/apc_period_effect.png&#34; alt=&#34;age-period-cohort period effect&#34; title=&#34;age-period-cohort period effect&#34;/&gt;&lt;/a&gt;
 &lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/apc_cohort_effect.png&#34; alt=&#34;age-period-cohort cohort effect&#34; title=&#34;age-period-cohort cohort effect&#34;/&gt;&lt;/a&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Inverse probability treatment weighting</title>
-      <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
-      <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</guid>
-      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
-&lt;p&gt;In multiwave longitudinal study, the exposure is often time-varying. A time varying confounder is a time varying variable that is affected by previous exposures, and also affect future exposure and outcome, thus confounding the relationship between the exposure and the outcome. Time varying confounding is common in longitudinal research. When evaluating the relationship between a time-varying exposure and outcome, standard methods such as regression and generalised linear models produce biased estimates in the presence of time-varying confounders. Inverse probability treatment weight and marginal structural model can be used to adjust for time-varying confounding.&lt;/p&gt;
-&lt;p&gt;In this tutorial, we will use a simulated dataset to answer the following research question&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Does cannabis use during adolescence cause illicit drug use in adulthood?&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The example data can be downloaded from &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&#34;/&gt;
-    here
-&lt;/a&gt;. In this example, we will use a complete dataset (i.e. no missing data). If your dataet has missing data, we would recommend that you read this tutorial and then our tutorial on &lt;a href=&#34;https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/&#34; title=&#34;iptw with missing data&#34;&gt;inverse probability treatment weighting with missing data&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Supposed that the data was collected over 5 time points, baseline (wave 0) and follow-up wave 1 to 4. The baseline and wave 1 to 3 were collected at Grade 7, 8, 9 and 10. Wave 4 was collected at age 25.&lt;/p&gt;
-&lt;p&gt;In this dataset, there are several key variables.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Academic grade (&lt;strong&gt;failed&lt;/strong&gt;; 0: no failed subjects; failed at least one subject)&lt;/li&gt;
-&lt;li&gt;Peers&amp;rsquo; cannabis use (&lt;strong&gt;peer_can&lt;/strong&gt;: 0: None; 1: 1-2 friends used cannabis; 2: 3 or more friends used cannabis)&lt;/li&gt;
-&lt;li&gt;Antisocial behaviour (&lt;strong&gt;antisocial&lt;/strong&gt;: 0: No antisocial behaviour; 1: engaged in antisocial behaviour)&lt;/li&gt;
-&lt;li&gt;Cannabis use (&lt;strong&gt;can&lt;/strong&gt;; 0: No use; 1: used)&lt;/li&gt;
-&lt;li&gt;Sex (&lt;strong&gt;sex&lt;/strong&gt;; 0: male; 1: female)&lt;/li&gt;
-&lt;li&gt;Family history of drug use (&lt;strong&gt;family_drug_use&lt;/strong&gt;; 0: no; 1: at least one immediate family member used drug. This is only measured at baseline.)&lt;/li&gt;
-&lt;li&gt;Illicit drug use at age 25 (&lt;strong&gt;illicit&lt;/strong&gt;: 0: No use; 1: used)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represent the number of peers who used cannabis at baseline (wave 0).&lt;/p&gt;
-&lt;p&gt;This dataset can also be loaded using the following codes&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
-currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Given this design, we can now make our research question more specific&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In this research question, cannabis use is the exposure variable and is time-varying. When estimating the relationship between adolescent cannabis use (wave 1 to wave 3) on future illicit drug use, many of the variables above are likely to be time-varying confounders. The figure below is a conceptual diagram demonstrating the complex relationships between the exposure, confounders and the outcome.&lt;/p&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_figure.png&#34; alt=&#34;longitudinal data&#34; title=&#34;longitudinal data&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;B represents a set of baseline covariates/ potential confounders (e.g. family history of drug use). It can be regarded as a special subset of C&lt;sub&gt;1&lt;/sub&gt;. &lt;br/&gt;
-A&lt;sub&gt;1&lt;/sub&gt;, A&lt;sub&gt;2&lt;/sub&gt; and A&lt;sub&gt;3&lt;/sub&gt; represent the exposures (cannabis use) at Wave 1, 2 and 3. &lt;br/&gt;
-C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; represent the set of covariates/confounders for the exposure variable at Wave 1, 2 and 3 (e.g. peers&amp;rsquo; cannabis use). To retain the temporal order of exposure and confounders, the set C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; should be selected from the preceding wave of the exposure. Therefore, the variables in the set C&lt;sub&gt;1&lt;/sub&gt;, C&lt;sub&gt;2&lt;/sub&gt; and C&lt;sub&gt;3&lt;/sub&gt; should be from baseline, follow-up wave 1 and follow-up wave 2 respectively. &lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;Y is the outcome (illicit drug use at age 25).&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;Take Peers&amp;rsquo; cannabis use as an example. Peers&amp;rsquo; cannabis use is likely to be a time-varying confounder because&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;An individual&amp;rsquo;s cannabis use in one wave is likely to increase affiliation with cannabis using peers in future waves.&lt;/li&gt;
-&lt;li&gt;Peers&amp;rsquo; cannabis use in one wave is likely to increase the risk of an individual&amp;rsquo;s cannabis use and illicit drug use in future waves&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_figure2.png&#34; alt=&#34;iptw longitudinal data&#34; title=&#34;iptw longitudinal data&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;Therefore, peers&amp;rsquo; cannabis use is a time-varying mediator (because it was affected by previous cannabis use and would affect future illicit drug use) and a time-varying confounder (because it would affect both future cannabis use and future illicit drug use). Other variables, such as antisocial behaviour, are also likely to be time-varying confounders.&lt;/p&gt;
-&lt;p&gt;Regression-based methods generally give biased estimates of the effects of time-varying exposures on an outcome when time-varying confounders are present. In the example above, adjusting for peers&amp;rsquo; cannabis use at wave 2 will block some of the effect of cannabis use at wave 1. Not adjusting for peers&amp;rsquo; cannabis use at wave 2 will bias the estimate of cannabis use at wave 3 on future illicit drug use. This is because peers&amp;rsquo; cannabis use at wave 2 may confound the relationship between cannabis use at wave 3 and illicit drug use at the final wave. Therefore, performing a regression analysis would produce biased estimate, regardless of whether adjustment is made for peers&amp;rsquo; cannabis use.&lt;/p&gt;
-&lt;p&gt;Inverse probability treatment weighting (IPTW) can be used to estimate the causal effect of cannabis use on future illicit drug use. Conceptually, IPTW attempts to fully adjust for measured confounders by balancing the confounders across levels of treatment with treatment weight. It creates a pseudo-population in which all measured confounders are balanced between different treatment groups (in the example above, it will be between different cannabis use trajectories). The data can be regarded as coming from a randomized controlled trial and thus causal inference can be made by simple comparisons between groups (i.e. t-test).&lt;/p&gt;
-&lt;p&gt;For valid causal inference, the following key assumptions need to be met.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Exchangeability&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This is also known as the no unmeasured confounding assumption. It is assumed that all confounders are used to calculate IPTW. While it is nearly impossible to include all confounders in the IPTW calculation, we will need to select a wide range of potential confounders based on a theoretical framework to improve the validity of this assumption. In our example, we determine that family, peer and school variables are important confounders that could affect both adolescent cannabis use and future illicit drug use. We therefore include family history of drug use, peers&amp;rsquo; cannabis use, academic grade and antisocial behaviour to calculate IPTW.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Positivity&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The probability of receiving treatment (i.e. using cannabis in our example) and not receiving treatment are both non-zero. This assumption is violated if treatment is deterministic. (e.g. if all children of parents who have used illicit drugs will later use cannabis, this assumption is violated.)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Correctness of the model for calculating the IPTW&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Logistic regressions are usually used to estimate IPTW. Interaction terms can be included into the model to improve the validity of this assumption. Machine learning models can also be used to calculate IPTW to capture potential non-linear effect.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Now we will demonstrate using the &lt;a href=&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example.csv&#34;/&gt;
-    simulated example data
-&lt;/a&gt; to test &lt;em&gt;the cumulative exposure effect of cannabis use from follow-up wave 1 to wave 3 on future illicit drug use at wave 4&lt;/em&gt;. We will provide a step-by-step guide on how to use &lt;strong&gt;StatsNotebook&lt;/strong&gt; to generate the R codes to calculate IPTW. Then we will conduct a weighted analysis on the weighted sample. The &lt;code&gt;ipw&lt;/code&gt; package will be used to calculate the IPTW, and the &lt;code&gt;survey&lt;/code&gt; package will be used to conduct the weighted analysis.&lt;/p&gt;
-&lt;p&gt;We will first calculate the weight at each time point by calculating the probability of receiving/ not receiving treatment, based on the treatment history from previous waves, the history of confounders and baseline confounders/ covariates. In our example, we will need to calculate the weight at follow-up wave 1 to 3 separately, and then calulate a final IPTW by multiplying the three weights from follow-up wave 1 to 3.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;To calculate the weight at follow-up wave 1, we use the variables from C&lt;sub&gt;1&lt;/sub&gt;, including academic grade, peers&amp;rsquo; cannabis, antisocial behaviour, cannabis use, sex and family history of drug use at baseline.&lt;/li&gt;
-&lt;li&gt;To calculate the weight at follow-up wave 2, we use all the variables from the previous step, plus academic grade, peers&amp;rsquo; cannabis and antisocial behaviour at follow-up wave 1 (history of all confounders), and cannabis use at follow-up wave 1 (exposure history).&lt;/li&gt;
-&lt;li&gt;To calculate the weight at follow-up wave 3, we use all the variables from the previous step, plus academic grade, peers&amp;rsquo; cannabis and antisocial behaviour at follow-up wave 2, and cannabis use at follow-up wave 2.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&#34;using-statsnotebook---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook---calculating-iptw&#34;&gt;Using StatsNotebook - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Prior to calculating the IPTW, we will need to conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;Descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt; and it is always good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;dataviz&#34;&gt;visualise the data&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To calculate the IPTW,&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Causal&lt;/strong&gt; in the top menu&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Inverse Probability Treatment Weighting (IPTW)&lt;/strong&gt; in the pop-up menu&lt;/li&gt;
-&lt;li&gt;In the left panel, select &lt;em&gt;can_1&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, and select &lt;em&gt;failed_0&lt;/em&gt;, &lt;em&gt;peer_can_0&lt;/em&gt; and &lt;em&gt;antisocial_0&lt;/em&gt; into &lt;em&gt;Time-varying covariates&lt;/em&gt;. As mentioned before, since baseline confounders/covariates can be regarded as a special subset of Time-varying covariates at Wave 1, we further select &lt;em&gt;family_drug_use&lt;/em&gt;, &lt;em&gt;sex&lt;/em&gt;  and &lt;em&gt;can_0&lt;/em&gt; (baseline cannabis use) into &lt;em&gt;Time-varying covariates&lt;/em&gt;.
-&lt;ul&gt;
-&lt;li&gt;To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for exopsure at follow-up wave 1.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction1.png&#34; alt=&#34;iptw instruction&#34; title=&#34;iptw instruction&#34;/&gt;&lt;/a&gt;
-&lt;ol start=&#34;5&#34;&gt;
-&lt;li&gt;Click the top &lt;strong&gt;+&lt;/strong&gt; button on top of &lt;em&gt;Exposure&lt;/em&gt; to add an extra time point (extra wave).&lt;/li&gt;
-&lt;li&gt;Select &lt;em&gt;can_2&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, and select &lt;em&gt;failed_1&lt;/em&gt;, &lt;em&gt;peer_can_1&lt;/em&gt; and &lt;em&gt;antisocial_1&lt;/em&gt; into &lt;em&gt;Time-varying covariates&lt;/em&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction2.png&#34; alt=&#34;iptw instruction 2&#34; title=&#34;iptw instruction 2&#34;/&gt;&lt;/a&gt;
-&lt;ol start=&#34;7&#34;&gt;
-&lt;li&gt;Repeat step 5 and 6 for &lt;em&gt;can_3&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;Expand the panel &lt;em&gt;Analysis Setting&lt;/em&gt; at the below the variable selection panel.&lt;/li&gt;
-&lt;li&gt;For &lt;em&gt;Distribution family&lt;/em&gt;, select &lt;em&gt;Binomial&lt;/em&gt;.
-&lt;ul&gt;
-&lt;li&gt;Since the exposure is a dichotomised variable (cannabis use or no cannabis use), logistic regression will be used to estimate the IPTW.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/iptw_instruction3.png&#34; alt=&#34;iptw instruction 3&#34; title=&#34;iptw instruction 3&#34;/&gt;&lt;/a&gt;
-&lt;ol start=&#34;10&#34;&gt;
-&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt;. The R codes below will be generated and executed.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Four new variables, &lt;em&gt;.ipw0&lt;/em&gt;, &lt;em&gt;.ipw1&lt;/em&gt;, &lt;em&gt;.ipw2&lt;/em&gt; and &lt;em&gt;.final_weight&lt;/em&gt; will be created. The first three are the IPTW at follow-up wave 1 to 3 and the last one is the product of the first three weights and will be used for subsequent outcome modelling.&lt;/p&gt;
-
-&lt;h5 id=&#34;r-codes---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---calculating-iptw&#34;&gt;R codes - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(ipw)
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Calculate IPTW&amp;#34;&lt;/span&gt;
-
-weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_1, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-
-weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_2, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-
-weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_3, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_2,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.final_weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2
-
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&amp;#34;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-
-&lt;h5 id=&#34;r-codes-explained---calculating-iptw&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---calculating-iptw&#34;&gt;R codes explained - Calculating IPTW&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;At each time point, we calculate the weight using the &lt;code&gt;ipwpoint&lt;/code&gt; function. For example, the code below calculates the weight for follow-up wave 1 by estimating the probability of cannabis use at follow-up wave 1 (exposure; can_1) based on academic grade (failed_0), peers&amp;rsquo; cannabis use (peer_can_0), antisocial behaviour (antisocial_0), family history of drug use (family_drug_use), sex (sex) and cannabis use at baseline (can_0).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_1, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-Similiarly, we will calculate the weight for follow-up wave 2 and wave 3 using the code below.
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_2, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-
-weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;ipwpoint&lt;/span&gt;(exposure &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; can_3, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;, link &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;,
-  numerator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2,
-  denominator &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;family_drug_use&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;sex&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;can_0&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;failed_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;peer_can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;antisocial_2,
-  trunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt;, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;as.data.frame&lt;/span&gt;(currentDataset))
-currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;weights.trunc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-And lastly, we will multiply all these weights to form the final IPTW.
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.final_weight &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw0&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw1&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.ipw2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-
-&lt;h5 id=&#34;using-statsnotebook---weighted-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook---weighted-analysis&#34;&gt;Using StatsNotebook - Weighted analysis&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of cumulative exposure, measured as the number of wave an individual reported using cannabis between follow-up wave 1 and wave 3, we first create a new variable (&lt;em&gt;cumulative&lt;/em&gt;) by summing up &lt;em&gt;can_1&lt;/em&gt;, &lt;em&gt;can_2&lt;/em&gt; and &lt;em&gt;can_3&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;To create this new variable in &lt;strong&gt;StatsNotebook&lt;/strong&gt;,&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Click &lt;strong&gt;Data&lt;/strong&gt; at the top&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Compute&lt;/strong&gt; at the top menu&lt;/li&gt;
-&lt;li&gt;Type &lt;em&gt;cumulative&lt;/em&gt; in the &lt;em&gt;Target Variable&lt;/em&gt; field.&lt;/li&gt;
-&lt;li&gt;You can select variable in the &lt;em&gt;Variable&lt;/em&gt; list and use &lt;strong&gt;+&lt;/strong&gt; to add the corresponding variables up.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/compute_cumulative.png&#34; alt=&#34;compute cumulative&#34; title=&#34;compute cumulative&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;The &lt;strong&gt;R code&lt;/strong&gt; for this operation is simple.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;cumulative &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_1&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_2&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;can_3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt; 
-&lt;p&gt;Once we have created the &lt;em&gt;cumulative&lt;/em&gt; variable, we can use the &lt;code&gt;survey&lt;/code&gt; package to conduct a weighted analysis to estimate the causal effect of cumulative use for cannabis use during adolescence on illicit drug use in young adulthood (age 25). &lt;strong&gt;Logistic regression&lt;/strong&gt; is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).&lt;/p&gt;
-&lt;p&gt;To conduct a weighted analysis,&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Regression&lt;/strong&gt; at the top menu&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Logistic regression&lt;/strong&gt; (linear regression can be used if the outcome is a numeric variable.)&lt;/li&gt;
-&lt;li&gt;In the left panel, select &lt;em&gt;illicit&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;, &lt;em&gt;cumulative&lt;/em&gt; into &lt;em&gt;Covariate&lt;/em&gt; and &lt;em&gt;.final_weight&lt;/em&gt; into &lt;em&gt;Weight&lt;/em&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/msm_instruction.png&#34; alt=&#34;msm instruction&#34; title=&#34;msm instruction&#34;/&gt;&lt;/a&gt;
-
-&lt;h5 id=&#34;r-codes---weighted-analysis&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes---weighted-analysis&#34;&gt;R codes - Weighted analysis&lt;/a&gt;&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(survey)
-
-clus &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; .final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
-res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus,family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
-&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(OR &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)))
-
-
-car&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#06287e&#34;&gt;infIndexPlot&lt;/span&gt;(res)
-
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&amp;#34;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;The code for a weighted logistic regression is straightforward. The &lt;code&gt;survey&lt;/code&gt; package is loaded using the &lt;code&gt;library&lt;/code&gt; function. The following line then specifies that the variable &lt;em&gt;.final_weight&lt;/em&gt; is used as the weighting variable.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;clus &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=~&lt;/span&gt; .final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;Then we use the following lines to run the weighted logistic regression and request the model results from R.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus,family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
-&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(res)
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;))
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;cbind&lt;/span&gt;(OR &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;coef&lt;/span&gt;(res), &lt;span style=&#34;color:#06287e&#34;&gt;confint&lt;/span&gt;(res, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;The codes above produce the following results.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-
-Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;svyglm&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; illicit &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; cumulative, design &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; clus, family &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; binomial)
-
-Survey design&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-&lt;span style=&#34;color:#06287e&#34;&gt;svydesign&lt;/span&gt;(id &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;, weights &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;.final_weight, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset)
-
-Coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
-            Estimate Std. Error t value &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)    
-(Intercept)  &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2270&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-11.734&lt;/span&gt;  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2e-16&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
-cumulative    &lt;span style=&#34;color:#40a070&#34;&gt;0.7865&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.2288&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;3.438&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.000649&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
-Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
-
-(Dispersion parameter for binomial family taken to be &lt;span style=&#34;color:#40a070&#34;&gt;1.000884&lt;/span&gt;)
-
-Number of Fisher Scoring iterations&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;
-
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Model coefficients and confidence intervals&amp;#34;&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-                            &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
-(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;-2.6639296&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-3.1089045&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;-2.218955&lt;/span&gt;
-cumulative   &lt;span style=&#34;color:#40a070&#34;&gt;0.7865248&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0.3380718&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;1.234978&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-[1] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Odds ratios and confidence intervals&amp;#34;&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-                   OR      &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
-(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;0.0696739&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.04464984&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1087227&lt;/span&gt;
-cumulative  &lt;span style=&#34;color:#40a070&#34;&gt;2.1957526&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1.40224124&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3.4383024&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;p&gt;It should be noted that you may also see the warning message below. This is expected because we have fractional weights.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-Warning message&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; non&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;integer &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#successes in a binomial glm!&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
-
-&lt;h5 id=&#34;interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#interpretation&#34;&gt;Interpretation&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 0.79, 95% CI = [0.34, 1.23], p &amp;lt; .001. The corresponding odds ratio was 2.20, 95% CI = [1.40, 3.44]. For every additional wave an individual used cannabis, the odds of using illicit drug at age 25 was increased by 2.20 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be slightly smaller due to residual confounding (confounding effect not capture by the variables we used in the analysis.)&lt;/p&gt;
 </description>
     </item>
     

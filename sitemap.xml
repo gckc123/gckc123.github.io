@@ -26,12 +26,32 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/blog/analysis/age_period_cohort_analysis/</loc>
-    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
+    <loc>https://statsnotebook.io/tags/analysis/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/tags/analysis/</loc>
+    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/age_period_cohort_analysis/</loc>
     <lastmod>2021-03-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,26 +68,6 @@
   <url>
     <loc>https://statsnotebook.io/tags/regression/</loc>
     <lastmod>2021-03-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/</loc>
-    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/</loc>
-    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
-    <lastmod>2021-03-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</loc>
-    <lastmod>2021-03-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
