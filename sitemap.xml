@@ -51,6 +51,11 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/consultation/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/tags/workshop/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url>
@@ -107,11 +112,6 @@
   
   <url>
     <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</loc>
-    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/consultation/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
   </url>
   
