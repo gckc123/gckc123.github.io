@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Animated Plots - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Animated plots - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/dataviz/animate/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/dataviz/animate/">Animated plots</a>
+    </h2>
+    <div class="post-data">
+        26 Dec, 2020 |
+        15 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Animated%20plots%20https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fanimate%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fanimate%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/dataviz">DataViz</a>,
+        
+        <a href="/tags/r-code">R code</a>
+        
+    </p>
+    
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+<div class="container markdown top-pad">
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>Animated plots can be created using the <code>gganimate</code> package, an extension of the <code>ggplot2</code> package.</p>
+<p>We will use the built-in <strong>Gapminder</strong> dataset for scatterplot example and the <strong>COVID-19</strong> data for the line graph, world map and barchart. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="Load example data">here</a>. The <strong>UNDP</strong> data can be downloaded from here <a href="https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv"/>
+    here
+</a> and the <strong>COVID-19</strong> data can also be downloaded from here <a href="https://statsnotebook.io/blog/data_management/example_data/covid19_long.csv"/>
+    here
+</a>.</p>
+<p>In this tutorial, we will build</p>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="#animated-scatterplot-1">Animated scatterplot 1</a>
+        <a href="#animated-scatterplot-1"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot.gif" alt="Animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="#animated-scatterplot-2">Animated scatterplot 2</a>
+        <a href="#animated-scatterplot-2"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot2.gif" alt="Animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="#animated-scatterplot-3">Animated scatterplot 3</a>
+        <a href="#animated-scatterplot-3"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot3.gif" alt="Animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="#animated-line-graph">Animated line graph</a>
+        <a href="#animated-line-graph"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_line_graph.gif" alt="Animated line graph"></a>
+    </div>
+    <div>
+        <a href="#animated-world-map">Animated World Map</a>
+        <a href="#animated-world-map"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_world_map_1s.gif" alt="Animated world map"></a>
+    </div>
+    <div>
+        <a href="#animated-bar-chart">Animated Barchart</a>
+        <a href="#animated-bar-chart"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_bar_chart.gif" alt="Animated bar chart"></a>
+    </div>
+</div>
+
+<h5 id="description-of-the-gapminder-data" class="anchor-link"><a href="#description-of-the-gapminder-data">Description of the Gapminder data</a></h5>
+<p>The Gapminder dataset is a dataset of 199 countries compiled from the United Nations Development Programme. This dataset will be used for the scatterplot examples. The following variables will be used.</p>
+<ol>
+<li>lifeExp - Life expectany in years</li>
+<li>gdpPercap - Gross domestic product per capita in US dollar (inflation adjusted)</li>
+<li>continent - Continent of the countries</li>
+<li>pop - Population size</li>
+<li>year - Year</li>
+<li>country - Country name</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/gapminder.csv&#34;</span>)
+</code></pre></div>
+<h5 id="description-of-the-covid-19-data" class="anchor-link"><a href="#description-of-the-covid-19-data">Description of the COVID-19 data</a></h5>
+<p>This is a data compiled by the Johns Hopkin University between 22nd Jan 2020 and 29th Dec 2020. This dataset will be used for the <a href="https://statsnotebook.io/blog/dataviz/animate/#animated-line-graph" title="line graph">line graph</a>, <a href="https://statsnotebook.io/blog/dataviz/animate/#animated-world-map-1" title="world map">world map</a> and <a href="https://statsnotebook.io/blog/dataviz/animate/#animated-bar-chart" title="barchart">barchart</a> examples. The data is in wide format and will need to be rearranged into a long format. The following variables will be used.</p>
+<ol>
+<li>Country - Country name</li>
+<li>Lat - Latitude of the country</li>
+<li>Long - Longitude of the country</li>
+<li>Date - Date.</li>
+<li>total_case - Number of total case since 22/01/2020.</li>
+<li>new_case - Number of new cases each day.</li>
+</ol>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/covid19_long.csv&#34;</span>)
+</code></pre></div>
+<h5 id="animated-scatterplot-1" class="anchor-link"><a href="#animated-scatterplot-1">Animated scatterplot 1</a></h5>
+<p>In this example, we will use the <a href="https://statsnotebook.io/blog/dataviz/animate/#description-of-the-gapminder-data" title="COVID-19 data">Gapminder</a> data
+To build a basis animated scatterplot visualising the association between two numerica variables (e.g. Life expectancy and Per capital GDP [in log scale]), and animate over a third variable (e.g. Year),</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Scatterplot</strong> from the menu</li>
+<li>In the <strong>Scatterplot</strong> panel, select <em>lifeExp</em> to <em>Vertical Axis</em>, <em>gdpPercap</em> to <em>Horizontal Axis</em> and <em>year</em> to <em>Frame</em>.
+<ul>
+<li>To show the data in different color, select <em>continent</em> to <em>Fill color</em>. We will need to code <em>continent</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for a step-by-step guide.</li>
+<li>To show the display the data point by population size, select <em>pop</em> to <em>Size</em>.</li>
+</ul>
+</li>
+<li>Expand the <strong>Scatterplot</strong> panel
+<ul>
+<li>check <strong>Log scale for the horizontal axis</strong></li>
+<li>Set the <strong>width</strong> and <strong>height</strong> of the plot in pixels. In this example, both width and height are set to 700.</li>
+<li>Enter the file name of the plot, in this example, we set the file name to &ldquo;animated_scatterplot&rdquo;.</li>
+</ul>
+</li>
+<li>To fine tune the plot, expand the <strong>Label, Settings and Theme</strong> panel
+<ul>
+<li>Click <strong>Switch to Advanced Mode</strong> for customisable setting (e.g. font size, color schemes, etc).</li>
+<li>For <strong>Title</strong>, we will use &ldquo;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&rdquo;</li>
+<li>For <strong>horizontal axis</strong>, we will use &ldquo;Per capita gross domestic product, US$, (inflation adjusted)&rdquo;</li>
+<li>For <strong>Vertical axis</strong>, we will use &ldquo;Life expectancy&rdquo;</li>
+<li>For <strong>Legends</strong>, we will set &ldquo;Continent&rdquo; as Color Fill Label and &ldquo;Population&rdquo; as Size label. We will also set the Legend position to &ldquo;Right&rdquo;.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong>.</li>
+</ol>
+
+<h5 id="r-codes" class="anchor-link"><a href="#r-codes">R Codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(continent, pop) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.1</span>, <span style="color:#40a070">8</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_x_log10</span>()<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Per capita gross domestic product, US$, (inflation adjusted)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population&#34;</span>)
+plot
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_time</span>(year)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;year: {frame_time}&#34;</span>)
+<span style="color:#06287e">animate</span>(animated_plot, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">700</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;animated_scatterplot.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+<span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;Animated plot saved at &#34;</span>, <span style="color:#06287e">getwd</span>()) 
+
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes" class="anchor-link"><a href="#output-from-the-above-r-codes">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex1.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+
+<h5 id="further-customisation-with-manual-codings" class="anchor-link"><a href="#further-customisation-with-manual-codings">Further customisation with manual codings</a></h5>
+<p>First, we can adjust the scale of population to million by changing the line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop)) <span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>to</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>To reflect the new scale, we change the legend label by changing the line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population&#34;</span>)<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>to</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>Second, we can adjust the size of the bubble and break point of the legend by changing the line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.1</span>, <span style="color:#40a070">8</span>))<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>to</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">2</span>, <span style="color:#40a070">20</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">250</span>,<span style="color:#40a070">750</span>,<span style="color:#40a070">1250</span>))<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>The smallest bubble will now have a size of 2 and the largest one will have a size of 20. The break point of the legend will be at 250, 750 and 1250 (millions).</p>
+<p>Third, we can change the number presentation in the x-axis from scientic notation to normal by changing the line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_x_log10</span>()<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>to</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_x_log10</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma)<span style="color:#666">+</span>
+</code></pre></div><br/>
+<p>Forth, we can adjust the size of the font in various section of the plots (e.g. title, x-axis/y-axis title, etc) by adding the following codes at the end of the <strong>ggplot</strong> function. We will need to also add the <strong>+</strong> sign to the previous line of code to concatenate the codes for the <strong>ggplot</strong> function. The last line of code is to adjust the size of the color legend.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">    <span style="color:#06287e">theme</span>(plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">guides</span>(color <span style="color:#666">=</span> <span style="color:#06287e">guide_legend</span>(override.aes <span style="color:#666">=</span> <span style="color:#06287e">list</span>(size<span style="color:#666">=</span><span style="color:#40a070">5</span>)))
+</code></pre></div><br/>
+
+<h5 id="complete-r-codes" class="anchor-link"><a href="#complete-r-codes">Complete R codes</a></h5>
+<br/>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(continent, pop) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">2</span>, <span style="color:#40a070">20</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">250</span>,<span style="color:#40a070">750</span>,<span style="color:#40a070">1250</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_x_log10</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Per capita Gross domestic product, US$ (inflation adjusted)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">guides</span>(color <span style="color:#666">=</span> <span style="color:#06287e">guide_legend</span>(override.aes <span style="color:#666">=</span> <span style="color:#06287e">list</span>(size<span style="color:#666">=</span><span style="color:#40a070">5</span>)))
+plot
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_time</span>(year)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year: {frame_time}&#34;</span>)
+<span style="color:#06287e">animate</span>(animated_plot, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;animated_scatterplot.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+<span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;Animated plot saved at &#34;</span>, <span style="color:#06287e">getwd</span>()) 
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-1" class="anchor-link"><a href="#output-from-the-above-r-codes-1">Output from the above R codes</a></h5>
+<p><img src="https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex2.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+<br/></p>
+
+<h5 id="animated-scatterplot-2" class="anchor-link"><a href="#animated-scatterplot-2">Animated scatterplot 2</a></h5>
+<p>To plot different continent in different sub-plot, follow the above steps and add the following line to the <strong>ggplot</strong> function. Depending the position you insert this line, you will need to add a <strong>+</strong> sign to the previous line and also the end of this line.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">facet_wrap</span>( <span style="color:#666">~</span> continent)
+</code></pre></div><br/>
+
+<h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R codes</a></h5>
+<p>Below is the complete R codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(continent, pop) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">2</span>, <span style="color:#40a070">20</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">250</span>,<span style="color:#40a070">750</span>,<span style="color:#40a070">1250</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">facet_wrap</span>( <span style="color:#666">~</span> continent)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_x_log10</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Per capita gross domestic product (log-scale) and Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Per capita Gross domestic product, US$ (inflation adjusted)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">guides</span>(color <span style="color:#666">=</span> <span style="color:#06287e">guide_legend</span>(override.aes <span style="color:#666">=</span> <span style="color:#06287e">list</span>(size<span style="color:#666">=</span><span style="color:#40a070">5</span>)))
+plot
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_time</span>(year)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year: {frame_time}&#34;</span>)
+<span style="color:#06287e">animate</span>(animated_plot, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;animated_scatterplot.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+<span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;Animated plot saved at &#34;</span>, <span style="color:#06287e">getwd</span>()) 
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-2" class="anchor-link"><a href="#output-from-the-above-r-codes-2">Output from the above R codes</a></h5>
+<p><img src="https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex3.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+<br/></p>
+
+<h5 id="animated-scatterplot-3" class="anchor-link"><a href="#animated-scatterplot-3">Animated scatterplot 3</a></h5>
+<p>To show year in different color and continents in different frame, the steps will be very similar to those in the above examples, except that now we select <em>year</em> into <em>Fill color</em> and <em>continent</em> into <em>Frame</em>.</p>
+
+<h5 id="complete-r-codes-1" class="anchor-link"><a href="#complete-r-codes-1">Complete R Codes</a></h5>
+<p>In the codes below, we have also included all the customisation codes from above.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(year, pop) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> lifeExp, x <span style="color:#666">=</span> gdpPercap, size <span style="color:#666">=</span> pop<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> year), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">2</span>, <span style="color:#40a070">12</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">250</span>,<span style="color:#40a070">750</span>,<span style="color:#40a070">1250</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_x_log10</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Per capita gross domestic product (log-scale) and life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Per capita gross domestic product, US$ (inflation adjusted)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Life expectancy&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span> 
+    <span style="color:#06287e">theme</span>(axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))
+plot
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_states</span>(continent, transition_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>, state_length <span style="color:#666">=</span> <span style="color:#40a070">2</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent: {closest_state}&#34;</span>) <span style="color:#666">+</span>
+    <span style="color:#06287e">enter_fade</span>()<span style="color:#666">+</span>
+    <span style="color:#06287e">exit_shrink</span>()
+<span style="color:#06287e">animate</span>(animated_plot, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;animated_scatterplot.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+<span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;Animated plot saved at &#34;</span>, <span style="color:#06287e">getwd</span>()) 
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-3" class="anchor-link"><a href="#output-from-the-above-r-codes-3">Output from the above R codes</a></h5>
+<p><img src="https://statsnotebook.io//blog/dataviz/img/animated_scatterplot_ex4.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+<br/></p>
+
+<h5 id="animated-line-graph" class="anchor-link"><a href="#animated-line-graph">Animated line graph</a></h5>
+<p>Animated line graph is often used to show the evoluation of a time series. Creating an animated line graph in <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a> is similar to creating a <a href="https://statsnotebook.io/blog/dataviz/line_graph/" title="static line graph">static line graph</a>. In this example, we limit the data to Australia and New Zealand. To do this, we will need to run the following codes after loading the data.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">filter</span>(Country <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;Australia&#34;</span>, <span style="color:#4070a0">&#34;New Zealand&#34;</span>))
+</code></pre></div><br/>
+<p>To create a line graph showing the number of new COVID-19 cases in Australia and New Zealand, we can</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Line</strong></li>
+<li>Select <strong>Line graph/ Time Series</strong></li>
+<li>In the <strong>Line graph</strong> panel, select <em>new_case</em> to <em>Vertical Axis</em>, <em>date</em> to <em>Horizontal axis</em> and <em>Country</em> to <em>Fill color</em>.
+<ul>
+<li>We will need to code <em>Country</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for a step-by-step guide.</li>
+</ul>
+</li>
+<li>Expand the <strong>Line Graph Setting</strong> panel, check <em>Animate</em>
+<ul>
+<li>We can set the Width and Height for your animated plot. In this example, we use 700 for width and 656 for height.</li>
+<li>We can also set the file name of the plot.</li>
+</ul>
+</li>
+<li>To set the title, horizontal and vertical axis and font size, we can expand the <strong>Label and Theme</strong> panel, and
+<ul>
+<li>Click on <strong>Switch to Advanced mode</strong> and set the corresponding attributes.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong>.</li>
+</ol>
+<br/>
+
+<h5 id="r-codes-2" class="anchor-link"><a href="#r-codes-2">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> new_case, x <span style="color:#666">=</span> date, color <span style="color:#666">=</span> Country)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_line</span>(na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, size <span style="color:#666">=</span> <span style="color:#40a070">1</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">0.8</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;# of new COVID19 cases&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Date&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;# of new cases&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Country&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span> 
+    <span style="color:#06287e">theme</span>(axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">16</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>))
+plot
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_reveal</span>(date)
+
+<span style="color:#06287e">animate</span>(animated_plot, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;animated_linegraph.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+<span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;Animated plot saved at &#34;</span>, <span style="color:#06287e">getwd</span>())
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-4" class="anchor-link"><a href="#output-from-the-above-r-codes-4">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/animated_line_graph.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+
+<h5 id="animated-world-map" class="anchor-link"><a href="#animated-world-map">Animated world map</a></h5>
+<p>Point-and-click menu for plotting world map is not yet available in <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>. To draw the boundary of each countries, we will use world map data returned by the <code>map_data</code> from <code>ggplot2</code>. After loading the <a href="https://statsnotebook.io/blog/dataviz/animate/#description-of-the-covid-19-data" title="COVID-19 data">COVID-19</a> data, we run the following code to load the world map data into the variable <code>world_map</code>.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">world_map <span style="color:#666">&lt;-</span> <span style="color:#06287e">map_data</span>(<span style="color:#4070a0">&#34;world&#34;</span>)
+</code></pre></div><p>We then only retain rows with 1 or more cases by using the following line.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(total_case <span style="color:#666">&gt;</span> <span style="color:#40a070">0</span>)
+</code></pre></div><p>We will use the <code>geom_polygon</code> function to draw the boundary of each country based on the latitude and longitude data from the variable <code>world_map</code>. We use the size of the data point to represent the number of total cases in each country by using the <code>size</code> aesthetic. Finally, we use the <code>theme</code> function to setup the canvas for plotting maps with <code>ggplot</code>.</p>
+<p>We use the following codes to set up the plot.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">&lt;-</span> <span style="color:#06287e">ggplot</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_polygon</span>(data <span style="color:#666">=</span> world_map, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lightgray&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> long, y <span style="color:#666">=</span> lat, group <span style="color:#666">=</span> group)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_point</span>(data <span style="color:#666">=</span> covid19_long, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> Long, y <span style="color:#666">=</span> Lat, size <span style="color:#666">=</span> total_case), alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;red&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;red&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_size_continuous</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">1</span>, <span style="color:#40a070">20</span>), labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_bw</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">theme</span>(axis.ticks <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.line <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.title <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.border <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">35</span>),
+        plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">25</span>),
+        legend.position <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.02</span>,<span style="color:#40a070">0.08</span>),
+        legend.justification <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.02</span>,<span style="color:#40a070">0.08</span>),
+        legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>),
+        legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">12</span>)) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of cases&#34;</span>)
+</code></pre></div><p>We then use the <code>transition_states</code> function from the <code>gganimate</code> library to specify the transition to be based on the <strong>data</strong> variable.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_states</span>(date, transition_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>, state_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of COVID-19 cases&#34;</span>,
+       subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Date: {closest_state}&#34;</span>)
+</code></pre></div><p>Lastly, we use the <code>animate</code> function to create the animated plot. We can use the <em>weight</em> and <em>height</em> parameter to set the size of the plot. we can use the <em>nframes</em> parameter to set the total number of frame in the animation, and the <em>fps</em> parameter to set the frame per second. We then use the <code>anim_save</code> function to save the plot.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">animate</span>(animated_plot, nframes<span style="color:#666">=</span><span style="color:#40a070">800</span>, fps <span style="color:#666">=</span> <span style="color:#40a070">30</span>, width <span style="color:#666">=</span> <span style="color:#40a070">1200</span>, height <span style="color:#666">=</span> <span style="color:#40a070">800</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;tmp_map.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+</code></pre></div><br/> 
+
+<h5 id="complete-r-codes-2" class="anchor-link"><a href="#complete-r-codes-2">Complete R codes</a></h5>
+<p>Suppose the <strong>COVID-19</strong> data was alreadly loaded into the dataframe <strong>currentDataset</strong>, the following is the complete code for creating an animated world map showing the evolution of COVID-19 around the world.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">world_map <span style="color:#666">&lt;-</span> <span style="color:#06287e">map_data</span>(<span style="color:#4070a0">&#34;world&#34;</span>)
+
+currentDataset <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(total_case <span style="color:#666">&gt;</span> <span style="color:#40a070">0</span>)
+
+plot <span style="color:#666">&lt;-</span> <span style="color:#06287e">ggplot</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_polygon</span>(data <span style="color:#666">=</span> world_map, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lightgray&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;white&#34;</span>, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> long, y <span style="color:#666">=</span> lat, group <span style="color:#666">=</span> group)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_point</span>(data <span style="color:#666">=</span> currentDataset, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> Long, y <span style="color:#666">=</span> Lat, size <span style="color:#666">=</span> total_case), alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;red&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;red&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_size_continuous</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">1</span>, <span style="color:#40a070">20</span>), labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_bw</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">theme</span>(axis.ticks <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.line <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.title <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.border <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">35</span>),
+        plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">25</span>),
+        legend.position <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.02</span>,<span style="color:#40a070">0.08</span>),
+        legend.justification <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.02</span>,<span style="color:#40a070">0.08</span>),
+        legend.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">14</span>),
+        legend.text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size <span style="color:#666">=</span> <span style="color:#40a070">12</span>)) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of cases&#34;</span>)
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span> plot <span style="color:#666">+</span> <span style="color:#06287e">transition_states</span>(date, transition_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>, state_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of COVID-19 cases&#34;</span>,
+       subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Date: {closest_state}&#34;</span>)
+
+<span style="color:#06287e">animate</span>(animated_plot, nframes<span style="color:#666">=</span><span style="color:#40a070">800</span>, fps <span style="color:#666">=</span> <span style="color:#40a070">30</span>, width <span style="color:#666">=</span> <span style="color:#40a070">1200</span>, height <span style="color:#666">=</span> <span style="color:#40a070">800</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;tmp_map.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+</code></pre></div><br/> 
+
+<h5 id="output-from-the-above-r-codes-5" class="anchor-link"><a href="#output-from-the-above-r-codes-5">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/animated_world_map_1.gif" alt="animated world map" title="animated world map"/></a>
+
+<h5 id="animated-bar-chart" class="anchor-link"><a href="#animated-bar-chart">Animated bar chart</a></h5>
+<p>Point-and-click menu for creating racing barchart is not yet available in <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>. Both the <code>geom_bar</code> and <code>geom_tile</code> can be used to create animated bar chart. In this example, we use <code>geom_tile</code>. After loading the <a href="https://statsnotebook.io/blog/dataviz/animate/#description-of-the-covid-19-data" title="COVID-19 data">COVID-19</a> data, we run the following code to rank the countries by number of tocal COVID cases on each day, and only retain the top ten countries on each day.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">group_by</span>(date) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">mutate</span>(rank <span style="color:#666">=</span> <span style="color:#06287e">rank</span>(<span style="color:#666">-</span>total_case)) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">group_by</span>(Country) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">filter</span>(rank <span style="color:#666">&lt;=</span> <span style="color:#40a070">10</span>) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">ungroup</span>()
+
+currentDataset<span style="color:#666">$</span>rank <span style="color:#666">&lt;-</span> <span style="color:#06287e">round</span>(currentDataset<span style="color:#666">$</span>rank)
+</code></pre></div><p>We then use the following codes to create the plot. We use <code>geom_text</code> to add the country name and number of cases at the front and end of the bars. We use <code>coord_flip</code> to flip the coordinate system to create the horizontal bars.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot <span style="color:#666">=</span> currentDataset <span style="color:#666">%&gt;%</span> 
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(rank, group <span style="color:#666">=</span> Country, 
+                fill <span style="color:#666">=</span> Country, color <span style="color:#666">=</span> Country)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_tile</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> total_case<span style="color:#666">/</span><span style="color:#40a070">2</span>,
+                height <span style="color:#666">=</span> total_case,
+                width <span style="color:#666">=</span> <span style="color:#40a070">0.9</span>), alpha <span style="color:#666">=</span> <span style="color:#40a070">0.8</span>, color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> <span style="color:#40a070">0</span>, label <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(Country, <span style="color:#4070a0">&#34; &#34;</span>)), hjust <span style="color:#666">=</span> <span style="color:#40a070">1</span>, size <span style="color:#666">=</span> <span style="color:#40a070">8</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(<span style="color:#06287e">aes</span>(y<span style="color:#666">=</span>total_case,label <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34; &#34;</span>, total_case), ), hjust<span style="color:#666">=</span><span style="color:#40a070">0</span>, size <span style="color:#666">=</span> <span style="color:#40a070">8</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_flip</span>(clip <span style="color:#666">=</span> <span style="color:#4070a0">&#34;off&#34;</span>, expand <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_x_reverse</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">guides</span>(color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, fill <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme</span>(axis.line <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.ticks <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;none&#34;</span>,
+        panel.background <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.border <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.major <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.minor <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.major.x <span style="color:#666">=</span> <span style="color:#06287e">element_line</span>( size<span style="color:#666">=</span><span style="color:#40a070">.1</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span> ),
+        panel.grid.minor.x <span style="color:#666">=</span> <span style="color:#06287e">element_line</span>( size<span style="color:#666">=</span><span style="color:#40a070">.1</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span> ),
+        plot.title  <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">35</span>, face<span style="color:#666">=</span><span style="color:#4070a0">&#34;bold&#34;</span>, colour<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">25</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.caption <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">20</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.background<span style="color:#666">=</span><span style="color:#06287e">element_blank</span>(),
+        plot.margin <span style="color:#666">=</span> <span style="color:#06287e">margin</span>(<span style="color:#40a070">3</span>,<span style="color:#40a070">5</span>, <span style="color:#40a070">2</span>, <span style="color:#40a070">8</span>, <span style="color:#4070a0">&#34;cm&#34;</span>))
+       
+</code></pre></div><p>We then use the <code>transition_states</code> function from the <code>gganimate</code> library to specify the transition to be based on the <strong>date</strong> variable. Since this is not a typical use of the <code>geom_tile</code> function and R would issue warnings about its use. We disable the warnings in the first line.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">options</span>(warn <span style="color:#666">=</span> <span style="color:#40a070">-1</span>)
+
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+animated_plot <span style="color:#666">&lt;-</span>plot <span style="color:#666">+</span> <span style="color:#06287e">transition_states</span>(date, transition_length <span style="color:#666">=</span> <span style="color:#40a070">3</span>, state_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">view_follow</span>(fixed_x <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)  <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of COVID-19 cases&#34;</span>,  
+       subtitle  <span style="color:#666">=</span>  <span style="color:#4070a0">&#34;Top 10 Countries&#34;</span>,
+       caption <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Date: {closest_state}&#34;</span>)
+
+</code></pre></div><p>Lastly, we use the <code>animate</code> function to create the animated plot. We can use the <em>weight</em> and <em>height</em> parameter to set the size of the plot. we can use the <em>nframes</em> parameter to set the total number of frame in the animation, and the <em>fps</em> parameter to set the frame per second. We then use the <code>anim_save</code> function to save the plot.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">animate</span>(animated_plot, nframes<span style="color:#666">=</span><span style="color:#40a070">1200</span>, fps <span style="color:#666">=</span> <span style="color:#40a070">20</span>, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;tmp.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+</code></pre></div><br/>
+
+<h5 id="complete-r-codes-3" class="anchor-link"><a href="#complete-r-codes-3">Complete R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">&lt;-</span> currentDataset <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">group_by</span>(date) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">mutate</span>(rank <span style="color:#666">=</span> <span style="color:#06287e">rank</span>(<span style="color:#666">-</span>total_case)) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">group_by</span>(Country) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">filter</span>(rank <span style="color:#666">&lt;=</span> <span style="color:#40a070">10</span>) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">ungroup</span>()
+    
+currentDataset<span style="color:#666">$</span>rank <span style="color:#666">&lt;-</span> <span style="color:#06287e">round</span>(currentDataset<span style="color:#666">$</span>rank)
+
+plot <span style="color:#666">=</span> currentDataset <span style="color:#666">%&gt;%</span> 
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(rank, group <span style="color:#666">=</span> Country, 
+                fill <span style="color:#666">=</span> Country, color <span style="color:#666">=</span> Country)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_tile</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> total_case<span style="color:#666">/</span><span style="color:#40a070">2</span>,
+                height <span style="color:#666">=</span> total_case,
+                width <span style="color:#666">=</span> <span style="color:#40a070">0.9</span>), alpha <span style="color:#666">=</span> <span style="color:#40a070">0.8</span>, color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> <span style="color:#40a070">0</span>, label <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(Country, <span style="color:#4070a0">&#34; &#34;</span>)), hjust <span style="color:#666">=</span> <span style="color:#40a070">1</span>, size <span style="color:#666">=</span> <span style="color:#40a070">8</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(<span style="color:#06287e">aes</span>(y<span style="color:#666">=</span>total_case,label <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34; &#34;</span>, total_case), ), hjust<span style="color:#666">=</span><span style="color:#40a070">0</span>, size <span style="color:#666">=</span> <span style="color:#40a070">8</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_flip</span>(clip <span style="color:#666">=</span> <span style="color:#4070a0">&#34;off&#34;</span>, expand <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>comma) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_x_reverse</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">guides</span>(color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, fill <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme</span>(axis.line <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text.x <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.text.y <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.ticks <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        axis.title.x <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+         axis.title.y <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;none&#34;</span>,
+        panel.background <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.border <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.major <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.minor <span style="color:#666">=</span> <span style="color:#06287e">element_blank</span>(),
+        panel.grid.major.x <span style="color:#666">=</span> <span style="color:#06287e">element_line</span>( size<span style="color:#666">=</span><span style="color:#40a070">.1</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span> ),
+        panel.grid.minor.x <span style="color:#666">=</span> <span style="color:#06287e">element_line</span>( size<span style="color:#666">=</span><span style="color:#40a070">.1</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span> ),
+        plot.title  <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">35</span>, face<span style="color:#666">=</span><span style="color:#4070a0">&#34;bold&#34;</span>, colour<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.subtitle <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">25</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.caption <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span><span style="color:#40a070">20</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;gray&#34;</span>),
+        plot.background<span style="color:#666">=</span><span style="color:#06287e">element_blank</span>(),
+       plot.margin <span style="color:#666">=</span> <span style="color:#06287e">margin</span>(<span style="color:#40a070">3</span>,<span style="color:#40a070">5</span>, <span style="color:#40a070">2</span>, <span style="color:#40a070">8</span>, <span style="color:#4070a0">&#34;cm&#34;</span>))
+       
+<span style="color:#06287e">library</span>(gganimate)
+<span style="color:#06287e">library</span>(gifski)
+
+<span style="color:#06287e">options</span>(warn <span style="color:#666">=</span> <span style="color:#40a070">-1</span>)
+animated_plot <span style="color:#666">&lt;-</span>plot <span style="color:#666">+</span> <span style="color:#06287e">transition_states</span>(date, transition_length <span style="color:#666">=</span> <span style="color:#40a070">3</span>, state_length <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">view_follow</span>(fixed_x <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)  <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;# of COVID-19 cases&#34;</span>,  
+       subtitle  <span style="color:#666">=</span>  <span style="color:#4070a0">&#34;Top 10 Countries&#34;</span>,
+       caption <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Date: {closest_state}&#34;</span>)
+<span style="color:#06287e">animate</span>(animated_plot, nframes<span style="color:#666">=</span><span style="color:#40a070">1200</span>, fps <span style="color:#666">=</span> <span style="color:#40a070">20</span>, width <span style="color:#666">=</span> <span style="color:#40a070">700</span>, height <span style="color:#666">=</span> <span style="color:#40a070">656</span>, renderer <span style="color:#666">=</span> <span style="color:#06287e">gifski_renderer</span>())
+
+<span style="color:#06287e">anim_save</span>(<span style="color:#4070a0">&#34;tmp.gif&#34;</span>, animation <span style="color:#666">=</span> <span style="color:#06287e">last_animation</span>())
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-6" class="anchor-link"><a href="#output-from-the-above-r-codes-6">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/animated_bar_chart.gif" alt="animated scatterplot" title="animated scatterplot"/></a>
+
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

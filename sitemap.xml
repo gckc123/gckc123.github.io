@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://statsnotebook.io/projects/analysis/</loc>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/projects/dataviz/</loc>
+    <lastmod>2020-09-14T21:13:40+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/projects/data_management/</loc>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/projects/</loc>
+    <lastmod>2020-09-14T21:13:40+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/itsa/</loc>
+    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/analysis/</loc>
+    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
+    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/</loc>
+    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/interrupted-time-series-analysis/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/consultation/its/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/seminar/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/consultation/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/workshop/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/age_period_cohort_analysis/</loc>
+    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/linear-model/</loc>
+    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/r-code/</loc>
+    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/regression/</loc>
+    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/animate/</loc>
+    <lastmod>2020-12-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/dataviz/</loc>
+    <lastmod>2020-12-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/robust_regression/</loc>
+    <lastmod>2020-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/</loc>
+    <lastmod>2020-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/consultation/iptw_msm/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/data-management/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/line_graph/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/reshape/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/scatterplot/</loc>
+    <lastmod>2020-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/barchart/</loc>
+    <lastmod>2020-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/histogram/</loc>
+    <lastmod>2020-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/density/</loc>
+    <lastmod>2020-10-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/linear_mixed_model/</loc>
+    <lastmod>2020-10-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/compute_variable/</loc>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/</loc>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/mediation/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/missing-data/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/multiple_imputation/</loc>
+    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/moderation_interaction_regression/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/boxplot/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/correlogram/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/descriptive-statistics/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/descriptive/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/load_example_data/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/set_reference/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/data_management/variable_conversion/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/dataviz/violinplot/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/betarelease/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/code/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/regression/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/regression_missingdata/</loc>
+    <lastmod>2020-09-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/download/</loc>
+  </url>
+  
+</urlset>

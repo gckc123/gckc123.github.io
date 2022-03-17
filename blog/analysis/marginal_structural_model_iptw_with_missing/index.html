@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+I P T W With Missing Data - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="IPTW with missing data - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw_with_missing/">IPTW with missing data</a>
+    </h2>
+    <div class="post-data">
+        5 Dec, 2020 |
+        11 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=IPTW%20with%20missing%20data%20https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmarginal_structural_model_iptw_with_missing%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmarginal_structural_model_iptw_with_missing%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/causal-inference">Causal Inference</a>
+        
+    </p>
+    
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+<div class="container markdown top-pad">
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>This is a follow-up tutorial built on our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a>. In this tutorial, we use the same example, but with some missing data in the dataset. It is recommended that you read our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a> first.</p>
+<p>The example data can be downloaded from <a href="https://statsnotebook.io/blog/data_management/example_data/iptw_example_with_missing.csv"/>
+    here
+</a>.</p>
+<p>This data can also be loaded using the following codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/iptw_example_with_missing.csv&#34;</span>)
+</code></pre></div><p>If your dataset has missing data, <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="multiple imputation">multiple imputation</a> can be firstly used to impute the missing value. <strong>StatsNotebook</strong> provides a shortcut for incorporating multiple imputation with IPTW. The shortcut method will only use variables for the IPTW calculation to impute the missing value. If more auxiliary variables or interaction between variables are needed for the imputation, we can <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="multiple imputation">conduct the imputation manually</a> first. This tutorial will demonstrate the shortcut method.</p>
+<p>In the presence of missing data,</p>
+<ol>
+<li>Multiple imputation will be used to impute missing values first. As a rule of thumb, the number of imputations needed is roughly the same as the percentage of missing data.</li>
+<li>IPTW is computed for each imputed dataset.</li>
+<li>The outcome model will be run on each imputed dataset.</li>
+<li>Results from different imputed datasets are combined using Rubin&rsquo;s formula.</li>
+</ol>
+<p><strong>StatsNotebook</strong> uses the <code>mice</code> package for multiple imputation, and then uses the <code>mitools</code> package to combine results from the outcome models to form final estimates using Rubin&rsquo;s formula.</p>
+<p>The section below will provide a step-by-step guide on using IPTW with multiple imputations to answer the research question</p>
+<ul>
+<li><em>Does cannabis use in follow-up wave 1 to wave 3 (in Grade 8, 9 and 10) cause use of illicit drug at age 25?</em></li>
+</ul>
+<p>In this example dataset, the key variables are</p>
+<ol>
+<li>Academic grade (<strong>failed</strong>; 0: no failed subjects; failed at least one subject)</li>
+<li>Peers&rsquo; cannabis use (<strong>peer_can</strong>: 0: None; 1: 1-2 friends used cannabis; 2: 3 or more friends used cannabis)</li>
+<li>Antisocial behaviour (<strong>antisocial</strong>: 0: No antisocial behaviour; 1: engaged in antisocial behaviour)</li>
+<li>Cannabis use (<strong>can</strong>; 0: No use; 1: used)</li>
+<li>Sex (<strong>sex</strong>; 0: male; 1: female)</li>
+<li>Family history of drug use (<strong>family_drug_use</strong>; 0: no; 1: at least one immediate family member used drug. This is only measured at baseline.)</li>
+<li>Illicit drug use at age 25 (<strong>illicit</strong>: 0: No use; 1: used)</li>
+</ol>
+<p>The suffix of each variable indicates the time point the data is collected. For example, peer_can_0 represents the number of peers who used cannabis at baseline (wave 0).</p>
+<p>For the detailed setup of this analysis, please see our tutorial on <a href="https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/" title="iptw">inverse probability treatment weight</a>, in which we used a complete dataset instead of one with missing data.</p>
+
+<h5 id="using-statsnotebook---calculating-iptw" class="anchor-link"><a href="#using-statsnotebook---calculating-iptw">Using StatsNotebook - Calculating IPTW</a></h5>
+<p>Prior to calculating the IPTW, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="Descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="dataviz">visualise the data</a>.</p>
+<p>To perform multiple imputation and then to calculate the IPTW for each imputed dataset,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Causal</strong> in the top menu</li>
+<li>Click <strong>Inverse Probability Treatment Weighting (IPTW)</strong> in the pop-up menu</li>
+<li>In the left panel, select <em>can_1</em> into <em>Exposure</em>, and select <em>failed_0</em>, <em>peer_can_0</em> and <em>antisocial_0</em> into <em>Time-varying covariates</em>. As mentioned before, since baseline confounders/covariates can be regarded as a special subset of Time-varying covariates at Wave 1, we further select <em>family_drug_use</em>, <em>sex</em>  and <em>can_0</em> (baseline cannabis use) into <em>Time-varying covariates</em>.
+<ul>
+<li>To ensure the temporal order of the variables, we use covariates from baseline to calculate IPTW for the expsoure variable at follow-up wave 1.</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction1.png" alt="iptw instruction" title="iptw instruction"/></a>
+<ol start="5">
+<li>Click the top <strong>+</strong> button on top of <em>Exposure</em> to add an extra time point (extra wave).</li>
+<li>Select <em>can_2</em> into <em>Exposure</em>, and select <em>failed_1</em>, <em>peer_can_1</em> and <em>antisocial_1</em> into <em>Time-varying covariates</em>.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction2.png" alt="iptw instruction" title="iptw instruction"/></a>
+<ol start="7">
+<li>
+<p>Repeat step 5 and 6 for <em>can_3</em>.</p>
+</li>
+<li>
+<p>Select <em>illicit</em> into <em>Outcome</em>.</p>
+<ul>
+<li>This step is not necessary when there is no missing data. The variable in <em>Outcome</em> is only used for the multiple imputation but not for calculating IPTW.</li>
+</ul>
+</li>
+<li>
+<p>Expand the panel <em>Analysis Setting</em> at the below the variable selection panel.</p>
+</li>
+<li>
+<p>For <em>Distribution family</em>, select <em>Binomial</em>.</p>
+<ul>
+<li>Since the exposure is a dichotomised variable (cannabis use or no cannabis use), logistic regression will be used to estimate the IPTW.</li>
+</ul>
+</li>
+<li>
+<p>Click <em>Impute missing data</em>. In this example, we specify 20 imputations.</p>
+<ul>
+<li>As a rule of thumb, the number of imputations should be roughly the same as the percentage of missing data.</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/iptw_instruction3_missing.png" alt="iptw instruction" title="iptw instruction"/></a>
+<ol start="12">
+<li>Click <strong>Code and Run</strong>. The codes below will be generated and executed.</li>
+</ol>
+
+<h5 id="r-codes---calculating-iptw" class="anchor-link"><a href="#r-codes---calculating-iptw">R codes - Calculating IPTW</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(ipw)
+
+currentDataset <span style="color:#666">&lt;-</span> currentDataset<span style="color:#06287e">[which</span>(currentDataset<span style="color:#666">$</span>.imp <span style="color:#666">==</span> <span style="color:#40a070">0</span>),]
+currentDataset <span style="color:#666">&lt;-</span> currentDataset[<span style="color:#666">!</span>(<span style="color:#06287e">names</span>(currentDataset) <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;.id&#34;</span>, <span style="color:#4070a0">&#34;.imp&#34;</span>))]
+
+<span style="color:#4070a0">&#34;Impute missing data&#34;</span>
+<span style="color:#06287e">library</span>(mice)
+<span style="color:#06287e">library</span>(mitools)
+
+
+formulas <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.formulas</span>(currentDataset)
+
+formulas<span style="color:#666">$</span>illicit <span style="color:#666">=</span>illicit <span style="color:#666">~</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>can_1 <span style="color:#666">=</span>can_1 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>failed_0 <span style="color:#666">=</span>failed_0 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>peer_can_0 <span style="color:#666">=</span>peer_can_0 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>antisocial_0 <span style="color:#666">=</span>antisocial_0 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>can_0 <span style="color:#666">=</span>can_0 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>family_drug_use <span style="color:#666">=</span>family_drug_use <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>sex <span style="color:#666">=</span>sex <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>can_2 <span style="color:#666">=</span>can_2 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>failed_1 <span style="color:#666">=</span>failed_1 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>peer_can_1 <span style="color:#666">=</span>peer_can_1 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>antisocial_1 <span style="color:#666">=</span>antisocial_1 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>can_3 <span style="color:#666">=</span>can_3 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>failed_2 <span style="color:#666">=</span>failed_2 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> peer_can_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>peer_can_2 <span style="color:#666">=</span>peer_can_2 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> antisocial_2
+formulas<span style="color:#666">$</span>antisocial_2 <span style="color:#666">=</span>antisocial_2 <span style="color:#666">~</span> illicit <span style="color:#666">+</span> can_1 <span style="color:#666">+</span> failed_0 <span style="color:#666">+</span> peer_can_0 <span style="color:#666">+</span> antisocial_0 <span style="color:#666">+</span> can_0 <span style="color:#666">+</span> family_drug_use <span style="color:#666">+</span> sex <span style="color:#666">+</span> can_2 <span style="color:#666">+</span> failed_1 <span style="color:#666">+</span> peer_can_1 <span style="color:#666">+</span> antisocial_1 <span style="color:#666">+</span> can_3 <span style="color:#666">+</span> failed_2 <span style="color:#666">+</span> peer_can_2
+
+meth <span style="color:#666">&lt;-</span> <span style="color:#06287e">make.method</span>(currentDataset)
+meth[<span style="color:#4070a0">&#34;failed_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;family_alc_supp_0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;family_alc_supp_1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;family_alc_supp_2&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;family_alc_supp_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;peer_can_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;peer_alc_0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;peer_alc_1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;peer_alc_2&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;peer_alc_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;antisocial_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;alc_0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;alc_1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;alc_2&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;alc_3&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;distress&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;alc_dep&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;.ipw0&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;.ipw1&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;.ipw2&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+meth[<span style="color:#4070a0">&#34;.final_weight&#34;</span>] <span style="color:#666">&lt;-</span> <span style="color:#4070a0">&#34;&#34;</span>
+
+imputedDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">parlmice</span>(currentDataset,
+  method <span style="color:#666">=</span> meth,
+  formulas <span style="color:#666">=</span> formulas,
+  m <span style="color:#666">=</span> <span style="color:#40a070">20</span>,
+  n.core <span style="color:#666">=</span> <span style="color:#40a070">15</span>, 
+  n.imp.core <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
+
+<span style="color:#06287e">plot</span>(imputedDataset)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">complete</span>(imputedDataset, action <span style="color:#666">=</span> <span style="color:#4070a0">&#34;long&#34;</span>, include <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+<span style="color:#4070a0">&#34;Calculate IPTW&#34;</span>
+
+split_imp <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>.imp
+mi_dataList <span style="color:#666">&lt;-</span> <span style="color:#06287e">split</span>(currentDataset, split_imp)
+
+<span style="color:#06287e">for</span>(i in <span style="color:#40a070">2</span><span style="color:#666">:</span><span style="color:#06287e">length</span>(mi_dataList)) {
+  weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_1, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+    numerator <span style="color:#666">=~</span> <span style="color:#40a070">1</span>,
+    denominator <span style="color:#666">=~</span> failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>can_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex,
+    trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(mi_dataList[[i]]))
+
+  mi_dataList[[i]]<span style="color:#666">$</span>.ipw0 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+  weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_2, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+    numerator <span style="color:#666">=~</span> can_1,
+    denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>can_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1,
+    trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(mi_dataList[[i]]))
+
+  mi_dataList[[i]]<span style="color:#666">$</span>.ipw1 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+  weight <span style="color:#666">&lt;-</span> <span style="color:#06287e">ipwpoint</span>(exposure <span style="color:#666">=</span> can_3, family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;binomial&#34;</span>, link <span style="color:#666">=</span> <span style="color:#4070a0">&#34;logit&#34;</span>,
+    numerator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2,
+    denominator <span style="color:#666">=~</span> can_1<span style="color:#666">+</span>can_2<span style="color:#666">+</span>failed_0<span style="color:#666">+</span>peer_can_0<span style="color:#666">+</span>antisocial_0<span style="color:#666">+</span>can_0<span style="color:#666">+</span>family_drug_use<span style="color:#666">+</span>sex<span style="color:#666">+</span>failed_1<span style="color:#666">+</span>peer_can_1<span style="color:#666">+</span>antisocial_1<span style="color:#666">+</span>failed_2<span style="color:#666">+</span>peer_can_2<span style="color:#666">+</span>antisocial_2,
+    trunc <span style="color:#666">=</span> <span style="color:#40a070">0.01</span>, data <span style="color:#666">=</span> <span style="color:#06287e">as.data.frame</span>(mi_dataList[[i]]))
+
+  mi_dataList[[i]]<span style="color:#666">$</span>.ipw2 <span style="color:#666">=</span> weight<span style="color:#666">$</span>weights.trunc
+
+  mi_dataList[[i]]<span style="color:#666">$</span>.final_weight <span style="color:#666">&lt;-</span> mi_dataList[[i]]<span style="color:#666">$</span>.ipw0<span style="color:#666">*</span>mi_dataList[[i]]<span style="color:#666">$</span>.ipw1<span style="color:#666">*</span>mi_dataList[[i]]<span style="color:#666">$</span>.ipw2
+
+}
+
+mi_dataList[[1]]<span style="color:#666">$</span>.ipw0 <span style="color:#666">&lt;-</span> <span style="color:#007020;font-weight:bold">NA</span>
+mi_dataList[[1]]<span style="color:#666">$</span>.ipw1 <span style="color:#666">&lt;-</span> <span style="color:#007020;font-weight:bold">NA</span>
+mi_dataList[[1]]<span style="color:#666">$</span>.ipw2 <span style="color:#666">&lt;-</span> <span style="color:#007020;font-weight:bold">NA</span>
+mi_dataList[[1]]<span style="color:#666">$</span>.final_weight <span style="color:#666">&lt;-</span> <span style="color:#007020;font-weight:bold">NA</span>
+
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">unsplit</span>(mi_dataList, split_imp)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+<span style="color:#4070a0">&#34;van der Wal, W. M. and R. B. Geskus (2011). ipw: an R package for inverse probability weighting. J Stat Softw 43(13): 1-23.&#34;</span>
+
+</code></pre></div><br/>
+<p>Given the complexity of the codes, we will only give a conceptual explanation. For a detailed explanation on the specification of the multiple imputation model, see our tutorial on <a href="https://statsnotebook.io/blog/analysis/multiple_imputation/" title="Multiple imputation for missing data">multiple imputation</a>. In brief, the top section of the codes from above specify the variables used to impute each of the variables with missing data, perform the multiple imputation and generate the diagnostic plots for the imputation.</p>
+<p>In the second section, we compute the IPTW for each of the imputed dataset using an iterative <code>for</code> loop.</p>
+<p>Six new variables will be created. <em>.imp</em> is the identifier for each of the imputed datasets. The original data will have a value of 0. The <em>.id</em> is the identifier for each observation in each imputed dataset. <em>.ipw0</em>, <em>.ipw1</em> and <em>.ipw2</em></p>
+
+<h5 id="using-statsnotebook---weighted-analysis" class="anchor-link"><a href="#using-statsnotebook---weighted-analysis">Using StatsNotebook - Weighted analysis</a></h5>
+<p>After calculating the IPTW, confounding due to included variables in the IPTW calculation will be removed in a weighted analysis. To estimate the causal effect of the cumulative exposure (measured as the number of waves an individual reported using cannabis between follow-up wave 1 and wave 3), we first create a new variable (<em>cumulative</em>) by summing up <em>can_1</em>, <em>can_2</em> and <em>can_3</em>.</p>
+<p>To create this new variable in <strong>StatsNotebook</strong>,</p>
+<ol>
+<li>Click <strong>Data</strong> at the top</li>
+<li>Click <strong>Compute</strong> at the top menu</li>
+<li>Type <em>cumulative</em> in the <em>Target Variable</em> field.</li>
+<li>You can select variable in the <em>Variable</em> list and use <em>+</em> to add the corresponding variables up.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/compute_cumulative.png" alt="compute cumulative" title="compute cumulative"/></a>
+<p>The <strong>R code</strong> for this operation is simple.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset<span style="color:#666">$</span>cumulative <span style="color:#666">&lt;-</span> currentDataset<span style="color:#666">$</span>can_1<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_2<span style="color:#666">+</span>currentDataset<span style="color:#666">$</span>can_3
+</code></pre></div><br/>
+<p>Once we have created the <em>cumulative</em> variable, we can use the <code>survey</code> package to conduct a weighted analysis to estimate the causal effect of cumulative cannabis use during adolescence on illicit drug use in young adulthood (age 25) to estimate the model parameters from each imputed dataset separately. The <code>mitools</code> package is used to pool the results to form a set of single estimates using Rubin&rsquo;s formula. <strong>Logistic regression</strong> is used because the outcome, illicit drug use, is a dichotomized variable (0: No; 1: Yes).</p>
+<p>To conduct a weighted analysis,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Regression</strong> at the top menu</li>
+<li>Click <strong>Logistic regression</strong> (linear regression can be used if the outcome is a numeric variable.)</li>
+<li>In the left panel, select <em>illicit</em> into <em>Outcome</em>, <em>cumulative</em> into <em>Covariate</em> and <em>.final_weight</em> into <em>Weight</em>.</li>
+<li>Expand the <strong>Analysis setting</strong> panel, and check the box <em>This is an Imputed Dataset</em>.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/msm_instruction_missing.png" alt="compute cumulative" title="compute cumulative"/></a>
+<br/> 
+
+<h5 id="r-codes---weighted-analysis" class="anchor-link"><a href="#r-codes---weighted-analysis">R codes - Weighted analysis</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(mice)
+<span style="color:#06287e">library</span>(mitools)
+
+<span style="color:#06287e">library</span>(survey)
+
+<span style="color:#4070a0">&#34;Weighted regression&#34;</span>
+
+mi_dataList <span style="color:#666">&lt;-</span> currentDataset[currentDataset<span style="color:#666">$</span>.imp <span style="color:#666">!=</span> <span style="color:#40a070">0</span>,]
+mi_dataList <span style="color:#666">&lt;-</span> <span style="color:#06287e">split</span>(mi_dataList, mi_dataList<span style="color:#666">$</span>.imp)
+mi_dataList <span style="color:#666">&lt;-</span> <span style="color:#06287e">imputationList</span>(mi_dataList)
+clus <span style="color:#666">&lt;-</span> <span style="color:#06287e">svydesign</span>(id <span style="color:#666">=~</span> <span style="color:#40a070">1</span>, weights <span style="color:#666">=~</span> .final_weight, data <span style="color:#666">=</span> mi_dataList)
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">with</span>(clus, <span style="color:#06287e">svyglm</span>(illicit <span style="color:#666">~</span> cumulative, family <span style="color:#666">=</span> binomial))
+<span style="color:#06287e">summary</span>(<span style="color:#06287e">MIcombine</span>(res), alpha <span style="color:#666">=</span> <span style="color:#40a070">0.05</span>,
+  logeffect <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+res1 <span style="color:#666">&lt;-</span> res[[1]]
+car<span style="color:#666">::</span><span style="color:#06287e">infIndexPlot</span>(res1)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+<p>The code above will produce multiple warning message. This is expected and not of any concern because we have fractional weights.</p>
+<pre><code>######################################################
+Warning message: non-integer #successes in a binomial glm!
+
+######################################################
+</code></pre><br/>
+<p>The key results from the code above are as follow.</p>
+<pre><code>Multiple imputation results:
+      with(clus, svyglm(illicit ~ cumulative, family = binomial))
+      MIcombine.default(res)
+               results         se     (lower    upper) missInfo
+(Intercept) 0.06951018 0.01636046 0.04381953 0.1102628      7 %
+cumulative  2.15334681 0.48705061 1.38223761 3.3546349      2 %
+</code></pre><br/>
+
+<h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
+<p>Results from the weighted logistic regression indicates that cannabis use was strongly associated with future illicit drug use, b = 2.15, 95% CI = [1.38, 3.36] (Your results will be slightly different because multiple imputation is not deterministic - every time the missing data is imputed, the value may be different). For every additional wave an individual used cannabis, the odds of using illicit drugs at age 25 increases by 2.15 times. It is likely that we can interpret this association as causal, as we have adjusted for key confounding (and time-varying) variables from several important domains such as family, school and peer group. However, it is very likely that the true effect will be smaller due to residual confounding (confounding effect not captured by the variables we used in the analysis.)</p>
+
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
