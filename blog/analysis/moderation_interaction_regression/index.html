@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Moderation ( Interaction) Analysis Using Linear Regression - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Moderation (Interaction) analysis using linear regression - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.c285da496bdc6eb125783ccd84751cbcdd365cb368c74109eccf557310b03bf7.css" integrity="sha256-woXaSWvcbrEleDzNhHUcvN02XLNox0EJ7M9VcxCwO/c=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/">Moderation (Interaction) analysis using linear regression</a>
+    </h2>
+    <div class="post-data">
+        22 Sep, 2020 |
+        23 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Moderation%20%28Interaction%29%20analysis%20using%20linear%20regression%20https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmoderation_interaction_regression%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmoderation_interaction_regression%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/r-code">R code</a>,
+        
+        <a href="/tags/regression">Regression</a>
+        
+    </p>
+    
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+<div class="container markdown top-pad">
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p><strong>Assumed knowledge in this tutorial:</strong> <a href="https://statsnotebook.io/blog/analysis/regression/" title="Linear regression">Linear regression</a></p>
+<p>Moderation analysis is used to examine if the effect of an independent variable on the dependent variable is the same across different levels of another independent variable (moderator). In other words, it is used to examine whether the moderator will change the strength of the relationship between the independent and dependent variables.</p>
+
+<h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
+<ul>
+<li>Is the effect of psychotherapy (independent variable) on depression (dependent variable) stronger for females than for males (moderator: sex)?
+<ul>
+<li>In this example, we want to see if the effect of psychotherapy on depression is the same across sex (i.e. same for both female and male)</li>
+</ul>
+</li>
+<li>Does the implementation of an alcohol tax in one state change alcohol consumption, compared to other states without changes in tax?
+<ul>
+<li>This is a less obvious example. Here, we want to test if the change over time (effect of time before and after a new tax rule) was the same across states. Do states (moderator) change the effect of time (independent variable) on alcohol consumption (dependent variable)?</li>
+</ul>
+</li>
+</ul>
+<p>In this tutorial, we will examine three scenarios.</p>
+<ul>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#categorical-independent-variable-and-categorical-moderator" title="categorical independent variable and categorical moderator">Categorical independent variable and categorical moderator</a></li>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-categorical-moderator" title="numeric independent variable and categorical moderator">Numeric independent variable and categorical moderator</a></li>
+<li><a href="https://statsnotebook.io/blog/analysis/moderation_interaction_regression/#numeric-independent-variable-and-numeric-moderator" title="numeric independent variable and numeric moderator">Numeric independent variable and numeric moderator</a></li>
+</ul>
+<p>For instances with a categorical independent variable and numeric moderator, the analytic strategy would be the same as conducting a moderation analysis with a numeric independent variable with categorical moderator.</p>
+
+<h4 id="categorical-independent-variable-and-categorical-moderator" class="anchor-link"><a href="#categorical-independent-variable-and-categorical-moderator">Categorical independent variable and categorical moderator</a></h4>
+<p>Suppose that in Australia, Queensland implemented an increase in alcohol tax in 2018 and there was no change in tax in any other states (e.g. Victoria, New South Wales). We have collected data on alcohol consumption in 2017 and 2019, and want to test if the change in alcohol consumption (measured in number of standard drinks consumed per month) in Queensland was different from other states.</p>
+<ul>
+<li>A simple before/ after comparison using only Queensland data is not sufficient to test if the tax increase changed alcohol consumption because there is no comparision group. A before/ after difference can simply be due to a decreasing trend. We need to test if the change in Queensland is larger than other states.</li>
+<li>In this analysis, we will test the interaction between <em>year</em> and <em>state</em>. (Does <em>state</em> change the effect of <em>year</em> on alcohol consumption?)</li>
+</ul>
+<p>We will first show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Alcohol</strong> dataset for this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/alcohol.csv&#34;</span>)
+</code></pre></div>
+<h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(alcohol <span style="color:#666">~</span> Year <span style="color:#666">+</span> State <span style="color:#666">+</span> Remoteness <span style="color:#666">+</span> State<span style="color:#666">*</span>Year,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+<span style="color:#06287e">library</span>(car)
+
+res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstandard</span>(res)
+<span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
+
+<span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&#34;</span>
+<span style="color:#06287e">outlierTest</span>(res)
+<span style="color:#06287e">infIndexPlot</span>(res)
+
+<span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
+<span style="color:#06287e">residualPlots</span>(res)
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">as.data.frame</span>(res.std), <span style="color:#06287e">aes</span>(sample <span style="color:#666">=</span> res.std)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq_line</span>()
+
+<span style="color:#4070a0">&#34;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&#34;</span>
+<span style="color:#06287e">vif</span>(res)
+
+<span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res, pairwise <span style="color:#666">~</span> State<span style="color:#666">*</span>Year, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+<span style="color:#06287e">eff_size</span>(emm, sigma <span style="color:#666">=</span> <span style="color:#06287e">sigma</span>(res), edf <span style="color:#666">=</span> res<span style="color:#666">$</span>df.residual)
+
+<span style="color:#06287e">emmip</span>(res, Year <span style="color:#666">~</span> State,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="using-statsnotebook" class="anchor-link"><a href="#using-statsnotebook">Using StatsNotebook</a></h5>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
+<p>To run a moderation analysis using linear regression (categorical independent variable and categorical moderator),</p>
+<ol>
+<li>
+<p>Click <strong>Analysis</strong> at the top</p>
+</li>
+<li>
+<p>Click <strong>Regression</strong> and select <strong>Linear regression (Numeric outcome)</strong> from the menu</p>
+</li>
+<li>
+<p>In the left panel, select <em>alcohol</em> into <em>Outcome</em>, and select <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <em>Covariates</em>.</p>
+<ul>
+<li>We have added <em>Remoteness</em> into this analysis to adjust for its effect.</li>
+<li>We will need to code <em>Year</em>, <em>State</em> and <em>Remoteness</em> into <strong>factor</strong> because they are <strong>categorical</strong> variables. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide.</li>
+<li>For this analysis, because we compared <em>Queensland</em> against all other states, we set <em>QLD</em> as the <strong>reference</strong> level of <em>state</em>. See <a href="https://statsnotebook.io/blog/data_management/set_reference/" title="set reference">Setting reference level for categorical variable</a> for step-by-step guide.</li>
+</ul>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction1.png" alt="Moderation (interaction) analysis" title="Moderation (interaction) analysis"/></a>
+</li>
+<li>
+<p>Expand the panel <strong>Add interaction terms</strong>, select <em>State</em> and <em>Year</em> into <em>Interaction terms</em>.</p>
+<ul>
+<li>The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>State</em> first and then <em>Year</em>.</li>
+</ul>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term.png" alt="add interaction term" title="add interaction term"/></a>
+</li>
+<li>
+<p>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>State*Year</em> on the variable list, and select <strong>Pairwise comparison</strong> and <strong>Interaction plot</strong>.</p>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm.png" alt="estimated marginal means for interaction" title="estimated marginal means for interaction"/></a>
+</li>
+</ol>
+<p>** For this analysis, we should also adjust for <em>Postcode</em> because participants from the same postcode may be more similar compared to participants from other postcodes, thus violating the <strong>assumption of independent observation</strong>. For the purpose of understanding a moderation analysis, we can leave this out for now. See <a href="https://statsnotebook.io/blog/analysis/linear_mixed_model/" title="Linear mixed model (Multilevel model)">Linear mixed model (Multilevel model)</a> for how to adjust for data dependency.</p>
+
+<h5 id="r-codes-explained---moderation-analysis" class="anchor-link"><a href="#r-codes-explained---moderation-analysis">R codes explained - Moderation analysis</a></h5>
+<p>The following are from the top section of the generated codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(alcohol <span style="color:#666">~</span> Year <span style="color:#666">+</span> State <span style="color:#666">+</span> Remoteness <span style="color:#666">+</span> State<span style="color:#666">*</span>Year,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+</code></pre></div><br/>
+<p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>State*Year</strong> as an extra term. The results from this regression analysis are then printed out using the <strong>summary</strong> function. Finally, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>The above code produces the model summary below.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Call<span style="color:#666">:</span>
+<span style="color:#06287e">lm</span>(formula <span style="color:#666">=</span> alcohol <span style="color:#666">~</span> Year <span style="color:#666">+</span> State <span style="color:#666">+</span> Remoteness <span style="color:#666">+</span> State <span style="color:#666">*</span> Year, 
+    data <span style="color:#666">=</span> currentDataset)
+
+Residuals<span style="color:#666">:</span>
+    Min      <span style="color:#40a070">1</span>Q  Median      <span style="color:#40a070">3</span>Q     Max 
+<span style="color:#40a070">-75.968</span> <span style="color:#40a070">-35.474</span>  <span style="color:#40a070">-8.968</span>  <span style="color:#40a070">27.053</span> <span style="color:#40a070">192.976</span> 
+
+Coefficients<span style="color:#666">:</span>
+                   Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept)          <span style="color:#40a070">72.032</span>      <span style="color:#40a070">3.914</span>  <span style="color:#40a070">18.401</span>  <span style="color:#666">&lt;</span> <span style="color:#40a070">2e-16</span> <span style="color:#666">***</span>
+Year2019            <span style="color:#40a070">-21.224</span>      <span style="color:#40a070">5.097</span>  <span style="color:#40a070">-4.164</span> <span style="color:#40a070">3.20e-05</span> <span style="color:#666">***</span>
+StateNSW              <span style="color:#40a070">3.936</span>      <span style="color:#40a070">4.433</span>   <span style="color:#40a070">0.888</span> <span style="color:#40a070">0.374659</span>    
+StateNT              <span style="color:#40a070">-1.829</span>      <span style="color:#40a070">4.820</span>  <span style="color:#40a070">-0.379</span> <span style="color:#40a070">0.704419</span>    
+StateSA              <span style="color:#40a070">-5.948</span>      <span style="color:#40a070">4.692</span>  <span style="color:#40a070">-1.268</span> <span style="color:#40a070">0.205040</span>    
+StateTAS              <span style="color:#40a070">1.506</span>      <span style="color:#40a070">5.329</span>   <span style="color:#40a070">0.283</span> <span style="color:#40a070">0.777544</span>    
+StateVIC             <span style="color:#40a070">-9.680</span>      <span style="color:#40a070">4.333</span>  <span style="color:#40a070">-2.234</span> <span style="color:#40a070">0.025549</span> <span style="color:#666">*</span>  
+StateWA             <span style="color:#40a070">-12.796</span>      <span style="color:#40a070">5.743</span>  <span style="color:#40a070">-2.228</span> <span style="color:#40a070">0.025940</span> <span style="color:#666">*</span>  
+RemotenessRegional   <span style="color:#40a070">-9.597</span>      <span style="color:#40a070">2.136</span>  <span style="color:#40a070">-4.492</span> <span style="color:#40a070">7.28e-06</span> <span style="color:#666">***</span>
+Year2019<span style="color:#666">:</span>StateNSW    <span style="color:#40a070">17.690</span>      <span style="color:#40a070">6.071</span>   <span style="color:#40a070">2.914</span> <span style="color:#40a070">0.003592</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateNT     <span style="color:#40a070">17.983</span>      <span style="color:#40a070">6.740</span>   <span style="color:#40a070">2.668</span> <span style="color:#40a070">0.007664</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateSA     <span style="color:#40a070">20.301</span>      <span style="color:#40a070">6.549</span>   <span style="color:#40a070">3.100</span> <span style="color:#40a070">0.001952</span> <span style="color:#666">**</span> 
+Year2019<span style="color:#666">:</span>StateTAS     <span style="color:#40a070">8.212</span>      <span style="color:#40a070">7.170</span>   <span style="color:#40a070">1.145</span> <span style="color:#40a070">0.252149</span>    
+Year2019<span style="color:#666">:</span>StateVIC    <span style="color:#40a070">15.456</span>      <span style="color:#40a070">6.000</span>   <span style="color:#40a070">2.576</span> <span style="color:#40a070">0.010029</span> <span style="color:#666">*</span>  
+Year2019<span style="color:#666">:</span>StateWA     <span style="color:#40a070">24.608</span>      <span style="color:#40a070">6.986</span>   <span style="color:#40a070">3.522</span> <span style="color:#40a070">0.000433</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
+
+Residual standard error<span style="color:#666">:</span> <span style="color:#40a070">45.2</span> on <span style="color:#40a070">3651</span> degrees of freedom
+Multiple R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.03092</span>,	Adjusted R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.02721</span> 
+F<span style="color:#666">-</span>statistic<span style="color:#666">:</span> <span style="color:#40a070">8.321</span> on <span style="color:#40a070">14</span> and <span style="color:#40a070">3651</span> DF,  p<span style="color:#666">-</span>value<span style="color:#666">:</span> <span style="color:#666">&lt;</span> <span style="color:#40a070">2.2e-16</span>
+
+</code></pre></div><br/>
+
+<h5 id="interpretation" class="anchor-link"><a href="#interpretation">Interpretation</a></h5>
+<p>Using a significance level of 0.05, most of the interaction terms between Year and States are significant. This indicates that the changes in alcohol consumption in Queensland are different from the changes in other states. However, interpreting these coefficients is not straightforward.</p>
+<p>An easier way to understand the interactions is to calculate the <strong>Estimated Marginal Means (EMMs)</strong>. We can estimate the mean alcohol consumption by <em>State</em> and <em>Year</em> from our regression model. The following is the R codes for computing EMMs.</p>
+
+<h5 id="r-codes-explained---estimated-marginal-means" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means">R codes explained - Estimated Marginal Means</a></h5>
+<p>The following R code is used for calculating the estimated marginal means and performing pairwise comparisons (with effect sizes).</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res, pairwise <span style="color:#666">~</span> State<span style="color:#666">*</span>Year, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+<span style="color:#06287e">eff_size</span>(emm, sigma <span style="color:#666">=</span> <span style="color:#06287e">sigma</span>(res), edf <span style="color:#666">=</span> res<span style="color:#666">$</span>df.residual)
+
+</code></pre></div><br/>
+
+<h5 id="interpretation-1" class="anchor-link"><a href="#interpretation-1">Interpretation</a></h5>
+<p>The few lines of code produces a long list of output that can be broken down into three major sections.</p>
+<p><strong>Estimated Marginal Means</strong></p>
+<pre><code>$emmeans
+ State Year emmean   SE   df lower.CL upper.CL
+ QLD   2017   67.2 3.83 3651     59.7     74.7
+ NSW   2017   71.2 2.26 3651     66.7     75.6
+ NT    2017   65.4 2.85 3651     59.8     71.0
+ SA    2017   61.3 2.65 3651     56.1     66.5
+ TAS   2017   68.7 3.65 3651     61.6     75.9
+ VIC   2017   57.6 2.08 3651     53.5     61.6
+ WA    2017   54.4 4.23 3651     46.1     62.7
+ QLD   2019   46.0 3.39 3651     39.4     52.7
+ NSW   2019   67.6 2.48 3651     62.8     72.5
+ NT    2019   62.2 3.69 3651     54.9     69.4
+ SA    2019   60.4 3.36 3651     53.8     66.9
+ TAS   2019   55.7 3.80 3651     48.3     63.2
+ VIC   2019   51.8 2.48 3651     46.9     56.6
+ WA    2019   57.8 2.69 3651     52.6     63.1
+
+Results are averaged over the levels of: Remoteness 
+Confidence level used: 0.95 
+</code></pre><br/> 
+<p>The above table contains estimates for alcohol consumption by <em>State</em> and <em>Year</em>, with 95% confidence intervals. For example, it is estimated on average, participants in Queensland in 2017 consumed 67.2 standard drinks per month, with a 95% confidence interval of (59.7, 74.7).</p>
+<p>This table is then followed by a long table of pairwise comparisons. However, we will not be interested in most of these comparisons.</p>
+<p><strong>Pairwise comparison</strong></p>
+<pre><code>$contrasts
+ contrast            estimate   SE   df t.ratio p.value
+ QLD 2017 - NSW 2017   -3.936 4.43 3651 -0.888  0.9998 
+ QLD 2017 - NT 2017     1.829 4.82 3651  0.379  1.0000 
+ QLD 2017 - SA 2017     5.948 4.69 3651  1.268  0.9927 
+ .
+ .
+ .
+ TAS 2019 - VIC 2019    3.941 4.65 3651  0.848  0.9999 
+ TAS 2019 - WA 2019    -2.095 4.40 3651 -0.476  1.0000 
+ VIC 2019 - WA 2019    -6.036 3.80 3651 -1.590  0.9489 
+</code></pre><br/>
+<p>We are only interested in the 2017 and 2019 comparison in each state.</p>
+<pre><code>contrast            estimate   SE   df t.ratio p.value
+QLD 2017 - QLD 2019   21.224 5.10 3651  4.164  0.0026 
+NSW 2017 - NSW 2019    3.534 3.32 3651  1.066  0.9987 
+NT 2017 - NT 2019      3.240 4.41 3651  0.735  1.0000 
+SA 2017 - SA 2019      0.923 4.11 3651  0.225  1.0000 
+TAS 2017 - TAS 2019   13.012 5.04 3651  2.580  0.3533 
+VIC 2017 - VIC 2019    5.768 3.17 3651  1.822  0.8666 
+WA 2017 - WA 2019     -3.384 4.78 3651 -0.708  1.0000 
+</code></pre><br/>
+These results indicate that there is significant change in Queensland between 2017 and 2019 only. On average, consumption decreased by 21.22 standard drinks. The p-value is adjusted for a family of 14 estimates using Tukey's method. This adjustment is necessary to protect against an increased rate of false positives due to multiple testing.  
+<p>Lastly, the pairwise comparisons is accompanied by a table of effect sizes.</p>
+<p><strong>Effect size</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> contrast              effect.size     SE   df lower.CL <span style="color:#06287e">upper.CL
+</span><span style="color:#06287e"> </span>(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2017</span>)    <span style="color:#40a070">-0.08708</span> <span style="color:#40a070">0.0981</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.27938</span>  <span style="color:#40a070">0.10522</span>
+ (QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2017</span>)      <span style="color:#40a070">0.04046</span> <span style="color:#40a070">0.1066</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.16862</span>  <span style="color:#40a070">0.24954</span>
+ (QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2017</span>)      <span style="color:#40a070">0.13159</span> <span style="color:#40a070">0.1038</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.07197</span>  <span style="color:#40a070">0.33514</span>
+ .
+ .
+ <span style="color:#06287e">.
+</span><span style="color:#06287e"> </span>(TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.08719</span> <span style="color:#40a070">0.1028</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.11438</span>  <span style="color:#40a070">0.28877</span>
+ (TAS <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.04636</span> <span style="color:#40a070">0.0973</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.23715</span>  <span style="color:#40a070">0.14444</span>
+ (VIC <span style="color:#40a070">2019</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)     <span style="color:#40a070">-0.13355</span> <span style="color:#40a070">0.0840</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.29822</span>  <span style="color:#40a070">0.03112</span>
+</code></pre></div><br/>
+<p>Similarly, we will be only interested in the 2017 and 2019 comparisons in each state.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> contrast              effect.size     SE   df lower.CL <span style="color:#06287e">upper.CL
+</span><span style="color:#06287e"> </span>(QLD <span style="color:#40a070">2017</span> <span style="color:#666">-</span> QLD <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.46955</span> <span style="color:#40a070">0.1129</span> <span style="color:#40a070">3651</span>  <span style="color:#40a070">0.24820</span>  <span style="color:#40a070">0.69091</span>
+ (NSW <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NSW <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.07819</span> <span style="color:#40a070">0.0734</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.06569</span>  <span style="color:#40a070">0.22207</span>
+ (NT <span style="color:#40a070">2017</span> <span style="color:#666">-</span> NT <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.07169</span> <span style="color:#40a070">0.0976</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.11964</span>  <span style="color:#40a070">0.26302</span>
+ (SA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> SA <span style="color:#40a070">2019</span>)       <span style="color:#40a070">0.02041</span> <span style="color:#40a070">0.0909</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.15772</span>  <span style="color:#40a070">0.19855</span>
+ (TAS <span style="color:#40a070">2017</span> <span style="color:#666">-</span> TAS <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.28788</span> <span style="color:#40a070">0.1116</span> <span style="color:#40a070">3651</span>  <span style="color:#40a070">0.06905</span>  <span style="color:#40a070">0.50670</span>
+ (VIC <span style="color:#40a070">2017</span> <span style="color:#666">-</span> VIC <span style="color:#40a070">2019</span>)     <span style="color:#40a070">0.12761</span> <span style="color:#40a070">0.0701</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.00976</span>  <span style="color:#40a070">0.26497</span>
+ (WA <span style="color:#40a070">2017</span> <span style="color:#666">-</span> WA <span style="color:#40a070">2019</span>)      <span style="color:#40a070">-0.07488</span> <span style="color:#40a070">0.1057</span> <span style="color:#40a070">3651</span> <span style="color:#40a070">-0.28213</span>  <span style="color:#40a070">0.13237</span>
+</code></pre></div><br/>
+<p>These effect sizes can be interpreted according to Cohen&rsquo;s rule: 0.2 represents a small effect size, 0.5 represents a medium effect size and 0.8 represents a large effect size.</p>
+<p>The <code>emmeans</code> package provides a handy function <code>emmip</code> to visualise the interaction.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, Year <span style="color:#666">~</span> State,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+</code></pre></div><br/>
+<img src="https://statsnotebook.io/blog/analysis/img/interaction_plot.png" alt="interaction plot" title="interaction plot"/></a>
+
+<h4 id="numeric-independent-variable-and-categorical-moderator" class="anchor-link"><a href="#numeric-independent-variable-and-categorical-moderator">Numeric independent variable and categorical moderator</a></h4>
+<p>In this example, we will look at the relationship between BMI, sex, age and depression. We want to test if the relationship between BMI and depression is different for males and females.</p>
+<ul>
+<li>Is BMI associated with depression?</li>
+<li>Is the association between BMI and depression different for males and females?</li>
+</ul>
+<p>In this setup, <em>BMI</em> is an independent variable, <em>Sex</em> is a moderator and <em>depression</em> is the dependent variable.</p>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Personality</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using the instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/personality.csv&#34;</span>)
+</code></pre></div>
+<h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI<span style="color:#666">*</span>Sex,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+<span style="color:#06287e">library</span>(car)
+
+res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstandard</span>(res)
+<span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
+
+<span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&#34;</span>
+<span style="color:#06287e">outlierTest</span>(res)
+<span style="color:#06287e">infIndexPlot</span>(res)
+
+<span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
+<span style="color:#06287e">residualPlots</span>(res)
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">as.data.frame</span>(res.std), <span style="color:#06287e">aes</span>(sample <span style="color:#666">=</span> res.std)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq_line</span>()
+
+<span style="color:#4070a0">&#34;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&#34;</span>
+<span style="color:#06287e">vif</span>(res)
+
+<span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+m_BMI<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>BMI, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_BMI<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>BMI, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res,  <span style="color:#666">~</span> BMI<span style="color:#666">*</span>Sex,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  BMI <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_BMI<span style="color:#666">-</span>sd_BMI, m_BMI, m_BMI<span style="color:#666">+</span>sd_BMI)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">emtrends</span>(res, pairwise <span style="color:#666">~</span> Sex, var <span style="color:#666">=</span> <span style="color:#4070a0">&#34;BMI&#34;</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(simpleSlope)
+
+<span style="color:#06287e">emmip</span>(res, Sex <span style="color:#666">~</span> BMI,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  BMI <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_BMI<span style="color:#666">-</span>sd_BMI, m_BMI, m_BMI<span style="color:#666">+</span>sd_BMI)),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="using-statsnotebook-1" class="anchor-link"><a href="#using-statsnotebook-1">Using StatsNotebook</a></h5>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
+<p>To run a moderation analysis using linear regression (numeric independent variable and categorical moderator),</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Regression</strong> and select <strong>Linear regression (Numeric outcome)</strong> from the menu</li>
+<li>In the left panel, select <em>Depression</em> into <em>Outcome</em>, and select <em>BMI</em>, <em>Sex</em> and <em>Age</em> into <em>Covariates</em>.
+<ul>
+<li>We will adjust for the effect of <em>Age</em> by adding it as one of the covariates.</li>
+<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide.</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction2.png" alt="Moderation (interaction) analysis" title="Moderation (interaction) analysis"/></a>
+<ol start="4">
+<li>Expand the panel <strong>Add interaction terms</strong>, select <em>BMI</em> and <em>Sex</em> into <em>Interaction terms</em>.
+<ul>
+<li>The order of variable selection will determine the horizontal axis of the interaction plot (see interpretaion below). The first selected variable will always go to the horizontal axis. In this example, we click <em>BMI</em> first and then <em>Sex</em>.</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term2.png" alt="add interaction terms" title="add interaction terms"/></a>
+<ol start="5">
+<li>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>BMI*Sex</em> on the variable list, and select <strong>Test for simple slope</strong> and <strong>Interaction plot</strong>.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm2.png" alt="estimated marginal mean" title="estimated marginal mean"/></a>
+
+<h5 id="r-codes-explained---moderation-analysis-1" class="anchor-link"><a href="#r-codes-explained---moderation-analysis-1">R codes explained - Moderation analysis</a></h5>
+<p>The following is from the top selection of the generated codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI<span style="color:#666">*</span>Sex,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+</code></pre></div><br/>
+<p>This code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>BMI*Sex</strong> as an extra term. The results from this regression analysis is then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>These codes will produce the model summary below.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">Call<span style="color:#666">:</span>
+<span style="color:#06287e">lm</span>(formula <span style="color:#666">=</span> Depression <span style="color:#666">~</span> BMI <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Age <span style="color:#666">+</span> BMI <span style="color:#666">*</span> Sex, data <span style="color:#666">=</span> currentDataset)
+
+Residuals<span style="color:#666">:</span>
+    Min      <span style="color:#40a070">1</span>Q  Median      <span style="color:#40a070">3</span>Q     Max 
+<span style="color:#40a070">-28.383</span>  <span style="color:#40a070">-7.878</span>  <span style="color:#40a070">-0.261</span>   <span style="color:#40a070">7.397</span>  <span style="color:#40a070">40.032</span> 
+
+Coefficients<span style="color:#666">:</span>
+            Estimate Std. Error t value <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept) <span style="color:#40a070">-1.46366</span>    <span style="color:#40a070">6.49795</span>  <span style="color:#40a070">-0.225</span> <span style="color:#40a070">0.821875</span>    
+BMI          <span style="color:#40a070">1.73313</span>    <span style="color:#40a070">0.26220</span>   <span style="color:#40a070">6.610</span> <span style="color:#40a070">9.66e-11</span> <span style="color:#666">***</span>
+SexMale     <span style="color:#40a070">24.43426</span>    <span style="color:#40a070">9.47073</span>   <span style="color:#40a070">2.580</span> <span style="color:#40a070">0.010158</span> <span style="color:#666">*</span>  
+Age         <span style="color:#40a070">-0.15025</span>    <span style="color:#40a070">0.04341</span>  <span style="color:#40a070">-3.461</span> <span style="color:#40a070">0.000583</span> <span style="color:#666">***</span>
+BMI<span style="color:#666">:</span>SexMale <span style="color:#40a070">-1.31631</span>    <span style="color:#40a070">0.37599</span>  <span style="color:#40a070">-3.501</span> <span style="color:#40a070">0.000504</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
+
+Residual standard error<span style="color:#666">:</span> <span style="color:#40a070">10.98</span> on <span style="color:#40a070">513</span> degrees of freedom
+Multiple R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.1727</span>,	Adjusted R<span style="color:#666">-</span>squared<span style="color:#666">:</span>  <span style="color:#40a070">0.1662</span> 
+F<span style="color:#666">-</span>statistic<span style="color:#666">:</span> <span style="color:#40a070">26.77</span> on <span style="color:#40a070">4</span> and <span style="color:#40a070">513</span> DF,  p<span style="color:#666">-</span>value<span style="color:#666">:</span> <span style="color:#666">&lt;</span> <span style="color:#40a070">2.2e-16</span>
+</code></pre></div><br/>
+
+<h5 id="interpretation-2" class="anchor-link"><a href="#interpretation-2">Interpretation</a></h5>
+<p>Using a significance level of 0.05, the interaction terms between BMI and Sex is highly significant. This indicates that the effect of BMI on depression is different for males and for females.</p>
+<p>To follow-up this interaction, we calculate the <strong>Estimated Marginal Means (EMMs)</strong> of <em>depression</em> at different levels of BMI by sex, and test for the effect of BMI separately for males and females with a <strong>simple slopes analysis</strong>.</p>
+
+<h5 id="r-codes-explained---estimated-marginal-means-1" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means-1">R codes explained - Estimated marginal means</a></h5>
+<p>The following R codes are for (1) calculating the estimated marginal means of Depression at the mean of BMI, and one standard deviation (+/- SD) below and above the mean of BMI for females and males; and (2) performing simple slope analysis using the <code>emtrends</code> function. The second step tests the association between <em>BMI</em> and <em>depression</em> separately for females and males.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+m_BMI<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>BMI, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_BMI<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>BMI, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res,  <span style="color:#666">~</span> BMI<span style="color:#666">*</span>Sex,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  BMI <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_BMI<span style="color:#666">-</span>sd_BMI, m_BMI, m_BMI<span style="color:#666">+</span>sd_BMI)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">emtrends</span>(res, pairwise <span style="color:#666">~</span> Sex, var <span style="color:#666">=</span> <span style="color:#4070a0">&#34;BMI&#34;</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(simpleSlope)
+
+</code></pre></div><br/>
+
+<h5 id="interpretation-3" class="anchor-link"><a href="#interpretation-3">Interpretation</a></h5>
+<p>The output from this code can be broken down into two sections: Estimated marginal means and Simple slope analysis.</p>
+<p><strong>Estimated marginal means</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">[1] <span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+  BMI Sex    emmean    SE  df lower.CL upper.CL
+ <span style="color:#40a070">22.2</span> Female   <span style="color:#40a070">31.9</span> <span style="color:#40a070">0.832</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">30.3</span>     <span style="color:#40a070">33.5</span>
+ <span style="color:#40a070">24.9</span> Female   <span style="color:#40a070">36.6</span> <span style="color:#40a070">0.676</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">35.2</span>     <span style="color:#40a070">37.9</span>
+ <span style="color:#40a070">27.6</span> Female   <span style="color:#40a070">41.2</span> <span style="color:#40a070">1.104</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">39.1</span>     <span style="color:#40a070">43.4</span>
+ <span style="color:#40a070">22.2</span> Male     <span style="color:#40a070">27.1</span> <span style="color:#40a070">1.203</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">24.7</span>     <span style="color:#40a070">29.4</span>
+ <span style="color:#40a070">24.9</span> Male     <span style="color:#40a070">28.2</span> <span style="color:#40a070">0.759</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">26.7</span>     <span style="color:#40a070">29.7</span>
+ <span style="color:#40a070">27.6</span> Male     <span style="color:#40a070">29.3</span> <span style="color:#40a070">0.872</span> <span style="color:#40a070">513</span>     <span style="color:#40a070">27.6</span>     <span style="color:#40a070">31.0</span>
+
+Confidence level used<span style="color:#666">:</span> <span style="color:#40a070">0.95</span> 
+</code></pre></div><br/>
+<p>The above table contains the estimated marginal means of Depression at different levels of <em>BMI</em> for males and females, with 95% confidence intervals. For example, the estimated Depression score for females with BMI one standard deviation above the mean is 41.2 (95% CI [39.1, 43.4]). For females with BMI one standard deviation below the mean, their estimated Depression score is 31.9 (95% CI [30.3, 33.5]). Therefore, there is quite a substantial difference in Depression between females at higher and lower levels of BMI.</p>
+<p>For males, the difference is much smaller. For males with high BMI, the estimated Depression score is 29.3 (95% CI [27.6, 31.0]); for male with low BMI, the estimated Depression score is 27.1 (95% CI [24.7, 29.4]).</p>
+<p>The marginal mean table is followed by a table of simple slopes - The slope of BMI for males and females are presented separately.</p>
+<p><strong>Simple slope analysis</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#666">$</span>emtrends
+ Sex    BMI.trend    SE  df lower.CL upper.CL
+ Female     <span style="color:#40a070">1.733</span> <span style="color:#40a070">0.262</span> <span style="color:#40a070">513</span>    <span style="color:#40a070">1.218</span>    <span style="color:#40a070">2.248</span>
+ Male       <span style="color:#40a070">0.417</span> <span style="color:#40a070">0.270</span> <span style="color:#40a070">513</span>   <span style="color:#40a070">-0.114</span>    <span style="color:#40a070">0.947</span>
+
+Confidence level used<span style="color:#666">:</span> <span style="color:#40a070">0.95</span> 
+
+<span style="color:#666">$</span>contrasts
+ contrast      estimate    SE  df t.ratio p.value
+ Female <span style="color:#666">-</span> Male     <span style="color:#40a070">1.32</span> <span style="color:#40a070">0.376</span> <span style="color:#40a070">513</span> <span style="color:#40a070">3.501</span>   <span style="color:#40a070">0.0005</span> 
+</code></pre></div><br/>
+<p>Simple slopes analysis shows that for males, each unit increase in BMI is associated with 0.417 unit increase in Depression score (b = 0.417, 95% CI [-0.114, 0.947]), and it is not statistically significant. For female, each unit increase in BMI is significantly associated with 1.733 unit increase in Depression score (b = 1.733, 95% CI [1.218, 2.248]). The slope of BMI on Depression for female is significantly larger than for male (difference = 1.32, p &lt; .001).</p>
+<p>Lastly, we can use the <code>emmip</code> function to visualise the interaction.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, Sex <span style="color:#666">~</span> BMI,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  BMI <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_BMI<span style="color:#666">-</span>sd_BMI, m_BMI, m_BMI<span style="color:#666">+</span>sd_BMI)),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+</code></pre></div><p><img src="../img/interaction_plot2.png" alt="interaction plot 2" title="Interactin plot - Depression by BMI and Sex"></p>
+
+<h4 id="numeric-independent-variable-and-numeric-moderator" class="anchor-link"><a href="#numeric-independent-variable-and-numeric-moderator">Numeric independent variable and numeric moderator</a></h4>
+<p>In this example, we will look at the relationship between stress and psychological wellbeing among adolescents, and test if this relationship is moderated by social support.</p>
+<ul>
+<li>It is expected that <em>stress</em> reduces <em>psychological wellbeing</em>, and high levels of social support weakens this negative association.
+<ul>
+<li>In this analysis, we will test the interaction between <em>stress</em> and <em>social support</em> on <em>psychological wellbeing</em>.</li>
+</ul>
+</li>
+</ul>
+<p>We will firstly show the R codes for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the built-in <strong>Wellbeing</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instructions provided <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="load example data">here</a>. We will also use the <code>emmeans</code> package in R for pairwise comparisons and for building the interaction plot.</p>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/wellbeing.csv&#34;</span>)
+</code></pre></div>
+<h5 id="r-codes-2" class="anchor-link"><a href="#r-codes-2">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Wellbeing <span style="color:#666">~</span> Stress <span style="color:#666">+</span> SocialSupport <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Stress<span style="color:#666">*</span>SocialSupport,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+<span style="color:#06287e">library</span>(car)
+
+res.std <span style="color:#666">&lt;-</span> <span style="color:#06287e">rstandard</span>(res)
+<span style="color:#06287e">plot</span>(res.std, ylab<span style="color:#666">=</span><span style="color:#4070a0">&#34;Standardized Residuals&#34;</span>)
+
+<span style="color:#4070a0">&#34;Outlier Test. Observations with a Bonferroni p &lt; .01 might be considered as outliers and might need further investigation.&#34;</span>
+<span style="color:#06287e">outlierTest</span>(res)
+<span style="color:#06287e">infIndexPlot</span>(res)
+
+<span style="color:#4070a0">&#34;Residual plots, curvature tests and normality plot&#34;</span>
+<span style="color:#06287e">residualPlots</span>(res)
+<span style="color:#06287e">ggplot</span>(<span style="color:#06287e">as.data.frame</span>(res.std), <span style="color:#06287e">aes</span>(sample <span style="color:#666">=</span> res.std)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_qq_line</span>()
+
+<span style="color:#4070a0">&#34;Variance inflation factor (VIF &gt;=5 indicates high level of multicollinearity)&#34;</span>
+<span style="color:#06287e">vif</span>(res)
+
+<span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+m_Stress<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>Stress, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_Stress<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>Stress, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+m_SocialSupport<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>SocialSupport, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_SocialSupport<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>SocialSupport, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res,  <span style="color:#666">~</span> Stress<span style="color:#666">*</span>SocialSupport,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  Stress <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_Stress<span style="color:#666">-</span>sd_Stress, m_Stress, m_Stress<span style="color:#666">+</span>sd_Stress),
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">emtrends</span>(res, pairwise <span style="color:#666">~</span> SocialSupport, var <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Stress&#34;</span>,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(simpleSlope)
+
+<span style="color:#06287e">emmip</span>(res, SocialSupport <span style="color:#666">~</span> Stress,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  Stress <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_Stress<span style="color:#666">-</span>sd_Stress, m_Stress, m_Stress<span style="color:#666">+</span>sd_Stress),
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><br/>
+
+<h5 id="using-statsnotebook-2" class="anchor-link"><a href="#using-statsnotebook-2">Using StatsNotebook</a></h5>
+<p>Prior to running the moderation analysis, we will need to conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a> and it is always good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a>.</p>
+<p>To run a moderation analysis using linear regression (numeric independent variable and numeric moderator),</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top</li>
+<li>Click <strong>Regression</strong> and select <strong>Linear regression (Numeric outcome)</strong> from the menu</li>
+<li>In the left panel, select <em>Wellbeing</em> into <em>Outcome</em>, and select <em>Stress</em>, <em>SocialSupport</em> and <em>Sex</em> into <em>Covariates</em>.
+<ul>
+<li>We have added <em>Sex</em> into this analysis to adjust for its effect.</li>
+<li>We will need to code <em>Sex</em> into a <strong>factor</strong> because it is a <strong>categorical</strong> variable. See <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">Converting variable type</a> for step-by-step guide</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_instruction3.png" alt="moderation (interaction) analysis" title="moderation (interaction) analysis"/></a>
+<ol start="4">
+<li>Expand the panel **Add interaction terms&rdquo;, select <em>Stress</em> and <em>SocialSupport</em> into <em>Interaction terms</em>.
+<ul>
+<li>The order of selecting variables will determine the horizontal axis of the interaction plot (see interpretation below). The first selected variable will always go to the horizontal axis. In this example, we click <em>Stress</em> first and then <em>SocialSupport</em>.</li>
+</ul>
+</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/add_interaction_term3.png" alt="add interaction terms" title="add interaction terms"/></a>
+<ol start="5">
+<li>Expand the panel <strong>Estimated Marginal Means</strong>, select <em>Stress*SocialSupport</em> on the variable list, and select <strong>Test for simple slope</strong> and <strong>Interaction plot</strong>.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/moderation_emm3.png" alt="estimated marginal mean" title="estimated marginal mean"/></a>
+
+<h5 id="r-codes-explained---moderation-analysis-2" class="anchor-link"><a href="#r-codes-explained---moderation-analysis-2">R codes explained - Moderation analysis</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Linear regression&#34;</span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(Wellbeing <span style="color:#666">~</span> Stress <span style="color:#666">+</span> SocialSupport <span style="color:#666">+</span> Sex <span style="color:#666">+</span> Stress<span style="color:#666">*</span>SocialSupport,
+  data<span style="color:#666">=</span>currentDataset)
+<span style="color:#06287e">summary</span>(res)
+<span style="color:#06287e">cbind</span>(<span style="color:#06287e">coef</span>(res), <span style="color:#06287e">confint</span>(res, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>))
+
+</code></pre></div><br/>
+<p>The code tells R to run a linear regression using the <strong>lm</strong> function. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>dependent variable</em>; the right side specifies the <em>independent variables</em>. <strong>StatsNotebook</strong> has added the interaction term <strong>Stress*SocialSupport</strong> as an extra term. The results from this regression analysis are then printed out using the <strong>summary</strong> function. Lastly, the <strong>cbind</strong>, <strong>coef</strong> and <strong>confint</strong> functions are used to print the model coefficients with the corresponding 95% confidence intervals.</p>
+<p>This code produces the model summary below.</p>
+<pre><code>Call:
+lm(formula = Wellbeing ~ Stress + SocialSupport + Sex + Stress * 
+    SocialSupport, data = currentDataset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5771 -0.6796 -0.0266  0.6410  2.8454 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           0.04169    0.04319   0.965  0.33460    
+Stress               -0.23466    0.03144  -7.464 1.83e-13 ***
+SocialSupport         0.33277    0.03124  10.651  &lt; 2e-16 ***
+SexMale              -0.05241    0.06404  -0.818  0.41338    
+Stress:SocialSupport  0.08930    0.03017   2.960  0.00315 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9974 on 995 degrees of freedom
+Multiple R-squared:  0.1431,	Adjusted R-squared:  0.1397 
+F-statistic: 41.55 on 4 and 995 DF,  p-value: &lt; 2.2e-16
+</code></pre><br/>
+
+<h5 id="interpretation-4" class="anchor-link"><a href="#interpretation-4">Interpretation</a></h5>
+<p>Using a significance level of 0.05, the interaction term between <em>Stress</em> and <em>Social Support</em> is statistically significant. This indicates that the association between <em>stress</em> and <em>psychological wellbeing</em> varies across different level of <em>Social Support</em>.</p>
+<p>To follow-up this interaction, we calculate the <strong>Estimated Marginal Means (EMMs)</strong> of <em>psychological wellbeing</em> at different levels (-1 SD/ mean/ +1 SD) of <em>Stress</em> across different levels (-1 SD/ mean/ +1 SD) of <em>Social Support</em>, and test for the effect of <em>Stress</em> at different levels of <em>Social Support</em> with <strong>simple slopes analysis</strong>.</p>
+
+<h5 id="r-codes-explained---estimated-marginal-means-2" class="anchor-link"><a href="#r-codes-explained---estimated-marginal-means-2">R codes explained - Estimated marginal means</a></h5>
+<p>The following R codes are for (1) calculating the estimated marginal means of <em>psychological wellbeing</em> at the mean of <em>stress</em>, and one standard deviation (+/- SD) below and above the mean of <em>stress</em> and at the mean of <em>social support</em>, and one standard deviation (+/- SD) below and above the mean of <em>social support</em> ; and (2) performing simple slopes analysis using the <code>emtrends</code> function. The second step tests the association of <em>stress</em> and <em>psychological wellbeing</em> at different levels of <em>social support</em>.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#4070a0">&#34;Estimated Marginal Means&#34;</span>
+<span style="color:#06287e">library</span>(emmeans)
+
+m_Stress<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>Stress, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_Stress<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>Stress, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+m_SocialSupport<span style="color:#666">&lt;-</span> <span style="color:#06287e">mean</span>(currentDataset<span style="color:#666">$</span>SocialSupport, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+sd_SocialSupport<span style="color:#666">&lt;-</span> <span style="color:#06287e">sd</span>(currentDataset<span style="color:#666">$</span>SocialSupport, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+
+emm <span style="color:#666">&lt;-</span> <span style="color:#06287e">emmeans</span>(res,  <span style="color:#666">~</span> Stress<span style="color:#666">*</span>SocialSupport,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  Stress <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_Stress<span style="color:#666">-</span>sd_Stress, m_Stress, m_Stress<span style="color:#666">+</span>sd_Stress),
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(emm)
+
+simpleSlope <span style="color:#666">&lt;-</span> <span style="color:#06287e">emtrends</span>(res, pairwise <span style="color:#666">~</span> SocialSupport, var <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Stress&#34;</span>,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)), level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+<span style="color:#06287e">summary</span>(simpleSlope)
+
+</code></pre></div><br/>
+
+<h5 id="interpretation-5" class="anchor-link"><a href="#interpretation-5">Interpretation</a></h5>
+<p>The output from this code can be broken down in to two sections: Estimated marginal means and Simple slopes analysis.</p>
+<p><strong>Estimated marginal means</strong></p>
+<pre><code>[1] &quot;Estimated Marginal Means&quot;
+
+######################################################
+ Stress SocialSupport   emmean     SE  df lower.CL upper.CL
+ -0.914      -1.00990 -0.02356 0.0588 995  -0.1389   0.0918
+  0.104      -1.00990 -0.35438 0.0452 995  -0.4432  -0.2656
+  1.122      -1.00990 -0.68520 0.0677 995  -0.8181  -0.5523
+ -0.914       0.00997  0.23255 0.0450 995   0.1443   0.3208
+  0.104       0.00997 -0.00552 0.0319 995  -0.0682   0.0571
+  1.122       0.00997 -0.24359 0.0454 995  -0.3328  -0.1544
+ -0.914       1.02983  0.48865 0.0667 995   0.3578   0.6195
+  0.104       1.02983  0.34333 0.0449 995   0.2553   0.4314
+  1.122       1.02983  0.19802 0.0605 995   0.0793   0.3168
+
+Results are averaged over the levels of: Sex 
+Confidence level used: 0.95 
+</code></pre><br/>
+<p>The above table contains the estimated marginal means of <em>psychological wellbeing</em> at different levels of <em>stress</em> across different levels of <em>social support</em>, with 95% confidence intervals. For example, for participants with low levels of <em>stress</em> (-0.914; 1 SD below the mean of stress) and at low levels of <em>social support</em>, the estimated marginal mean of <em>psychological wellbeing</em> is -0.024 (95% CI [-0.139, 0.092]).</p>
+<p>The marginal means table is followed by a table of simple slopes - The slope of <em>stress</em> at low (1 SD below the mean), mean and high (1 SD above the mean) level of social support.</p>
+<p><strong>Simple slope analysis</strong></p>
+<pre><code>$emtrends
+ SocialSupport Stress.trend     SE  df lower.CL upper.CL
+      -1.00990       -0.325 0.0436 995   -0.410  -0.2392
+       0.00997       -0.234 0.0314 995   -0.295  -0.1721
+       1.02983       -0.143 0.0443 995   -0.230  -0.0557
+
+Results are averaged over the levels of: Sex 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast                                  estimate     SE  df t.ratio p.value
+ (-1.00989834193271) - 0.00996585519298274  -0.0911 0.0308 995 -2.960  0.0088 
+ (-1.00989834193271) - 1.02983005231867     -0.1822 0.0615 995 -2.960  0.0088 
+ 0.00996585519298274 - 1.02983005231867     -0.0911 0.0308 995 -2.960  0.0088 
+
+Results are averaged over the levels of: Sex 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+</code></pre><br/>
+<p>The simple slope analysis shows that for those with low levels of social support (1 SD below the mean of social support), a one unit increase in <em>stress</em> is associated with 0.325 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.410, -0.239]); for those with an average level of social support, a one unit increase in <em>stress</em> is associated with 0.234 unit decrease in <em>psychological wellbeing</em> (95% CI [-0.295, -0.172]); for those with high levels of social support (1 SD above the mean of social support), one unit increase in <em>stress</em> is associated with 0.143 unit decrease in <em>psychological wellbeing</em>. These results indicate that <em>social support</em> can buffer the negative impact of <em>stress</em> on <em>psychological wellbeing</em>, as the association between <em>stress</em> and <em>psychological wellbeing</em> is weaker at higher levels of social support.</p>
+<p>Lastly, we can use the <code>emmip</code> function to visualise the interaction.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">emmip</span>(res, SocialSupport <span style="color:#666">~</span> Stress,
+  cov.keep <span style="color:#666">=</span> <span style="color:#40a070">3</span>, at <span style="color:#666">=</span> <span style="color:#06287e">list</span>(
+  Stress <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_Stress<span style="color:#666">-</span>sd_Stress, m_Stress, m_Stress<span style="color:#666">+</span>sd_Stress),
+  SocialSupport <span style="color:#666">=</span> <span style="color:#06287e">c</span>(m_SocialSupport<span style="color:#666">-</span>sd_SocialSupport, m_SocialSupport, m_SocialSupport<span style="color:#666">+</span>sd_SocialSupport)),
+  CIs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>)
+
+
+<span style="color:#4070a0">&#34;Chan, G. and StatsNotebook Team (2020). StatsNotebook. (Version 0.1.0) [Computer Software]. Retrieved from https://www.statsnotebook.io&#34;</span>
+<span style="color:#4070a0">&#34;R Core Team (2020). The R Project for Statistical Computing. [Computer software]. Retrieved from https://r-project.org&#34;</span>
+
+</code></pre></div><img src="https://statsnotebook.io/blog/analysis/img/interaction_plot3.png" alt="Interaction plot - Psychological wellbeing by Stress and Social support" title="Interaction plot - Psychological wellbeing by Stress and Social support"/></a>
+
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

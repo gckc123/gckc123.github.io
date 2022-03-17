@@ -1,0 +1,204 @@
+Region,Year,HDI,GDP
+Arab States,1990,0.556,10653
+Arab States,1991,0.559,NA
+Arab States,1992,0.565,NA
+Arab States,1993,0.571,NA
+Arab States,1994,0.576,NA
+Arab States,1995,0.581,10974
+Arab States,1996,0.587,NA
+Arab States,1997,0.594,NA
+Arab States,1998,0.599,NA
+Arab States,1999,0.607,NA
+Arab States,2000,0.613,12703
+Arab States,2001,0.62,NA
+Arab States,2002,0.624,NA
+Arab States,2003,0.63,NA
+Arab States,2004,0.64,NA
+Arab States,2005,0.647,14060
+Arab States,2006,0.653,NA
+Arab States,2007,0.661,NA
+Arab States,2008,0.667,NA
+Arab States,2009,0.671,NA
+Arab States,2010,0.676,15541
+Arab States,2011,0.681,15624
+Arab States,2012,0.687,16328
+Arab States,2013,0.688,16404
+Arab States,2014,0.691,16378
+Arab States,2015,0.695,16510
+Arab States,2016,0.699,16704
+Arab States,2017,0.701,16551
+Arab States,2018,0.703,16613
+East Asia and the Pacific,1990,0.519,2307
+East Asia and the Pacific,1991,0.525,NA
+East Asia and the Pacific,1992,0.534,NA
+East Asia and the Pacific,1993,0.542,NA
+East Asia and the Pacific,1994,0.549,NA
+East Asia and the Pacific,1995,0.559,3411
+East Asia and the Pacific,1996,0.568,NA
+East Asia and the Pacific,1997,0.576,NA
+East Asia and the Pacific,1998,0.581,NA
+East Asia and the Pacific,1999,0.589,NA
+East Asia and the Pacific,2000,0.597,4299
+East Asia and the Pacific,2001,0.604,NA
+East Asia and the Pacific,2002,0.613,NA
+East Asia and the Pacific,2003,0.623,NA
+East Asia and the Pacific,2004,0.632,NA
+East Asia and the Pacific,2005,0.641,6078
+East Asia and the Pacific,2006,0.652,NA
+East Asia and the Pacific,2007,0.664,NA
+East Asia and the Pacific,2008,0.672,NA
+East Asia and the Pacific,2009,0.681,NA
+East Asia and the Pacific,2010,0.691,9191
+East Asia and the Pacific,2011,0.7,9877
+East Asia and the Pacific,2012,0.707,10529
+East Asia and the Pacific,2013,0.714,11189
+East Asia and the Pacific,2014,0.721,11841
+East Asia and the Pacific,2015,0.727,12505
+East Asia and the Pacific,2016,0.733,13187
+East Asia and the Pacific,2017,0.737,13927
+East Asia and the Pacific,2018,0.741,14699
+Europe and Central Asia,1990,0.652,9267
+Europe and Central Asia,1991,0.65,NA
+Europe and Central Asia,1992,0.646,NA
+Europe and Central Asia,1993,0.643,NA
+Europe and Central Asia,1994,0.638,NA
+Europe and Central Asia,1995,0.642,6688
+Europe and Central Asia,1996,0.646,NA
+Europe and Central Asia,1997,0.651,NA
+Europe and Central Asia,1998,0.657,NA
+Europe and Central Asia,1999,0.66,NA
+Europe and Central Asia,2000,0.667,7645
+Europe and Central Asia,2001,0.672,NA
+Europe and Central Asia,2002,0.681,NA
+Europe and Central Asia,2003,0.688,NA
+Europe and Central Asia,2004,0.695,NA
+Europe and Central Asia,2005,0.703,10135
+Europe and Central Asia,2006,0.712,NA
+Europe and Central Asia,2007,0.718,NA
+Europe and Central Asia,2008,0.723,NA
+Europe and Central Asia,2009,0.726,NA
+Europe and Central Asia,2010,0.735,12114
+Europe and Central Asia,2011,0.744,12969
+Europe and Central Asia,2012,0.75,13338
+Europe and Central Asia,2013,0.759,14023
+Europe and Central Asia,2014,0.766,14419
+Europe and Central Asia,2015,0.77,14675
+Europe and Central Asia,2016,0.772,14905
+Europe and Central Asia,2017,0.776,15573
+Europe and Central Asia,2018,0.779,15872
+Latin America and the Caribbean,1990,0.628,9935
+Latin America and the Caribbean,1991,0.634,NA
+Latin America and the Caribbean,1992,0.639,NA
+Latin America and the Caribbean,1993,0.644,NA
+Latin America and the Caribbean,1994,0.65,NA
+Latin America and the Caribbean,1995,0.656,10696
+Latin America and the Caribbean,1996,0.662,NA
+Latin America and the Caribbean,1997,0.669,NA
+Latin America and the Caribbean,1998,0.675,NA
+Latin America and the Caribbean,1999,0.68,NA
+Latin America and the Caribbean,2000,0.687,11481
+Latin America and the Caribbean,2001,0.692,NA
+Latin America and the Caribbean,2002,0.696,NA
+Latin America and the Caribbean,2003,0.697,NA
+Latin America and the Caribbean,2004,0.703,NA
+Latin America and the Caribbean,2005,0.707,12189
+Latin America and the Caribbean,2006,0.713,NA
+Latin America and the Caribbean,2007,0.719,NA
+Latin America and the Caribbean,2008,0.726,NA
+Latin America and the Caribbean,2009,0.727,NA
+Latin America and the Caribbean,2010,0.731,13784
+Latin America and the Caribbean,2011,0.737,14252
+Latin America and the Caribbean,2012,0.74,14498
+Latin America and the Caribbean,2013,0.748,14750
+Latin America and the Caribbean,2014,0.752,14777
+Latin America and the Caribbean,2015,0.754,14703
+Latin America and the Caribbean,2016,0.756,14555
+Latin America and the Caribbean,2017,0.758,14649
+Latin America and the Caribbean,2018,0.759,14715
+South Asia,1990,0.441,2427
+South Asia,1991,0.447,NA
+South Asia,1992,0.454,NA
+South Asia,1993,0.46,NA
+South Asia,1994,0.466,NA
+South Asia,1995,0.473,2745
+South Asia,1996,0.48,NA
+South Asia,1997,0.486,NA
+South Asia,1998,0.492,NA
+South Asia,1999,0.499,NA
+South Asia,2000,0.505,3188
+South Asia,2001,0.51,NA
+South Asia,2002,0.516,NA
+South Asia,2003,0.527,NA
+South Asia,2004,0.536,NA
+South Asia,2005,0.544,3848
+South Asia,2006,0.554,NA
+South Asia,2007,0.563,NA
+South Asia,2008,0.569,NA
+South Asia,2009,0.575,NA
+South Asia,2010,0.585,4799
+South Asia,2011,0.593,4955
+South Asia,2012,0.601,5056
+South Asia,2013,0.607,5249
+South Asia,2014,0.617,5526
+South Asia,2015,0.624,5799
+South Asia,2016,0.634,6207
+South Asia,2017,0.639,6530
+South Asia,2018,0.642,6844
+Sub-Saharan Africa,1990,0.402,2705
+Sub-Saharan Africa,1991,0.404,NA
+Sub-Saharan Africa,1992,0.404,NA
+Sub-Saharan Africa,1993,0.406,NA
+Sub-Saharan Africa,1994,0.407,NA
+Sub-Saharan Africa,1995,0.411,2426
+Sub-Saharan Africa,1996,0.415,NA
+Sub-Saharan Africa,1997,0.418,NA
+Sub-Saharan Africa,1998,0.422,NA
+Sub-Saharan Africa,1999,0.425,NA
+Sub-Saharan Africa,2000,0.423,2500
+Sub-Saharan Africa,2001,0.426,NA
+Sub-Saharan Africa,2002,0.434,NA
+Sub-Saharan Africa,2003,0.444,NA
+Sub-Saharan Africa,2004,0.451,NA
+Sub-Saharan Africa,2005,0.459,2883
+Sub-Saharan Africa,2006,0.469,NA
+Sub-Saharan Africa,2007,0.477,NA
+Sub-Saharan Africa,2008,0.486,NA
+Sub-Saharan Africa,2009,0.494,NA
+Sub-Saharan Africa,2010,0.498,3294
+Sub-Saharan Africa,2011,0.505,3365
+Sub-Saharan Africa,2012,0.512,3418
+Sub-Saharan Africa,2013,0.521,3504
+Sub-Saharan Africa,2014,0.527,3582
+Sub-Saharan Africa,2015,0.532,3591
+Sub-Saharan Africa,2016,0.535,3544
+Sub-Saharan Africa,2017,0.539,3546
+Sub-Saharan Africa,2018,0.541,3552
+World,1990,0.598,8958
+World,1991,0.601,NA
+World,1992,0.601,NA
+World,1993,0.608,NA
+World,1994,0.611,NA
+World,1995,0.617,9242
+World,1996,0.622,NA
+World,1997,0.624,NA
+World,1998,0.631,NA
+World,1999,0.636,NA
+World,2000,0.641,10379
+World,2001,0.646,NA
+World,2002,0.651,NA
+World,2003,0.657,NA
+World,2004,0.663,NA
+World,2005,0.669,11712
+World,2006,0.676,NA
+World,2007,0.682,NA
+World,2008,0.688,NA
+World,2009,0.691,NA
+World,2010,0.697,13185
+World,2011,0.703,13559
+World,2012,0.708,13859
+World,2013,0.713,14166
+World,2014,0.718,14486
+World,2015,0.722,14804
+World,2016,0.727,15123
+World,2017,0.729,15514
+World,2018,0.731,15893

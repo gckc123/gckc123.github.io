@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interrupted Time Series Analysis on StatsNotebook - Simple. Powerful. Reproducible.</title>
+    <link>https://statsnotebook.io/tags/interrupted-time-series-analysis/</link>
+    <description>Recent content in Interrupted Time Series Analysis on StatsNotebook - Simple. Powerful. Reproducible.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/interrupted-time-series-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Interrupted Time Series Analysis</title>
+      <link>https://statsnotebook.io/consultation/its/</link>
+      <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/consultation/its/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;about-this-workshop&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#about-this-workshop&#34;&gt;About this workshop&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4 id=&#34;using-interrupted-time-series-analysis-to-evaluate-ppolicy-impact-on-public-health&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-interrupted-time-series-analysis-to-evaluate-ppolicy-impact-on-public-health&#34;&gt;Using Interrupted Time Series Analysis to evaluate ppolicy impact on public health&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Interrupted Time Series (ITS) analysis has been increasingly used in public health research to evaluate policy impact. For example, in 2018, the Northern Territory government implemented a minimum price for alcohol. Is this policy effective in reducing alcohol consumption in the population? ITS can be used to answer such question.
+In this seminar, I will give a brief introduction to this technique, and demonstrate this technique using a simulated dataset. The demonstration will be R and StatsNotebook, a graphic interface for R. R codes and the simulated dataset will be provided.&lt;/p&gt;
+&lt;p&gt;Link for R:
+&lt;a href=&#34;https://www.r-project.org/&#34;&gt;https://www.r-project.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;about-the-presenter&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#about-the-presenter&#34;&gt;About the presenter:&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Dr. Gary Chan is a statistician and epidemiologist at the National Centre for Youth Substance Use Research, University of Queensland. He is the chief developer of StatsNotebook, an open source R based statistics app. His research focuses on statistical software development, causal inferences, and the epidemiology of substance use among young people. He has served as a consultant at the United Nations Office on Drugs and Crime to evaluate the data collection methodology on global substance use data, and as a biostatistical consultant for the West Moreton Health Service.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;../materials/2021_07_28_its.pptx&#34;&gt;Download Slides&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Follow &lt;a href=&#34;https://www.facebook.com/StatsNotebook/&#34;&gt;our Facebook page&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/GaryCKChan&#34;&gt;our developer&amp;rsquo;s Twitter&lt;/a&gt; for more tutorials and future updates&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
