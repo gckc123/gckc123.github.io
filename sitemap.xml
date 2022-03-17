@@ -26,31 +26,6 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/blog/analysis/itsa/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/analysis/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/tags/interrupted-time-series-analysis/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url>
@@ -66,6 +41,16 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/consultation/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
   </url>
@@ -73,6 +58,16 @@
   <url>
     <loc>https://statsnotebook.io/tags/workshop/</loc>
     <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/analysis/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/causal-inference/</loc>
+    <lastmod>2021-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>

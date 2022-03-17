@@ -6,25 +6,7 @@
     <description>Recent content in Tags on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Analysis</title>
-      <link>https://statsnotebook.io/tags/analysis/</link>
-      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Causal Inference</title>
-      <link>https://statsnotebook.io/tags/causal-inference/</link>
-      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Interrupted Time Series Analysis</title>
       <link>https://statsnotebook.io/tags/interrupted-time-series-analysis/</link>
@@ -49,6 +31,24 @@
       <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://statsnotebook.io/tags/workshop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Analysis</title>
+      <link>https://statsnotebook.io/tags/analysis/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Causal Inference</title>
+      <link>https://statsnotebook.io/tags/causal-inference/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/tags/causal-inference/</guid>
       <description></description>
     </item>
     

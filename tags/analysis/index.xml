@@ -6,18 +6,7 @@
     <description>Recent content in Analysis on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/analysis/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>https://statsnotebook.io/blog/analysis/itsa/</link>
-      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://statsnotebook.io/blog/analysis/itsa/</guid>
-      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
-&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
+    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/analysis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Causal inference: Inverse probability treatment weighting</title>
       <link>https://statsnotebook.io/blog/analysis/marginal_structural_model_iptw/</link>
