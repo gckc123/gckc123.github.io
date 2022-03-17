@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Scatterplot - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Scatterplot - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/dataviz/scatterplot/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.f28d984107f6212e03d227484401a6dd3be66fc25c669e25afff2900fbf25dcf.css" integrity="sha256-8o2YQQf2IS4D0idIRAGm3Tvmb8JcZp4lr/8pAPvyXc8=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/dataviz/scatterplot/">Scatterplot</a>
+    </h2>
+    <div class="post-data">
+        23 Oct, 2020 |
+        8 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Scatterplot%20https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fscatterplot%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fdataviz%2fscatterplot%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/dataviz">DataViz</a>,
+        
+        <a href="/tags/r-code">R code</a>
+        
+    </p>
+    
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+<div class="container markdown top-pad">
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>Scatterplot can be used to visualise the association between two numeric variables. <strong>StatsNotebook</strong> uses the <code>geom_jitter</code> function from the <code>ggplot2</code> library to build scatterplot.</p>
+<p>We use the built-in <strong>UNDP</strong> dataset in this example. This dataset can be loaded into <strong>StatsNotebook</strong> using instruction <a href="https://statsnotebook.io/blog/data_management/load_example_data/" title="Load example data">here</a> or can be downloaded from <a href="https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv"/>
+    here
+</a>. This is a dataset of 199 countries compiled from the United Nations Development Programme.</p>
+<p>We will use the following three variables from this dataset</p>
+<ol>
+<li>HDI - Human Development Index in 2018</li>
+<li>GDP - Gross Domestic Product per capital in 2018</li>
+<li>Pop - Population (in millions) in 2018</li>
+<li>Continent - Continent</li>
+<li>Schooling - Expected years of schooling</li>
+</ol>
+<p>This dataset can also be loaded using the following codes</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://statsnotebook.io/blog/data_management/example_data/HDI_countries.csv&#34;</span>)
+</code></pre></div><p>In this example, we will build</p>
+<div style="display: flex; flex-wrap: wrap; padding: 0px"> 
+    <div>
+        <a href="#simple-scatterplot">Simple scatterplot</a>
+        <a href="#simple-scatterplot"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/simple_scatterplot.png" alt="Simple scatterplot"></a>
+    </div>
+    <div>
+        <a href="#bubble-plot">Bubble plot</a>
+        <a href="#bubble-plot"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/bubble_plot2.png" alt="Bubble plot"></a>
+    </div>
+    <div>
+        <a href="#scatterplot-with-line-of-best-fit">Scatterplot with a fitted line</a>
+        <a href="#scatterplot-with-line-of-best-fit"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/scatterplot_with_line.png" alt="Sctterplot with line of best fit"></a>
+    </div>
+    <div>
+        <a href="#scatterplot-with-line-of-best-fit-by-groups">Scatterplot with fitted lines</a>
+        <a href="#scatterplot-with-line-of-best-fit-by-groups"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/scatterplot_with_line_by_groups.png" alt="Sctterplot with line of best fit"></a>
+    </div>
+    <div>
+        <a href="#scatterplots-in-multiple-facets">Scatterplots in facets</a>
+        <a href="#scatterplots-in-multiple-facets"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/scatterplot_with_line_by_groups_with_facets.png" alt="Sctterplot with line of best fit"></a>
+    </div>
+    <div>
+        <a href="../animate">Animated scatterplot</a>
+        <a href="../animate"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot.gif" alt="animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="../animate">Animated scatterplot 2</a>
+        <a href="../animate"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot2.gif" alt="animated scatterplot"></a>
+    </div>
+    <div>
+        <a href="../animate">Animated scatterplot 3</a>
+        <a href="../animate"><img style="min-width: 100px; max-width: 250px; align: left" src="../img/animated_scatterplot3.gif" alt="animated scatterplot"></a>
+    </div>
+</div>
+
+<h5 id="simple-scatterplot" class="anchor-link"><a href="#simple-scatterplot">Simple scatterplot</a></h5>
+<p>To build a simple scatterplot visualising association between two numeric variables (e.g. HDI and GDP),</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Scatterplot</strong> from the menu</li>
+<li>In the <strong>Scatterplot</strong> panel, select <em>HDI</em> to <em>Vertical Axis</em> and <em>GDP</em> to <em>Horizontal Axis</em>.</li>
+<li>Expand the <strong>Scatterplot Setting</strong> panel and uncheck <strong>Add a fitted line</strong> (A line of best fit will be added to the plot by default).</li>
+<li>Expand the <strong>Label, Settings and Theme</strong> panel
+<ul>
+<li>Click <strong>Switch to Advanced Mode</strong> for customisable setting (e.g. font size, color schemes, etc).</li>
+<li>For Title, we used &ldquo;Scatterplot of Gross domestic product and Human development index&rdquo;.</li>
+<li>For Horizontal axis, we used &ldquo;Gross domestic product (GDP, 2018 US$)&rdquo;.</li>
+<li>For Vertical axis, we used &ldquo;Human development index&rdquo;.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong></li>
+</ol>
+
+<h5 id="r-codes" class="anchor-link"><a href="#r-codes">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> GDP)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.6</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Gross domestic product and Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Gross domestic product (GDP, 2018 US$)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)
+</code></pre></div><br/>
+<p>The variables for the vertial (y) and horizontal (x) are specified in the function <code>ggplot</code>. For scatterplot, we use <code>geom_jitter</code> instead of <code>geom_point</code> to add a small amount of noise to each point so that the points will not be overlapping with each other.</p>
+
+<h5 id="output-from-the-above-r-codes" class="anchor-link"><a href="#output-from-the-above-r-codes">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/simple_scatterplot.png" alt="simple scatterplot" title="simple scatterplot"/></a>
+
+<h5 id="bubble-plot" class="anchor-link"><a href="#bubble-plot">Bubble plot</a></h5>
+<p>To build a bubble plot visualising the association between two numeric variables (e.g. HDI and GDP), with point size determined by a third continuous variable (e.g. Population size) and points color-coded by a categorical variable (e.g. continent)</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Scatterplot</strong> from the menu</li>
+<li>In the <strong>Scatterplot</strong> panel, select <em>HDI</em> to <em>Vertical Axis</em>, <em>GDP</em> to <em>Horizontal Axis</em>, <em>Continent</em> to <em>Fill color</em>, and <em>Pop</em> to <em>Size</em>.</li>
+<li>Expand the <strong>Scatterplot Setting</strong> panel and uncheck <strong>Add a fitted line</strong> (A line of best fit will be added to the plot by default).</li>
+<li>Expand the <strong>Label, Settings and Theme</strong> panel
+<ul>
+<li>Click <strong>Switch to Advanced Mode</strong> for customisable setting (e.g. font size, color schemes, etc).</li>
+<li>For Title, we used &ldquo;Scatterplot of Gross domestic product and Human development index&rdquo;.</li>
+<li>For Horizontal axis, we used &ldquo;Gross domestic product (GDP, 2010 US$)&rdquo;.</li>
+<li>For Vertical axis, we used &ldquo;Human development index&rdquo;.</li>
+<li>For Color fill label, we used &ldquo;Continent&rdquo;.</li>
+<li>For Size label, we used &ldquo;Population (millions)&rdquo;.</li>
+<li>Since we have two legends, one for <em>Color</em> and one for <em>Size</em>, we set legend position to &ldquo;Right&rdquo;.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong></li>
+</ol>
+
+<h5 id="r-codes-1" class="anchor-link"><a href="#r-codes-1">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Continent, Pop) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> GDP, size <span style="color:#666">=</span> Pop)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.5</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> Continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.1</span>, <span style="color:#40a070">8</span>))<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Gross domestic product and Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Gross domestic product (GDP, 2018 US$)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)
+
+</code></pre></div><br/>
+
+<h5 id="output-from-the-above-r-codes-1" class="anchor-link"><a href="#output-from-the-above-r-codes-1">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/bubble_plot1.png" alt="bubble plot" title="bubble plot"/></a>
+
+<h5 id="changing-legend-position" class="anchor-link"><a href="#changing-legend-position">Changing legend position</a></h5>
+<p>Part of the legends is cut-off (bottom left) because we are running out of space. We can place the legend to the right hand size of the plot by changing the last line of codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;right&#34;</span>)
+</code></pre></div><br/>
+<img src="https://statsnotebook.io//blog/dataviz/img/bubble_plot1b.png" alt="bubble plot" title="bubble plot"/></a>
+
+<h5 id="adjusting-bubble-size" class="anchor-link"><a href="#adjusting-bubble-size">Adjusting bubble size</a></h5>
+<p>The size of the bubble can be changed by changing the following line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.1</span>, <span style="color:#40a070">8</span>))
+</code></pre></div><br/>
+<p>The minimum point size is 0.1 and the maximum is 8. The following code changes the minimum to 0.3 and the maximum to 15.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">scale_size</span>(range <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.3</span>, <span style="color:#40a070">15</span>))
+</code></pre></div><br/>
+
+<h5 id="output-from-the-updated-r-codes" class="anchor-link"><a href="#output-from-the-updated-r-codes">Output from the updated R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/bubble_plot2.png" alt="bubble plot" title="bubble plot"/></a>
+
+<h5 id="scatterplot-with-line-of-best-fit" class="anchor-link"><a href="#scatterplot-with-line-of-best-fit">Scatterplot with line of best fit</a></h5>
+<p>To build a scatterplot visualising the association between two numeric variables (e.g. HDI and Schooling) with points color-coded by a categorical variable (e.g. continent) and an overall line of best fit,</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Scatterplot</strong> from the menu</li>
+<li>In the <strong>Scatterplot</strong> panel, select <em>HDI</em> to <em>Vertical Axis</em>, <em>Schooling</em> to <em>Horizontal Axis</em>, and <em>Continent</em> to <em>Fill color</em>.</li>
+<li>Expand the <strong>Scatterplot Setting</strong> panel
+<ul>
+<li>check <strong>Add a fitted line</strong> (A line of best fit will be added to the plot by default).</li>
+<li>check <strong>By fill color</strong>.</li>
+</ul>
+</li>
+<li>Expand the <strong>Label, Settings and Theme</strong> panel
+<ul>
+<li>Click <strong>Switch to Advanced Mode</strong> for customisable setting (e.g. font size, color schemes, etc).</li>
+<li>For Title, we used &ldquo;Scatterplot of Years of schooling and Human development index&rdquo;.</li>
+<li>For Horizontal axis, we used &ldquo;Years of schooling&rdquo;.</li>
+<li>For Vertical axis, we used &ldquo;Human development index&rdquo;.</li>
+<li>For Color fill label, we used &ldquo;Continent&rdquo;.</li>
+<li>For Size label, we used &ldquo;Population (millions)&rdquo;.</li>
+<li>Since we have two legends, one for <em>Color</em> and one for <em>Size</em>, we set legend position to &ldquo;Right&rdquo;.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong></li>
+</ol>
+
+<h5 id="r-codes-2" class="anchor-link"><a href="#r-codes-2">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Continent) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Schooling)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.6</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> Continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">geom_smooth</span>(method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lm&#34;</span>, se <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Years of schooling and Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Years of schooling&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)
+</code></pre></div><br/>
+<p>In the above R codes, we have specified the vertial axis (y-axis) to be <em>HDI</em> and horizontal to be <em>Schooling</em> globally in the line</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Schooling))
+</code></pre></div><br/>
+<p>and then requested the points to be colored by <em>Continent</em> in the <code>geom_jitter</code> function.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.6</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> Continent), na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+</code></pre></div><br/>
+<p>To specify one line of best fit for each <em>Continent</em>, we can specified the color globally as shown in the following example.</p>
+
+<h5 id="output-from-the-above-r-codes-2" class="anchor-link"><a href="#output-from-the-above-r-codes-2">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line.png" alt="scatterplot with line of best fit" title="scatterplot with line of best fit"/></a>
+
+<h5 id="scatterplot-with-line-of-best-fit-by-groups" class="anchor-link"><a href="#scatterplot-with-line-of-best-fit-by-groups">Scatterplot with line of best fit by groups</a></h5>
+<p>To build a scatterplot visualising the association between two numeric variables (e.g. HDI and Schooling) with a line of best fit and points color-coded by a categorical variable (e.g. continent),</p>
+<ol>
+<li>Click <strong>DataViz</strong> at the top</li>
+<li>Click <strong>Correlation</strong></li>
+<li>Select <strong>Scatterplot</strong> from the menu</li>
+<li>In the <strong>Scatterplot</strong> panel, select <em>HDI</em> to <em>Vertical Axis</em>, <em>Schooling</em> to <em>Horizontal Axis</em>, and <em>Continent</em> to <em>Fill color</em>.</li>
+<li>Expand the <strong>Scatterplot Setting</strong> panel, check <strong>Add a fitted line</strong> (A line of best fit will be added to the plot by default).</li>
+<li>Expand the <strong>Label, Settings and Theme</strong> panel
+<ul>
+<li>Click <strong>Switch to Advanced Mode</strong> for customisable setting (e.g. font size, color schemes, etc).</li>
+<li>For Title, we used &ldquo;Scatterplot of Years of schooling and Human development index&rdquo;.</li>
+<li>For Horizontal axis, we used &ldquo;Years of schooling&rdquo;.</li>
+<li>For Vertical axis, we used &ldquo;Human development index&rdquo;.</li>
+<li>For Color fill label, we used &ldquo;Continent&rdquo;.</li>
+<li>For Size label, we used &ldquo;Population (millions)&rdquo;.</li>
+<li>Since we have two legends, one for <em>Color</em> and one for <em>Size</em>, we set legend position to &ldquo;Right&rdquo;.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong></li>
+</ol>
+
+<h5 id="r-codes-3" class="anchor-link"><a href="#r-codes-3">R codes</a></h5>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Continent) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Schooling, color <span style="color:#666">=</span> Continent)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.6</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">geom_smooth</span>(method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lm&#34;</span>, se <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Years of schooling and Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Years of schooling&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>)
+</code></pre></div><br/>
+<p>In this example, the color of the point is specified globally in the <code>ggplot</code> function</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Schooling, color <span style="color:#666">=</span> Continent))
+</code></pre></div><br/>
+<p>As a result, separate lines of best fit will be added for each <em>continent</em>.</p>
+
+<h5 id="output-from-the-above-r-codes-3" class="anchor-link"><a href="#output-from-the-above-r-codes-3">Output from the above R codes</a></h5>
+<img src="https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line_by_groups.png" alt="scatterplot with lines of best fit by groups" title="scatterplot with lines of best fit by groups"/></a>
+
+<h5 id="scatterplots-in-multiple-facets" class="anchor-link"><a href="#scatterplots-in-multiple-facets">Scatterplots in multiple facets</a></h5>
+<p>The above plot of years of schooling and human development index is a bit busy. We can use the <code>facet</code> to plot separate scatterplots by <em>continent</em> by adding an extra line of codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">    <span style="color:#06287e">facet_wrap</span>( <span style="color:#666">~</span> Continent)
+</code></pre></div><br/>
+<p>Below is the complete code for generating scatterplots by <em>continent</em> in different facets.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">currentDataset <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">drop_na</span>(Continent) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(y <span style="color:#666">=</span> HDI, x <span style="color:#666">=</span> Schooling, color <span style="color:#666">=</span> Continent)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.6</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">geom_smooth</span>(method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lm&#34;</span>, se <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>, na.rm <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">scale_color_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Set2&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme_bw</span>(base_family <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sans&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Scatterplot of Years of schooling and Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">xlab</span>(<span style="color:#4070a0">&#34;Years of schooling&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">ylab</span>(<span style="color:#4070a0">&#34;Human development index&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>, fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Continent&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">labs</span>(size <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Population (millions)&#34;</span>)<span style="color:#666">+</span>
+    <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>) <span style="color:#666">+</span>
+    <span style="color:#06287e">facet_wrap</span>( <span style="color:#666">~</span> Continent)
+</code></pre></div><img src="https://statsnotebook.io//blog/dataviz/img/scatterplot_with_line_by_groups_with_facets.png" alt="scatterplot with lines of best fit by groups" title="scatterplot with lines of best fit by groups"/></a>
+
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.8b77b63e5197d7777848e24ba70612839fe8d02e9599db63365da671cb233a8a.js" integrity="sha256-i3e2PlGX13d4SOJLpwYSg5/o0C6VmdtjNl2mccsjOoo="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
