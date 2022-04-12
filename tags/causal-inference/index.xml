@@ -6,7 +6,256 @@
     <description>Recent content in Causal Inference on StatsNotebook - Simple. Powerful. Reproducible.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/causal-inference/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://statsnotebook.io/tags/causal-inference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Propensity Score Matching</title>
+      <link>https://statsnotebook.io/blog/analysis/matching/</link>
+      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://statsnotebook.io/blog/analysis/matching/</guid>
+      <description>&lt;p&gt;The tutorial is based on &lt;a href=&#34;https://r-project.org&#34; title=&#34;The R project for statistical computing&#34;&gt;R&lt;/a&gt; and &lt;a href=&#34;https://statsnotebook.io&#34; title=&#34;StatsNotebook&#34;&gt;StatsNotebook&lt;/a&gt;, a graphical interface for R.&lt;/p&gt;
+&lt;p&gt;Randomised controlled trials (RCTs) are the gold standard for causal inference. In RCTs, randomisation removes all confoundings between the treatment (exposure) and control group. However, RCTs are not always feasible due to ethical or logistic issues (e.g., testing the causal impact of smoking on lung cancer). Propensity score matching can be used to emulate the balance between treatment and control group in an observational study.
+At its simplest, &lt;strong&gt;propensity score matching&lt;/strong&gt; matches each individual in the treatment group to an individual in the control group based on their &lt;em&gt;propensity score&lt;/em&gt;. For each individual, the &lt;em&gt;propensity score&lt;/em&gt; can be intuitively considered as the probability of recentiving treatment, calcuated from a range of covariates (and potential confounders). Two individuals, one from treatment and one from control group, is considered to be a match if the difference between their propensity score is small. Unmatched participants are discarded.&lt;/p&gt;
+&lt;p&gt;After matching, the treatment group and the control group should have very similar characteristics. A simple regression model can be used to estimate the treatment effect on the outcome. Cluster-robust standard errors are required for correct inference.&lt;/p&gt;
+
+&lt;h4 id=&#34;example-research-questions&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#example-research-questions&#34;&gt;Example research questions&lt;/a&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Is smoking associated with psychological distress?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this setup, the &lt;em&gt;treatment&lt;/em&gt; variable is smoking; the &lt;em&gt;outcome&lt;/em&gt; variable is psychological distress. This research question will be addressed by &lt;strong&gt;propensity score matching&lt;/strong&gt;. We will first match each smoker in the dataset to a non-smoker based on a range of covariates, including sex (male/ female), indigenous status (indigenous or not), education level (high school completion), marital status (partnered or not), region of residence (major cities, inner regional or outer regional), language background (English speaking or not), age and risky alcohol use (Yes/ No).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Propensity score matching&lt;/strong&gt; analysis involves two steps.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Match each smoker to a non-smoker based on propensity score, which is calculated based on a range of covariates.&lt;/li&gt;
+&lt;li&gt;Check if balance between smokers (treatment/exposure group) and non-smokers (control group) is achieved (i.e., both groups having similar characteristics). If balance is achieved, a simple regression analysis with cluster-robust standard error can be used to estimate the effect of smoking on psychological distress.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the &lt;strong&gt;Psychological distress and smoking&lt;/strong&gt; dataset, which can be loaded using the following codes (internet connection is required)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(tidyverse)
+currentDataset &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://raw.githubusercontent.com/gckc123/ExampleData/main/smoking_psyc_distress.csv&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;There are ten variables in this dataset.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sex (0: Female; 1: Male)&lt;/li&gt;
+&lt;li&gt;indigenous - Ingigenous status (0: Non-indigenous; 1: indigenous)&lt;/li&gt;
+&lt;li&gt;high_school - Education level (0: not finished high school; 1: finished high school)&lt;/li&gt;
+&lt;li&gt;partnered - Marital status (0: not partnered; 1: partnered)&lt;/li&gt;
+&lt;li&gt;remoteness - region of residence (0: major cities; 1: inner regional; 2: outer regional)&lt;/li&gt;
+&lt;li&gt;language - Language background (0: non-English speaking; 1: English speaking)&lt;/li&gt;
+&lt;li&gt;Smoker - Smoking status (0: non-smoker; 1: smoker)&lt;/li&gt;
+&lt;li&gt;risky_alcohol - Risky alcohol use (0: not risky; 1: risky)&lt;/li&gt;
+&lt;li&gt;psyc_distress - Psychological distress. Measure ranges from 10 to 50.&lt;/li&gt;
+&lt;li&gt;age - Age of the participants&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;r-codes-for-matching-step-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-for-matching-step-1&#34;&gt;R codes for matching (Step 1)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The following is the compete codes for our &lt;strong&gt;propensity score matching&lt;/strong&gt; example.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Since remoteness is a categorical variable with more than two categories. It is necessary to convert &lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#it into a factor variable.&lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#For other categorical variable with only 2 levels, this is optional if the variable is coded as 0 and 1.&lt;/span&gt;
+currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;remoteness &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;factor&lt;/span&gt;(currentDataset&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;remoteness, exclude &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;NA&lt;/span&gt;))
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#The MatchIt, lmtest and sandwich libraries are used.&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(MatchIt)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(lmtest)
+&lt;span style=&#34;color:#06287e&#34;&gt;library&lt;/span&gt;(sandwich)
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Using the mathcit function from MatchIt to match each smoker with a non-smoker (1 to 1 matching) based on&lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#sex, indigeneity status, high school completion, marital status (partnered or not),&lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#region of residence (major cities, inner regional, outer regional), language background (English speaking Yes/No) &lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#and risky alcohol drinking (Yes/No)&lt;/span&gt;
+match_obj &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;matchit&lt;/span&gt;(smoker &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; sex &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; indigeneity &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; high_school &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; partnered &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; remoteness &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; language &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; risky_alcohol &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; age,
+  data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset, method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;nearest&amp;#34;&lt;/span&gt;, distance &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;glm&amp;#34;&lt;/span&gt;,
+  ratio &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
+  replace &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(match_obj)
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#plotting the balance between smokers and non-smokers&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;plot&lt;/span&gt;(match_obj, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;jitter&amp;#34;&lt;/span&gt;, interactive &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;plot&lt;/span&gt;(&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(match_obj), abs &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h4 id=&#34;using-statsnotebook-for-matching-step-1&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook-for-matching-step-1&#34;&gt;Using StatsNotebook for matching (Step 1)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Prior to running the propensity score matching, it is always a good practice to &lt;a href=&#34;https://statsnotebook.io/blog/dataviz/&#34; title=&#34;DataViz&#34;&gt;visualise the data&lt;/a&gt; and conduct a &lt;a href=&#34;https://statsnotebook.io/blog/analysis/descriptive/&#34; title=&#34;descriptive statistics&#34;&gt;descriptive analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To conduct propensity score matching,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Analysis&lt;/strong&gt; at the top;&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Causal&lt;/strong&gt; and select &lt;strong&gt;Matching&lt;/strong&gt; from the menu&lt;/li&gt;
+&lt;li&gt;In the left panel, select &lt;em&gt;smoker&lt;/em&gt; into &lt;em&gt;Exposure&lt;/em&gt;, and select &lt;em&gt;sex&lt;/em&gt;, &lt;em&gt;indigeneity&lt;/em&gt;, &lt;em&gt;high_school&lt;/em&gt;, &lt;em&gt;partnered&lt;/em&gt;, &lt;em&gt;remoteness&lt;/em&gt;, &lt;em&gt;lauguage&lt;/em&gt; &lt;em&gt;psyc_distress&lt;/em&gt; and &lt;em&gt;age&lt;/em&gt; into &lt;em&gt;Covariates&lt;/em&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;remoteness&lt;/strong&gt; is a categorical variable with three levels (&lt;em&gt;major cities&lt;/em&gt;, &lt;em&gt;inner regional&lt;/em&gt; and &lt;em&gt;outer regional&lt;/em&gt;). If it is not yet coded as &lt;strong&gt;factor&lt;/strong&gt;, we will need to manually &lt;a href=&#34;https://statsnotebook.io/blog/data_management/variable_conversion/&#34; title=&#34;variable converstion&#34;&gt;convert it into a &lt;strong&gt;factor&lt;/strong&gt; variable&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;sex&lt;/strong&gt;, &lt;strong&gt;indigeneity&lt;/strong&gt;, &lt;strong&gt;high_school&lt;/strong&gt;, &lt;strong&gt;partnered&lt;/strong&gt; and &lt;strong&gt;language&lt;/strong&gt; are also categorical variable. But since they are binary (i.e., only have two levels coded as 0 and 1), it is not necessary to convert them into &lt;strong&gt;factor&lt;/strong&gt; variable.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt; at top. The above R code will be generated in a block on the right panel and the results will be presented below the R codes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/matching_instruction1.png&#34; alt=&#34;matching in statsnotebook&#34; title=&#34;matching in statsnotebook&#34;/&gt;&lt;/a&gt;
+
+&lt;h4 id=&#34;r-codes-explained---matching&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-explained---matching&#34;&gt;R codes explained - Matching&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The following is a key section of the generated codes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;match_obj &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;matchit&lt;/span&gt;(smoker &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; sex &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; indigeneity &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; high_school &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; partnered &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; remoteness &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; language &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; risky_alcohol &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; age,
+  data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset, method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;nearest&amp;#34;&lt;/span&gt;, distance &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;glm&amp;#34;&lt;/span&gt;,
+  ratio &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;,
+  replace &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+&lt;span style=&#34;color:#06287e&#34;&gt;summary&lt;/span&gt;(match_obj)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;This code tells R to run a propensity score matching using the &lt;strong&gt;matchit&lt;/strong&gt; function from the &lt;strong&gt;MatchIt&lt;/strong&gt; library. The left side of the &lt;strong&gt;&amp;ldquo;~&amp;rdquo;&lt;/strong&gt; symbol specifies the &lt;em&gt;exposure variable&lt;/em&gt;; the right side specifies the &lt;em&gt;covariates&lt;/em&gt;. The results from this propensity score matching is then printed out using the &lt;strong&gt;summary&lt;/strong&gt; function.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;em&gt;distance&lt;/em&gt; parameter specifies that generalised linear model is used to calculate the propensity score based on all covariates (&lt;em&gt;distance = &amp;ldquo;glm&amp;rdquo;&lt;/em&gt;); Other models such as generalised boosted model (gbm) or generalized additive model (gam) can be used.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;method&lt;/em&gt; parameter specifies that matching is based on nearest matching (&lt;em&gt;method = &amp;ldquo;nearest&amp;rdquo;&lt;/em&gt;); Other methods such as &amp;ldquo;optimal&amp;rdquo; and &amp;ldquo;exact&amp;rdquo; can be used.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;ratio&lt;/em&gt; parameter specifies that one to one matching is used (&lt;em&gt;ratio = 1&lt;/em&gt;). A higher ratio will increase the number of samples from the control group that will be included. Therefore, less observations will be discarded. However a higher matching ratio by definition will produce worse matches.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;replace&lt;/em&gt; parameter specifies that the matching is conducted without replacement.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These settings generally produce satisfactory results and will be sufficient in many scenarios.&lt;/p&gt;
+&lt;p&gt;This code produces the result summary below.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+
+Call&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;matchit&lt;/span&gt;(formula &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; smoker &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; sex &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; indigeneity &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; high_school &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+    partnered &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; remoteness &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; language &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; risky_alcohol &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; age, 
+    data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; currentDataset, method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;nearest&amp;#34;&lt;/span&gt;, distance &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;glm&amp;#34;&lt;/span&gt;, 
+    replace &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;, ratio &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;)
+
+Summary of Balance for All Data&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+              Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance             &lt;span style=&#34;color:#40a070&#34;&gt;0.1852&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.1130&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.6304&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;2.0778&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.2033&lt;/span&gt;
+sex                  &lt;span style=&#34;color:#40a070&#34;&gt;0.4938&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.4421&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1035&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0518&lt;/span&gt;
+indigeneity          &lt;span style=&#34;color:#40a070&#34;&gt;0.0524&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.0175&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1565&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0349&lt;/span&gt;
+high_school          &lt;span style=&#34;color:#40a070&#34;&gt;0.4220&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.6378&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.4370&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.2158&lt;/span&gt;
+partnered            &lt;span style=&#34;color:#40a070&#34;&gt;0.4630&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.6913&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.4578&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.2283&lt;/span&gt;
+remoteness0          &lt;span style=&#34;color:#40a070&#34;&gt;0.5852&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.6773&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.1870&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0921&lt;/span&gt;
+remoteness1          &lt;span style=&#34;color:#40a070&#34;&gt;0.2177&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.1900&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0670&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0277&lt;/span&gt;
+remoteness2          &lt;span style=&#34;color:#40a070&#34;&gt;0.1971&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.1327&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1621&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0645&lt;/span&gt;
+language             &lt;span style=&#34;color:#40a070&#34;&gt;0.9579&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.9130&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2234&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0449&lt;/span&gt;
+risky_alcohol        &lt;span style=&#34;color:#40a070&#34;&gt;0.6427&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.5411&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2120&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.1016&lt;/span&gt;
+age                 &lt;span style=&#34;color:#40a070&#34;&gt;51.6057&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;53.7824&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.1676&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.8214&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.0441&lt;/span&gt;
+              eCDF Max
+distance        &lt;span style=&#34;color:#40a070&#34;&gt;0.3185&lt;/span&gt;
+sex             &lt;span style=&#34;color:#40a070&#34;&gt;0.0518&lt;/span&gt;
+indigeneity     &lt;span style=&#34;color:#40a070&#34;&gt;0.0349&lt;/span&gt;
+high_school     &lt;span style=&#34;color:#40a070&#34;&gt;0.2158&lt;/span&gt;
+partnered       &lt;span style=&#34;color:#40a070&#34;&gt;0.2283&lt;/span&gt;
+remoteness0     &lt;span style=&#34;color:#40a070&#34;&gt;0.0921&lt;/span&gt;
+remoteness1     &lt;span style=&#34;color:#40a070&#34;&gt;0.0277&lt;/span&gt;
+remoteness2     &lt;span style=&#34;color:#40a070&#34;&gt;0.0645&lt;/span&gt;
+language        &lt;span style=&#34;color:#40a070&#34;&gt;0.0449&lt;/span&gt;
+risky_alcohol   &lt;span style=&#34;color:#40a070&#34;&gt;0.1016&lt;/span&gt;
+age             &lt;span style=&#34;color:#40a070&#34;&gt;0.1020&lt;/span&gt;
+
+
+Summary of Balance for Matched Data&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+              Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance             &lt;span style=&#34;color:#40a070&#34;&gt;0.1852&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.1847&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0042&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;1.0209&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.0002&lt;/span&gt;
+sex                  &lt;span style=&#34;color:#40a070&#34;&gt;0.4938&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.5010&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.0144&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0072&lt;/span&gt;
+indigeneity          &lt;span style=&#34;color:#40a070&#34;&gt;0.0524&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.0370&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0691&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0154&lt;/span&gt;
+high_school          &lt;span style=&#34;color:#40a070&#34;&gt;0.4220&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.4107&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0229&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0113&lt;/span&gt;
+partnered            &lt;span style=&#34;color:#40a070&#34;&gt;0.4630&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.4764&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.0268&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0133&lt;/span&gt;
+remoteness0          &lt;span style=&#34;color:#40a070&#34;&gt;0.5852&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.5986&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.0271&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0133&lt;/span&gt;
+remoteness1          &lt;span style=&#34;color:#40a070&#34;&gt;0.2177&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.2146&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0075&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0031&lt;/span&gt;
+remoteness2          &lt;span style=&#34;color:#40a070&#34;&gt;0.1971&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.1869&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0258&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0103&lt;/span&gt;
+language             &lt;span style=&#34;color:#40a070&#34;&gt;0.9579&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.9620&lt;/span&gt;         &lt;span style=&#34;color:#40a070&#34;&gt;-0.0205&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0041&lt;/span&gt;
+risky_alcohol        &lt;span style=&#34;color:#40a070&#34;&gt;0.6427&lt;/span&gt;        &lt;span style=&#34;color:#40a070&#34;&gt;0.6407&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0043&lt;/span&gt;          .    &lt;span style=&#34;color:#40a070&#34;&gt;0.0021&lt;/span&gt;
+age                 &lt;span style=&#34;color:#40a070&#34;&gt;51.6057&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;51.2064&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0307&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;0.9171&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.0150&lt;/span&gt;
+              eCDF Max Std. Pair Dist.
+distance        &lt;span style=&#34;color:#40a070&#34;&gt;0.0113&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.0052&lt;/span&gt;
+sex             &lt;span style=&#34;color:#40a070&#34;&gt;0.0072&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2854&lt;/span&gt;
+indigeneity     &lt;span style=&#34;color:#40a070&#34;&gt;0.0154&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2627&lt;/span&gt;
+high_school     &lt;span style=&#34;color:#40a070&#34;&gt;0.0113&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1725&lt;/span&gt;
+partnered       &lt;span style=&#34;color:#40a070&#34;&gt;0.0133&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1874&lt;/span&gt;
+remoteness0     &lt;span style=&#34;color:#40a070&#34;&gt;0.0133&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.3230&lt;/span&gt;
+remoteness1     &lt;span style=&#34;color:#40a070&#34;&gt;0.0031&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2463&lt;/span&gt;
+remoteness2     &lt;span style=&#34;color:#40a070&#34;&gt;0.0103&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.3407&lt;/span&gt;
+language        &lt;span style=&#34;color:#40a070&#34;&gt;0.0041&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.1329&lt;/span&gt;
+risky_alcohol   &lt;span style=&#34;color:#40a070&#34;&gt;0.0021&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.2957&lt;/span&gt;
+age             &lt;span style=&#34;color:#40a070&#34;&gt;0.0390&lt;/span&gt;          &lt;span style=&#34;color:#40a070&#34;&gt;0.3717&lt;/span&gt;
+
+Percent Balance Improvement&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+              Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+distance                 &lt;span style=&#34;color:#40a070&#34;&gt;99.3&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;97.2&lt;/span&gt;      &lt;span style=&#34;color:#40a070&#34;&gt;99.9&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;96.5&lt;/span&gt;
+sex                      &lt;span style=&#34;color:#40a070&#34;&gt;86.1&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;86.1&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;86.1&lt;/span&gt;
+indigeneity              &lt;span style=&#34;color:#40a070&#34;&gt;55.8&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;55.8&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;55.8&lt;/span&gt;
+high_school              &lt;span style=&#34;color:#40a070&#34;&gt;94.8&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;94.8&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;94.8&lt;/span&gt;
+partnered                &lt;span style=&#34;color:#40a070&#34;&gt;94.2&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;94.2&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;94.2&lt;/span&gt;
+remoteness0              &lt;span style=&#34;color:#40a070&#34;&gt;85.5&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;85.5&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;85.5&lt;/span&gt;
+remoteness1              &lt;span style=&#34;color:#40a070&#34;&gt;88.9&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;88.9&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;88.9&lt;/span&gt;
+remoteness2              &lt;span style=&#34;color:#40a070&#34;&gt;84.1&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;84.1&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;84.1&lt;/span&gt;
+language                 &lt;span style=&#34;color:#40a070&#34;&gt;90.8&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;90.8&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;90.8&lt;/span&gt;
+risky_alcohol            &lt;span style=&#34;color:#40a070&#34;&gt;98.0&lt;/span&gt;          .      &lt;span style=&#34;color:#40a070&#34;&gt;98.0&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;98.0&lt;/span&gt;
+age                      &lt;span style=&#34;color:#40a070&#34;&gt;81.7&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;56.0&lt;/span&gt;      &lt;span style=&#34;color:#40a070&#34;&gt;66.0&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;61.8&lt;/span&gt;
+
+Sample Sizes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+          Control Treated
+All          &lt;span style=&#34;color:#40a070&#34;&gt;7026&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;974&lt;/span&gt;
+Matched       &lt;span style=&#34;color:#40a070&#34;&gt;974&lt;/span&gt;     &lt;span style=&#34;color:#40a070&#34;&gt;974&lt;/span&gt;
+Unmatched    &lt;span style=&#34;color:#40a070&#34;&gt;6052&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
+Discarded       &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;       &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h5 id=&#34;matching-results-explained&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#matching-results-explained&#34;&gt;Matching results explained&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;In the top section of the results, the balance between smoker and non-smoker group in each of the covariates are shown. The column on &lt;em&gt;Std. Mean Diff.&lt;/em&gt; shows that there are substantial difference in nearly all covariates between smokers and non-smokers (a standardised mean difference great than 0.1 can be considered as substantial difference).&lt;/p&gt;
+&lt;p&gt;In the middle section, the balance between smoker and non-smoker group after matching are shown. The standardised mean differences are now all close to zero for all covariates, indicating that a good balance is achieved.&lt;/p&gt;
+&lt;p&gt;The last section shows that there are 7026 non-smokers and 974 smokers in the original sample. All smokers are matched to a corresponding non-smokers. The remaining 6052 non-smokers are not matched to any smokers and can be discarded in subsequent analysis. Applied researchers sometimes are concerned about discarding a large number of unmatched participants. However, this is usually not an issue if all treated participants are matched, and good balance is archived.&lt;/p&gt;
+&lt;p&gt;The above codes also produce the following two figures. The first one visualises the distribution of propensity score in the matched treated group, matched control group and the unmatched control group. Propensity score matching will not be appropriate if there is not a satisfactory overlap in the propensity score distribution between the matched treated group and the matched untreated group. The second figure visualises the balance in propensity score and all covariates before and after matching. Similar to the results from the table, there are substantial difference in all covariates between smokers and non-smokers before matching, but the difference is close to zero after matching, indicating a very good balance.&lt;/p&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/matching_figure1.png&#34; alt=&#34;propensity score distribution&#34; title=&#34;propensity score distribution&#34;/&gt;&lt;/a&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/matching_figure2.png&#34; alt=&#34;balance before and after matching&#34; title=&#34;balance before and after matching&#34;/&gt;&lt;/a&gt;
+
+&lt;h4 id=&#34;r-codes-for-outcome-analysis-step-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-codes-for-outcome-analysis-step-2&#34;&gt;R codes for outcome analysis (Step 2)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Once we achieve a good balance between the treatment and control group after matching, we can proceed to the next step to analyse the difference in outcome between the two groups. We can analyse the data as if the data are from an RCT using a regression analysis. However, for correct inference, cluster-robust standard error is needed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Extract the matched data and save the data into the variable matched_data&lt;/span&gt;
+matched_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;match.data&lt;/span&gt;(match_obj)
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Run regression model with psychological distress as the outcome, and smoker as the only predictor&lt;/span&gt;
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#We need to specify the weights - Matched participants have a weight of 1, unmatched participants &lt;/span&gt;
+res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;lm&lt;/span&gt;(psyc_distress &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; smoker, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; matched_data, weights &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; weights)
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Test the coefficient using cluster robust standard error&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;coeftest&lt;/span&gt;(res, vcov. &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; vcovCL, cluster &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;subclass)
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;#Calculate the confidence intervals based on cluster robust standard error&lt;/span&gt;
+&lt;span style=&#34;color:#06287e&#34;&gt;coefci&lt;/span&gt;(res, vcov. &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; vcovCL, cluster &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;subclass, level &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.95&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h4 id=&#34;using-statsnotebook-for-outcome-analysis-step-2&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#using-statsnotebook-for-outcome-analysis-step-2&#34;&gt;Using StatsNotebook for outcome analysis (Step 2)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The following steps will generate the R codes for both matching and outcome analysis. It should be noted that we should only conduct outcome analysis after we achieve a satisfactory balance between treatment and control group.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In addition to the procedure in &lt;a href=&#34;https://statsnotebook.io/blog/analysis/matching/#using-statsnotebook-for-matching-step-1&#34; title=&#34;propensity score matching step 1&#34;&gt;step 1&lt;/a&gt;, we now select &lt;em&gt;psyc_distress&lt;/em&gt; into &lt;em&gt;Outcome&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Expand the &lt;em&gt;Analysis setting&lt;/em&gt; panel in the bottom, click &lt;em&gt;Analyse the outcome&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Code and Run&lt;/strong&gt; at top. This will generate both the codes for propensity score matching and outcome analysis.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&#34;https://statsnotebook.io/blog/analysis/img/matching_instruction2.png&#34; alt=&#34;outcome analysis after matching in statsnotebook&#34; title=&#34;outcome analysis after matching in statsnotebook&#34;/&gt;&lt;/a&gt;
+
+&lt;h4 id=&#34;r-output-and-interpretation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#r-output-and-interpretation&#34;&gt;R output and interpretation&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The followings are the output from the outcome analysis. The results indicate that psychological distress among smokers is 1.66 point higher than non-smokers (95% CI [1.08, 2.24]).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+
+t test of coefficients&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;
+
+            Estimate Std. Error t value  &lt;span style=&#34;color:#06287e&#34;&gt;Pr&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;|&lt;/span&gt;t&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;)    
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;15.65298&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.20093&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;77.904&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2.2e-16&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+smoker       &lt;span style=&#34;color:#40a070&#34;&gt;1.66016&lt;/span&gt;    &lt;span style=&#34;color:#40a070&#34;&gt;0.29657&lt;/span&gt;   &lt;span style=&#34;color:#40a070&#34;&gt;5.598&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;2.477e-08&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;***&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt;
+Signif. codes&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;***&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.001&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;**&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.01&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.05&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0.1&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+                &lt;span style=&#34;color:#40a070&#34;&gt;2.5&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%    97.5 %&lt;/span&gt;
+(Intercept) &lt;span style=&#34;color:#40a070&#34;&gt;15.258922&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;16.047032&lt;/span&gt;
+smoker       &lt;span style=&#34;color:#40a070&#34;&gt;1.078545&lt;/span&gt;  &lt;span style=&#34;color:#40a070&#34;&gt;2.241783&lt;/span&gt;
+
+&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;######################################################&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+
+&lt;h4 id=&#34;write-up&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#write-up&#34;&gt;Write-up&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Propensity score matching was used to estimate the effect of smoking on psychological distress. The propensity score were estimated using logistic regression based on sex, indigenous status, education level (completed high school or not), marital status (partnered or not), region of residence (major cities, inner regional or outer regional), language background (English speaking Yes/No), risky alcohol use (Yes/ No) and age. One-to-one nearest neighbour matching was used. All smokers (N = 974) were matched to a non-smoker. Good balance was achieved between the smoker and non-smoker group, with all standardized mean differences below 0.1 after matching.&lt;/p&gt;
+&lt;p&gt;To estimate the effect of smoking on psychological distress, a linear regression with psychological distress as the outcome and smoking status (smoker/ non-smoker) as the exposure was fitted. Cluster-robust variance was used to estimate the standard error. It is estimated that smoking increases psychological distress by 1.66 point (95% CI [1.08, 2.24], p &amp;lt; .001&amp;gt;).&lt;/p&gt;
+&lt;p&gt;All analyses were conducted in StatsNotebook (Chan and StatsNotebook team, 2020) using R 4.1 and the MatchIt package (Stuart, King, Imai and Ho, 2011).&lt;/p&gt;
+
+&lt;h4 id=&#34;citation&#34; class=&#34;anchor-link&#34;&gt;&lt;a href=&#34;#citation&#34;&gt;Citation&lt;/a&gt;&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+Stuart, King, Imai and Ho. (2011). MatchIt: nonparametric preprocessing for parametric causal inference. Journal of statistical software.
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
     <item>
       <title></title>
       <link>https://statsnotebook.io/blog/analysis/itsa/</link>

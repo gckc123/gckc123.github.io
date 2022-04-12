@@ -26,27 +26,42 @@
   </url>
   
   <url>
-    <loc>https://statsnotebook.io/blog/analysis/itsa/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://statsnotebook.io/tags/analysis/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/causal-inference/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/propensity-score/</loc>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/matching/</loc>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/tags/r-code/</loc>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/</loc>
+    <lastmod>2022-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://statsnotebook.io/blog/analysis/itsa/</loc>
     <lastmod>2021-08-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -81,17 +96,17 @@
   </url>
   
   <url>
+    <loc>https://statsnotebook.io/blog/analysis/</loc>
+    <lastmod>2021-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://statsnotebook.io/blog/analysis/age_period_cohort_analysis/</loc>
     <lastmod>2021-03-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://statsnotebook.io/tags/linear-model/</loc>
-    <lastmod>2021-03-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/tags/r-code/</loc>
     <lastmod>2021-03-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -173,11 +188,6 @@
   <url>
     <loc>https://statsnotebook.io/blog/analysis/linearity_homoscedasticity/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://statsnotebook.io/blog/analysis/</loc>
-    <lastmod>2020-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>

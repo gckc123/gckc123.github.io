@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="StatsNotebook is an open source statistical package based on R.">
+<title>
+Propensity Score Matching - StatsNotebook - Simple. Powerful. Reproducible.
+</title>
+
+
+
+        <meta property="og:title" content="Propensity Score Matching - StatsNotebook - Simple. Powerful. Reproducible." />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="StatsNotebook is an open source statistical package based on R."/>
+<meta property="og:url" content="https://statsnotebook.io/blog/analysis/matching/"/>
+<meta property="og:site_name" content="StatsNotebook - Simple. Powerful. Reproducible."/>
+
+
+
+
+<meta property="og:image" content="https://statsnotebook.io/home/profile.jpg"/>
+
+
+
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.c285da496bdc6eb125783ccd84751cbcdd365cb368c74109eccf557310b03bf7.css" integrity="sha256-woXaSWvcbrEleDzNhHUcvN02XLNox0EJ7M9VcxCwO/c=" crossorigin="anonymous" media="screen">
+
+
+
+
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">StatsNotebook</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">
+                
+                Home
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/about">
+                
+                About
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/analysis">
+                
+                Analysis Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog/dataviz">
+                
+                Data Viz Tutorials
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/blog">
+                
+                Blog
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/download">
+                
+                Download
+                
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="/consultation">
+                
+                Training and consultation
+                
+            </a>
+            
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="https://statsnotebook.io/blog/analysis/matching/">Propensity Score Matching</a>
+    </h2>
+    <div class="post-data">
+        12 Apr, 2022 |
+        11 minutes read
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Propensity%20Score%20Matching%20https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmatching%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fstatsnotebook.io%2fblog%2fanalysis%2fmatching%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/analysis">Analysis</a>,
+        
+        <a href="/tags/r-code">R code</a>,
+        
+        <a href="/tags/propensity-score">Propensity score</a>,
+        
+        <a href="/tags/causal-inference">Causal inference</a>
+        
+    </p>
+    
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+<div class="container markdown top-pad">
+    <p>The tutorial is based on <a href="https://r-project.org" title="The R project for statistical computing">R</a> and <a href="https://statsnotebook.io" title="StatsNotebook">StatsNotebook</a>, a graphical interface for R.</p>
+<p>Randomised controlled trials (RCTs) are the gold standard for causal inference. In RCTs, randomisation removes all confoundings between the treatment (exposure) and control group. However, RCTs are not always feasible due to ethical or logistic issues (e.g., testing the causal impact of smoking on lung cancer). Propensity score matching can be used to emulate the balance between treatment and control group in an observational study.
+At its simplest, <strong>propensity score matching</strong> matches each individual in the treatment group to an individual in the control group based on their <em>propensity score</em>. For each individual, the <em>propensity score</em> can be intuitively considered as the probability of recentiving treatment, calcuated from a range of covariates (and potential confounders). Two individuals, one from treatment and one from control group, is considered to be a match if the difference between their propensity score is small. Unmatched participants are discarded.</p>
+<p>After matching, the treatment group and the control group should have very similar characteristics. A simple regression model can be used to estimate the treatment effect on the outcome. Cluster-robust standard errors are required for correct inference.</p>
+
+<h4 id="example-research-questions" class="anchor-link"><a href="#example-research-questions">Example research questions</a></h4>
+<ol>
+<li>Is smoking associated with psychological distress?</li>
+</ol>
+<p>In this setup, the <em>treatment</em> variable is smoking; the <em>outcome</em> variable is psychological distress. This research question will be addressed by <strong>propensity score matching</strong>. We will first match each smoker in the dataset to a non-smoker based on a range of covariates, including sex (male/ female), indigenous status (indigenous or not), education level (high school completion), marital status (partnered or not), region of residence (major cities, inner regional or outer regional), language background (English speaking or not), age and risky alcohol use (Yes/ No).</p>
+<p><strong>Propensity score matching</strong> analysis involves two steps.</p>
+<ol>
+<li>Match each smoker to a non-smoker based on propensity score, which is calculated based on a range of covariates.</li>
+<li>Check if balance between smokers (treatment/exposure group) and non-smokers (control group) is achieved (i.e., both groups having similar characteristics). If balance is achieved, a simple regression analysis with cluster-robust standard error can be used to estimate the effect of smoking on psychological distress.</li>
+</ol>
+<p>We will first show the R code for this analysis below, and we will provide a step-by-step guide on how to complete this analysis. We use the <strong>Psychological distress and smoking</strong> dataset, which can be loaded using the following codes (internet connection is required)</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">library</span>(tidyverse)
+currentDataset <span style="color:#666">&lt;-</span> <span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#34;https://raw.githubusercontent.com/gckc123/ExampleData/main/smoking_psyc_distress.csv&#34;</span>)
+</code></pre></div><br/>
+<p>There are ten variables in this dataset.</p>
+<ul>
+<li>Sex (0: Female; 1: Male)</li>
+<li>indigenous - Ingigenous status (0: Non-indigenous; 1: indigenous)</li>
+<li>high_school - Education level (0: not finished high school; 1: finished high school)</li>
+<li>partnered - Marital status (0: not partnered; 1: partnered)</li>
+<li>remoteness - region of residence (0: major cities; 1: inner regional; 2: outer regional)</li>
+<li>language - Language background (0: non-English speaking; 1: English speaking)</li>
+<li>Smoker - Smoking status (0: non-smoker; 1: smoker)</li>
+<li>risky_alcohol - Risky alcohol use (0: not risky; 1: risky)</li>
+<li>psyc_distress - Psychological distress. Measure ranges from 10 to 50.</li>
+<li>age - Age of the participants</li>
+</ul>
+
+<h4 id="r-codes-for-matching-step-1" class="anchor-link"><a href="#r-codes-for-matching-step-1">R codes for matching (Step 1)</a></h4>
+<p>The following is the compete codes for our <strong>propensity score matching</strong> example.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">#Since remoteness is a categorical variable with more than two categories. It is necessary to convert </span>
+<span style="color:#60a0b0;font-style:italic">#it into a factor variable.</span>
+<span style="color:#60a0b0;font-style:italic">#For other categorical variable with only 2 levels, this is optional if the variable is coded as 0 and 1.</span>
+currentDataset<span style="color:#666">$</span>remoteness <span style="color:#666">&lt;-</span> <span style="color:#06287e">factor</span>(currentDataset<span style="color:#666">$</span>remoteness, exclude <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;&#34;</span>, <span style="color:#007020;font-weight:bold">NA</span>))
+
+<span style="color:#60a0b0;font-style:italic">#The MatchIt, lmtest and sandwich libraries are used.</span>
+<span style="color:#06287e">library</span>(MatchIt)
+<span style="color:#06287e">library</span>(lmtest)
+<span style="color:#06287e">library</span>(sandwich)
+
+<span style="color:#60a0b0;font-style:italic">#Using the mathcit function from MatchIt to match each smoker with a non-smoker (1 to 1 matching) based on</span>
+<span style="color:#60a0b0;font-style:italic">#sex, indigeneity status, high school completion, marital status (partnered or not),</span>
+<span style="color:#60a0b0;font-style:italic">#region of residence (major cities, inner regional, outer regional), language background (English speaking Yes/No) </span>
+<span style="color:#60a0b0;font-style:italic">#and risky alcohol drinking (Yes/No)</span>
+match_obj <span style="color:#666">&lt;-</span> <span style="color:#06287e">matchit</span>(smoker <span style="color:#666">~</span> sex <span style="color:#666">+</span> indigeneity <span style="color:#666">+</span> high_school <span style="color:#666">+</span> partnered <span style="color:#666">+</span> remoteness <span style="color:#666">+</span> language <span style="color:#666">+</span> risky_alcohol <span style="color:#666">+</span> age,
+  data <span style="color:#666">=</span> currentDataset, method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;nearest&#34;</span>, distance <span style="color:#666">=</span><span style="color:#4070a0">&#34;glm&#34;</span>,
+  ratio <span style="color:#666">=</span> <span style="color:#40a070">1</span>,
+  replace <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)
+<span style="color:#06287e">summary</span>(match_obj)
+
+<span style="color:#60a0b0;font-style:italic">#plotting the balance between smokers and non-smokers</span>
+<span style="color:#06287e">plot</span>(match_obj, type <span style="color:#666">=</span> <span style="color:#4070a0">&#34;jitter&#34;</span>, interactive <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)
+<span style="color:#06287e">plot</span>(<span style="color:#06287e">summary</span>(match_obj), abs <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)
+</code></pre></div><br/>
+
+<h4 id="using-statsnotebook-for-matching-step-1" class="anchor-link"><a href="#using-statsnotebook-for-matching-step-1">Using StatsNotebook for matching (Step 1)</a></h4>
+<p>Prior to running the propensity score matching, it is always a good practice to <a href="https://statsnotebook.io/blog/dataviz/" title="DataViz">visualise the data</a> and conduct a <a href="https://statsnotebook.io/blog/analysis/descriptive/" title="descriptive statistics">descriptive analysis</a>.</p>
+<p>To conduct propensity score matching,</p>
+<ol>
+<li>Click <strong>Analysis</strong> at the top;</li>
+<li>Click <strong>Causal</strong> and select <strong>Matching</strong> from the menu</li>
+<li>In the left panel, select <em>smoker</em> into <em>Exposure</em>, and select <em>sex</em>, <em>indigeneity</em>, <em>high_school</em>, <em>partnered</em>, <em>remoteness</em>, <em>lauguage</em> <em>psyc_distress</em> and <em>age</em> into <em>Covariates</em>.
+<ul>
+<li><strong>remoteness</strong> is a categorical variable with three levels (<em>major cities</em>, <em>inner regional</em> and <em>outer regional</em>). If it is not yet coded as <strong>factor</strong>, we will need to manually <a href="https://statsnotebook.io/blog/data_management/variable_conversion/" title="variable converstion">convert it into a <strong>factor</strong> variable</a>.</li>
+<li><strong>sex</strong>, <strong>indigeneity</strong>, <strong>high_school</strong>, <strong>partnered</strong> and <strong>language</strong> are also categorical variable. But since they are binary (i.e., only have two levels coded as 0 and 1), it is not necessary to convert them into <strong>factor</strong> variable.</li>
+</ul>
+</li>
+<li>Click <strong>Code and Run</strong> at top. The above R code will be generated in a block on the right panel and the results will be presented below the R codes.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/matching_instruction1.png" alt="matching in statsnotebook" title="matching in statsnotebook"/></a>
+
+<h4 id="r-codes-explained---matching" class="anchor-link"><a href="#r-codes-explained---matching">R codes explained - Matching</a></h4>
+<p>The following is a key section of the generated codes.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">match_obj <span style="color:#666">&lt;-</span> <span style="color:#06287e">matchit</span>(smoker <span style="color:#666">~</span> sex <span style="color:#666">+</span> indigeneity <span style="color:#666">+</span> high_school <span style="color:#666">+</span> partnered <span style="color:#666">+</span> remoteness <span style="color:#666">+</span> language <span style="color:#666">+</span> risky_alcohol <span style="color:#666">+</span> age,
+  data <span style="color:#666">=</span> currentDataset, method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;nearest&#34;</span>, distance <span style="color:#666">=</span><span style="color:#4070a0">&#34;glm&#34;</span>,
+  ratio <span style="color:#666">=</span> <span style="color:#40a070">1</span>,
+  replace <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>)
+<span style="color:#06287e">summary</span>(match_obj)
+</code></pre></div><br/>
+<p>This code tells R to run a propensity score matching using the <strong>matchit</strong> function from the <strong>MatchIt</strong> library. The left side of the <strong>&ldquo;~&rdquo;</strong> symbol specifies the <em>exposure variable</em>; the right side specifies the <em>covariates</em>. The results from this propensity score matching is then printed out using the <strong>summary</strong> function.</p>
+<ul>
+<li>The <em>distance</em> parameter specifies that generalised linear model is used to calculate the propensity score based on all covariates (<em>distance = &ldquo;glm&rdquo;</em>); Other models such as generalised boosted model (gbm) or generalized additive model (gam) can be used.</li>
+<li>The <em>method</em> parameter specifies that matching is based on nearest matching (<em>method = &ldquo;nearest&rdquo;</em>); Other methods such as &ldquo;optimal&rdquo; and &ldquo;exact&rdquo; can be used.</li>
+<li>The <em>ratio</em> parameter specifies that one to one matching is used (<em>ratio = 1</em>). A higher ratio will increase the number of samples from the control group that will be included. Therefore, less observations will be discarded. However a higher matching ratio by definition will produce worse matches.</li>
+<li>The <em>replace</em> parameter specifies that the matching is conducted without replacement.</li>
+</ul>
+<p>These settings generally produce satisfactory results and will be sufficient in many scenarios.</p>
+<p>This code produces the result summary below.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">######################################################</span>
+
+Call<span style="color:#666">:</span>
+<span style="color:#06287e">matchit</span>(formula <span style="color:#666">=</span> smoker <span style="color:#666">~</span> sex <span style="color:#666">+</span> indigeneity <span style="color:#666">+</span> high_school <span style="color:#666">+</span> 
+    partnered <span style="color:#666">+</span> remoteness <span style="color:#666">+</span> language <span style="color:#666">+</span> risky_alcohol <span style="color:#666">+</span> age, 
+    data <span style="color:#666">=</span> currentDataset, method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;nearest&#34;</span>, distance <span style="color:#666">=</span> <span style="color:#4070a0">&#34;glm&#34;</span>, 
+    replace <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, ratio <span style="color:#666">=</span> <span style="color:#40a070">1</span>)
+
+Summary of Balance for All Data<span style="color:#666">:</span>
+              Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance             <span style="color:#40a070">0.1852</span>        <span style="color:#40a070">0.1130</span>          <span style="color:#40a070">0.6304</span>     <span style="color:#40a070">2.0778</span>    <span style="color:#40a070">0.2033</span>
+sex                  <span style="color:#40a070">0.4938</span>        <span style="color:#40a070">0.4421</span>          <span style="color:#40a070">0.1035</span>          .    <span style="color:#40a070">0.0518</span>
+indigeneity          <span style="color:#40a070">0.0524</span>        <span style="color:#40a070">0.0175</span>          <span style="color:#40a070">0.1565</span>          .    <span style="color:#40a070">0.0349</span>
+high_school          <span style="color:#40a070">0.4220</span>        <span style="color:#40a070">0.6378</span>         <span style="color:#40a070">-0.4370</span>          .    <span style="color:#40a070">0.2158</span>
+partnered            <span style="color:#40a070">0.4630</span>        <span style="color:#40a070">0.6913</span>         <span style="color:#40a070">-0.4578</span>          .    <span style="color:#40a070">0.2283</span>
+remoteness0          <span style="color:#40a070">0.5852</span>        <span style="color:#40a070">0.6773</span>         <span style="color:#40a070">-0.1870</span>          .    <span style="color:#40a070">0.0921</span>
+remoteness1          <span style="color:#40a070">0.2177</span>        <span style="color:#40a070">0.1900</span>          <span style="color:#40a070">0.0670</span>          .    <span style="color:#40a070">0.0277</span>
+remoteness2          <span style="color:#40a070">0.1971</span>        <span style="color:#40a070">0.1327</span>          <span style="color:#40a070">0.1621</span>          .    <span style="color:#40a070">0.0645</span>
+language             <span style="color:#40a070">0.9579</span>        <span style="color:#40a070">0.9130</span>          <span style="color:#40a070">0.2234</span>          .    <span style="color:#40a070">0.0449</span>
+risky_alcohol        <span style="color:#40a070">0.6427</span>        <span style="color:#40a070">0.5411</span>          <span style="color:#40a070">0.2120</span>          .    <span style="color:#40a070">0.1016</span>
+age                 <span style="color:#40a070">51.6057</span>       <span style="color:#40a070">53.7824</span>         <span style="color:#40a070">-0.1676</span>     <span style="color:#40a070">0.8214</span>    <span style="color:#40a070">0.0441</span>
+              eCDF Max
+distance        <span style="color:#40a070">0.3185</span>
+sex             <span style="color:#40a070">0.0518</span>
+indigeneity     <span style="color:#40a070">0.0349</span>
+high_school     <span style="color:#40a070">0.2158</span>
+partnered       <span style="color:#40a070">0.2283</span>
+remoteness0     <span style="color:#40a070">0.0921</span>
+remoteness1     <span style="color:#40a070">0.0277</span>
+remoteness2     <span style="color:#40a070">0.0645</span>
+language        <span style="color:#40a070">0.0449</span>
+risky_alcohol   <span style="color:#40a070">0.1016</span>
+age             <span style="color:#40a070">0.1020</span>
+
+
+Summary of Balance for Matched Data<span style="color:#666">:</span>
+              Means Treated Means Control Std. Mean Diff. Var. Ratio eCDF Mean
+distance             <span style="color:#40a070">0.1852</span>        <span style="color:#40a070">0.1847</span>          <span style="color:#40a070">0.0042</span>     <span style="color:#40a070">1.0209</span>    <span style="color:#40a070">0.0002</span>
+sex                  <span style="color:#40a070">0.4938</span>        <span style="color:#40a070">0.5010</span>         <span style="color:#40a070">-0.0144</span>          .    <span style="color:#40a070">0.0072</span>
+indigeneity          <span style="color:#40a070">0.0524</span>        <span style="color:#40a070">0.0370</span>          <span style="color:#40a070">0.0691</span>          .    <span style="color:#40a070">0.0154</span>
+high_school          <span style="color:#40a070">0.4220</span>        <span style="color:#40a070">0.4107</span>          <span style="color:#40a070">0.0229</span>          .    <span style="color:#40a070">0.0113</span>
+partnered            <span style="color:#40a070">0.4630</span>        <span style="color:#40a070">0.4764</span>         <span style="color:#40a070">-0.0268</span>          .    <span style="color:#40a070">0.0133</span>
+remoteness0          <span style="color:#40a070">0.5852</span>        <span style="color:#40a070">0.5986</span>         <span style="color:#40a070">-0.0271</span>          .    <span style="color:#40a070">0.0133</span>
+remoteness1          <span style="color:#40a070">0.2177</span>        <span style="color:#40a070">0.2146</span>          <span style="color:#40a070">0.0075</span>          .    <span style="color:#40a070">0.0031</span>
+remoteness2          <span style="color:#40a070">0.1971</span>        <span style="color:#40a070">0.1869</span>          <span style="color:#40a070">0.0258</span>          .    <span style="color:#40a070">0.0103</span>
+language             <span style="color:#40a070">0.9579</span>        <span style="color:#40a070">0.9620</span>         <span style="color:#40a070">-0.0205</span>          .    <span style="color:#40a070">0.0041</span>
+risky_alcohol        <span style="color:#40a070">0.6427</span>        <span style="color:#40a070">0.6407</span>          <span style="color:#40a070">0.0043</span>          .    <span style="color:#40a070">0.0021</span>
+age                 <span style="color:#40a070">51.6057</span>       <span style="color:#40a070">51.2064</span>          <span style="color:#40a070">0.0307</span>     <span style="color:#40a070">0.9171</span>    <span style="color:#40a070">0.0150</span>
+              eCDF Max Std. Pair Dist.
+distance        <span style="color:#40a070">0.0113</span>          <span style="color:#40a070">0.0052</span>
+sex             <span style="color:#40a070">0.0072</span>          <span style="color:#40a070">0.2854</span>
+indigeneity     <span style="color:#40a070">0.0154</span>          <span style="color:#40a070">0.2627</span>
+high_school     <span style="color:#40a070">0.0113</span>          <span style="color:#40a070">0.1725</span>
+partnered       <span style="color:#40a070">0.0133</span>          <span style="color:#40a070">0.1874</span>
+remoteness0     <span style="color:#40a070">0.0133</span>          <span style="color:#40a070">0.3230</span>
+remoteness1     <span style="color:#40a070">0.0031</span>          <span style="color:#40a070">0.2463</span>
+remoteness2     <span style="color:#40a070">0.0103</span>          <span style="color:#40a070">0.3407</span>
+language        <span style="color:#40a070">0.0041</span>          <span style="color:#40a070">0.1329</span>
+risky_alcohol   <span style="color:#40a070">0.0021</span>          <span style="color:#40a070">0.2957</span>
+age             <span style="color:#40a070">0.0390</span>          <span style="color:#40a070">0.3717</span>
+
+Percent Balance Improvement<span style="color:#666">:</span>
+              Std. Mean Diff. Var. Ratio eCDF Mean eCDF Max
+distance                 <span style="color:#40a070">99.3</span>       <span style="color:#40a070">97.2</span>      <span style="color:#40a070">99.9</span>     <span style="color:#40a070">96.5</span>
+sex                      <span style="color:#40a070">86.1</span>          .      <span style="color:#40a070">86.1</span>     <span style="color:#40a070">86.1</span>
+indigeneity              <span style="color:#40a070">55.8</span>          .      <span style="color:#40a070">55.8</span>     <span style="color:#40a070">55.8</span>
+high_school              <span style="color:#40a070">94.8</span>          .      <span style="color:#40a070">94.8</span>     <span style="color:#40a070">94.8</span>
+partnered                <span style="color:#40a070">94.2</span>          .      <span style="color:#40a070">94.2</span>     <span style="color:#40a070">94.2</span>
+remoteness0              <span style="color:#40a070">85.5</span>          .      <span style="color:#40a070">85.5</span>     <span style="color:#40a070">85.5</span>
+remoteness1              <span style="color:#40a070">88.9</span>          .      <span style="color:#40a070">88.9</span>     <span style="color:#40a070">88.9</span>
+remoteness2              <span style="color:#40a070">84.1</span>          .      <span style="color:#40a070">84.1</span>     <span style="color:#40a070">84.1</span>
+language                 <span style="color:#40a070">90.8</span>          .      <span style="color:#40a070">90.8</span>     <span style="color:#40a070">90.8</span>
+risky_alcohol            <span style="color:#40a070">98.0</span>          .      <span style="color:#40a070">98.0</span>     <span style="color:#40a070">98.0</span>
+age                      <span style="color:#40a070">81.7</span>       <span style="color:#40a070">56.0</span>      <span style="color:#40a070">66.0</span>     <span style="color:#40a070">61.8</span>
+
+Sample Sizes<span style="color:#666">:</span>
+          Control Treated
+All          <span style="color:#40a070">7026</span>     <span style="color:#40a070">974</span>
+Matched       <span style="color:#40a070">974</span>     <span style="color:#40a070">974</span>
+Unmatched    <span style="color:#40a070">6052</span>       <span style="color:#40a070">0</span>
+Discarded       <span style="color:#40a070">0</span>       <span style="color:#40a070">0</span>
+
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+
+</code></pre></div><br/>
+
+<h5 id="matching-results-explained" class="anchor-link"><a href="#matching-results-explained">Matching results explained</a></h5>
+<p>In the top section of the results, the balance between smoker and non-smoker group in each of the covariates are shown. The column on <em>Std. Mean Diff.</em> shows that there are substantial difference in nearly all covariates between smokers and non-smokers (a standardised mean difference great than 0.1 can be considered as substantial difference).</p>
+<p>In the middle section, the balance between smoker and non-smoker group after matching are shown. The standardised mean differences are now all close to zero for all covariates, indicating that a good balance is achieved.</p>
+<p>The last section shows that there are 7026 non-smokers and 974 smokers in the original sample. All smokers are matched to a corresponding non-smokers. The remaining 6052 non-smokers are not matched to any smokers and can be discarded in subsequent analysis. Applied researchers sometimes are concerned about discarding a large number of unmatched participants. However, this is usually not an issue if all treated participants are matched, and good balance is archived.</p>
+<p>The above codes also produce the following two figures. The first one visualises the distribution of propensity score in the matched treated group, matched control group and the unmatched control group. Propensity score matching will not be appropriate if there is not a satisfactory overlap in the propensity score distribution between the matched treated group and the matched untreated group. The second figure visualises the balance in propensity score and all covariates before and after matching. Similar to the results from the table, there are substantial difference in all covariates between smokers and non-smokers before matching, but the difference is close to zero after matching, indicating a very good balance.</p>
+<img src="https://statsnotebook.io/blog/analysis/img/matching_figure1.png" alt="propensity score distribution" title="propensity score distribution"/></a>
+<img src="https://statsnotebook.io/blog/analysis/img/matching_figure2.png" alt="balance before and after matching" title="balance before and after matching"/></a>
+
+<h4 id="r-codes-for-outcome-analysis-step-2" class="anchor-link"><a href="#r-codes-for-outcome-analysis-step-2">R codes for outcome analysis (Step 2)</a></h4>
+<p>Once we achieve a good balance between the treatment and control group after matching, we can proceed to the next step to analyse the difference in outcome between the two groups. We can analyse the data as if the data are from an RCT using a regression analysis. However, for correct inference, cluster-robust standard error is needed.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">#Extract the matched data and save the data into the variable matched_data</span>
+matched_data <span style="color:#666">&lt;-</span> <span style="color:#06287e">match.data</span>(match_obj)
+
+<span style="color:#60a0b0;font-style:italic">#Run regression model with psychological distress as the outcome, and smoker as the only predictor</span>
+<span style="color:#60a0b0;font-style:italic">#We need to specify the weights - Matched participants have a weight of 1, unmatched participants </span>
+res <span style="color:#666">&lt;-</span> <span style="color:#06287e">lm</span>(psyc_distress <span style="color:#666">~</span> smoker, data <span style="color:#666">=</span> matched_data, weights <span style="color:#666">=</span> weights)
+
+<span style="color:#60a0b0;font-style:italic">#Test the coefficient using cluster robust standard error</span>
+<span style="color:#06287e">coeftest</span>(res, vcov. <span style="color:#666">=</span> vcovCL, cluster <span style="color:#666">=</span> <span style="color:#666">~</span>subclass)
+<span style="color:#60a0b0;font-style:italic">#Calculate the confidence intervals based on cluster robust standard error</span>
+<span style="color:#06287e">coefci</span>(res, vcov. <span style="color:#666">=</span> vcovCL, cluster <span style="color:#666">=</span> <span style="color:#666">~</span>subclass, level <span style="color:#666">=</span> <span style="color:#40a070">0.95</span>)
+</code></pre></div><br/>
+
+<h4 id="using-statsnotebook-for-outcome-analysis-step-2" class="anchor-link"><a href="#using-statsnotebook-for-outcome-analysis-step-2">Using StatsNotebook for outcome analysis (Step 2)</a></h4>
+<p>The following steps will generate the R codes for both matching and outcome analysis. It should be noted that we should only conduct outcome analysis after we achieve a satisfactory balance between treatment and control group.</p>
+<ol>
+<li>In addition to the procedure in <a href="https://statsnotebook.io/blog/analysis/matching/#using-statsnotebook-for-matching-step-1" title="propensity score matching step 1">step 1</a>, we now select <em>psyc_distress</em> into <em>Outcome</em></li>
+<li>Expand the <em>Analysis setting</em> panel in the bottom, click <em>Analyse the outcome</em>.</li>
+<li>Click <strong>Code and Run</strong> at top. This will generate both the codes for propensity score matching and outcome analysis.</li>
+</ol>
+<img src="https://statsnotebook.io/blog/analysis/img/matching_instruction2.png" alt="outcome analysis after matching in statsnotebook" title="outcome analysis after matching in statsnotebook"/></a>
+
+<h4 id="r-output-and-interpretation" class="anchor-link"><a href="#r-output-and-interpretation">R output and interpretation</a></h4>
+<p>The followings are the output from the outcome analysis. The results indicate that psychological distress among smokers is 1.66 point higher than non-smokers (95% CI [1.08, 2.24]).</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">######################################################</span>
+
+t test of coefficients<span style="color:#666">:</span>
+
+            Estimate Std. Error t value  <span style="color:#06287e">Pr</span>(<span style="color:#666">&gt;|</span>t<span style="color:#666">|</span>)    
+(Intercept) <span style="color:#40a070">15.65298</span>    <span style="color:#40a070">0.20093</span>  <span style="color:#40a070">77.904</span> <span style="color:#666">&lt;</span> <span style="color:#40a070">2.2e-16</span> <span style="color:#666">***</span>
+smoker       <span style="color:#40a070">1.66016</span>    <span style="color:#40a070">0.29657</span>   <span style="color:#40a070">5.598</span> <span style="color:#40a070">2.477e-08</span> <span style="color:#666">***</span>
+<span style="color:#666">---</span>
+Signif. codes<span style="color:#666">:</span>  <span style="color:#40a070">0</span> <span style="color:#4070a0">&#39;***&#39;</span> <span style="color:#40a070">0.001</span> <span style="color:#4070a0">&#39;**&#39;</span> <span style="color:#40a070">0.01</span> <span style="color:#4070a0">&#39;*&#39;</span> <span style="color:#40a070">0.05</span> <span style="color:#4070a0">&#39;.&#39;</span> <span style="color:#40a070">0.1</span> <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#40a070">1</span>
+
+
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+                <span style="color:#40a070">2.5</span> <span style="color:#666">%    97.5 %</span>
+(Intercept) <span style="color:#40a070">15.258922</span> <span style="color:#40a070">16.047032</span>
+smoker       <span style="color:#40a070">1.078545</span>  <span style="color:#40a070">2.241783</span>
+
+<span style="color:#60a0b0;font-style:italic">######################################################</span>
+</code></pre></div><br/>
+
+<h4 id="write-up" class="anchor-link"><a href="#write-up">Write-up</a></h4>
+<p>Propensity score matching was used to estimate the effect of smoking on psychological distress. The propensity score were estimated using logistic regression based on sex, indigenous status, education level (completed high school or not), marital status (partnered or not), region of residence (major cities, inner regional or outer regional), language background (English speaking Yes/No), risky alcohol use (Yes/ No) and age. One-to-one nearest neighbour matching was used. All smokers (N = 974) were matched to a non-smoker. Good balance was achieved between the smoker and non-smoker group, with all standardized mean differences below 0.1 after matching.</p>
+<p>To estimate the effect of smoking on psychological distress, a linear regression with psychological distress as the outcome and smoking status (smoker/ non-smoker) as the exposure was fitted. Cluster-robust variance was used to estimate the standard error. It is estimated that smoking increases psychological distress by 1.66 point (95% CI [1.08, 2.24], p &lt; .001&gt;).</p>
+<p>All analyses were conducted in StatsNotebook (Chan and StatsNotebook team, 2020) using R 4.1 and the MatchIt package (Stuart, King, Imai and Ho, 2011).</p>
+
+<h4 id="citation" class="anchor-link"><a href="#citation">Citation</a></h4>
+<pre><code>Chan, G. and StatsNotebook Team (2020). StatsNotebook. [Computer Software]. Retrieved from https://www.statsnotebook.io
+Stuart, King, Imai and Ho. (2011). MatchIt: nonparametric preprocessing for parametric causal inference. Journal of statistical software.
+</code></pre>
+	<br/>
+	<p><strong>Follow <a href="https://www.facebook.com/StatsNotebook/">our Facebook page</a> or <a href="https://twitter.com/GaryCKChan">our developer&rsquo;s Twitter</a> for more tutorials and future updates.</strong></p>
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="https://statsnotebook.io/js/bundle.2ee571453a8980175e10bda96bda797cc9c4e2e745e488df68d50cef5deb57ff.js" integrity="sha256-LuVxRTqJgBdeEL2pa9p5fMnE4udF5IjfaNUM713rV/8="></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180705456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>
